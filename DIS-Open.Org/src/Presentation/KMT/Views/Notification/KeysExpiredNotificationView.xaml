@@ -1,0 +1,29 @@
+﻿<Window x:Class="DIS.Presentation.KMT.Views.Notification.KeysExpiredNotificationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        Title="{x:Static res:MergedResources.MainWindow_KeysExpired}" Height="300" 
+        Width="600"
+        WindowStartupLocation="Manual"
+        ResizeMode="NoResize" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+ <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <StackPanel x:Uid="StackPanel_1" Orientation="Horizontal" Margin="10,15,10,0" VerticalAlignment="Center">
+            <TextBlock x:Uid="TextBlock_2" Text="{Binding TimeLineDaysSummary}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Margin="5" Style="{StaticResource DgNormalSty}" ItemsSource="{Binding KeyExpiredNotifications}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}"  Binding="{Binding keyInfo.ProductKey}" SortMemberPath="KeyId"/>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPartNumber}" Binding="{Binding keyInfo.OemPartNumber}" SortMemberPath="OemPartNumber"/>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderMSFulfulledDate}" Binding="{Binding keyInfo.FulfilledDateUtc}" SortMemberPath="FulfilledDateUtc"/>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderOverDays}" Binding="{Binding OverDays}" SortMemberPath="OverDays" Foreground="Red"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Uid="btnClose" Grid.Row="2" Margin="0,0,30,0" Content="{x:Static res:MergedResources.Common_Close}" HorizontalAlignment="Right" Style="{StaticResource BtnNormalSty}" IsCancel="True" />
+    </Grid>
+</Window>

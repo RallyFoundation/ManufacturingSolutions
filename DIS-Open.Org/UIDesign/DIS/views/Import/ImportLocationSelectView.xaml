@@ -1,0 +1,23 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.ImportLocationSelectView"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="Auto" Height="Auto">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.22*"/>
+			<RowDefinition Height="0.44*"/>
+			<RowDefinition Height="0.34*"/>
+		</Grid.RowDefinitions>
+		<Label Content="Select the file location of keys or CBR which you want to import into Inventory Key Store." Grid.Row="1" Padding="30,5,5,5" VerticalAlignment="Bottom"/>
+		<StackPanel Height="45" Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal" Margin="0">
+			<TextBox TextWrapping="Wrap" Text="D:\Data" Width="490" Margin="30,10,10,10"/>
+			<Button Content="Browse" Width="75" Margin="0,10,20,10"/>
+		</StackPanel>
+	</Grid>
+</Page>

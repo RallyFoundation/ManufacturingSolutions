@@ -1,0 +1,1599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Dev" xml:space="preserve">
+    <value>This release build is contributed by Operations Manufacturing Services Group (OMSG), Microsoft Corp.</value>
+  </data>
+  <data name="About_DIS" xml:space="preserve">
+    <value>Digital   Inventory   System</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version    1.0.0    (2011)</value>
+  </data>
+  <data name="AccessFileDenied" xml:space="preserve">
+    <value>訪問路徑被拒絕!</value>
+  </data>
+  <data name="AccountSetting_BasicInfo" xml:space="preserve">
+    <value>基本資訊</value>
+  </data>
+  <data name="AccountSetting_ChangePassword" xml:space="preserve">
+    <value>變更密碼</value>
+  </data>
+  <data name="AccountSetting_CurrentPassword" xml:space="preserve">
+    <value>目前密碼：</value>
+  </data>
+  <data name="AccountSetting_Language" xml:space="preserve">
+    <value>語言：</value>
+  </data>
+  <data name="AccountSetting_NewPassword" xml:space="preserve">
+    <value>新密碼：</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>夥伴整合工具組</value>
+  </data>
+  <data name="AssignKeysViewModel_AssignKeysResult" xml:space="preserve">
+    <value>指派的金鑰： {0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="ChooseExportFile" xml:space="preserve">
+    <value>選擇匯出檔案</value>
+  </data>
+  <data name="ChooseImportFile" xml:space="preserve">
+    <value>選擇匯入檔案</value>
+  </data>
+  <data name="CommonDate_To" xml:space="preserve">
+    <value>Fulfilled Date至</value>
+  </data>
+  <data name="Common_About" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="Common_AccessKey" xml:space="preserve">
+    <value>存取金鑰：</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="Common_AddUser" xml:space="preserve">
+    <value>新增使用者</value>
+  </data>
+  <data name="Common_All" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="Common_AllFilesFilter" xml:space="preserve">
+    <value>所有檔案 (*.*)|*.*</value>
+  </data>
+  <data name="Common_Apply" xml:space="preserve">
+    <value>套用</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>瀏覽</value>
+  </data>
+  <data name="Common_ByKeys" xml:space="preserve">
+    <value>依金鑰</value>
+  </data>
+  <data name="Common_ByQuantity" xml:space="preserve">
+    <value>依數量</value>
+  </data>
+  <data name="Common_CallOffReferenceNumber" xml:space="preserve">
+    <value>Call Off 参考编号：</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Common_CancelConfirmation" xml:space="preserve">
+    <value>您確定要離開此視窗嗎?</value>
+  </data>
+  <data name="Common_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Common_ColumnAssignedTo" xml:space="preserve">
+    <value>指派至：</value>
+  </data>
+  <data name="Common_ColumnAssignTo" xml:space="preserve">
+    <value>指派至：</value>
+  </data>
+  <data name="Common_ColumnHardwareHash" xml:space="preserve">
+    <value>硬體雜湊：</value>
+  </data>
+  <data name="Common_ColumnHeaderAckFileDate" xml:space="preserve">
+    <value>認可檔案日期</value>
+  </data>
+  <data name="Common_ColumnHeaderAckReceivedDate" xml:space="preserve">
+    <value>Ack. 接收日期</value>
+  </data>
+  <data name="Common_ColumnHeaderAvailableKeys" xml:space="preserve">
+    <value>可用金鑰</value>
+  </data>
+  <data name="Common_ColumnHeaderCreateDate" xml:space="preserve">
+    <value>建立日期</value>
+  </data>
+  <data name="Common_ColumnHeaderCreatedBy" xml:space="preserve">
+    <value>建立者</value>
+  </data>
+  <data name="Common_ColumnHeaderCurrentState" xml:space="preserve">
+    <value>目前狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderCustomerReportUniqueID" xml:space="preserve">
+    <value>客戶報告唯一 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderDepartment" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="Common_ColumnHeaderDescription" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Common_ColumnHeaderEmail" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="Common_ColumnHeaderExportDate" xml:space="preserve">
+    <value>匯出日期</value>
+  </data>
+  <data name="Common_ColumnHeaderExportFrom" xml:space="preserve">
+    <value>匯出自</value>
+  </data>
+  <data name="Common_ColumnHeaderExportQuantity" xml:space="preserve">
+    <value>匯出數量</value>
+  </data>
+  <data name="Common_ColumnHeaderExportTo" xml:space="preserve">
+    <value>匯出至</value>
+  </data>
+  <data name="Common_ColumnHeaderFailedReason" xml:space="preserve">
+    <value>失敗原因</value>
+  </data>
+  <data name="Common_ColumnHeaderFileName" xml:space="preserve">
+    <value>檔案名稱</value>
+  </data>
+  <data name="Common_ColumnHeaderFulfillmentNumber" xml:space="preserve">
+    <value>處理號碼</value>
+  </data>
+  <data name="Common_ColumnHeaderHardwareHash" xml:space="preserve">
+    <value>硬體雜湊</value>
+  </data>
+  <data name="Common_ColumnHeaderHardwareId" xml:space="preserve">
+    <value>硬體 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Common_ColumnHeaderIsEncrypted" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="Common_ColumnHeaderIsExport" xml:space="preserve">
+    <value>匯出</value>
+  </data>
+  <data name="Common_ColumnHeaderIsFailed" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyCount" xml:space="preserve">
+    <value>金鑰數</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyDetails" xml:space="preserve">
+    <value>金鑰詳細資料</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyHistory" xml:space="preserve">
+    <value>金鑰歷程</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMaximum" xml:space="preserve">
+    <value> 最大值</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMinimum" xml:space="preserve">
+    <value> 最小值</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyStatus" xml:space="preserve">
+    <value>金鑰狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderLicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number</value>
+  </data>
+  <data name="Common_ColumnHeaderLoginID" xml:space="preserve">
+    <value>登入 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderModifiedDate" xml:space="preserve">
+    <value>前次更新日期</value>
+  </data>
+  <data name="Common_ColumnHeaderMSFulfulledDate" xml:space="preserve">
+    <value>MS Fulfilled Date</value>
+  </data>
+  <data name="Common_ColumnHeaderMSPartNumber" xml:space="preserve">
+    <value>MS 零件編號</value>
+  </data>
+  <data name="Common_ColumnHeaderMSReportUniqueID" xml:space="preserve">
+    <value>MS 報告唯一 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderName" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="Common_ColumnHeaderNewState" xml:space="preserve">
+    <value>新狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderNewState1" xml:space="preserve">
+    <value>新狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderOEMPartNumber" xml:space="preserve">
+    <value>OEM 零件編號</value>
+  </data>
+  <data name="Common_ColumnHeaderOEMPONumber" xml:space="preserve">
+    <value>OEM 採購單編號</value>
+  </data>
+  <data name="Common_ColumnHeaderOldState" xml:space="preserve">
+    <value>舊狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderOperationResult" xml:space="preserve">
+    <value>作業結果</value>
+  </data>
+  <data name="Common_ColumnHeaderOperator" xml:space="preserve">
+    <value>操作員</value>
+  </data>
+  <data name="Common_ColumnHeaderOrderUniqueId" xml:space="preserve">
+    <value>訂單唯一 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderOverDays" xml:space="preserve">
+    <value>超過天數</value>
+  </data>
+  <data name="Common_ColumnHeaderPassword" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="Common_ColumnHeaderPhone" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="Common_ColumnHeaderProcessing" xml:space="preserve">
+    <value>正在處理</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKey" xml:space="preserve">
+    <value>產品金鑰</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyDBState" xml:space="preserve">
+    <value>資料庫中的金鑰狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyID" xml:space="preserve">
+    <value>產品金鑰 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyState" xml:space="preserve">
+    <value>檔案中的金鑰狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderQuantity" xml:space="preserve">
+    <value>數量</value>
+  </data>
+  <data name="Common_ColumnHeaderRefNumber" xml:space="preserve">
+    <value>Call Off 參考編號</value>
+  </data>
+  <data name="Common_ColumnHeaderRole" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Common_ColumnHeaderSeverity" xml:space="preserve">
+    <value>嚴重性</value>
+  </data>
+  <data name="Common_ColumnHeaderShipTo" xml:space="preserve">
+    <value>收貨方</value>
+  </data>
+  <data name="Common_ColumnHeaderSoldTo" xml:space="preserve">
+    <value>買方</value>
+  </data>
+  <data name="Common_ColumnHeaderStatus" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="Common_ColumnHeaderTarget" xml:space="preserve">
+    <value>目標 </value>
+  </data>
+  <data name="Common_ColumnHeaderTimestamp" xml:space="preserve">
+    <value>時間戳記</value>
+  </data>
+  <data name="Common_ColumnHeaderTitle" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="Common_ColumnHeaderType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="Common_ColumnMSFulfilledDate" xml:space="preserve">
+    <value>MS Fulfilled Date</value>
+  </data>
+  <data name="Common_ColumnoAssignTo" xml:space="preserve">
+    <value>指派至</value>
+  </data>
+  <data name="Common_ColumnProductKey" xml:space="preserve">
+    <value>產品金鑰：</value>
+  </data>
+  <data name="Common_ColumnStatus" xml:space="preserve">
+    <value>狀態：</value>
+  </data>
+  <data name="Common_Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Common_ConfirmPassword" xml:space="preserve">
+    <value>確認密碼：</value>
+  </data>
+  <data name="Common_ConnectServiceError" xml:space="preserve">
+    <value>無法連線到遠端伺服器! </value>
+  </data>
+  <data name="Common_Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Common_Department" xml:space="preserve">
+    <value>部門：</value>
+  </data>
+  <data name="Common_Description" xml:space="preserve">
+    <value>描述：</value>
+  </data>
+  <data name="Common_Diagnostic" xml:space="preserve">
+    <value>診斷</value>
+  </data>
+  <data name="Common_Directory" xml:space="preserve">
+    <value>目錄：</value>
+  </data>
+  <data name="Common_DontPopupAgain" xml:space="preserve">
+    <value>不快顯</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Common_EditUser" xml:space="preserve">
+    <value>編輯使用者</value>
+  </data>
+  <data name="Common_Email" xml:space="preserve">
+    <value>電子郵件：</value>
+  </data>
+  <data name="Common_EnableGetKeys" xml:space="preserve">
+    <value>啟用取得金鑰</value>
+  </data>
+  <data name="Common_EncryptedDisplay" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="Common_Exit" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="Common_ExportDateFrom" xml:space="preserve">
+    <value>匯出開始日期：</value>
+  </data>
+  <data name="Common_ExportTo" xml:space="preserve">
+    <value>匯出至：</value>
+  </data>
+  <data name="Common_Failed" xml:space="preserve">
+    <value>失敗：</value>
+  </data>
+  <data name="Common_failedKeys" xml:space="preserve">
+    <value>失敗的金鑰：</value>
+  </data>
+  <data name="Common_FailedTxt" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="Common_FailedType" xml:space="preserve">
+    <value>失敗的類型：</value>
+  </data>
+  <data name="Common_FileName" xml:space="preserve">
+    <value>檔案名稱：</value>
+  </data>
+  <data name="Common_FilePath" xml:space="preserve">
+    <value>檔案路徑：</value>
+  </data>
+  <data name="Common_Filter" xml:space="preserve">
+    <value>篩選</value>
+  </data>
+  <data name="Common_Find" xml:space="preserve">
+    <value>尋找</value>
+  </data>
+  <data name="Common_FirstName" xml:space="preserve">
+    <value>名字：</value>
+  </data>
+  <data name="Common_From" xml:space="preserve">
+    <value>從：</value>
+  </data>
+  <data name="Common_FulfilledDateFrom" xml:space="preserve">
+    <value>起始 MS Fulfilled Date：</value>
+  </data>
+  <data name="Common_GenerateAccessKey" xml:space="preserve">
+    <value>產生</value>
+  </data>
+  <data name="Common_Host" xml:space="preserve">
+    <value>主機：</value>
+  </data>
+  <data name="Common_Info" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="Common_Information" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="Common_InternalErrorFormat" xml:space="preserve">
+    <value>內部 Web 服務傳回錯誤：{0}。</value>
+  </data>
+  <data name="Common_Invalid" xml:space="preserve">
+    <value>無效</value>
+  </data>
+  <data name="Common_KMT" xml:space="preserve">
+    <value>Key Management Tool</value>
+  </data>
+  <data name="Common_LastName" xml:space="preserve">
+    <value>姓氏：</value>
+  </data>
+  <data name="Common_LicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number：</value>
+  </data>
+  <data name="Common_Loading" xml:space="preserve">
+    <value>正在載入，請稍候...</value>
+  </data>
+  <data name="Common_Location" xml:space="preserve">
+    <value>位置：</value>
+  </data>
+  <data name="Common_LogDetails" xml:space="preserve">
+    <value>記錄詳細資料</value>
+  </data>
+  <data name="Common_Login" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="Common_LoginId" xml:space="preserve">
+    <value>登入 ID：</value>
+  </data>
+  <data name="Common_LogLevel" xml:space="preserve">
+    <value>記錄層級</value>
+  </data>
+  <data name="Common_MarkAsReturn" xml:space="preserve">
+    <value>標示為 Return</value>
+  </data>
+  <data name="Common_Message" xml:space="preserve">
+    <value>訊息</value>
+  </data>
+  <data name="Common_MSFulfilledDate" xml:space="preserve">
+    <value>MS Fulfilled Date：</value>
+  </data>
+  <data name="Common_MSOrderNumber" xml:space="preserve">
+    <value>MS 訂單編號：</value>
+  </data>
+  <data name="Common_MSPartNumber" xml:space="preserve">
+    <value>MS 零件編號：</value>
+  </data>
+  <data name="Common_Name" xml:space="preserve">
+    <value>名稱：</value>
+  </data>
+  <data name="Common_Next" xml:space="preserve">
+    <value>下一頁</value>
+  </data>
+  <data name="Common_Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Common_NotMatch" xml:space="preserve">
+    <value>不符合</value>
+  </data>
+  <data name="Common_OEMOptionInfo" xml:space="preserve">
+    <value>OEM Optional Info</value>
+  </data>
+  <data name="Common_OEMPartNumber" xml:space="preserve">
+    <value>OEM 零件編號：</value>
+  </data>
+  <data name="Common_OEMPONumber" xml:space="preserve">
+    <value>OEM 採購單編號：</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="Common_OperationLimitQualityMsg" xml:space="preserve">
+    <value>數量不容許一次超過 5000 個金鑰。</value>
+  </data>
+  <data name="Common_OperationLog" xml:space="preserve">
+    <value>作業記錄</value>
+  </data>
+  <data name="Common_OperationNoInputQuantityMsg" xml:space="preserve">
+    <value>請輸入金鑰數量!</value>
+  </data>
+  <data name="Common_OperationNoKeysMsg" xml:space="preserve">
+    <value>沒有要進行作業的金鑰。</value>
+  </data>
+  <data name="Common_OperationNoSubsidiaryMsg" xml:space="preserve">
+    <value>沒有要進行作業的子公司。</value>
+  </data>
+  <data name="Common_OperationQuantityOver" xml:space="preserve">
+    <value>輸入數量不得大於可用數量。</value>
+  </data>
+  <data name="Common_Options" xml:space="preserve">
+    <value>選項</value>
+  </data>
+  <data name="Common_PartNumber" xml:space="preserve">
+    <value>零件編號：</value>
+  </data>
+  <data name="Common_Password" xml:space="preserve">
+    <value>密碼：</value>
+  </data>
+  <data name="Common_Phone" xml:space="preserve">
+    <value>電話：</value>
+  </data>
+  <data name="Common_Port" xml:space="preserve">
+    <value>連接埠：</value>
+  </data>
+  <data name="Common_Position" xml:space="preserve">
+    <value>職位：</value>
+  </data>
+  <data name="Common_Previous" xml:space="preserve">
+    <value>上一頁</value>
+  </data>
+  <data name="Common_ProductKeyID" xml:space="preserve">
+    <value>產品金鑰 ID：</value>
+  </data>
+  <data name="Common_ProxySetting" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="Common_RecordInTimeframe" xml:space="preserve">
+    <value>在以下時間範圍內的記錄：</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Common_Reports" xml:space="preserve">
+    <value>報告</value>
+  </data>
+  <data name="Common_Required" xml:space="preserve">
+    <value>必要</value>
+  </data>
+  <data name="Common_RevertKeys" xml:space="preserve">
+    <value>Revert 金鑰</value>
+  </data>
+  <data name="Common_Role" xml:space="preserve">
+    <value>角色：</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Common_Search" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="Common_Select" xml:space="preserve">
+    <value>選取</value>
+  </data>
+  <data name="Common_SelectDirectory" xml:space="preserve">
+    <value>請選取目錄</value>
+  </data>
+  <data name="Common_SelectKeys" xml:space="preserve">
+    <value>選取金鑰</value>
+  </data>
+  <data name="Common_SelectKeysMsg" xml:space="preserve">
+    <value>請選取金鑰</value>
+  </data>
+  <data name="Common_SelectKeyStatus" xml:space="preserve">
+    <value>選取金鑰狀態：</value>
+  </data>
+  <data name="Common_ShowAll" xml:space="preserve">
+    <value>包含超過 72 小時</value>
+  </data>
+  <data name="Common_succeedKeys" xml:space="preserve">
+    <value>成功的金鑰：</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Common_Successful" xml:space="preserve">
+    <value>成功：</value>
+  </data>
+  <data name="Common_SuccessfulTxt" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Common_Summary" xml:space="preserve">
+    <value>摘要</value>
+  </data>
+  <data name="Common_SystemLog" xml:space="preserve">
+    <value>系統記錄</value>
+  </data>
+  <data name="Common_Target" xml:space="preserve">
+    <value>目標：</value>
+  </data>
+  <data name="Common_To" xml:space="preserve">
+    <value>至：</value>
+  </data>
+  <data name="Common_TotalKeys" xml:space="preserve">
+    <value>金鑰總計：</value>
+  </data>
+  <data name="Common_TrackingInfo" xml:space="preserve">
+    <value>追蹤資訊：</value>
+  </data>
+  <data name="Common_Unassign" xml:space="preserve">
+    <value>解除指派</value>
+  </data>
+  <data name="Common_UnEncryptedDisplay" xml:space="preserve">
+    <value>未加密</value>
+  </data>
+  <data name="Common_UserManagement" xml:space="preserve">
+    <value>使用者管理</value>
+  </data>
+  <data name="Common_UserName" xml:space="preserve">
+    <value>使用者名稱：</value>
+  </data>
+  <data name="Common_View" xml:space="preserve">
+    <value>檢視</value>
+  </data>
+  <data name="Common_ViewDetail" xml:space="preserve">
+    <value>詳細資料</value>
+  </data>
+  <data name="Common_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Common_XmlFilter" xml:space="preserve">
+    <value>txt files (*.xml)|*.xml</value>
+  </data>
+  <data name="ConfigurationViewModel_SavingConfirmation" xml:space="preserve">
+    <value>您確定要變更這些系統設定嗎?</value>
+  </data>
+  <data name="ConfigurationView_DISSetting" xml:space="preserve">
+    <value>數位庫存系統設定</value>
+  </data>
+  <data name="Configuration_InvalidLifeDays" xml:space="preserve">
+    <value>過期提醒時間必須介於{0} 和{1} 天之間。</value>
+  </data>
+  <data name="Configuration_Setting_Account" xml:space="preserve">
+    <value>帳戶設定</value>
+  </data>
+  <data name="Configuration_Setting_System" xml:space="preserve">
+    <value>系統設定</value>
+  </data>
+  <data name="ConfigViewModel_DeleteSubSidiary" xml:space="preserve">
+    <value>由於已經對此金鑰庫存指派部份金鑰，因此無法移除此子公司!</value>
+  </data>
+  <data name="CreateSubSidiaryViewModel_Password" xml:space="preserve">
+    <value>請先輸入 ID!</value>
+  </data>
+  <data name="CreateSubSidiaryViewModel_Title_New" xml:space="preserve">
+    <value>建立下層系統</value>
+  </data>
+  <data name="CreateUserViewModel_ApplyLanguageChange" xml:space="preserve">
+    <value>您需要重新啟動 KMT，才能套用語言變更!</value>
+  </data>
+  <data name="CreateUserViewModel_CannotDeleteSelf" xml:space="preserve">
+    <value>您無法刪除自己的帳戶!</value>
+  </data>
+  <data name="CreateUserViewModel_ConfirmPasswordNotMatch" xml:space="preserve">
+    <value>密碼不符合!</value>
+  </data>
+  <data name="CreateUserViewModel_CurrentPasswordRequired" xml:space="preserve">
+    <value>需要目前密碼!</value>
+  </data>
+  <data name="CreateUserViewModel_EmailInvalid" xml:space="preserve">
+    <value>電子郵件無效!</value>
+  </data>
+  <data name="CreateUserViewModel_LoginIDRequired" xml:space="preserve">
+    <value>需要登入 ID!</value>
+  </data>
+  <data name="CreateUserViewModel_NewPasswordRequired" xml:space="preserve">
+    <value>需要新密碼!</value>
+  </data>
+  <data name="CreateUserViewModel_PasswordRequired" xml:space="preserve">
+    <value>需要密碼!</value>
+  </data>
+  <data name="CreateUserViewModel_RequriedLoginId" xml:space="preserve">
+    <value>需要 {0}!</value>
+  </data>
+  <data name="CreateUserViewModel_WrongFormat" xml:space="preserve">
+    <value>{0} 格式無效!</value>
+  </data>
+  <data name="DataPollingIntervalInvalid" xml:space="preserve">
+    <value>間隔必須介於 {0} 到 {1} 分鐘。</value>
+  </data>
+  <data name="DateRangeInvalidMessage" xml:space="preserve">
+    <value>日期範圍無效!</value>
+  </data>
+  <data name="Diagnostic_InternalConnection" xml:space="preserve">
+    <value>測試內部 Web 服務</value>
+  </data>
+  <data name="Diagnostic_InternalConnection1" xml:space="preserve">
+    <value>連線至內部 Web 服務</value>
+  </data>
+  <data name="Diagnostic_MicrosoftConnection" xml:space="preserve">
+    <value>測試 Microsoft Web 服務</value>
+  </data>
+  <data name="Diagnostic_MicrosoftConnection1" xml:space="preserve">
+    <value>連線至 Microsoft Web 服務</value>
+  </data>
+  <data name="Diagnostic_NoHeadQuarter" xml:space="preserve">
+    <value>沒有已設定的上層系統。</value>
+  </data>
+  <data name="Diagnostic_Test" xml:space="preserve">
+    <value>測試</value>
+  </data>
+  <data name="Diagnostic_TestingInternal" xml:space="preserve">
+    <value>正在測試與內部 Web 服務的連線...</value>
+  </data>
+  <data name="Diagnostic_TestingMicrosoft" xml:space="preserve">
+    <value>正在測試與 Microsoft Web 服務的連線...</value>
+  </data>
+  <data name="Diagnostic_TestingULS" xml:space="preserve">
+    <value>正在測試與上層系統的連線...</value>
+  </data>
+  <data name="Diagnostic_ULSConnection" xml:space="preserve">
+    <value>測試與上層系統的連線</value>
+  </data>
+  <data name="DLSEditorView_Edit" xml:space="preserve">
+    <value>編輯下層系統</value>
+  </data>
+  <data name="DLSViewModel_Cancel" xml:space="preserve">
+    <value>您確定要刪除此下級系統嗎？</value>
+  </data>
+  <data name="DLSView_Add" xml:space="preserve">
+    <value>新增下層系統</value>
+  </data>
+  <data name="DLSView_DLSSetting" xml:space="preserve">
+    <value>下層系統設定</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_PcModelSkuError" xml:space="preserve">
+    <value>PC Model/SKU 的長度太長。 </value>
+  </data>
+  <data name="EditOptionalInfoViewModel_ProEligValueError" xml:space="preserve">
+    <value>Program Eligibility Values的長度太長。</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_UpdateResult" xml:space="preserve">
+    <value>更新 OEM Optional Info： {1} 個成功，{0} 個失敗。</value>
+  </data>
+  <data name="EditOptionalInfo_ChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID：</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderOemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderPcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values</value>
+  </data>
+  <data name="EditOptionalInfo_ManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation：</value>
+  </data>
+  <data name="EditOptionalInfo_OemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier：</value>
+  </data>
+  <data name="EditOptionalInfo_PcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number：</value>
+  </data>
+  <data name="EditOptionalInfo_ProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values：</value>
+  </data>
+  <data name="EditOptionalInfo_Title" xml:space="preserve">
+    <value>編輯 OEM Optional Info</value>
+  </data>
+  <data name="ErrorDialogView_ErrorDialogTitle" xml:space="preserve">
+    <value>處理要求時發生錯誤。請重新啟動應用程式，然後再試一次。</value>
+  </data>
+  <data name="ErrorDialog_Copy" xml:space="preserve">
+    <value>複製詳細資料</value>
+  </data>
+  <data name="ErrorDialog_ErrorDetails" xml:space="preserve">
+    <value>錯誤詳細資料</value>
+  </data>
+  <data name="ErrorDialog_Exit" xml:space="preserve">
+    <value>結束應用程式</value>
+  </data>
+  <data name="ErrorDialog_WindowTitle" xml:space="preserve">
+    <value>金鑰管理 - 錯誤</value>
+  </data>
+  <data name="Exception_CertificateNotFound" xml:space="preserve">
+    <value>找不到憑證!</value>
+  </data>
+  <data name="Exception_FailedToConnectDB" xml:space="preserve">
+    <value>無法建立與 SQL 伺服器的連線。</value>
+  </data>
+  <data name="Exception_GetprivateKeyError" xml:space="preserve">
+    <value>憑證錯誤，請嘗試以管理員的身份執行。</value>
+  </data>
+  <data name="Exception_ImportFileInvalid" xml:space="preserve">
+    <value>檔案內容不正確，請對其進行確認。</value>
+  </data>
+  <data name="Exception_NetworkFailed" xml:space="preserve">
+    <value>因為網路發生問題，無法建立與遠端伺服器的連線。</value>
+  </data>
+  <data name="Exception_PermissionsMsg" xml:space="preserve">
+    <value>權限錯誤，請以管理員身份執行!</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_DuplicateCBRsMessage" xml:space="preserve">
+    <value>{0} 個重複的 CBR 金鑰</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ExportCBRAgain" xml:space="preserve">
+    <value>包含匯出的 CBR</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ViewTitle" xml:space="preserve">
+    <value>檢視重複的 CBR 金鑰</value>
+  </data>
+  <data name="ExportKeysViewModel_ExistingTxt" xml:space="preserve">
+    <value>選取位置：</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportError" xml:space="preserve">
+    <value>匯出金鑰時發生錯誤!</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportMsg" xml:space="preserve">
+    <value>所選金鑰已匯出至此位置：</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportSuccessMsg" xml:space="preserve">
+    <value> 已成功匯出金鑰!</value>
+  </data>
+  <data name="ExportKeysViewModel_InputQuarityMsg" xml:space="preserve">
+    <value>請輸入匯出數量!</value>
+  </data>
+  <data name="ExportKeysViewModel_NoKeysMsg" xml:space="preserve">
+    <value>沒有要匯出的有效金鑰!</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportSelectLogTitle" xml:space="preserve">
+    <value>選取要重新匯出的檔案</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectExportTypeMsg" xml:space="preserve">
+    <value>請選取匯出類型!</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectFileMsg" xml:space="preserve">
+    <value>請選取要匯出的位置!</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectTPIMsg" xml:space="preserve">
+    <value>請選取匯出目標!</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectType" xml:space="preserve">
+    <value>選取類型</value>
+  </data>
+  <data name="ExportKeysViewModel_VaidateQuarityMsg" xml:space="preserve">
+    <value>數量超過範圍!</value>
+  </data>
+  <data name="ExportKeys_ExportDuplicateCBR" xml:space="preserve">
+    <value>選取重複的 CBR 金鑰</value>
+  </data>
+  <data name="ExportKey_ConfirmMsg" xml:space="preserve">
+    <value>確定嗎?</value>
+  </data>
+  <data name="ExportKey_Encryptselect" xml:space="preserve">
+    <value>加密檔案</value>
+  </data>
+  <data name="ExportKey_Encryptselect1" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="ExportKey_FileKeysTitle" xml:space="preserve">
+    <value>記錄檔的詳細資料索引鍵</value>
+  </data>
+  <data name="ExportKey_FileLocation" xml:space="preserve">
+    <value>檔案位置：</value>
+  </data>
+  <data name="ExportKey_NonEncryptMsg" xml:space="preserve">
+    <value>不加密匯出檔案會導致較高的安全風險</value>
+  </data>
+  <data name="ExportKey_SelectSingle" xml:space="preserve">
+    <value>一次只能重新匯出一個檔案。</value>
+  </data>
+  <data name="ExportLogsSucceed" xml:space="preserve">
+    <value>已成功匯出記錄。</value>
+  </data>
+  <data name="ExportLogs_WindowTitle" xml:space="preserve">
+    <value>匯出記錄</value>
+  </data>
+  <data name="Export_CBRTxt" xml:space="preserve">
+    <value>將 CBR 匯出至 MS</value>
+  </data>
+  <data name="Export_ConfirmToMsg" xml:space="preserve">
+    <value>將金鑰匯出至 {0}</value>
+  </data>
+  <data name="Export_DuplicateCBRTxt" xml:space="preserve">
+    <value>匯出重複的 CBR</value>
+  </data>
+  <data name="Export_InvalidPath" xml:space="preserve">
+    <value>檔名或路徑無效!</value>
+  </data>
+  <data name="Export_KeysTxt" xml:space="preserve">
+    <value>將金鑰匯出至下層系統 (FKI/FFKI)</value>
+  </data>
+  <data name="Export_KeysTxtTpi" xml:space="preserve">
+    <value>將金鑰匯出至下層系統 (FFKI)</value>
+  </data>
+  <data name="Export_Ms" xml:space="preserve">
+    <value>MS</value>
+  </data>
+  <data name="Export_Note" xml:space="preserve">
+    <value>* 只能重新匯出已加密的檔案。</value>
+  </data>
+  <data name="Export_ReCBRTxt" xml:space="preserve">
+    <value>將 CBR 重新匯出至 MS</value>
+  </data>
+  <data name="Export_ReDuplicateCBRTxt" xml:space="preserve">
+    <value>重新匯出重複的 CBR</value>
+  </data>
+  <data name="Export_ReKeysTxt" xml:space="preserve">
+    <value>將金鑰重新匯出至下層系統 (FKI/FFKI)</value>
+  </data>
+  <data name="Export_ReKeysTxtTpi" xml:space="preserve">
+    <value>將金鑰重新匯出至下層系統 (FFKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxt" xml:space="preserve">
+    <value>將金鑰匯出至上層系統 (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxtTpi" xml:space="preserve">
+    <value>將金鑰匯出至上層系統 (CKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxt" xml:space="preserve">
+    <value>將金鑰重新匯出至上層系統 (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxtTpi" xml:space="preserve">
+    <value>將金鑰重新匯出至上層系統 (CKI)</value>
+  </data>
+  <data name="Export_resultMsg" xml:space="preserve">
+    <value>已匯出金鑰： {0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="Export_ReToolKeysTxt" xml:space="preserve">
+    <value>將金鑰重新匯出至 OA3Tool</value>
+  </data>
+  <data name="Export_SelectDuplicateKeyTit" xml:space="preserve">
+    <value>選取重複的 CBR</value>
+  </data>
+  <data name="Export_SelectEncryptedLogMsg" xml:space="preserve">
+    <value>請選取加密的檔案。</value>
+  </data>
+  <data name="Export_SelectLogMsg" xml:space="preserve">
+    <value>請選取檔案。</value>
+  </data>
+  <data name="Export_SelectLogTit" xml:space="preserve">
+    <value>選取檔案</value>
+  </data>
+  <data name="Export_ToolKeysTxt" xml:space="preserve">
+    <value>將金鑰匯出至 OA3Tool</value>
+  </data>
+  <data name="Export_ViewKeyTit" xml:space="preserve">
+    <value>匯出金鑰詳細資料</value>
+  </data>
+  <data name="Export_WinTit" xml:space="preserve">
+    <value>匯出金鑰</value>
+  </data>
+  <data name="FinishReportKeys_ReportKeysSummary" xml:space="preserve">
+    <value>報告摘要。</value>
+  </data>
+  <data name="GridPaging_Page" xml:space="preserve">
+    <value>頁面</value>
+  </data>
+  <data name="GridPaging_RowsPerPage" xml:space="preserve">
+    <value>每頁的行數</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportDuplicatedCBRTxt" xml:space="preserve">
+    <value>已匯入重複的 CBR {0}。</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportKeys" xml:space="preserve">
+    <value>請選取位置：</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportResultSummary" xml:space="preserve">
+    <value>匯入摘要</value>
+  </data>
+  <data name="ImportKey_FileNotExists" xml:space="preserve">
+    <value>找不到匯入檔案。</value>
+  </data>
+  <data name="ImportKey_ResultMsg" xml:space="preserve">
+    <value>已匯入金鑰： {0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="Import_CBRAckTxt" xml:space="preserve">
+    <value>從 MS 匯入 CBR ACK</value>
+  </data>
+  <data name="Import_DuplicateCBRTxt" xml:space="preserve">
+    <value>匯入重複的 CBR</value>
+  </data>
+  <data name="Import_KeysTxt" xml:space="preserve">
+    <value>從上層系統匯入金鑰 (CKI/FKI)</value>
+  </data>
+  <data name="Import_KeysTxtTpi" xml:space="preserve">
+    <value>從上層系統匯入金鑰 (CKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxt" xml:space="preserve">
+    <value>從下層系統匯入金鑰 (FKI/FFKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxtTpi" xml:space="preserve">
+    <value>從下層系統匯入金鑰 (FFKI)</value>
+  </data>
+  <data name="Import_SelectFileTit" xml:space="preserve">
+    <value>選取檔案</value>
+  </data>
+  <data name="Import_ToolkeysTxt" xml:space="preserve">
+    <value>從 OA3Tool 匯入金鑰</value>
+  </data>
+  <data name="Import_WinTit" xml:space="preserve">
+    <value>匯入金鑰</value>
+  </data>
+  <data name="InProcessingMsg" xml:space="preserve">
+    <value>處理中，請稍候!</value>
+  </data>
+  <data name="KeyManagementViewModel_DateSearch" xml:space="preserve">
+    <value>請選取日期範圍!</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateBtnMessage" xml:space="preserve">
+    <value>處理</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateCBRsMessage" xml:space="preserve">
+    <value>有 {0} 個 CBR 金鑰重複</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateMessage" xml:space="preserve">
+    <value>有 {0} 個金鑰重複</value>
+  </data>
+  <data name="KeyManagementViewModel_FulfillmentDisableMsService" xml:space="preserve">
+    <value>Microsoft Web 服務已停用。請在 [選項] 中設定 Microsoft 主體，以對其進行啟用。</value>
+  </data>
+  <data name="KeyManagementViewModel_FulfillmentFail" xml:space="preserve">
+    <value>從 Microsoft 的金鑰處理失敗!</value>
+  </data>
+  <data name="KeyManagementViewModel_FulfillmentNoKeys" xml:space="preserve">
+    <value>沒有從 Microsoft 的可用金鑰!</value>
+  </data>
+  <data name="KeyManagementViewModel_FulfillmentSucc" xml:space="preserve">
+    <value>從 Microsoft 的 {0} 個金鑰處理成功!</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeyError" xml:space="preserve">
+    <value>取得金鑰時發生錯誤!</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeyNoHeadQuarter" xml:space="preserve">
+    <value>上層系統服務不可用!</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeysFail" xml:space="preserve">
+    <value>從 {0} 取得金鑰失敗!</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeysNoKeys" xml:space="preserve">
+    <value>沒有從 {0} 的可用金鑰!</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeysSucc" xml:space="preserve">
+    <value>從 {1}取得 {0} 個金鑰成功!</value>
+  </data>
+  <data name="KeyManagementViewModel_KeyHistoryError" xml:space="preserve">
+    <value>取得歷程時發生錯誤!</value>
+  </data>
+  <data name="KeyManagementViewModel_KeySearch" xml:space="preserve">
+    <value>搜尋金鑰</value>
+  </data>
+  <data name="KeyManagementViewModel_NoKeyGet" xml:space="preserve">
+    <value>沒有可用的金鑰。</value>
+  </data>
+  <data name="KeyManagementViewModel_OldTimelineExceedMessage" xml:space="preserve">
+    <value>{0} 個金鑰超出時間線</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportBinding" xml:space="preserve">
+    <value>報告繫結</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportReturn" xml:space="preserve">
+    <value>報告 Return</value>
+  </data>
+  <data name="KeyManagementView_KeyList" xml:space="preserve">
+    <value>金鑰清單</value>
+  </data>
+  <data name="KeyManagerViewModel_Keys" xml:space="preserve">
+    <value>金鑰 </value>
+  </data>
+  <data name="KeyManagerViewModel_NoRecordsFoundMessage" xml:space="preserve">
+    <value>找不到任何資料!</value>
+  </data>
+  <data name="KeyManager_DisplayNo" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="KeyManager_DisplayYes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="KeyReportSearch_KeyStatus" xml:space="preserve">
+    <value>金鑰狀態：</value>
+  </data>
+  <data name="KeySelectView_MarkReturnPrompt" xml:space="preserve">
+    <value>請選取要 [標示為 Return] 的金鑰。</value>
+  </data>
+  <data name="KeysExpiredNotificationViewModel_TimeLineDays" xml:space="preserve">
+    <value>時間線天數： {0} 天。</value>
+  </data>
+  <data name="KeysStockConfigViewModel_MsPartNumberNotSelect" xml:space="preserve">
+    <value>您尚未選取任何 Licensable Part Number。</value>
+  </data>
+  <data name="KeysStockConfigViewModel_RangeError" xml:space="preserve">
+    <value>最大值必須大於最小值。</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMaximum" xml:space="preserve">
+    <value>最大值：</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMinimum" xml:space="preserve">
+    <value>最小值：</value>
+  </data>
+  <data name="KeysStockConfigView_Title" xml:space="preserve">
+    <value>Licensable Part Number庫存</value>
+  </data>
+  <data name="KeysStockNotificationView_Title" xml:space="preserve">
+    <value>檢視Licensable Part Number</value>
+  </data>
+  <data name="MainView_AdvancedSearch" xml:space="preserve">
+    <value>進階搜尋</value>
+  </data>
+  <data name="MainWindow_Action" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="MainWindow_Assign" xml:space="preserve">
+    <value>指派金鑰</value>
+  </data>
+  <data name="MainWindow_Assignment" xml:space="preserve">
+    <value>指派</value>
+  </data>
+  <data name="MainWindow_Condition" xml:space="preserve">
+    <value>條件</value>
+  </data>
+  <data name="MainWindow_Export" xml:space="preserve">
+    <value>匯出</value>
+  </data>
+  <data name="MainWindow_Fresh" xml:space="preserve">
+    <value>重新整理</value>
+  </data>
+  <data name="MainWindow_GenReport" xml:space="preserve">
+    <value>產生報告</value>
+  </data>
+  <data name="MainWindow_GetKeys" xml:space="preserve">
+    <value>取得金鑰</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>首頁</value>
+  </data>
+  <data name="MainWindow_Import" xml:space="preserve">
+    <value>匯入</value>
+  </data>
+  <data name="MainWindow_KeyManagement" xml:space="preserve">
+    <value>金鑰管理</value>
+  </data>
+  <data name="MainWindow_KeysExpired" xml:space="preserve">
+    <value>舊時間線超出金鑰</value>
+  </data>
+  <data name="MainWindow_LogType" xml:space="preserve">
+    <value>記錄類型</value>
+  </data>
+  <data name="ExportLog_LogTypeInput" xml:space="preserve">
+    <value>記錄類型：</value>
+  </data>
+  <data name="MainWindow_LogView" xml:space="preserve">
+    <value>記錄檢視器</value>
+  </data>
+  <data name="MainWindow_MenuHelp" xml:space="preserve">
+    <value>說明</value>
+  </data>
+  <data name="MainWindow_Offline" xml:space="preserve">
+    <value>離線</value>
+  </data>
+  <data name="MainWindow_Online" xml:space="preserve">
+    <value>連線</value>
+  </data>
+  <data name="MainWindow_Operation" xml:space="preserve">
+    <value>作業</value>
+  </data>
+  <data name="MainWindow_Page" xml:space="preserve">
+    <value>頁面</value>
+  </data>
+  <data name="MainWindow_Print" xml:space="preserve">
+    <value>列印</value>
+  </data>
+  <data name="MainWindow_ReAcknowledgement" xml:space="preserve">
+    <value>Re-Acknowledgement</value>
+  </data>
+  <data name="MainWindow_RecallKeys" xml:space="preserve">
+    <value>Recall 金鑰</value>
+  </data>
+  <data name="MainWindow_ReFulfillment" xml:space="preserve">
+    <value>Re-Fulfillment</value>
+  </data>
+  <data name="MainWindow_RemoveUser" xml:space="preserve">
+    <value>移除使用者</value>
+  </data>
+  <data name="MainWindow_ReportKeys" xml:space="preserve">
+    <value>報告金鑰</value>
+  </data>
+  <data name="MainWindow_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="MainWindow_SelectLogType" xml:space="preserve">
+    <value>選取記錄類型：</value>
+  </data>
+  <data name="MainWindow_SendReport" xml:space="preserve">
+    <value>傳送報告</value>
+  </data>
+  <data name="MainWindow_Unassign" xml:space="preserve">
+    <value>解除指派金鑰</value>
+  </data>
+  <data name="MainWindow_User" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="MainWindow_UserRole" xml:space="preserve">
+    <value>使用者角色：</value>
+  </data>
+  <data name="MarkAsReturnViewModel_summaryText" xml:space="preserve">
+    <value> {0} 個金鑰標示為 'Return'。</value>
+  </data>
+  <data name="MarkReturnKeysViewModel_ReturnTitle" xml:space="preserve">
+    <value>Return 金鑰</value>
+  </data>
+  <data name="NoLogsFound" xml:space="preserve">
+    <value>找不到記錄。</value>
+  </data>
+  <data name="Notification_CopiedToClipboard" xml:space="preserve">
+    <value>內容已複製到剪貼簿。</value>
+  </data>
+  <data name="Notification_KeysStockOutOfRangeMessage" xml:space="preserve">
+    <value>{0} Licensable Part Number庫存超出範圍。</value>
+  </data>
+  <data name="Notification_ReAcknowledgeMessage" xml:space="preserve">
+    <value>{0} 個acknowledgement失敗。</value>
+  </data>
+  <data name="Notification_ReFulfillmentMessage" xml:space="preserve">
+    <value>{0} 個fulfillment失敗。</value>
+  </data>
+  <data name="Notification_YouHaveNotifications" xml:space="preserve">
+    <value>通知 ({0})</value>
+  </data>
+  <data name="Offline_CBRTit" xml:space="preserve">
+    <value>CBR</value>
+  </data>
+  <data name="Offline_DLSTit" xml:space="preserve">
+    <value>DLS</value>
+  </data>
+  <data name="Offline_DuplicateCBRTit" xml:space="preserve">
+    <value>重複的 CBR</value>
+  </data>
+  <data name="Offline_OA3ToolTit" xml:space="preserve">
+    <value>OA3Tool</value>
+  </data>
+  <data name="Offline_ULSTit" xml:space="preserve">
+    <value>ULS</value>
+  </data>
+  <data name="OperateMsgView_ReasonMarkFulfilledKeys" xml:space="preserve">
+    <value>標示為 'Fulfilled' 的原因：</value>
+  </data>
+  <data name="OperateMsgView_ReasonMarkReturnKeys" xml:space="preserve">
+    <value>標示為 'Return' 的原因：</value>
+  </data>
+  <data name="OperateMsgView_SelectMarkFulfilledKeys" xml:space="preserve">
+    <value>選取標示 Fulfilled 金鑰：</value>
+  </data>
+  <data name="OperateMsgView_SelectMarkReturnKeys" xml:space="preserve">
+    <value>選取標示 Return 金鑰：</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_HadleIgnoreKeys" xml:space="preserve">
+    <value>已成功忽略 {0}!</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_HadleKeys" xml:space="preserve">
+    <value>已成功處理要重複使用的 {0}!</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_MessageTitle" xml:space="preserve">
+    <value>處理重複的金鑰</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_NoKeysMsg" xml:space="preserve">
+    <value>請處理重複的金鑰! </value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_NOReason" xml:space="preserve">
+    <value>請輸入原因!</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_ReasonLb" xml:space="preserve">
+    <value>原因：</value>
+  </data>
+  <data name="ProxySettingView_BypassProxyOnLocal" xml:space="preserve">
+    <value>對於本機位址，略過 Proxy 伺服器</value>
+  </data>
+  <data name="ProxySetting_Customize" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="ProxySetting_Default" xml:space="preserve">
+    <value>使用 IE Proxy 設定</value>
+  </data>
+  <data name="ProxySetting_None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="ProxySetting_UseSSL" xml:space="preserve">
+    <value>使用 SSL</value>
+  </data>
+  <data name="RecallKeysViewModel_RecallKeysResult" xml:space="preserve">
+    <value>回收的金鑰： {0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="ReportKeysViewModel_ReportSuccess" xml:space="preserve">
+    <value>報告的金鑰：{0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="RevertKeys_RevertSummary" xml:space="preserve">
+    <value>已還原 {0} 個金鑰。</value>
+  </data>
+  <data name="RevertKey_ReasonTxt" xml:space="preserve">
+    <value>Revert原因：</value>
+  </data>
+  <data name="RevertKey_SelectedTxt" xml:space="preserve">
+    <value>選取金鑰：</value>
+  </data>
+  <data name="Revert_MsgLength" xml:space="preserve">
+    <value>原因必須介於 0 至 200 個字元之間。</value>
+  </data>
+  <data name="Revert_ReasonNote" xml:space="preserve">
+    <value>(*限制為 200 個字元。)</value>
+  </data>
+  <data name="Revert_ReasonPageTit" xml:space="preserve">
+    <value>輸入原因</value>
+  </data>
+  <data name="Revert_ResultMsg" xml:space="preserve">
+    <value>Revert金鑰：{0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="Revert_RevertTxt" xml:space="preserve">
+    <value>Revert金鑰</value>
+  </data>
+  <data name="SearchTextCannotBeEmpty" xml:space="preserve">
+    <value>請選取搜尋準則!</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_CustomerIDLengthOver" xml:space="preserve">
+    <value>客戶編號太長!</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryCount" xml:space="preserve">
+    <value>FKI 或 FFKI 數目應小於 5!</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryDuplicate" xml:space="preserve">
+    <value>客戶編號已存在。</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryNotEmpty" xml:space="preserve">
+    <value>需要客戶編號!</value>
+  </data>
+  <data name="SubsidiaryEditor_Type" xml:space="preserve">
+    <value>類型：</value>
+  </data>
+  <data name="SummaryView_MarkReturnPrompt" xml:space="preserve">
+    <value>標示為 'Return' 的摘要：</value>
+  </data>
+  <data name="SystemError" xml:space="preserve">
+    <value>系統錯誤，請連絡系統管理員!</value>
+  </data>
+  <data name="SystemSettingViewModel_ApplyCustomerNumber" xml:space="preserve">
+    <value>您需要重新啟動 KMT，才能套用客戶編號變更!</value>
+  </data>
+  <data name="SystemSettingView_AutoGetFulfillment" xml:space="preserve">
+    <value>自動處理</value>
+  </data>
+  <data name="SystemSettingView_AutoReport" xml:space="preserve">
+    <value>自動報告</value>
+  </data>
+  <data name="SystemSettingView_CertificateSubject" xml:space="preserve">
+    <value>Microsoft 憑證主體：</value>
+  </data>
+  <data name="SystemSettingView_DataPollingInterval" xml:space="preserve">
+    <value>資料輪詢間隔</value>
+  </data>
+  <data name="SystemSettingView_FulfillmentInterval" xml:space="preserve">
+    <value>處理間隔 (分鐘)：</value>
+  </data>
+  <data name="SystemSettingView_InternalWebService" xml:space="preserve">
+    <value>內部 Web 服務</value>
+  </data>
+  <data name="SystemSettingView_IsCarbonCopy" xml:space="preserve">
+    <value>啟用Carbon Copy</value>
+  </data>
+  <data name="SystemSettingView_LifeDays" xml:space="preserve">
+    <value>金鑰老化天數：</value>
+  </data>
+  <data name="SystemSettingView_MSCertNotEmpty" xml:space="preserve">
+    <value>需要 Microsoft 憑證主體。</value>
+  </data>
+  <data name="SystemSettingView_MsWebService" xml:space="preserve">
+    <value>Microsoft Web 服務</value>
+  </data>
+  <data name="SystemSettingView_OldTimeline" xml:space="preserve">
+    <value>過期提醒時間 (天)：</value>
+  </data>
+  <data name="SystemSettingView_Others" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="SystemSettingView_ReportInterval" xml:space="preserve">
+    <value>報告間隔 (分鐘)：</value>
+  </data>
+  <data name="SystemSettingView_UserKey" xml:space="preserve">
+    <value>使用者金鑰：</value>
+  </data>
+  <data name="UnAssignKeysViewModel_Result" xml:space="preserve">
+    <value>已成功解除指派 {0} 個金鑰!</value>
+  </data>
+  <data name="UnassignKeysViewModel_UnassignKeysResult" xml:space="preserve">
+    <value>解除指派的金鑰： {0} 個成功，{1} 個失敗</value>
+  </data>
+  <data name="UpLevelSystemViewModel_CustomNameDuplicate" xml:space="preserve">
+    <value>名稱重複!</value>
+  </data>
+  <data name="UpLevelSystemViewModel_HostOrPortNotBeEmpty" xml:space="preserve">
+    <value>主機或連接埠不得為空白!</value>
+  </data>
+  <data name="UpLevelSystemViewModel_SavingConfirmation" xml:space="preserve">
+    <value>您確定要變更上層系統設定嗎?</value>
+  </data>
+  <data name="UpLevelSystemView_ULSSetting" xml:space="preserve">
+    <value>上層系統設定</value>
+  </data>
+  <data name="UserManagementViewModel_DeleteConfirm" xml:space="preserve">
+    <value>您確定要刪除所選的使用者嗎?</value>
+  </data>
+  <data name="UserManagementViewModel_DeleteCurrentUser" xml:space="preserve">
+    <value>無法刪除目前使用者!</value>
+  </data>
+  <data name="UserManagement_CreatedDate" xml:space="preserve">
+    <value>建立日期：</value>
+  </data>
+  <data name="UserManagement_Roles" xml:space="preserve">
+    <value>角色：</value>
+  </data>
+  <data name="UserManagement_UserDetails" xml:space="preserve">
+    <value>使用者詳細資料</value>
+  </data>
+  <data name="UserManagement_UserList" xml:space="preserve">
+    <value>使用者清單</value>
+  </data>
+  <data name="UserProxy_PasswordIncorrect" xml:space="preserve">
+    <value>目前密碼不正確。</value>
+  </data>
+  <data name="ViewLogs_Critical" xml:space="preserve">
+    <value>重要</value>
+  </data>
+  <data name="ViewLogs_OperationLogView" xml:space="preserve">
+    <value>作業記錄檢視</value>
+  </data>
+  <data name="ViewLogs_SystemLogView" xml:space="preserve">
+    <value>系統記錄檢視</value>
+  </data>
+  <data name="WebServiceHostIsInvalid" xml:space="preserve">
+    <value>Web 服務主機無效!</value>
+  </data>
+  <data name="WebServiceHostOrPortInvalid" xml:space="preserve">
+    <value>Web 服務主機或連接埠無效!</value>
+  </data>
+  <data name="WebServicePortIsInvalid" xml:space="preserve">
+    <value>Web 服務連接埠無效!</value>
+  </data>
+  <data name="Common_LogOff" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="Common_ColumnHeaderSerialNumber" xml:space="preserve">
+    <value>機臺序列</value>
+  </data>
+  <data name="DISConfigurationCloud_NewCustomer" xml:space="preserve">
+    <value>創建一個新業務...</value>
+  </data>
+  <data name="DISConfigurationCloud_Customers" xml:space="preserve">
+    <value>選擇業務：</value>
+  </data>
+  <data name="SystemSettingViewModel_CertificateChanged" xml:space="preserve">
+    <value>如需使得新的憑證設定生效，您需要首先登出KMT，然後重新登入！</value>
+  </data>
+  <data name="DISConfigurationCloud_ConnectivityErrorMessage" xml:space="preserve">
+    <value>您已配置DIS使用DIS配置雲中的配置元數據（服務點: \"{0}\"）， 但是連接并不成功。請檢查應用程序及網絡設置。</value>
+  </data>
+  <data name="DISConfigurationCloud_ConnectivityErrorTitle" xml:space="preserve">
+    <value>連接DIS配置雲錯誤</value>
+  </data>
+  <data name="Common_ColumnHeaderOriginalFileName" xml:space="preserve">
+    <value>原始檔案</value>
+  </data>
+  <data name="DISConfigurationCloud_LocalConfigurationToolErrorMessage" xml:space="preserve">
+    <value>啓動本地配置工具時遇到錯誤，請檢查應用程序設定！</value>
+  </data>
+  <data name="DISConfigurationCloud_LocalConfigurationToolErrorTitle" xml:space="preserve">
+    <value>本地配置工具錯誤</value>
+  </data>
+  <data name="ImportKey_ValidationResultSummary" xml:space="preserve">
+    <value>經過初步評估，我們發現，在您所提供的原始檔案中包含如下錯誤， 其中，重複DPK：{0}個；非法原始檔案格式：{1}個。 請糾正這些錯誤后再繼續進行匯入。</value>
+  </data>
+  <data name="DISConfigurationCloud_ConfigurationErrorMessage" xml:space="preserve">
+    <value>加載DIS配置雲設定時出現錯誤。請檢查對應此安裝的每一DIS組件的配置檔案中有關DIS配置雲的設定。并務必記得在更改這些設定之後重啓各組件的服務。</value>
+  </data>
+  <data name="DISConfigurationCloud_ConfigurationErrorTitle" xml:space="preserve">
+    <value>配置錯誤</value>
+  </data>
+  <data name="ExportKey_CompatibleFormat" xml:space="preserve">
+    <value>兼容格式</value>
+  </data>
+  <data name="ExportKey_CompatibleFormatComfirmTitle" xml:space="preserve">
+    <value>兼容格式</value>
+  </data>
+  <data name="ExportKey_CompatibleFormatConfirmMsg" xml:space="preserve">
+    <value>按照兼容格式匯出將不會匯出每個所選密鑰的機臺序列，是否確定繼續？</value>
+  </data>
+</root>

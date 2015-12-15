@@ -1,0 +1,93 @@
+﻿<Page
+    x:Uid="Page" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    xmlns:ctrl="clr-namespace:DIS.Presentation.KMT.Controls"
+    xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+    x:Class="DIS.Presentation.KMT.View.Configuration.SystemSettingView"
+    xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+    x:Name="Page"
+    WindowTitle="Page"
+    FlowDirection="LeftToRight"
+    Width="auto" 
+    Height="auto">
+    <Grid x:Uid="grdRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Uid="grdCustomerNumber" Grid.Row="0" HorizontalAlignment="Left" Visibility="{Binding IsMsServiceVisible}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="auto"/>
+                <ColumnDefinition  Width="190" />
+                <ColumnDefinition  Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="auto"/>
+                <RowDefinition  Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label      x:Uid="lblMSCert" Margin="0,5,0,5" Padding="8,0,0,0" Content="{x:Static res:ResourcesOfR6.SystemSettingView_MSCert}"  Grid.Row="0" Grid.Column="0" Style="{DynamicResource LblBoldSty}"/>
+            <TextBox    x:Uid="txtMSCert" MaxLength="1000" Margin="4,5,0,5" Text="{Binding CertificateSubject,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" IsReadOnly="True" Grid.Row="0" Grid.Column="1"  Style="{DynamicResource TxtNormalSty}"/>
+            <Button x:Uid="btnCertSelect" Grid.Column="2" TextBlock.FontSize="16" Height="26" Width="26" Content="..." Command="{Binding SelectCertCommand}" Margin="10,0,0,0"/>
+            <Label      x:Uid="lblMSUrl" Margin="0,5,0,5" Padding="8,0,0,0" Content="{x:Static res:ResourcesOfR6.SystemSettingView_MSUrl}"  Grid.Row="1" Grid.Column="0" Style="{DynamicResource LblBoldSty}"/>
+            <TextBox    x:Uid="txtMSUrl" MaxLength="1000" Margin="4,5,0,5" Text="{Binding MsServiceConfig,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"  Style="{DynamicResource TxtNormalSty}" Grid.ColumnSpan="2" Width="220" />
+
+        </Grid>
+        <GroupBox x:Uid="grpInternalWebService" Margin="0,12,0,0" Header="{x:Static res:MergedResources.SystemSettingView_InternalWebService}" Grid.Row="1" Style="{DynamicResource GrpbSty}">
+            <Grid x:Uid="grdInternalWebService" Margin="10,5,0,0" HorizontalAlignment="left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="auto"/>
+                    <ColumnDefinition  Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="45" />
+                    <RowDefinition  Height="45" />
+                </Grid.RowDefinitions>
+                <Label x:Uid="lblInternalServiceHost" Content="{x:Static res:MergedResources.Common_Host}" Style="{DynamicResource LblBoldSty}"/>
+                <Label x:Uid="lblPort" Content="{x:Static res:MergedResources.Common_Port}" Grid.Column="0" Grid.Row="1" Style="{DynamicResource LblBoldSty}"/>
+                <TextBox x:Uid="txtInternalServiceHost" Text="{Binding InternalServiceHost,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Style="{DynamicResource TxtNormalSty}" MaxLength="255"/>
+                <TextBox x:Uid="txtPort" Text="{Binding InternalServicePort,UpdateSourceTrigger=PropertyChanged}" MaxLength="5" Grid.Column="1" Grid.Row="1" Style="{DynamicResource TxtNormalSty}" Behaviors:TextBoxFilters.IsNumericFilter="True"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Uid="grpDataPollingInterval" Margin="0,15,0,0" Header="{x:Static res:MergedResources.SystemSettingView_DataPollingInterval}" Grid.Row="2" Style="{DynamicResource GrpbSty}">
+            <Grid x:Uid="grdDataPollingInterval" Margin="10,5,0,0" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="40"></RowDefinition>
+                    <RowDefinition  Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <CheckBox x:Uid="chkIsGetFullfillment" Grid.ColumnSpan="2" Content="{x:Static res:MergedResources.SystemSettingView_AutoGetFulfillment}" IsChecked="{Binding IsAutoFulfillment,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ChkLogLevelSty}"></CheckBox>
+                <Label x:Name="lblFulfillInterval"  IsEnabled="{Binding IsAutoFulfillment}" Content="{x:Static res:MergedResources.SystemSettingView_FulfillmentInterval}" Grid.Column="0"  Grid.Row="1" Style="{DynamicResource LblBoldSty}"></Label>
+                <TextBox x:Name="txtfulfillmentInterval" MaxLength="4" IsEnabled="{Binding IsAutoFulfillment}" Text="{Binding FulfillmentInterval, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Behaviors:TextBoxFilters.IsNumericFilter="True" Style="{DynamicResource TxtNormalSty}"></TextBox>
+                <CheckBox x:Uid="chkIsAutoReport" Grid.ColumnSpan="2" Grid.Row="2" Content="{x:Static res:MergedResources.SystemSettingView_AutoReport}" IsChecked="{Binding IsAutoReport,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ChkLogLevelSty}"></CheckBox>
+                <Label x:Name="lblAutoReportInterval" IsEnabled="{Binding IsAutoReport}" Grid.Column="0" Grid.Row="3" Content="{x:Static res:MergedResources.SystemSettingView_ReportInterval}" Style="{DynamicResource LblBoldSty}"></Label>
+                <TextBox x:Name="txtReportInterval" MaxLength="4"  IsEnabled="{Binding IsAutoReport}" Text="{Binding ReportInterval, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Behaviors:TextBoxFilters.IsNumericFilter="True" Style="{DynamicResource TxtNormalSty}"></TextBox>
+                </Grid>
+        </GroupBox>
+        <GroupBox x:Uid="grpOthers" Margin="0,15,0,0" Header="{x:Static res:MergedResources.SystemSettingView_Others}" Grid.Row="3" Style="{DynamicResource GrpbSty}">
+            <Grid x:Uid="grdOthers" Margin="10,5,0,0" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="auto"/>
+                    <ColumnDefinition  Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="auto" />
+                    <RowDefinition  Height="40" />
+                </Grid.RowDefinitions>
+                <Label x:Uid="lblOldTimeline" Height="30"    Grid.Row="1" Content="{x:Static res:MergedResources.SystemSettingView_OldTimeline}" Style="{DynamicResource LblBoldSty}" HorizontalAlignment="Stretch" Margin="10,5,0,5"/>
+                <TextBox x:Uid="txtOldTimeline" MaxLength="5"  Grid.Row="1" Text="{Binding OldTimeLine, UpdateSourceTrigger=PropertyChanged}"   Behaviors:TextBoxFilters.IsNumericFilter="True" Style="{DynamicResource TxtNormalSty}" Margin="140,0,0,0"/>
+                <CheckBox x:Uid="chkIsRequireOHRData"  Grid.Row="0" Content="{x:Static res:ResourcesOfRTMv1_6.RequireOHRDataLabel}" IsChecked="{Binding IsRequireOHRData,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ChkLogLevelSty}" Visibility="{Binding IsMsServiceVisible}"></CheckBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

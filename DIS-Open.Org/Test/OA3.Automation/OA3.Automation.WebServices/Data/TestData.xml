@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebServices>
+  <Group Name="OemInternalWebService" BaseUri="http://localhost:8002/KeyBinding.svc">
+    <!--Domain Data Sync Services-->
+    <Service Name="GetOrderType" Method="GET" Url="/DomainData/OrderType"></Service>
+    <Service Name="GetOrderStatus" Method="GET" Url="/DomainData/OrderStatus"></Service>
+    <Service Name="GetContract" Method="GET" Url="/DomainData/Contract"></Service>
+    <Service Name="GetCustomerPartNumberMapping" Method="GET" Url="/DomainData/CustomerPartNumberMapping"></Service>
+    <Service Name="GetProduct" Method="GET" Url="/DomainData/Product"></Service>
+    <Service Name="GetCustomerPartnerFunction" Method="GET" Url="/DomainData/CustomerPartnerFunction"></Service>
+    <Service Name="GetPartnerFunction" Method="GET" Url="/DomainData/PartnerFunction"></Service>
+    <Service Name="GetCustomer" Method="GET" Url="/DomainData/Customer"></Service>
+    <!--Order Fulfillment-->
+    <Service Name="PostOrder" Method="POST" Request="OrderRequest" Url="/Order/">
+      <OrderRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <ReferenceNumber>RN</ReferenceNumber>
+        <OrderTypeID>6</OrderTypeID>
+        <ContractNumber>1234567890</ContractNumber>
+        <OEMPONumber>PO</OEMPONumber>
+        <OEMPODate>2011-08-03T12:59:57.0523064+08:00</OEMPODate>
+        <OrderDate>2011-08-03T13:00:53.41253+08:00</OrderDate>
+        <OrderLineItems>
+          <OrderLineItem>
+            <OEMLineItemNumber>0</OEMLineItemNumber>
+            <OrderLineNumber>10</OrderLineNumber>
+            <LicensablePartNumber>FSC-00024</LicensablePartNumber>
+            <OEMPartNumber>WIN800004</OEMPartNumber>
+            <Quantity>2</Quantity>
+            <RequestedShipDate>2011-08-02T23:30:49.9793336+08:00</RequestedShipDate>
+          </OrderLineItem>
+        </OrderLineItems>
+        <OrderParticipants>
+          <OrderParticipant>
+            <CustomerNumber>0000001235</CustomerNumber>
+            <PartnerFunction>AG</PartnerFunction>
+          </OrderParticipant>
+          <OrderParticipant>
+            <CustomerNumber>0000001234</CustomerNumber>
+            <PartnerFunction>WE</PartnerFunction>
+          </OrderParticipant>
+        </OrderParticipants>
+      </OrderRequest>
+    </Service>
+    <Service Name="GetOrderFulfillment" Method="GET" Request="OrderUniqueID" Url="/Fulfillment"></Service>
+    <Service Name="ReportCBR" Method="POST" Request="BindingReportRequest" Url="/BindingReport/ReportBindings">
+      <BindingReportRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <SoldToCustomerID i:nil="true" />
+        <Businessname i:nil="true" />
+        <ReceivedFromCustomerID i:nil="true" />
+        <Keys>
+          <Key>
+            <ProductKey i:nil="true" />
+            <ProductKeyID>999</ProductKeyID>
+            <OEMAdditionalInfo></OEMAdditionalInfo>
+            <HardwareID>566df10f-05c0-4596-b5da-f81b606a0342</HardwareID>
+            <SKUID>12111</SKUID>
+          </Key>
+        </Keys>
+      </BindingReportRequest>
+    </Service>
+    <Service Name="ReportUnUsedKeys" Method="POST" Request="ReturnReportRequest" Url="/ReturnReport/Create">
+      <ReturnReportRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <SoldToCustomerID i:nil="true" />
+        <Keys>
+          <ReturnKey>
+            <Key>
+              <ProductKey i:nil="true" />
+              <ProductKeyID>1029</ProductKeyID>
+              <OEMAdditionalInfo i:nil="true" />
+              <HardwareID i:nil="true" />
+              <SKUID>12111</SKUID>
+            </Key>
+            <ReturnReasonCode>000000</ReturnReasonCode>
+          </ReturnKey>
+        </Keys>
+      </ReturnReportRequest>
+    </Service>
+  </Group>
+  
+  <Group Name="OemWebService" BaseUri="https://localhost:8001/KeyBinding.svc" UserName="TPI-01" Password="Chinasoft" TrustedIssuer="Erich-PC">
+    <!--Provider Services-->
+    <Service Name="GetKeysForTpi" Method="GET" Request="ShipToCustomNumber" Url="/Keys/Get">TPI-01</Service>
+    <Service Name="ReportKeys" Method="POST" Request="TransferKeyRequest" Url="/Keys/Report">
+      <TransferKeyRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <Keys>
+          <TransferKey>
+            <ProductKeyId>1030</ProductKeyId>
+            <ProductKeyStateId>43</ProductKeyStateId>
+            <ProductKeyState>Bound</ProductKeyState>
+            <ProductKey>AAAAA-BBBBB-CCCCC-DDDDD-01030</ProductKey>
+            <OemAdditionalInfo></OemAdditionalInfo>
+            <HardwareId>958ed148-28fd-4639-a696-9bf3a85014cc</HardwareId>
+            <OrderID>2</OrderID>
+            <EndItemPartNumber>FSC-00024</EndItemPartNumber>
+            <OEMPartNumber>WIN800004</OEMPartNumber>
+            <BusinessName i:nil="true" />
+            <OrderUniqueID>4219185f-288c-49c9-aec5-66038a29ebde</OrderUniqueID>
+            <CustomerNumber i:nil="true" />
+            <ReferenceNumber>RN02</ReferenceNumber>
+            <OEMPONumber>PO02</OEMPONumber>
+            <OEMLineItemNumber>0</OEMLineItemNumber>
+            <MSOrderNumber i:nil="true" />
+            <MSLineNumber>0</MSLineNumber>
+            <ContractNumber>1234567890</ContractNumber>
+            <Quantity>0</Quantity>
+            <OrderTypeID>6</OrderTypeID>
+            <LicensablePartNumber>FSC-00024</LicensablePartNumber>
+            <SKUID>12111</SKUID>
+            <BeginningProductKeyID>0</BeginningProductKeyID>
+            <EndingProductKeyID>0</EndingProductKeyID>
+          </TransferKey>
+        </Keys>
+      </TransferKeyRequest>
+    </Service>
+    <Service Name="SyncAllocatedKeys" Method="POST" Request="KeysArray" Url="/Keys/SyncAllocated">
+      <ArrayOflong xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <long>1052</long>
+      </ArrayOflong>
+    </Service>
+  </Group>
+  
+  <Group Name="TpiInternalWebService"  BaseUri="http://localhost:8012/KeyBinding.svc">
+    <Service Name="GetKeys" Method="GET" Request="ShipToCustomNumber" Url="/Keys/Get">TPI-01</Service>
+    <Service Name="ReportKeys" Method="POST" Request="TransferKeyRequest" Url="/Keys/Report">
+      <TransferKeyRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <Keys>
+          <TransferKey>
+            <ProductKeyId>1030</ProductKeyId>
+            <ProductKeyStateId>43</ProductKeyStateId>
+            <ProductKeyState>Bound</ProductKeyState>
+            <ProductKey>AAAAA-BBBBB-CCCCC-DDDDD-01030</ProductKey>
+            <OemAdditionalInfo></OemAdditionalInfo>
+            <HardwareId>958ed148-28fd-4639-a696-9bf3a85014cc</HardwareId>
+            <OrderID>2</OrderID>
+            <EndItemPartNumber>FSC-00024</EndItemPartNumber>
+            <OEMPartNumber>WIN800004</OEMPartNumber>
+            <BusinessName i:nil="true" />
+            <OrderUniqueID>4219185f-288c-49c9-aec5-66038a29ebde</OrderUniqueID>
+            <CustomerNumber i:nil="true" />
+            <ReferenceNumber>RN02</ReferenceNumber>
+            <OEMPONumber>PO02</OEMPONumber>
+            <OEMLineItemNumber>0</OEMLineItemNumber>
+            <MSOrderNumber i:nil="true" />
+            <MSLineNumber>0</MSLineNumber>
+            <ContractNumber>1234567890</ContractNumber>
+            <Quantity>0</Quantity>
+            <OrderTypeID>6</OrderTypeID>
+            <LicensablePartNumber>FSC-00024</LicensablePartNumber>
+            <SKUID>12111</SKUID>
+            <BeginningProductKeyID>0</BeginningProductKeyID>
+            <EndingProductKeyID>0</EndingProductKeyID>
+          </TransferKey>
+        </Keys>
+      </TransferKeyRequest>
+    </Service>
+    <Service Name="SyncAllocatedKeys" Method="POST" Request="KeysArray" Url="/Keys/SyncAllocated"></Service>
+  </Group>
+  
+  <Group Name="TpiWebService"  BaseUri="https://localhost:8011/KeyBinding.svc" UserName="FF-01" Password="Chinasoft" TrustedIssuer="Erich-PC">
+    <!--Provider Services-->
+    <Service Name="GetKeysForTpi" Method="GET" Request="ShipToCustomNumber" Url="/Keys/Get">FF-01</Service>
+    <Service Name="ReportKeys" Method="POST" Request="TransferKeyRequest" Url="/Keys/Report">
+      <TransferKeyRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.ms.it.oem/digitaldistribution/2010/10">
+        <Keys>
+          <TransferKey>
+            <ProductKeyId>1030</ProductKeyId>
+            <ProductKeyStateId>43</ProductKeyStateId>
+            <ProductKeyState>Bound</ProductKeyState>
+            <ProductKey>AAAAA-BBBBB-CCCCC-DDDDD-01030</ProductKey>
+            <OemAdditionalInfo></OemAdditionalInfo>
+            <HardwareId>958ed148-28fd-4639-a696-9bf3a85014cc</HardwareId>
+            <OrderID>2</OrderID>
+            <EndItemPartNumber>FSC-00024</EndItemPartNumber>
+            <OEMPartNumber>WIN800004</OEMPartNumber>
+            <BusinessName i:nil="true" />
+            <OrderUniqueID>4219185f-288c-49c9-aec5-66038a29ebde</OrderUniqueID>
+            <CustomerNumber i:nil="true" />
+            <ReferenceNumber>RN02</ReferenceNumber>
+            <OEMPONumber>PO02</OEMPONumber>
+            <OEMLineItemNumber>0</OEMLineItemNumber>
+            <MSOrderNumber i:nil="true" />
+            <MSLineNumber>0</MSLineNumber>
+            <ContractNumber>1234567890</ContractNumber>
+            <Quantity>0</Quantity>
+            <OrderTypeID>6</OrderTypeID>
+            <LicensablePartNumber>FSC-00024</LicensablePartNumber>
+            <SKUID>12111</SKUID>
+            <BeginningProductKeyID>0</BeginningProductKeyID>
+            <EndingProductKeyID>0</EndingProductKeyID>
+          </TransferKey>
+        </Keys>
+      </TransferKeyRequest>
+    </Service>
+    <Service Name="SyncAllocatedKeys" Method="POST" Request="KeysArray" Url="/Keys/SyncAllocated"></Service>
+  </Group>
+</WebServices>

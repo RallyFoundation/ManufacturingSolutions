@@ -1,0 +1,56 @@
+﻿<Window
+    x:Uid="wndLogin" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    xmlns:ctrl="clr-namespace:DIS.Presentation.KMT.Controls"
+    x:Class="DIS.Presentation.KMT.LoginWindow"
+    xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+    xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+    x:Name="Window"
+    Title="{Binding LoginTitle}" 
+    Width="480" Height="345" ResizeMode="CanMinimize" 
+    xmlns:my="clr-namespace:DIS.Presentation.KMT" 
+    WindowStartupLocation="CenterScreen" 
+     Loaded="Window_Loaded"
+    >
+    <Grid x:Uid="grdRoot"
+                Behaviors:BusyIndicator.BusyState="{Binding IsBusy}"
+                Behaviors:BusyIndicator.AddMargins="True"              
+                Behaviors:BusyIndicator.ProcessingText="Loading"
+                Behaviors:BusyIndicator.TargetVisual="{Binding ElementName=grdRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="130"/>
+            <RowDefinition  Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Style="{StaticResource RectRootSty}"/>
+        <Rectangle Style="{StaticResource RectLoginRootSty}" Grid.Row="0"></Rectangle>
+        <Grid x:Uid="grdUserInfo" x:Name="grdUserInfo" Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="auto" x:Name="row01GrdUserInfo"/>
+                <RowDefinition  Height="auto"/>
+                <RowDefinition  Height="auto"/>
+                <RowDefinition  Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="2*"/>
+                <ColumnDefinition  Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Uid="lblCustomer" x:Name="lblCustomer" Content="{x:Static res:MergedResources.DISConfigurationCloud_Customers}" Style="{DynamicResource LblBoldSty}"/>
+            <Label x:Uid="lblUserName" Content="{x:Static res:MergedResources.Common_LoginId}" Grid.Row="1" Style="{DynamicResource LblBoldSty}"/>
+            <Label x:Uid="lblPassword" Content="{x:Static res:MergedResources.Common_Password}" Grid.Row="2" Style="{DynamicResource LblBoldSty}"/>
+            <ComboBox x:Uid="comboBoxCustomers" x:Name="comboBoxCustomers" Margin="3" Grid.Column="1" DisplayMemberPath="Name" SelectedValuePath="ID"  Style="{DynamicResource CboLoginSty}" SelectionChanged="comboBoxCustomers_SelectionChanged" MouseDoubleClick="comboBoxCustomers_MouseDoubleClick"/>
+            <Label x:Uid="lblNewCustomer" x:Name="lblNewCustomer" Margin="3" Grid.Column="1" Visibility="Collapsed">
+                <Hyperlink x:Uid="hyperLinkNewCustomer" x:Name="hyperLinkNewCustomer" Command="{Binding NewCustomerCommand}" TargetName="_blank" Foreground="{Binding NotificationColor}">
+                    <Run Text="{x:Static res:MergedResources.DISConfigurationCloud_NewCustomer}" />
+                </Hyperlink>
+            </Label>
+            <TextBox x:Uid="txtUserName" x:Name="txtUserName" Margin="3"  Grid.Column="1" Grid.Row="1" Text="{Binding LoginId, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" Focusable="True" TabIndex="0" IsTabStop="True" Style="{DynamicResource TxtNormalSty}"/>
+            <PasswordBox x:Uid="pwdPwd" x:Name="pwdPwd"  Margin="3" Grid.Column="1" Grid.Row="2" ctrl:PasswordBoxAssistant.BindPassword="true" ctrl:PasswordBoxAssistant.BoundPassword="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" TabIndex="1" IsTabStop="True" DataContext="{Binding}" Style="{DynamicResource PwdNormalSty}"/>
+            <Button x:Uid="btnLogin" x:Name="btnLogin" Content="{x:Static res:MergedResources.Common_Login}" Margin="0,15,0,0" Grid.Row="3" Grid.Column="1" Command="{Binding LoginCommand}" TabIndex="2" IsDefault="True" Style="{DynamicResource BtnNormalSty}"/>
+            <Button x:Uid="btnCancel"  Content="{x:Static res:MergedResources.Common_Cancel}" Margin="116,15,0,0" Grid.Row="3" Grid.Column="1" IsCancel="True" Command="{Binding CancelCommand}" TabIndex="3" Style="{DynamicResource BtnNormalSty}"/>
+        </Grid>
+        <Label x:Uid="lblTitle" Content="{x:Static res:MergedResources.Common_KMT}" Style="{DynamicResource LoginTitleLblSty}"/>
+    </Grid>
+</Window>

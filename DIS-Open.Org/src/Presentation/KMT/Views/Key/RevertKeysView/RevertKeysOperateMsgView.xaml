@@ -1,0 +1,46 @@
+﻿<Page
+    x:Uid="pgOperateMsg"
+    x:Class="DIS.Presentation.KMT.RevertKeysView.RevertKeysOperateMsgView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      Title="{x:Static res:MergedResources.Revert_ReasonPageTit}" 
+    Width="auto"
+   Height="auto"
+	>
+
+    <Grid x:Uid="grdRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="30"/>
+            <RowDefinition  Height="30"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label x:Uid="lblTitle"  Content="{x:Static res:MergedResources.RevertKey_SelectedTxt}" Style="{StaticResource LblBoldTitleSty}" Grid.Row="1"/>
+        <DataGrid x:Uid="dgKeys" 
+                  Grid.Row="2" 
+                  Height="170"
+                  HorizontalAlignment="Stretch"
+                  Style="{StaticResource DgNormalSty}" BorderThickness="1"
+                  ItemsSource="{Binding Keys}"  Margin="0,20,0,0"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn  Width="30*" Binding="{Binding keyInfo.KeyId}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}" IsReadOnly="True"/>
+                <DataGridTextColumn  Width="55*" Binding="{Binding keyInfo.ProductKey}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}" IsReadOnly="True"/>
+                <DataGridTextColumn  Width="20*" Binding="{Binding keyInfo.KeyState}" Header="{x:Static res:MergedResources.Common_ColumnHeaderKeyStatus}" IsReadOnly="True"/>
+                <DataGridTextColumn  Width="35*" Binding="{Binding keyInfo.LicensablePartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderLicensablePartNumber}" IsReadOnly="True"/>
+                <DataGridTextColumn  Width="35*" Binding="{Binding keyInfo.OemPartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPartNumber}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel x:Uid="stpnote" Orientation="Horizontal"  Grid.Row="3" Margin="0,20,0,0" Visibility="{Binding Path=ReNoteVisibility,Converter={StaticResource boolToVis}}">
+            <Label x:Uid="lblReason" Content="{x:Static res:MergedResources.RevertKey_ReasonTxt}" Style="{StaticResource LblBoldTitleSty}"/>
+            <Label x:Uid="lblrevertNote"  Content="{x:Static res:MergedResources.Revert_ReasonNote}" Style="{StaticResource LblNormalSty}" FontSize="11"  FontStyle="Italic" Foreground="Red"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="0,5,0,0" Grid.Row="4">
+            <TextBox x:Uid="txtReason" Height="120" x:Name="txt_operateMsg" Text="{Binding OperateMsg}" Style="{StaticResource MultiLineTxtSty}" AllowDrop="True" MaxLength="200"/>
+        </StackPanel>
+    </Grid>
+</Page>

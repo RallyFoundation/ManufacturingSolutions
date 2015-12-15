@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_SaveFileTitle" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Common_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="Common_XmlFilter" xml:space="preserve">
+    <value>txt files (*.xml)|*.xml</value>
+  </data>
+  <data name="ExportKeysViewModel_FinishTxt" xml:space="preserve">
+    <value>成功导出 {0} 个密钥</value>
+  </data>
+  <data name="ExportKey_Encryptselect" xml:space="preserve">
+    <value>加密</value>
+  </data>
+  <data name="ExportKey_FileKeysTitle" xml:space="preserve">
+    <value>日志明细</value>
+  </data>
+  <data name="ExportKey_SelectSingle" xml:space="preserve">
+    <value>一次只能导出一个文件。</value>
+  </data>
+  <data name="ImportKey_RbKeytxt" xml:space="preserve">
+    <value>导入密钥</value>
+  </data>
+  <data name="MainWindow_MarkAsFulfilled" xml:space="preserve">
+    <value>Revert 密钥</value>
+  </data>
+  <data name="MainWindow_Recall" xml:space="preserve">
+    <value>Recall 密钥</value>
+  </data>
+  <data name="MainWindow_RecallKeys" xml:space="preserve">
+    <value>Recall 密钥</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_HadleIgnoreKeys" xml:space="preserve">
+    <value>成功忽略 {0} 个密钥。</value>
+  </data>
+  <data name="RecallKeysViewModel_NotSelectKeys" xml:space="preserve">
+    <value>请选择要 Recall 的密钥</value>
+  </data>
+  <data name="RecallKeysViewModel_RecallKeysResult" xml:space="preserve">
+    <value>成功 Recall {0} 个密钥。</value>
+  </data>
+  <data name="RecallKeysViewModel_TxtRecallLog" xml:space="preserve">
+    <value>{0} 个 Recalled 密钥。</value>
+  </data>
+  <data name="Common_Diagnostic" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="MarkFulfilledKeys_WindowTitle" xml:space="preserve">
+    <value>Revert 密钥</value>
+  </data>
+  <data name="SummaryView_MarkFulfilledPrompt" xml:space="preserve">
+    <value>Revert 汇总：</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportDuplicateCBRTxt" xml:space="preserve">
+    <value>导出重复 CBR</value>
+  </data>
+  <data name="MainWindow_RemoveUser" xml:space="preserve">
+    <value>删除用户</value>
+  </data>
+  <data name="ExportKey_NonEncryptMsg" xml:space="preserve">
+    <value>未加密的导出存在安全风险，确定么？</value>
+  </data>
+  <data name="Common_ColumnHeaderCustomerName" xml:space="preserve">
+    <value>客户名称</value>
+  </data>
+  <data name="Common_ColumnHeaderCustomerNumber" xml:space="preserve">
+    <value>客户编号</value>
+  </data>
+  <data name="Common_ColumnHeaderType" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="WebServiceHostOrPortInvalid" xml:space="preserve">
+    <value>Web 服务无法连接。</value>
+  </data>
+  <data name="Diagnostic_InternalConnection" xml:space="preserve">
+    <value>连接到内部 WEB 服务</value>
+  </data>
+  <data name="Diagnostic_MicrosoftConnection" xml:space="preserve">
+    <value>连接到 Microsoft WEB 服务</value>
+  </data>
+  <data name="Diagnostic_Title" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="Diagnostic_ULSConnection" xml:space="preserve">
+    <value>连接到上级系统</value>
+  </data>
+  <data name="Common_Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Common_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Diagnostic_Test" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="Diagnostic_TestingInternal" xml:space="preserve">
+    <value>测试连接到内部 WEB 服务 ...</value>
+  </data>
+  <data name="Diagnostic_TestingMicrosoft" xml:space="preserve">
+    <value>测试连接到 Microsoft WEB 服务 ...</value>
+  </data>
+  <data name="Diagnostic_TestingULS" xml:space="preserve">
+    <value>测试连接到上级系统 ...</value>
+  </data>
+  <data name="ExportKeys_ExportDuplicateCBR" xml:space="preserve">
+    <value>请选择重复的 CBR</value>
+  </data>
+  <data name="CommonDate_To" xml:space="preserve">
+    <value>Fulfilled 日期到</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeySuccess" xml:space="preserve">
+    <value>成功获取 {0} 个密钥。</value>
+  </data>
+  <data name="KeyManagementViewModel_NoKeyGet" xml:space="preserve">
+    <value>没有可用的密钥。</value>
+  </data>
+  <data name="UpLevelSystemViewModel_SavingConfirm" xml:space="preserve">
+    <value>您确定要更新上级系统设置么？</value>
+  </data>
+  <data name="Exception_GetprivateKeyError" xml:space="preserve">
+    <value>证书错误，请联系管理员。</value>
+  </data>
+  <data name="Exception_ImportFileInvalid" xml:space="preserve">
+    <value>文件格式无效，请检查。</value>
+  </data>
+  <data name="Exception_PermissionsMsg" xml:space="preserve">
+    <value>权限错误，请以管理员身份运行。</value>
+  </data>
+  <data name="ImportKey_FileNotExists" xml:space="preserve">
+    <value>未找到文件</value>
+  </data>
+  <data name="Common_ColumnHeaderAckFileDate" xml:space="preserve">
+    <value>Ack 文件日期</value>
+  </data>
+  <data name="Common_ColumnHeaderShipTo" xml:space="preserve">
+    <value>寄送到</value>
+  </data>
+  <data name="Common_ColumnHeaderSoldTo" xml:space="preserve">
+    <value>销售到</value>
+  </data>
+  <data name="AssignKeysViewModel_AssignKeysLog" xml:space="preserve">
+    <value>成功分配 {0} 密钥</value>
+  </data>
+  <data name="Exception_CertificateNotFound" xml:space="preserve">
+    <value>未找到证书！</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportKey" xml:space="preserve">
+    <value>重新导出密钥</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportOA3Key" xml:space="preserve">
+    <value>导出密钥到 OA3Tool </value>
+  </data>
+  <data name="ExportKey_FileLocation" xml:space="preserve">
+    <value>文件位置：</value>
+  </data>
+  <data name="CreateUserViewModel_RequriedLoginId" xml:space="preserve">
+    <value>{0} 必填!</value>
+  </data>
+  <data name="CreateUserViewModel_WrongEmailFormat" xml:space="preserve">
+    <value>{0} 无效格式！</value>
+  </data>
+  <data name="CreateUserViewModel_WrongPhoneNumber" xml:space="preserve">
+    <value>{0} 无效格式！</value>
+  </data>
+  <data name="Common_ColumnHeaderPassword" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Common_ColumnHeaderPhone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="ReportKeysViewModel_ReportKeysTitle" xml:space="preserve">
+    <value>上报密钥</value>
+  </data>
+  <data name="Common_InternalErrorFormat" xml:space="preserve">
+    <value>内部 WEB 服务错误：{0}。</value>
+  </data>
+  <data name="ExportKey_LimitQualityMsg" xml:space="preserve">
+    <value>导出数量应在5000以内。</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportDuplicateCBRTxt" xml:space="preserve">
+    <value>导入重复 CBR</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateCBRsMessage" xml:space="preserve">
+    <value>你有 {0} 个重复的 CBR</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportDuplicatedCBRTxt" xml:space="preserve">
+    <value>导入 {0} 个重复 CBR</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportCBRTxt" xml:space="preserve">
+    <value>导出 CBR</value>
+  </data>
+  <data name="ImportKey_SourceFromError" xml:space="preserve">
+    <value>文件来源错误，请检查。</value>
+  </data>
+</root>

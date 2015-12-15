@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="ja-jp" Codepage="932" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <!-- _locID@Culture="en-US" _locComment="American English" -->
+    <!-- _locID@Codepage="1252" _locComment="Windows-1252" -->
+    <!--         Copyright (c) Microsoft Corporation.  All rights reserved.          The use and distribution terms for this software are covered by the         Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)         which can be found in the file CPL.TXT at the root of this distribution.         By using this software in any fashion, you are agreeing to be bound by         the terms of this license.              You must not remove this notice, or any other, from this software.     -->
+    <String Id="InstallationModeDlgTitle" Overridable="yes">インスト `ル モ `ド</String>
+    <String Id="InstallationModeDlgDescription" Overridable="yes">TPI インスタンスのインスト `ルモ `ドを x kしてください.</String>
+    <String Id="InstanceModeInput" Overridable="yes">インスタンス モ `ド:</String>
+
+  <String Id="UninstallR5_0" Overridable="yes">以下の手順に従ってください:</String>
+  <String Id="UninstallR5_1" Overridable="yes">1. R5 をアンインストールします。</String>
+  <String Id="UninstallR5_2" Overridable="yes">2. R5 データベースを手動で削除します。</String>
+  <String Id="UninstallR5_3" Overridable="yes">3. R6 をインストールします。</String><String Id="NeedUpgradePatch" Overridable="yes">まず DIS アップグレード パッチを実行する必要があります。</String>
+    <String Id="DatabaseExists" Overridable="yes">データベースはすでに存在します。</String>
+
+    <String Id="KMTConfigDescription" Overridable="yes">構成</String>
+    <String Id="KMTConfigCustomNumberDesc" Overridable="yes">OEM提供</String>
+    <String Id="KMTDBConfigDescription" Overridable="yes">データベース構成</String>
+
+    <String Id="IisConfigurationTitle" Overridable="yes">IIS構成</String>
+    <String Id="IisConfigurationDescription" Overridable="yes">Webサービスのセットアップ</String>
+    <String Id="Port" Overridable="yes">ポート</String>
+    <String Id="ExternalWebServicePortInput" Overridable="yes">外部Webサービスポート:</String>
+    <String Id="InternalWebServicePortInput" Overridable="yes">内部Webサービスポート:</String>
+
+    <String Id="InstallTypeDlgTitle" Overridable="yes">インストールタイプ構成</String>
+    <String Id="InstallTypeDlgDescription" Overridable="yes">インストールタイプを構成します。</String>
+    <String Id="InstallTypeLabel" Overridable="yes">インストールタイプ:</String>
+    <String Id="CustomerConfigurationDescription" Overridable="yes">カスタマ番号:</String>
+
+    <String Id="DbConfigurationTitle" Overridable="yes">データベース構成</String>
+    <String Id="DbConfigurationDescription" Overridable="yes">データベース接続を構成します。</String>
+    <String Id="AuthTypeInput" Overridable="yes">認証タイプ:</String>
+    <String Id="InstanceNameInput" Overridable="yes">SQLインスタンス名:</String>
+    <String Id="DatabaseNameInput" Overridable="yes">データベース名:</String>
+    <String Id="UsernameInput" Overridable="yes">ユーザー名:</String>
+    <String Id="PasswordInput" Overridable="yes">パスワード:</String>
+    <String Id="Warning" Overridable="yes">警告</String>
+    <String Id="DbConnectionFailure" Overridable="yes">データベース接続の障害。</String>
+    <String Id="NoFeatureSelected" Overridable="yes">少なくとも1つのインストールを選択してください。</String>
+    <String Id="OK" Overridable="yes">OK</String>
+
+    <String Id="CloudConfigurationTitle" Overridable="yes">DIS Configuration Cloud Settings</String>
+    <String Id="CloudConfigurationDescription" Overridable="yes">Configure to connect to DIS Configuration Cloud</String>
+    <String Id="CloudServicePointInput" Overridable="yes">Service Point:</String>
+    <String Id="CloudHttpPortNumberInput" Overridable="yes">HTTP Port Number:</String>
+    <String Id="CloudDatabaseBackupLocationInput" Overridable="yes">Database Backup Location:</String>
+    <String Id="CloudConfigurationMetaCachingPolicy" Overridable="yes">Configuration Meta Caching Policy:</String>
+    <String Id="CloudConfigurationMetaCachingPolicyRemoteOnly" Overridable="yes">Always use meta from cloud.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyMergedAll" Overridable="yes">Use meta from both cloud and local cache.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyLocalOnly" Overridable="yes">Only use meta from local cache.</String>
+    <String Id="CloudConnectionFailureErrorMessage" Overridable="yes">The connection to DIS Configuration Cloud with the specified value is invalid. Please double confirm your input.</String>
+  
+    <String Id="RequireNetFramework40" Overridable="yes">[ProductName] は .NET Framework 4.0を必要とします。.NET Framework 4.0をインストールしてから、再びインストーラーを実行してください。</String>
+    <String Id="RequireSqlServer2008R2" Overridable="yes">[ProductName] は SQL Server 2008 R2をインストールしていることが必要です。SQL Server 2008 R2をインストールしてから、再びインストーラーを実行してください。</String>
+    <String Id="RequireSystem" Overridable="yes">[ProductName] は、Windows Vista、Windows 7、Windows Server 2008、またはそれ以上のみでサポートされています。</String>
+    <String Id="RequireIIS" Overridable="yes">Internet Information Serverに接続できません。</String>
+    <String Id="RequireVcRedist" Overridable="yes">[ProductName] は Visual C++ 2010 Redistributable Packageを必要とします。</String>
+
+    <String Id="DowngradeErrMessage" Overridable="yes">新しいバージョンのインストーラーがすでにインストールされています。</String>
+
+    <String Id="AliasConfigurationTitle" Overridable="yes">エイリアス構成</String>
+    <String Id="AliasConfigurationDescription" Overridable="yes">エイリアス名を入力してください。</String>
+    <String Id="AliasConfigurationText" Overridable="yes">エイリアス:</String>
+
+    <String Id="msierrIISCannotConnect" Overridable="yes">Internet Information Serverに接続できません。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSite" Overridable="yes">Webサイトを処理する間に障害が発生しました。   ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebDirs" Overridable="yes">WebDirsを処理する間に障害が発生しました。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadVDirs" Overridable="yes">WebVirtualDirsを処理する間に障害が発生しました。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadFilters" Overridable="yes">WebFiltersを処理する間に障害が発生しました。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadMimeMap" Overridable="yes">MemeMapsを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadAppPool" Overridable="yes">WebAppPoolsを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadProp" Overridable="yes">WebPropertiesを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSvcExt" Overridable="yes">WebServiceExtensionsを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebError" Overridable="yes">WebErrorsを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadHttpHeader" Overridable="yes">HttpHeadersを処理する間に障害が発生しました。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedTransaction" Overridable="yes">IISの変更のためのトランザクションをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebs" Overridable="yes">IIS Webサイトのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebDirs" Overridable="yes">IIS Webディレクトリのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallVDirs" Overridable="yes">IIS 仮想ディレクトリのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallFilters" Overridable="yes">IIS フィルタのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallAppPool" Overridable="yes">IIS AppPoolsのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallProp" Overridable="yes">IIS プロパティのインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebSvcExt" Overridable="yes">IIS Webサービス拡張のインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebs" Overridable="yes">IIS Webサイトのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebDirs" Overridable="yes">IIS Webディレクトリのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallVDirs" Overridable="yes">IIS 仮想ディレクトリのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallFilters" Overridable="yes">IIS フィルタのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallAppPool" Overridable="yes">IIS AppPoolsのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallProp" Overridable="yes">IIS プロパティのアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebSvcExt" Overridable="yes">IIS Webサービス拡張のアンインストールをスケジュールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedStartTransaction" Overridable="yes">IISトランザクションを開始できませんでした。 ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedOpenKey" Overridable="yes">メタベースキーを開けませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateKey" Overridable="yes">メタベースキーを作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedWriteData" Overridable="yes">メタベースキーにデータを書き込めませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateApp" Overridable="yes">Webアプリケーションを作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteKey" Overridable="yes">メタベースキーを削除できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteValue" Overridable="yes">メタベース値を削除できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCommitInUse" Overridable="yes">共有違反のため、IISトランザクションをコミットできませんでした。その他のアプリケーションがIISを構成している可能性があります。</String>
+    <String Id="ConfigureIIs" Overridable="yes">IISの構成</String>
+    <String Id="ConfigureIIsExec" Overridable="yes">IIS構成の実行</String>
+    <String Id="StartMetabaseTransaction" Overridable="yes">IISメタベーストランザクションの開始</String>
+    <String Id="RollbackMetabaseTransaction" Overridable="yes">IISメタベーストランザクションのロールバック</String>
+    <String Id="CommitMetabaseTransaction" Overridable="yes">IISメタベーストランザクションのコミット</String>
+    <String Id="WriteMetabaseChanges" Overridable="yes">メタベースキーと値のインストール</String>
+    <String Id="ConfigureIIs7Exec" Overridable="yes">IISの構成</String>
+    <String Id="StartIIS7ConfigTransaction" Overridable="yes">IIS構成トランザクションの開始</String>
+    <String Id="RollbackIIS7ConfigTransaction" Overridable="yes">IIS構成トランザクションのロールバック</String>
+    <String Id="CommitIIS7ConfigTransaction" Overridable="yes">IIS構成トランザクションのコミット</String>
+    <String Id="WriteIIS7ConfigChanges" Overridable="yes">構成キーと値のインストール</String>
+
+    <String Id="msierrFirewallCannotConnect" Overridable="yes">Windowsファイアウォールに接続できません。  ([2]   [3]   [4]   [5])</String>
+    <String Id="WixSchedFirewallExceptionsInstall" Overridable="yes">Windowsファイアウォールの構成</String>
+    <String Id="WixSchedFirewallExceptionsUninstall" Overridable="yes">Windowsファイアウォールの構成</String>
+    <String Id="WixRollbackFirewallExceptionsInstall" Overridable="yes">Windowsファイアウォール構成のロールバック</String>
+    <String Id="WixExecFirewallExceptionsInstall" Overridable="yes">Windowsファイアウォール構成のインストール</String>
+    <String Id="WixRollbackFirewallExceptionsUninstall" Overridable="yes">Windowsファイアウォール構成のロールバック</String>
+    <String Id="WixExecFirewallExceptionsUninstall" Overridable="yes">Windowsファイアウォール構成のアンインストール</String>
+
+    <String Id="msierrUSRFailedUserCreate" Overridable="yes">ユーザーを作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreatePswd" Overridable="yes">パスワードが無効であるため、ユーザーを作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserGroupAdd" Overridable="yes">グループにユーザーを追加できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreateExists" Overridable="yes">ユーザーがすでに存在するため、ユーザーを作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedCreate" Overridable="yes">ネットワーク共有を作成できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedDrop" Overridable="yes">ネットワーク共有をドロップできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedRegisterDLL" Overridable="yes">PerfMonでDLLを登録できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedUnregisterDLL" Overridable="yes">PerfMonでDLLを登録解除できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrInstallPerfCounterData" Overridable="yes">パフォーマンスカウンタをインストールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUninstallPerfCounterData" Overridable="yes">パフォーマンスカウンタをアンインストールできませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSecureObjectsFailedCreateSD" Overridable="yes">[3]\[4]のセキュリティ記述子を作成できませんでした、システムエラー: [2]</String>
+    <String Id="msierrSecureObjectsFailedSet" Overridable="yes">オブジェクト[3]のセキュリティ記述子を作成できませんでした、システムエラー: [2]</String>
+    <String Id="msierrSecureObjectsUnknownType" Overridable="yes">不明なオブジェクトタイプ[3]、システムエラー: [2]</String>
+    <String Id="msierrXmlFileFailedRead" Overridable="yes">XMLファイルの構成中に障害がありました。</String>
+    <String Id="msierrXmlFileFailedOpen" Overridable="yes">XMLファイル[3]を開けませんでした、システムエラー: [2]</String>
+    <String Id="msierrXmlFileFailedSelect" Overridable="yes">ノードが見つかりませんでした:XMLファイルの[3]:[4]、システムエラー: [2]</String>
+    <String Id="msierrXmlFileFailedSave" Overridable="yes">XMLファイル[3]の変更を保存できませんでした、システムエラー: [2]</String>
+    <String Id="msierrXmlConfigFailedRead" Overridable="yes">XMLファイルの構成中に障害がありました。</String>
+    <String Id="msierrXmlConfigFailedOpen" Overridable="yes">XMLファイル[3]を開けませんでした、システムエラー: [2]</String>
+    <String Id="msierrXmlConfigFailedSelect" Overridable="yes">ノードが見つかりませんでした:XMLファイルの[3]:[4]、システムエラー: [2]</String>
+    <String Id="msierrXmlConfigFailedSave" Overridable="yes">XMLファイル[3]の変更を保存できませんでした、システムエラー: [2]</String>
+
+    <String Id="msierrSQLFailedCreateDatabase" Overridable="yes">エラー[2]:SQLデータベースを作成できませんでした:[3]、エラー詳細: [4].</String>
+    <String Id="msierrSQLFailedDropDatabase" Overridable="yes">エラー[2]:SQLデータベースをドロップできませんでした:[3]、エラー詳細: [4].</String>
+    <String Id="msierrSQLFailedConnectDatabase" Overridable="yes">SQLデータベースに接続できませんでした。  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSQLFailedExecString" Overridable="yes">エラー[2]:SQL文字列を実行できませんでした、エラー詳細:[3]、SQLキー:[4]、SQL文字列: [5]</String>
+    <String Id="msierrSQLDatabaseAlreadyExists" Overridable="yes">データベース[3]はすでに存在しています。続行しますか?</String>
+
+    <String Id="ConfigureSql" Overridable="yes">SQL Serverの構成</String>
+    <String Id="CreateDatabase" Overridable="yes">データベースの作成</String>
+    <String Id="DropDatabase" Overridable="yes">データベースのドロップ</String>
+    <String Id="ExecuteSqlStrings" Overridable="yes">SQL文字列の実行</String>
+    <String Id="RollbackExecuteSqlStrings" Overridable="yes">SQL文字列のロールバック</String>
+    <String Id="CertAccount" Overridable="yes">Microsoftの証明書をインストールしたアカウントを使ってください。</String>
+</WixLocalization>

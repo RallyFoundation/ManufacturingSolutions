@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'
+     xmlns:sql='http://schemas.microsoft.com/wix/SqlExtension'>
+
+
+  <Fragment>
+    <util:User Id='SQLUser' Name='[USERNAME]' Password='[PASSWORD]' />
+    <CustomAction Id='ConnectDbAction' BinaryKey='ConnectDbBinary' DllEntry='ConnectDatabase' />
+    <CustomAction Id='ConnectDbOnInitAction' BinaryKey='ConnectDbBinary' DllEntry='ConnectDatabaseOnInit' />
+    <Binary Id='CreateTable' SourceFile='..\Resources\KeyStore.sql' />
+    <Binary Id='InitData' SourceFile='..\Resources\InitFF.sql' />
+    <Binary Id='LocalService' SourceFile='..\Resources\LocalService.sql' />
+    <Binary Id='Migrate' SourceFile='..\Resources\MigrateToRTM_1_3.sql'></Binary>
+
+    <Component Id='CreateDB_WinAuth' Guid='{DDA6D501-6F92-4329-A91E-0AED01E16AC5}' Directory='INSTALLLOCATION'>
+      <Condition><![CDATA[PREVIOUSVERSIONSINSTALLED = "" AND AUTHTYPE="1"]]></Condition>
+      <sql:SqlDatabase Id='SqlDatabaseWinAuth' Database='[DATABASENAME]' Server='[SERVERNAME]'
+        CreateOnInstall='yes' DropOnUninstall='no' ContinueOnError='no' ConfirmOverwrite='no'>
+        <sql:SqlScript Id='CreateTableWinAuth' BinaryKey='CreateTable' ExecuteOnInstall='yes' Sequence="1"/>
+        <sql:SqlScript Id='InitDataWinAuth' BinaryKey='InitData' ExecuteOnInstall='yes' Sequence="2"/>
+        <sql:SqlScript Id='LocalService' BinaryKey='LocalService' ExecuteOnInstall='yes' Sequence="3"/>
+      </sql:SqlDatabase>
+      <CreateFolder/>
+    </Component>
+
+    <Component Id='CreateDB_SqlAuth' Guid='{BB0FF3F6-B4CB-429B-93CC-BE9DE6A16719}' Directory='INSTALLLOCATION'>
+      <Condition><![CDATA[PREVIOUSVERSIONSINSTALLED = "" AND AUTHTYPE="2"]]></Condition>
+      <sql:SqlDatabase Id='SqlDatabaseSQLAuth' User='SQLUser' Database='[DATABASENAME]' Server='[SERVERNAME]'
+        CreateOnInstall='yes' DropOnUninstall='no' ContinueOnError='no' ConfirmOverwrite='no'>
+        <sql:SqlScript Id='CreateTableSQLAuth' BinaryKey='CreateTable' ExecuteOnInstall='yes' Sequence="1"/>
+        <sql:SqlScript Id='InitDataSQLAuth' BinaryKey='InitData' ExecuteOnInstall='yes' Sequence="2"/>
+      </sql:SqlDatabase>
+      <CreateFolder/>
+    </Component>
+
+    <Component Id='UpgradeDB_WinAuth' Guid='{DDA6D501-6F92-4329-A91E-0AED01E16AC6}' Directory='INSTALLLOCATION'>
+      <Condition><![CDATA[PREVIOUSVERSIONSINSTALLED <> "" AND AUTHTYPE="1"]]></Condition>
+      <sql:SqlDatabase Id='UpgradeSqlDatabaseWinAuth' Database='[DATABASENAME]' Server='[SERVERNAME]'
+                       CreateOnInstall='yes'>
+        <sql:SqlScript Id='MigrateWinAuth' BinaryKey='Migrate' ExecuteOnInstall='yes' Sequence="1"/>
+      </sql:SqlDatabase>
+      <CreateFolder/>
+    </Component>
+
+    <Component Id='UpgradeDB_SqlAuth' Guid='{BB0FF3F6-B4CB-429B-93CC-BE9DE6A16720}' Directory='INSTALLLOCATION'>
+      <Condition><![CDATA[PREVIOUSVERSIONSINSTALLED <> "" AND AUTHTYPE="2"]]></Condition>
+      <sql:SqlDatabase Id='UpgradeSqlDatabaseSQLAuth' User='SQLUser' Database='[DATABASENAME]' Server='[SERVERNAME]'
+        CreateOnInstall='yes' DropOnUninstall='no' ContinueOnError='no' ConfirmOverwrite='no'>
+        <sql:SqlScript Id='MigrateSQLAuth' BinaryKey='Migrate' ExecuteOnInstall='yes' Sequence="1"/>
+      </sql:SqlDatabase>
+      <CreateFolder/>
+    </Component>
+
+  </Fragment>
+</Wix>

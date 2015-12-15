@@ -1,0 +1,79 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:DIS" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.OperationLogView"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="auto" Height="auto">
+
+	<Page.Resources>
+		<Style x:Key="FilterButtonStype" TargetType="{x:Type Button}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<StackPanel x:Name="stackPanel">
+							<Image x:Name="image" Height="45" Source="/DIS;component/icons/search.png"/>
+							<Label x:Name="label" Content="Filter" HorizontalAlignment="Center"/>
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentSource=""/>
+						</StackPanel>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsFocused" Value="True"/>
+							<Trigger Property="IsDefaulted" Value="True"/>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="OpacityMask" TargetName="image" Value="Gray"/>
+								<Setter Property="Width" TargetName="image" Value="50"/>
+								<Setter Property="Height" TargetName="image" Value="50"/>
+								<Setter Property="Background" TargetName="label" Value="{x:Null}"/>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True"/>
+							<Trigger Property="IsEnabled" Value="False"/>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Page.Resources>
+	
+	<Grid Background="#FFE5E5E5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="75"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="0.5*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="0.5*"/>
+		</Grid.RowDefinitions>
+		<Label Content="Operation Log View" HorizontalAlignment="Left" Grid.Row="1" Width="172.63" FontWeight="Bold" VerticalAlignment="Center" d:IsLocked="True"/>
+		<Rectangle Fill="#FF999999" Stroke="Black" Grid.Row="1" Panel.ZIndex="-1" StrokeThickness="0" d:IsLocked="True"/>
+		<local:Pager HorizontalAlignment="Right" Grid.Row="1" FontSize="10.667" Width="367.089" VerticalAlignment="Center" d:IsLocked="True"/>
+		<Grid d:IsLocked="True"/>
+		<Rectangle Fill="#FF999999" Stroke="Black" Grid.Row="3" Panel.ZIndex="-1" StrokeThickness="0" d:IsLocked="True"/>
+		<Label Content="Log Details" HorizontalAlignment="Left" Grid.Row="3" Width="172.63" FontWeight="Bold" VerticalAlignment="Center" d:IsLocked="True"/>
+		<Grid Grid.Row="2"/>
+		<TextBlock TextWrapping="Wrap" Text="TextBlock" Grid.Row="4"/>
+		<StackPanel Grid.Row="0">
+			<Grid Height="75" VerticalAlignment="Center" HorizontalAlignment="Left" Width="421">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="0.09*"/>
+					<ColumnDefinition Width="0.406*"/>
+					<ColumnDefinition Width="0.304*"/>
+					<ColumnDefinition Width="0.2*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="0.319*"/>
+					<RowDefinition Height="0.362*"/>
+					<RowDefinition Height="0.319*"/>
+				</Grid.RowDefinitions>
+				<Button Content="Button" Grid.Column="3" Grid.RowSpan="3" FontSize="10.667" Margin="15,0,0,0" HorizontalAlignment="Left" Style="{DynamicResource FilterButtonStype}"/>
+				<Label Content="Record in timeframe" d:LayoutOverrides="Height" Grid.ColumnSpan="2" FontSize="10.667" FontWeight="Bold"/>
+				<Label Content="User Name" d:LayoutOverrides="Width" Grid.Column="2" FontSize="10.667" FontWeight="Bold" Margin="8,0,2,0"/>
+				<Label Content="From" Grid.Row="1" FontSize="10.667" HorizontalContentAlignment="Right"/>
+				<Label Content="To" Grid.Row="2" Margin="0,0,0,-3.225" FontSize="10.667" HorizontalContentAlignment="Right"/>
+				<DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="1,1,0,1" Grid.Row="1" Width="167.4"/>
+				<DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="1,0,0,1" Grid.Row="2" Width="167.4"/>
+				<TextBox Margin="8,2" TextWrapping="Wrap" Text="TextBox" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" Width="117.984" FontSize="10.667"/>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Page>

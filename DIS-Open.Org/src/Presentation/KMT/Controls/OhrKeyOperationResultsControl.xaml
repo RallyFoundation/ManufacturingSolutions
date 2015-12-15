@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="DIS.Presentation.KMT.Controls.OhrKeyOperationResultsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties">
+    <Grid>
+        <Grid.RowDefinitions>            
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label x:Uid="lblSummary" Content="{Binding SummaryText}" Grid.Row="0" Style="{StaticResource LblNormalSty}"/>
+        <DataGrid x:Uid="dgAssignedKeys" 
+                  Margin="0,10,0,0"
+                  Grid.Row="2"
+                  HorizontalAlignment="Stretch"
+                  ItemsSource="{Binding KeyOperationResults,UpdateSourceTrigger=PropertyChanged}" 
+                  Height="230"  
+                  Style="{StaticResource DgNormalSty}">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Binding="{Binding Key.KeyId}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}"  IsReadOnly="True" />
+                <DataGridTextColumn  Binding="{Binding Key.ProductKey}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}"  IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Key.ZFRM_FACTOR_CL1}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderFactor1}" IsReadOnly="True" SortMemberPath="ZFRM_FACTOR_CL1"/>
+                <DataGridTextColumn Binding="{Binding Key.ZFRM_FACTOR_CL2}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderFactor2}" IsReadOnly="True" SortMemberPath="ZFRM_FACTOR_CL2"/>
+                <DataGridTextColumn Binding="{Binding Key.ZSCREEN_SIZE}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderScreenSize}" IsReadOnly="True" SortMemberPath="ZSCREEN_SIZE"/>
+                <DataGridTextColumn Binding="{Binding Key.ZTOUCH_SCREEN, Converter={StaticResource touchScreenEnumConverter}}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderTouchScreen}" IsReadOnly="True" SortMemberPath="ZTOUCH_SCREEN"/>
+                <DataGridTextColumn Binding="{Binding Key.ZPC_MODEL_SKU}" Header="{x:Static res:MergedResources.EditOptionalInfo_ColumnHeaderPcModelSku}" IsReadOnly="True" SortMemberPath="ZPC_MODEL_SKU"/>
+                <DataGridTemplateColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderOperationResult}" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBlock x:Uid="txtFailed" Text="{Binding Failed, Converter={StaticResource OperationResultConverter}}" Foreground="{Binding Failed, Converter={StaticResource OperationResultColorConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

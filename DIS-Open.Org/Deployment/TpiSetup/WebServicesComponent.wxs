@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension"
+     xmlns:fw="http://schemas.microsoft.com/wix/FirewallExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" >
+  <Fragment>
+
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Directory Id="WebSerices" Name ="Web Services">
+        <Directory Id="ExternalWebService_RootDir" Name="External Web Service">
+          <Component Id="ExternalService_Root" Guid="{4711826E-9068-4943-92E0-3C4E64FD637E}">
+            <File Id="WebService.KeyBinding192" Name="KeyBinding.svc" Source="$(var.ProviderWebService.ProjectDir)KeyBinding.svc" />
+            <File Id="WebService.Web8415" Name="Web.config" Source="$(var.ProviderWebService.ProjectDir)Web.config" />
+            <File Id="ExternalWebService.Default" Name="Default.aspx" Source="$(var.ProviderWebService.ProjectDir)Default.aspx" />
+            <File Id="ExternalWebService.Global" Name="Global.asax" Source="$(var.ProviderWebService.ProjectDir)Global.asax" />
+            <util:XmlFile Id="ExternalWebService_InstallTypeStr"  Action="setValue" Permanent="yes" File="[ExternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='InstallType'[\]]" Name="value"  Value="[INSTALLTYPEVALUE]"   Sequence="1"  />
+            <util:XmlFile Id="ExternalWebService_ConfigurationCloudServicePoint"  Action="setValue" Permanent="yes" File="[ExternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudServerAddress'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_SERVER_ADDRESS]"  Sequence="2"  />
+            <util:XmlFile Id="ExternalWebService_ConfigurationCloudAuthHeader"  Action="setValue" Permanent="yes" File="[ExternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudAuthHeader'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_USERNAME]:[CONFIGURATION_CLOUD_PASSWORD]"   Sequence="3"  />
+            <util:XmlFile Id="ExternalWebService_CloudConfigCachePolicy"  Action="setValue" Permanent="yes" File="[ExternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCachePolicy'[\]]" Name="value"  Value="[CLOUD_CONFIG_CACHE_POLICY]"   Sequence="4"  />
+            <util:XmlFile Id="ExternalWebService_CloudConfigCacheStore"  Action="setValue" Permanent="yes" File="[ExternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCacheStore'[\]]" Name="value"  Value="[INSTALLLOCATION][CLOUD_CONFIG_CACHE_STORE]"   Sequence="5"  />
+          </Component>
+          <Directory Id="ExternalWebservice_Bin" Name="bin">
+            <Component Id="ExternalService_Bin" Guid="{94871D63-5E6C-4E20-A6B2-35D9567C877A}">
+              <File Id="ExternalWebservice.Client53248" Name="DIS.Business.Client.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Business.Client.dll" />
+              <File Id="ExternalWebservice.Library34816" Name="DIS.Business.Library.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Business.Library.dll" />
+              <File Id="ExternalWebservice.Proxy35328" Name="DIS.Business.Proxy.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Business.Proxy.dll" />
+              <File Id="ExternalWebservice.Utility35329" Name="DIS.Common.Utility.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Common.Utility.dll"/>
+              <File Id="ExternalWebservice.DataAccess309248" Name="DIS.Data.DataAccess.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Data.DataAccess.dll" />
+              <File Id="ExternalWebservice.DataContract59392" Name="DIS.Data.DataContract.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Data.DataContract.dll" />
+              <File Id="ExternalWebservice.ServiceContract59392" Name="DIS.Data.ServiceContract.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Data.ServiceContract.dll" />
+              <File Id="ExternalWebservice.ExternalWebservice4608" Name="DIS.Services.ProviderWebservice.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Services.ProviderWebservice.dll" />
+              <File Id="ExternalWebservice.WebServiceLibrary17920" Name="DIS.Services.WebServiceLibrary.dll" Source="$(var.ProviderWebService.TargetDir)DIS.Services.WebServiceLibrary.dll" />
+              <File Id="ExternalWebservice.Http119648" Name="Microsoft.Http.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Http.dll" />
+              <File Id="ExternalWebservice.Extensions28536" Name="Microsoft.Http.Extensions.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Http.Extensions.dll" />
+              <File Id="ExternalWebservice.Common334648" Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+              <File Id="ExternalWebservice.ExceptionHandling146232" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" />
+              <File Id="ExternalWebservice.Logging52024" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" />
+              <File Id="ExternalWebservice.Database56120" Name="Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll" />
+              <File Id="ExternalWebservice.Logging502584" Name="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+              <File Id="ExternalWebservice.Web117112" Name="Microsoft.ServiceModel.Web.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.ServiceModel.Web.dll" />
+              <File Id="ExternalWebservice.ServiceLocation27448" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.ServiceLocation.dll" />
+              <File Id="ExternalWebservice.Data166712" Name="Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+              <File Id="ExternalWebservice.Unity133944" Name="Microsoft.Practices.Unity.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.Unity.dll" />
+              <File Id="ExternalWebservice.Interception125752" Name="Microsoft.Practices.Unity.Interception.dll" Source="$(var.ProviderWebService.TargetDir)Microsoft.Practices.Unity.Interception.dll" />
+              <File Id="ExternalWebservice.EntityFramework112" Name="EntityFramework.dll" Source="..\Resources\EntityFramework.dll"  />
+              <File Id="ExternalWebService.DISConfiguationCloudClient" Name="DISConfigurationCloud.Client.dll" Source="$(var.ProviderWebService.TargetDir)DISConfigurationCloud.Client.dll"/>
+              <File Id="ExternalWebService.DISConfiguationCloudResourceIntegrator" Name="DISConfigurationCloud.ResourceIntegrator.dll" Source="$(var.ProviderWebService.TargetDir)DISConfigurationCloud.ResourceIntegrator.dll"/>
+              <!--<File Id="ExternalWebservice.CloudConfigsXml" Name="Cloud-Configs.xml" Source="$(var.ProviderWebService.TargetDir)Cloud-Configs.xml"/>-->
+            </Component>
+          </Directory>
+        </Directory>
+
+        <Directory Id="InternalWebService_RootDir" Name="Internal Web Services">
+          <Component Id="InternalService_Root" Guid="{CEBCD003-E88B-44D5-84E8-D3EBF06B332C}">
+            <File Id="InternalWebservice.KeyBinding114" Name="KeyBinding.svc" Source="$(var.TransferWebService.ProjectDir)KeyBinding.svc" />
+            <File Id="InternalWebservice.Web8672" Name="Web.config" Source="$(var.TransferWebService.ProjectDir)Web.config" />
+            <File Id="InternalWebService.Default" Name="Default.aspx" Source="$(var.TransferWebService.ProjectDir)Default.aspx" />
+            <File Id="InternalWebService.Global" Name="Global.asax" Source="$(var.TransferWebService.ProjectDir)Global.asax" />
+            <util:XmlFile Id="InternalWebservice_InstallTypeStr"  Action="setValue" Permanent="yes" File="[InternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='InstallType'[\]]" Name="value"  Value="[INSTALLTYPEVALUE]"   Sequence="1"  />
+            <util:XmlFile Id="InternalWebService_ConfigurationCloudServicePoint"  Action="setValue" Permanent="yes" File="[InternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudServerAddress'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_SERVER_ADDRESS]"   Sequence="2"  />
+            <util:XmlFile Id="InternalWebService_ConfigurationCloudAuthHeader"  Action="setValue" Permanent="yes" File="[InternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudAuthHeader'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_USERNAME]:[CONFIGURATION_CLOUD_PASSWORD]"   Sequence="3"  />
+            <util:XmlFile Id="InternalWebService_CloudConfigCachePolicy"  Action="setValue" Permanent="yes" File="[InternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCachePolicy'[\]]" Name="value"  Value="[CLOUD_CONFIG_CACHE_POLICY]"   Sequence="4"  />
+            <util:XmlFile Id="InternalWebService_CloudConfigCacheStore"  Action="setValue" Permanent="yes" File="[InternalWebService_RootDir]\Web.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCacheStore'[\]]" Name="value"  Value="[INSTALLLOCATION][CLOUD_CONFIG_CACHE_STORE]"   Sequence="5"  />
+          </Component>
+          <Directory Id="InternalWebService_Bin" Name="bin">
+            <Component Id="InternalService_Bin" Guid="{BCBA4D21-BA7B-46FB-BF43-7DDAC0716998}">
+              <File Id="InternalWebservice.Client53248" Name="DIS.Business.Client.dll" Source="$(var.TransferWebService.TargetDir)DIS.Business.Client.dll" />
+              <File Id="InternalWebservice.Library34816" Name="DIS.Business.Library.dll" Source="$(var.TransferWebService.TargetDir)DIS.Business.Library.dll" />
+              <File Id="InternalWebservice.Proxy35328" Name="DIS.Business.Proxy.dll" Source="$(var.TransferWebService.TargetDir)DIS.Business.Proxy.dll" />
+              <File Id="InternalWebservice.Common35328" Name="DIS.Common.Utility.dll" Source="$(var.TransferWebService.TargetDir)DIS.Common.Utility.dll" />
+              <File Id="InternalWebservice.DataAccess309248" Name="DIS.Data.DataAccess.dll" Source="$(var.TransferWebService.TargetDir)DIS.Data.DataAccess.dll" />
+              <File Id="InternalWebservice.DataContract59392" Name="DIS.Data.DataContract.dll" Source="$(var.TransferWebService.TargetDir)DIS.Data.DataContract.dll" />
+              <File Id="InternalWebservice.ServiceContract59392" Name="DIS.Data.ServiceContract.dll" Source="$(var.TransferWebService.TargetDir)DIS.Data.ServiceContract.dll" />
+              <File Id="InternalWebservice.InternalWebserviceWebService4608" Name="DIS.Services.TransferWebService.dll" Source="$(var.TransferWebService.TargetDir)DIS.Services.TransferWebService.dll" />
+              <File Id="InternalWebservice.WebServiceLibrary17920" Name="DIS.Services.WebServiceLibrary.dll" Source="$(var.TransferWebService.TargetDir)DIS.Services.WebServiceLibrary.dll" />
+              <File Id="InternalWebservice.Http119648" Name="Microsoft.Http.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Http.dll" />
+              <File Id="InternalWebservice.Extensions28536" Name="Microsoft.Http.Extensions.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Http.Extensions.dll" />
+              <File Id="InternalWebservice.Common334648" Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+              <File Id="InternalWebservice.Data166712" Name="Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+              <File Id="InternalWebservice.ExceptionHandling146232" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" />
+              <File Id="InternalWebservice.Logging52024" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" />
+              <File Id="InternalWebservice.Database56120" Name="Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll" />
+              <File Id="InternalWebservice.Logging502584" Name="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+              <File Id="InternalWebservice.ServiceLocation29760" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.ServiceLocation.dll" />
+              <File Id="InternalWebservice.Unity133944" Name="Microsoft.Practices.Unity.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.Unity.dll" />
+              <File Id="InternalWebservice.Interception125752" Name="Microsoft.Practices.Unity.Interception.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.Practices.Unity.Interception.dll" />
+              <File Id="InternalWebservice.Web117112" Name="Microsoft.ServiceModel.Web.dll" Source="$(var.TransferWebService.TargetDir)Microsoft.ServiceModel.Web.dll" />
+              <File Id="InternalWebservice.EntityFramework112" Name="EntityFramework.dll" Source="..\Resources\EntityFramework.dll"  />
+              <File Id="InternalWebService.DISConfiguationCloudClient" Name="DISConfigurationCloud.Client.dll" Source="$(var.TransferWebService.TargetDir)DISConfigurationCloud.Client.dll"/>
+              <File Id="InternalWebService.DISConfiguationCloudResourceIntegrator" Name="DISConfigurationCloud.ResourceIntegrator.dll" Source="$(var.TransferWebService.TargetDir)DISConfigurationCloud.ResourceIntegrator.dll"/>
+              <!--<File Id="InternalWebService.CloudConfigsXml" Name="Cloud-Configs.xml" Source="$(var.TransferWebService.TargetDir)Cloud-Configs.xml"/>-->
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+
+    <Component Id="ExternalWebService_FW" Directory="TARGETDIR" Guid="{59FEC0F4-35CC-4E07-B717-95E2198036D2}">
+      <fw:FirewallException Id="TpiExternalWebservice_FwException" Name="TPI External Web Service" Scope="any" Port="[EXPORT]" Protocol="tcp" />
+    </Component>
+    <Component Id="ExternalWebService_IIS" Directory="TARGETDIR" Guid="{6300D042-D068-4BF5-A6CE-5F40CF4F2379}">
+      <iis:Certificate Id="DisExternalRootCert" Name="DisExternalRootCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CABinary"/>
+      <iis:Certificate Id="DisExternalCrlCert" Name="DisExternalCrlCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CrlBinary"/>
+      <iis:Certificate Id="DisExternalCFGCert" Name="DisExternalCFGCert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CFGBinary" PFXPassword="123"/>
+      <iis:Certificate Id="DisExternalIISCert" Name="DisExternalIISert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="IISBinary" PFXPassword="123"/>     
+
+      <iis:WebAppPool Id="TpiExternalWebservice_AppPool" Name="TPIExternalAppPool" Identity="localSystem" ManagedPipelineMode="integrated" ManagedRuntimeVersion="v4.0" />
+      <iis:WebSite Id="TpiExternalWebservice_WebSite" Description="DIS TPI External Web Service" AutoStart="yes" Directory="ExternalWebService_RootDir">
+        <iis:CertificateRef Id="DisExternalIISCert" />
+        <iis:WebAddress Id="TpiExternalWebservice_Address" Port="[EXPORT]" Secure="yes" />
+        <iis:WebApplication Id="TpiExternalWebservice_App" Name="TPIExternalWebservice" WebAppPool="TpiExternalWebservice_AppPool" />
+      </iis:WebSite>
+    </Component>
+
+    <Component Id="InternalWebService_IIS" Directory="TARGETDIR" Guid="{00811A97-6C89-4AF3-8866-10B3083276FD}">
+      <iis:Certificate Id="DisInternalRootCert" Name="DisInternalRootCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CABinary"/>
+      <iis:Certificate Id="DisInternalCFGCert" Name="DisInternalCFGCert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CFGBinary" PFXPassword="123"/>
+      <iis:Certificate Id="DisInternalIISCert" Name="DisInternalIISert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="IISBinary" PFXPassword="123"/>
+      <iis:Certificate Id="DisInternalCrlCert" Name="DisInternalCrlCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CrlBinary"/>
+
+      <util:User Id="PoolAccount" Name="[WEB_APP_POOL_IDENTITY_NAME]" Password="[WEB_APP_POOL_IDENTITY_PWD]" CreateUser="no"></util:User>
+      <iis:WebAppPool Id="TpiInternalWebservice_AppPool" Name="TPIInternalAppPool" Identity="other" User="PoolAccount" ManagedPipelineMode="integrated" ManagedRuntimeVersion="v4.0" />
+      <iis:WebSite Id="TpiInternalWebservice_WebSite" Description="DIS TPI Internal Web Service" AutoStart="yes" Directory="InternalWebService_RootDir">
+        <iis:CertificateRef Id="DisInternalIISCert" />
+        <iis:WebAddress Id="TpiInternalWebservice_Address" Port="[INPORT]" Secure="yes" />
+        <iis:WebApplication Id="TpiInternalWebservice_App" Name="TPIInternalWebservice" WebAppPool="TpiInternalWebservice_AppPool" />
+      </iis:WebSite>
+    </Component>
+
+    <Component Id="InternalWebService_FW" Directory="TARGETDIR" Guid="{37F64C1D-738E-4622-A126-9C76C04A8C96}">
+      <fw:FirewallException Id="TpiInternalWebservice_FwException" Name="TPI Internal Web Service" Scope="localSubnet" Port="[INPORT]" Protocol="tcp" />
+    </Component>
+
+    <ComponentGroup Id="WebserviceCompnents">
+      <ComponentRef Id="InternalWebService_FW"/>
+      <ComponentRef Id="InternalWebService_IIS"/>
+      <ComponentRef Id="InternalService_Bin"/>
+      <ComponentRef Id="InternalService_Root"/>
+      <ComponentRef Id="ExternalWebService_IIS"/>
+      <ComponentRef Id="ExternalWebService_FW"/>
+      <ComponentRef Id="ExternalService_Bin"/>
+      <ComponentRef Id="ExternalService_Root"/>
+    </ComponentGroup>
+
+    <CustomAction Id='InsertDbPortAction' BinaryKey='ConnectDbBinary' DllEntry='InsertInternalWebService' />
+
+  </Fragment>
+</Wix>

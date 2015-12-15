@@ -1,0 +1,24 @@
+﻿<Page xmlns:my="clr-namespace:DIS.Presentation.KMT.Controls"  x:Uid="pgAssignKeysSelect" x:Class="DIS.Presentation.KMT.AssignKeysView.AssignKeysSelection"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+      xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+      WindowTitle="Page"
+      FlowDirection="LeftToRight"
+    >
+    <Grid x:Uid="grdRoot" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <my:SearchControl x:Name="searchControl" Grid.Row="0" x:Uid="searchControl"/>
+        <my:KeysTabControl x:Name="keysTab" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,15,0,0" x:Uid="keysTab"/>
+        <StackPanel x:Uid="stpAssignTo" Grid.Row="2" Margin="0,8,0,0" Orientation="Horizontal">
+            <Label x:Uid="lblTo" Content="{x:Static res:MergedResources.Common_To}" Style="{StaticResource LblNormalSty}"></Label>
+            <ComboBox x:Uid="cboTpis" Margin="2,0,0,0" ItemsSource="{Binding Subsidiarys}"  DisplayMemberPath="DisplayName" SelectedItem="{Binding SelectedSubsidiary, Mode=TwoWay}" Style="{StaticResource CboNormalSty}" ItemContainerStyle="{StaticResource ComboBoxItemStyle}" Height="25"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item>
+    <mln>M201</mln>
+    <oempartnumber>OEM201</oempartnumber>
+    <exportquantity>10</exportquantity>
+  </item>
+  <item>
+    <mln>FUC-00017</mln>
+    <oempartnumber>OEM0002</oempartnumber>
+    <exportquantity>2</exportquantity>
+  </item>
+  <item>
+    <mln>FGC-00024</mln>
+    <oempartnumber>OEM3002</oempartnumber>
+    <exportquantity>50</exportquantity>
+  </item>
+</items>

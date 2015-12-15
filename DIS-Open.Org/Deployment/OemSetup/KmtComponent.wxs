@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension"
+     xmlns:sql='http://schemas.microsoft.com/wix/SqlExtension'>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="DesktopFolder"></Directory>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="DIS" Name="DIS Solution">
+          <Directory Id="INSTALLLOCATION" Name="OEM"/>
+
+          <Component Id="ProductComponent10" Guid="{62c4585b-afcd-32f7-b756-fa799bcf7fa8}" >
+            <CreateFolder Directory="DIS">
+              <Permission User="Everyone" GenericAll="yes" />
+            </CreateFolder>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuFolder1" Name="DIS Solution">
+          <Directory Id="ProgramMenuFolder3" Name="OEM">
+            <Directory Id="ProgramMenuFolder2" Name="KMT">
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+      <DirectoryRef Id="INSTALLLOCATION">
+      <Directory Id="KMT" Name="Key Management Tool">
+
+        <Component Id="ProductComponent11" Guid="{60c4135b-afcd-35f7-b756-fa729bcf5fa5}" >
+          <CreateFolder Directory="KMT">
+            <Permission User="Everyone" GenericAll="yes" />
+          </CreateFolder>
+        </Component>
+        
+        <Component Id="KmtComponent" Guid="{D34B39FB-EE3E-4FE2-B558-20824D7197A3}" >
+          <File Id="MyApplicationFile1" Name="DIS.Presentation.KMT.exe" KeyPath="yes"   Source="$(var.KMT.TargetDir)DIS.Presentation.KMT.exe">
+            <!--<Shortcut Advertise="no" Id="KMTShortCut" Directory="DesktopFolder"  Name="KMT - OEMCorp" Icon="Icon.exe" Show="normal"  WorkingDirectory="KMT" >
+              <Icon Id="Icon.exe"  SourceFile="$(var.KMT.TargetDir)/DIS.Presentation.KMT.exe" />
+            </Shortcut>-->
+          </File>
+          <File Id="MyApplicationFile55" Name="DIS.Data.ServiceContract.dll" Source="$(var.KMT.TargetDir)DIS.Data.ServiceContract.dll"/>
+          <File Id="MyApplicationFile2" Name="DIS.Business.Client.dll" Source="$(var.KMT.TargetDir)DIS.Business.Client.dll"/>
+          <File Id="MyApplicationFile3" Name="DIS.Business.Library.dll" Source="$(var.KMT.TargetDir)DIS.Business.Library.dll"/>
+          <File Id="MyApplicationFile21" Name="DIS.Business.Proxy.dll" Source="$(var.KMT.TargetDir)DIS.Business.Proxy.dll"/>
+          <File Id="MyApplicationFile24" Name="DIS.Common.Utility.dll" Source="$(var.KMT.TargetDir)DIS.Common.Utility.dll"/>
+          <File Id="MyApplicationFile5" Name="DIS.Data.DataAccess.dll" Source="$(var.KMT.TargetDir)DIS.Data.DataAccess.dll"/>
+          <File Id="MyApplicationFile6" Name="DIS.Data.DataContract.dll" Source="$(var.KMT.TargetDir)DIS.Data.DataContract.dll"/>
+          <File Id="MyApplicationFile8" Name="Microsoft.Http.dll" Source="$(var.KMT.TargetDir)Microsoft.Http.dll"/>
+          <File Id="MyApplicationFile10" Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.Common.dll"/>
+          <File Id="MyApplicationFile11" Name="Microsoft.Practices.EnterpriseLibrary.Data.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.Data.dll"/>
+          <File Id="MyApplicationFile12" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll"/>
+          <File Id="MyApplicationFile13" Name="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll"/>
+          <File Id="MyApplicationFile14" Name="Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll"/>
+          <File Id="MyApplicationFile15" Name="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.EnterpriseLibrary.Logging.dll"/>
+          <File Id="MyApplicationFile16" Name="Microsoft.Practices.ServiceLocation.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.ServiceLocation.dll"/>
+          <File Id="MyApplicationFile17" Name="Microsoft.Practices.Unity.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.Unity.dll"/>
+          <File Id="MyApplicationFile18" Name="Microsoft.Practices.Unity.Interception.dll" Source="$(var.KMT.TargetDir)Microsoft.Practices.Unity.Interception.dll"/>
+          <File Id="MyApplicationFile19" Name="Microsoft.ServiceModel.Web.dll" Source="$(var.KMT.TargetDir)Microsoft.ServiceModel.Web.dll"/>
+          <File Id="MyApplicationFile20" Name="Microsoft.Windows.Shell.dll" Source="$(var.KMT.TargetDir)Microsoft.Windows.Shell.dll"/>
+          <File Id="MyApplicationFile22" Name="RibbonControlsLibrary.dll" Source="$(var.KMT.TargetDir)RibbonControlsLibrary.dll"/>
+          <File Id="MyApplicationFile23" Name="System.Windows.Interactivity.dll" Source="$(var.KMT.TargetDir)System.Windows.Interactivity.dll"/>
+          <File Id="MyApplicationFile9" Name="EntityFramework.dll" Source="..\Resources\EntityFramework.dll"/>
+          <File Id="KMT.DISConfiguationCloudClient" Name="DISConfigurationCloud.Client.dll" Source="$(var.KMT.TargetDir)DISConfigurationCloud.Client.dll"/>
+          <File Id="KMT.DISConfiguationCloudResourceIntegrator" Name="DISConfigurationCloud.ResourceIntegrator.dll" Source="$(var.KMT.TargetDir)DISConfigurationCloud.ResourceIntegrator.dll"/>
+          <!--<File Id="KMT.CloudConfigsXml" Name="Cloud-Configs.xml" Source="$(var.KMT.TargetDir)Cloud-Configs.xml"/>-->
+          <RemoveFolder Id="RemoveKMT" Directory="KMT" On="uninstall"/>
+        </Component>
+
+        <Directory Id="INSTALLLOCATION2" Name="es" >
+          <Component Id="ProductComponent2" Guid="{61c8582b-afcd-44f7-b756-fa736bcf9fa8}" >
+            <File Id="dll1" Name="DIS.Business.Library.resources.dll" Source="$(var.KMT.TargetDir)es/DIS.Business.Library.resources.dll"></File>
+            <File Id="MyApplicationFile56" Name="DIS.Presentation.KMT.resources.dll" Source="$(var.KMT.TargetDir)es/DIS.Presentation.KMT.resources.dll" />
+          </Component>
+        </Directory>
+        
+        <Directory Id="INSTALLLOCATION3" Name="zh-CN" >
+          <Component Id="ProductComponent3" Guid="{61c8582b-afcd-44f7-b756-fa736bcf9fa1}" >
+            <File Id="dll2" Name="DIS.Business.Library.resources.dll" Source="$(var.KMT.TargetDir)zh-CN/DIS.Business.Library.resources.dll"></File>
+            <File Id="MyApplicationFile25" Name="DIS.Presentation.KMT.resources.dll" Source="$(var.KMT.TargetDir)zh-CN\DIS.Presentation.KMT.resources.dll" />
+          </Component>
+        </Directory>
+        <Directory Id="INSTALLLOCATION4" Name="pt-BR" >
+          <Component Id="ProductComponent4" Guid="{61c8582b-afcd-44f7-b756-fa736bcf9fa2}" >
+            <File Id="dll3" Name="DIS.Business.Library.resources.dll" Source="$(var.KMT.TargetDir)pt-BR/DIS.Business.Library.resources.dll"></File>
+            <File Id="MyApplicationFile26" Name="DIS.Presentation.KMT.resources.dll" Source="$(var.KMT.TargetDir)pt-BR\DIS.Presentation.KMT.resources.dll" />
+          </Component>
+        </Directory>
+        <Directory Id="INSTALLLOCATION5" Name="ja-JP" >
+          <Component Id="ProductComponent5" Guid="{61c8582b-afcd-44f7-b756-fa736bcf9fa3}" >
+            <File Id="dll4" Name="DIS.Business.Library.resources.dll" Source="$(var.KMT.TargetDir)ja-JP/DIS.Business.Library.resources.dll"></File>
+            <File Id="MyApplicationFile27" Name="DIS.Presentation.KMT.resources.dll" Source="$(var.KMT.TargetDir)ja-JP\DIS.Presentation.KMT.resources.dll" />
+          </Component>
+        </Directory>
+        <Directory Id="INSTALLLOCATION6" Name="zh-TW" >
+          <Component Id="ProductComponent6" Guid="{61c8582b-afcd-44f7-b726-fa636bcf9fa4}" >
+            <File Id="dll6" Name="DIS.Business.Library.resources.dll" Source="$(var.KMT.TargetDir)zh-TW/DIS.Business.Library.resources.dll"></File>
+            <File Id="MyApplicationFile28" Name="DIS.Presentation.KMT.resources.dll" Source="$(var.KMT.TargetDir)zh-TW\DIS.Presentation.KMT.resources.dll"  />
+          </Component>
+        </Directory>
+        <Directory Id="INSTALLLOCATION7" Name="Assets" >
+          <Component Id="ProductComponent7" Guid="{61c8182b-afcd-44f7-b756-fa796bcf7fa8}" >
+            <File Id="MyApplicationFile29" Name="Help.chm" Source="$(var.KMT.TargetDir)Assets\Help.chm" />
+              <File Id="MyApplicationFile30" Name="Help.zh-CN.chm" Source="$(var.KMT.TargetDir)Assets\Help.zh-CN.chm" />
+              <File Id="MyApplicationFile31" Name="Help.zh-TW.chm" Source="$(var.KMT.TargetDir)Assets\Help.zh-TW.chm" />
+              <File Id="MyApplicationFile32" Name="Help.ja-JP.chm" Source="$(var.KMT.TargetDir)Assets\Help.ja-JP.chm" />
+              <File Id="MyApplicationFile33" Name="Help.pt-BR.chm" Source="$(var.KMT.TargetDir)Assets\Help.pt-BR.chm" />
+              <File Id="MyApplicationFile34" Name="Help.es.chm" Source="$(var.KMT.TargetDir)Assets\Help.es.chm" />
+          </Component>
+        </Directory>
+          <Directory Id="INSTALLLOCATION8" Name="ExportKey Files">
+              <Component Id="ProductComponent8" Guid="{62c4182b-afcd-44f7-b756-fa796bcf7fa8}" >
+                  <CreateFolder Directory="INSTALLLOCATION8">
+                      <Permission User="Everyone" GenericAll="yes" />
+                  </CreateFolder>
+                  <RemoveFile Id="PurgeINSTALLLOCATION8Files" Name="*.*" On="uninstall"/>
+                  <RemoveFolder Id="RemoveINSTALLLOCATION8" Directory="INSTALLLOCATION8" On="uninstall" />
+              </Component>
+          </Directory>
+          <Directory Id="INSTALLLOCATION9" Name="keyShare">
+              <Component Id="ProductComponent9" Guid="{62c4185b-afcd-44f7-b756-fa799bcf7fa8}" >
+                  <CreateFolder Directory="INSTALLLOCATION9">
+                      <Permission User="Everyone" GenericAll="yes" />
+                  </CreateFolder>
+                  <RemoveFile Id="PurgeINSTALLLOCATION9Files" Name="*.*" On="uninstall"/>
+                  <RemoveFolder Id="RemoveINSTALLLOCATION9" Directory="INSTALLLOCATION9" On="uninstall" />
+              </Component>
+          </Directory>
+          <Component Id="ModifyConfig" Guid="{61c8583b-afcd-44f7-b766-fa736bcf9fa8}">
+          <File Id="MyApplicationFile7" Name="DIS.Presentation.KMT.exe.config" Source="$(var.KMT.TargetDir)DIS.Presentation.KMT.exe.config"/>
+          <util:XmlFile Id="KMT_InstallTypeStr"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='InstallType'[\]]" Name="value"  Value="[INSTALLTYPEVALUE]"   Sequence="1"  />
+          <util:XmlFile Id="KMT_ConfigurationCloudServicePoint"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudServerAddress'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_SERVER_ADDRESS]"   Sequence="2"  />
+          <util:XmlFile Id="KMT_ConfigurationCloudAuthHeader"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='ConfigurationCloudAuthHeader'[\]]" Name="value"  Value="[CONFIGURATION_CLOUD_USERNAME]:[CONFIGURATION_CLOUD_PASSWORD]"   Sequence="3"  />
+          <util:XmlFile Id="KMT_CloudConfigCachePolicy"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCachePolicy'[\]]" Name="value"  Value="[CLOUD_CONFIG_CACHE_POLICY]"   Sequence="4"  />
+          <util:XmlFile Id="KMT_CloudConfigCacheStore"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCacheStore'[\]]" Name="value"  Value="[INSTALLLOCATION][CLOUD_CONFIG_CACHE_STORE]"   Sequence="5"  />
+          <util:XmlFile Id="KMT_CloudConfigCacheToolPath"  Action="setValue" Permanent="yes" File="[KMT]DIS.Presentation.KMT.exe.config"  ElementPath="/configuration/appSettings/add[\[]@key='CloudConfigCacheToolPath'[\]]" Name="value"  Value="[INSTALLLOCATION]Configuration\ConfigurationProtectedTool.exe"   Sequence="6"  />
+          </Component>
+        <Directory Id="XSLT" Name="XSLT">
+          <Component Id="Transformations" Guid="{17BDDDA7-F266-44DC-AA51-4B66EAE80212}">
+            <File Id="TransformULSKeyReportCompitable.xslt" Name="TransformULSKeyReportCompitable.xslt" Source="$(var.KMT.TargetDir)XSLT\TransformULSKeyReportCompitable.xslt"/>
+            <File Id="TransformULSKeyExportCompitable.xslt" Name="TransformULSKeyExportCompitable.xslt" Source="$(var.KMT.TargetDir)XSLT\TransformULSKeyExportCompitable.xslt"/>
+            <File Id="TransformDLSKeyImportCompitable.xslt" Name="TransformDLSKeyImportCompitable.xslt" Source="$(var.KMT.TargetDir)XSLT\TransformDLSKeyImportCompitable.xslt"/>
+          </Component>
+        </Directory>
+      </Directory>
+      
+    </DirectoryRef>
+    <Component Id="KMTCertificate" Directory="TARGETDIR" Guid="02c648b7-21fc-43d7-ac9d-afd99072e7b7">
+      <iis:Certificate Id="DisKmtRootCert" Name="DisKmtRootCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CABinary"/>
+      <iis:Certificate Id="DisKmtCrlCert" Name="DisKmtCrlCert" StoreName="root" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CrlBinary"/>
+      <iis:Certificate Id="DisKmtCFGCert" Name="DisKmtCFGCert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="CFGBinary" PFXPassword="123"/>
+      <iis:Certificate Id="DisKMTforR5CFGCert" Name="DisKMTforR5CFGCert" StoreName="my" StoreLocation="localMachine" Overwrite="yes" BinaryKey="KMTforR5Binary" PFXPassword="123"/>
+    </Component>
+    <DirectoryRef Id="ProgramMenuFolder1">
+      <Component Id="ProgramMenuShortcutsComponent" Guid="B2AEC4C4-3F8E-8865-B87A-B750533776B5">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="KMT - OEMCorp"  Target="[KMT]DIS.Presentation.KMT.exe" Directory="ProgramMenuFolder2" WorkingDirectory="KMT"/>
+        <Shortcut Id="HelpStartMenuShortcut" Name="KMT Help"  Target="[KMT]/Assets/Help.chm" Directory="ProgramMenuFolder2" WorkingDirectory="KMT"/>
+        <Shortcut Id="UninstallProduct" Name="Uninstall KMT" Description="Uninstalls KMT" Target="[System64Folder]msiexec.exe" Directory="ProgramMenuFolder2" Arguments="/x [ProductCode]"/>
+        <Shortcut Advertise="no" Id="KMTShortCut" Directory="DesktopFolder"  Name="KMT - OEMCorp" Icon="Icon.exe" Show="normal"  WorkingDirectory="KMT"  Target="[KMT]DIS.Presentation.KMT.exe">
+              <Icon Id="Icon.exe"  SourceFile="$(var.KMT.TargetDir)/DIS.Presentation.KMT.exe" />
+        </Shortcut>
+        <RemoveFolder Id="RemoveProgramMenuFolder2" Directory="ProgramMenuFolder2" On="uninstall" />
+        <RemoveFolder Id="RemoveProgramMenuFolder1" Directory="ProgramMenuFolder1" On="uninstall" />
+        <RemoveFolder Id="RemoveProgramMenuFolder3" Directory="ProgramMenuFolder3" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="SOFTWARE\Microsoft\DIS Solution\OEM\KMT" Name="KMTStartMenu" Type="integer" Value="1"/>
+      </Component>
+    </DirectoryRef>
+    <ComponentGroup Id="KMTFeatures">
+      <ComponentRef Id="ProgramMenuShortcutsComponent"></ComponentRef>
+      <ComponentRef Id="KMTCertificate"></ComponentRef>
+      <ComponentRef Id="ModifyConfig"></ComponentRef>
+      <ComponentRef Id="ProductComponent7"></ComponentRef>
+      <ComponentRef Id="ProductComponent6"></ComponentRef>
+      <ComponentRef Id="ProductComponent5"></ComponentRef>
+      <ComponentRef Id="ProductComponent4"></ComponentRef>
+      <ComponentRef Id="ProductComponent3"></ComponentRef>
+      <ComponentRef Id="ProductComponent2"></ComponentRef>
+      <ComponentRef Id="ProductComponent8"></ComponentRef>
+      <ComponentRef Id="ProductComponent9"></ComponentRef>
+      <ComponentRef Id="ProductComponent10"></ComponentRef>
+      <ComponentRef Id="ProductComponent11"></ComponentRef>
+      <ComponentRef Id="KmtComponent"/>
+      <ComponentRef Id="Transformations"/>
+    </ComponentGroup>
+
+    <CustomAction Id='AddCertificateAction' BinaryKey='ConnectDbBinary' DllEntry='AddAccessToCertificateByEveryone' />
+    <CustomAction Id='DeleteKeyShareDirAction'  BinaryKey='ConnectDbBinary' DllEntry='DeleteKeyShareFolder' />
+  </Fragment>
+</Wix>

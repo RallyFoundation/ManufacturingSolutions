@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_ColumnHeaderDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMaximum" xml:space="preserve">
+    <value> Maximum</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMinimum" xml:space="preserve">
+    <value> Minimum</value>
+  </data>
+  <data name="Common_Description" xml:space="preserve">
+    <value>Description :</value>
+  </data>
+  <data name="Common_DontPopupAgain" xml:space="preserve">
+    <value>Don't popup</value>
+  </data>
+  <data name="Common_Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Common_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Export_CBRTxt" xml:space="preserve">
+    <value>Export CBR to MS</value>
+  </data>
+  <data name="Export_DuplicateCBRTxt" xml:space="preserve">
+    <value>Export Duplicate CBR</value>
+  </data>
+  <data name="Export_KeysTxt" xml:space="preserve">
+    <value>Export Keys to Down Level System (FKI/FFKI)</value>
+  </data>
+  <data name="Export_ReCBRTxt" xml:space="preserve">
+    <value>Re-Export CBR to MS</value>
+  </data>
+  <data name="Export_ReDuplicateCBRTxt" xml:space="preserve">
+    <value>Re-Export Duplicated CBR</value>
+  </data>
+  <data name="Export_ReKeysTxt" xml:space="preserve">
+    <value>Re-Export Keys to Down Level System (FKI/FFKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxt" xml:space="preserve">
+    <value>Export Keys to Up Level System (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxt" xml:space="preserve">
+    <value>Re-Export Keys to Up Level System (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReToolKeysTxt" xml:space="preserve">
+    <value>Re-Export Keys to OA3Tool</value>
+  </data>
+  <data name="Export_ToolKeysTxt" xml:space="preserve">
+    <value>Export Keys to OA3Tool</value>
+  </data>
+  <data name="Import_CBRAckTxt" xml:space="preserve">
+    <value>Import CBR ACK. from MS</value>
+  </data>
+  <data name="Import_KeysTxt" xml:space="preserve">
+    <value>Import Keys from Up Level System (CKI/FKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxt" xml:space="preserve">
+    <value>Import Keys from Down Level System (FKI/FFKI)</value>
+  </data>
+  <data name="Import_ToolkeysTxt" xml:space="preserve">
+    <value>Import Keys from OA3Tool</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_PcModelSkuError" xml:space="preserve">
+    <value>PC Model/SKU's length is too long. </value>
+  </data>
+  <data name="EditOptionalInfoViewModel_ProEligValueError" xml:space="preserve">
+    <value>Program Eligibility Values's length is too long.</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_UpdateResult" xml:space="preserve">
+    <value>Update Oem Optional Information :  {1} successful, {0} failed .</value>
+  </data>
+  <data name="EditOptionalInfo_ChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID :</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderOemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderPcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values</value>
+  </data>
+  <data name="EditOptionalInfo_ManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation :</value>
+  </data>
+  <data name="EditOptionalInfo_OemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier :</value>
+  </data>
+  <data name="EditOptionalInfo_PcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number :</value>
+  </data>
+  <data name="EditOptionalInfo_ProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values :</value>
+  </data>
+  <data name="EditOptionalInfo_Title" xml:space="preserve">
+    <value>Edit Optional Information</value>
+  </data>
+  <data name="KeysStockConfigViewModel_MsPartNumberNotSelect" xml:space="preserve">
+    <value>You have not selected any MS Part Number .</value>
+  </data>
+  <data name="KeysStockConfigViewModel_RangeError" xml:space="preserve">
+    <value>Maximum must be greater than Minimum.</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMaximum" xml:space="preserve">
+    <value>Maximum :</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMinimum" xml:space="preserve">
+    <value>Minimum :</value>
+  </data>
+  <data name="KeysStockConfigView_Title" xml:space="preserve">
+    <value>Licensable Part Number Stock</value>
+  </data>
+  <data name="KeysStockNotificationView_Title" xml:space="preserve">
+    <value>View Licensable Part Number(s) stock</value>
+  </data>
+  <data name="Notification_ReFulfillmentMessage" xml:space="preserve">
+    <value>{0} fulfillment(s) failed.</value>
+  </data>
+  <data name="Notification_YouHaveNotifications" xml:space="preserve">
+    <value>Notifications ({0})</value>
+  </data>
+  <data name="Import_DuplicateCBRTxt" xml:space="preserve">
+    <value>Import Duplicated CBR</value>
+  </data>
+  <data name="Common_ColumnAssignedTo" xml:space="preserve">
+    <value>Assigned To :</value>
+  </data>
+  <data name="Common_ColumnHeaderMSFulfulledDate" xml:space="preserve">
+    <value>MS Fulfulled Date</value>
+  </data>
+  <data name="Common_ColumnHeaderOverDays" xml:space="preserve">
+    <value>Over Days</value>
+  </data>
+  <data name="KeyManagementViewModel_OldTimelineExceedMessage" xml:space="preserve">
+    <value>{0} key(s) exceed time line</value>
+  </data>
+  <data name="MainWindow_KeysExpired" xml:space="preserve">
+    <value>Old Time Line Exceed Keys</value>
+  </data>
+  <data name="Common_OperationLimitQualityMsg" xml:space="preserve">
+    <value>The quantity don't allow more than 5000 keys one time.</value>
+  </data>
+  <data name="Common_OperationNoKeysMsg" xml:space="preserve">
+    <value>No keys to operate.</value>
+  </data>
+  <data name="Export_WinTit" xml:space="preserve">
+    <value>Export Keys</value>
+  </data>
+  <data name="Import_WinTit" xml:space="preserve">
+    <value>Import Keys</value>
+  </data>
+  <data name="Offline_CBRTit" xml:space="preserve">
+    <value>CBR</value>
+  </data>
+  <data name="Offline_DLSTit" xml:space="preserve">
+    <value>DLS</value>
+  </data>
+  <data name="Offline_DuplicateCBRTit" xml:space="preserve">
+    <value>Duplicate CBR</value>
+  </data>
+  <data name="Offline_OA3ToolTit" xml:space="preserve">
+    <value>OA3Tool</value>
+  </data>
+  <data name="Offline_ULSTit" xml:space="preserve">
+    <value>ULS</value>
+  </data>
+  <data name="Common_ColumnHeaderFulfillmentNumber" xml:space="preserve">
+    <value>Fulfillment Number</value>
+  </data>
+  <data name="Common_ColumnHeaderModifiedDate" xml:space="preserve">
+    <value>Last Updated date</value>
+  </data>
+  <data name="Common_ColumnHeaderOrderUniqueId" xml:space="preserve">
+    <value>Order Unique ID</value>
+  </data>
+  <data name="Common_ColumnHeaderSoldTo" xml:space="preserve">
+    <value>Sold To</value>
+  </data>
+  <data name="MainWindow_ReFulfillment" xml:space="preserve">
+    <value>Re-Fulfillment</value>
+  </data>
+  <data name="Common_ShowAll" xml:space="preserve">
+    <value>Include over 72 hours</value>
+  </data>
+  <data name="Export_SelectDuplicateKeyTit" xml:space="preserve">
+    <value>Select Duplicated CBR</value>
+  </data>
+  <data name="Export_SelectLogMsg" xml:space="preserve">
+    <value>Please select  file.</value>
+  </data>
+  <data name="Export_SelectLogTit" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="Import_SelectFileTit" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="KeysExpiredNotificationViewModel_TimeLineDays" xml:space="preserve">
+    <value>Time Line Days : {0} day(s).</value>
+  </data>
+  <data name="Revert_ReasonPageTit" xml:space="preserve">
+    <value>Input Reason</value>
+  </data>
+  <data name="Revert_RevertTxt" xml:space="preserve">
+    <value>Revert Keys</value>
+  </data>
+  <data name="Export_ConfirmToMsg" xml:space="preserve">
+    <value>Export Keys to {0}</value>
+  </data>
+  <data name="Export_Ms" xml:space="preserve">
+    <value>MS</value>
+  </data>
+  <data name="Common_ColumnHeaderCustomerReportUniqueID" xml:space="preserve">
+    <value>Customer Report Unique ID</value>
+  </data>
+  <data name="Common_ColumnHeaderMSReportUniqueID" xml:space="preserve">
+    <value>MS Report Unique ID</value>
+  </data>
+  <data name="Common_ColumnHeaderShipTo" xml:space="preserve">
+    <value>Ship To</value>
+  </data>
+  <data name="MainWindow_ReAcknowledgement" xml:space="preserve">
+    <value>Re-Acknowledgement</value>
+  </data>
+  <data name="Notification_ReAcknowledgeMessage" xml:space="preserve">
+    <value>{0} acknowledgement(s) failed.</value>
+  </data>
+  <data name="Notification_KeysStockOutOfRangeMessage" xml:space="preserve">
+    <value>{0} Licensable Part Number(s) stock are out of range.</value>
+  </data>
+  <data name="SystemSettingView_IsCarbonCopy" xml:space="preserve">
+    <value>Enable Carbon Copy</value>
+  </data>
+  <data name="Export_ViewKeyTit" xml:space="preserve">
+    <value>Export Keys Details</value>
+  </data>
+  <data name="Common_ExportDateFrom" xml:space="preserve">
+    <value>Export Date From :</value>
+  </data>
+  <data name="Common_ExportTo" xml:space="preserve">
+    <value>Export To :</value>
+  </data>
+  <data name="Common_FileName" xml:space="preserve">
+    <value>File Name :</value>
+  </data>
+  <data name="Common_ViewDetail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Common_ColumnHeaderIsEncrypted" xml:space="preserve">
+    <value>Is Encrypted</value>
+  </data>
+  <data name="Common_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Common_ProxySetting" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="ProxySetting_Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
+  <data name="ProxySetting_Default" xml:space="preserve">
+    <value>Use IE Proxy Setting</value>
+  </data>
+  <data name="ProxySetting_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="ProxySetting_UseSSL" xml:space="preserve">
+    <value>Use SSL</value>
+  </data>
+  <data name="Common_ColumnoAssignTo" xml:space="preserve">
+    <value>Assign To</value>
+  </data>
+  <data name="Common_ColumnHeaderAckFileDate" xml:space="preserve">
+    <value>Ack. Received Date</value>
+  </data>
+  <data name="Common_ColumnHeaderIsExport" xml:space="preserve">
+    <value>Is Export</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_DuplicateCBRsMessage" xml:space="preserve">
+    <value>{0} Duplicated CBR key(s)</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ExportCBRAgain" xml:space="preserve">
+    <value>Include exported CBR</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ViewTitle" xml:space="preserve">
+    <value>View Duplicated CBR Key(s)</value>
+  </data>
+  <data name="Notification_CopiedToClipboard" xml:space="preserve">
+    <value>The contents have been copied to clipboard.</value>
+  </data>
+  <data name="SSIDEditorViewModel_SSIDCNNotBeCN" xml:space="preserve">
+    <value>Down Level System Customer Number must not be equal to  current Customer Number.</value>
+  </data>
+  <data name="SystemSettingView_MSCertNotEmpty" xml:space="preserve">
+    <value>Microsoft Certificate Subject is required.</value>
+  </data>
+  <data name="Common_OperationQuantityOver" xml:space="preserve">
+    <value>Input quantity can't be greater than available quantity.</value>
+  </data>
+  <data name="Common_OperationNoSubsidiaryMsg" xml:space="preserve">
+    <value>No subsidiary to operate.</value>
+  </data>
+  <data name="MainWindow_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="Common_ColumnHeaderNewState" xml:space="preserve">
+    <value>New Status</value>
+  </data>
+  <data name="Common_ColumnHeaderOldState" xml:space="preserve">
+    <value>Old Status</value>
+  </data>
+  <data name="ExportKey_ConfirmMsg" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="ExportKey_Encryptselect" xml:space="preserve">
+    <value>Encrypt File</value>
+  </data>
+  <data name="ExportKey_NonEncryptMsg" xml:space="preserve">
+    <value>Exporting file without encryption will result in high security risk</value>
+  </data>
+  <data name="Export_resultMsg" xml:space="preserve">
+    <value>Exported Keys : {0} successful,  {1} failed</value>
+  </data>
+  <data name="ImportKey_ResultMsg" xml:space="preserve">
+    <value>Imported Keys :  {0} successful,  {1} failed</value>
+  </data>
+  <data name="RevertKey_ReasonTxt" xml:space="preserve">
+    <value>Revert Reason :</value>
+  </data>
+  <data name="RevertKey_SelectedTxt" xml:space="preserve">
+    <value>Selected Keys :</value>
+  </data>
+  <data name="Common_ColumnHeaderLicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number</value>
+  </data>
+  <data name="Diagnostic_InternalConnection" xml:space="preserve">
+    <value>Test internal web service</value>
+  </data>
+  <data name="Diagnostic_MicrosoftConnection" xml:space="preserve">
+    <value>Test Microsoft web service</value>
+  </data>
+  <data name="Diagnostic_ULSConnection" xml:space="preserve">
+    <value>Test connection to Up Level System</value>
+  </data>
+  <data name="Common_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Common_MSFulfilledDate" xml:space="preserve">
+    <value>MS Fulfilled Date :</value>
+  </data>
+  <data name="Common_ProductKeyID" xml:space="preserve">
+    <value>Product Key ID :</value>
+  </data>
+  <data name="SystemSettingView_CustomerNumberShouldNotInHeadQuarter" xml:space="preserve">
+    <value>You cannot use your ULS customer number as yours.</value>
+  </data>
+  <data name="Common_OEMOptionInfo" xml:space="preserve">
+    <value>OEM Optional Info</value>
+  </data>
+  <data name="Common_TrackingInfo" xml:space="preserve">
+    <value>Tracking Info :</value>
+  </data>
+  <data name="Export_InvalidPath" xml:space="preserve">
+    <value>Invalid file name or path.</value>
+  </data>
+  <data name="Common_LicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number :</value>
+  </data>
+  <data name="Common_Directory" xml:space="preserve">
+    <value>Directory :</value>
+  </data>
+  <data name="Common_FilePath" xml:space="preserve">
+    <value>File Path :</value>
+  </data>
+  <data name="Common_ColumnHeaderTarget" xml:space="preserve">
+    <value>Target </value>
+  </data>
+  <data name="Common_failedKeys" xml:space="preserve">
+    <value>failed Keys :</value>
+  </data>
+  <data name="Common_FailedType" xml:space="preserve">
+    <value>failed type :</value>
+  </data>
+  <data name="Common_succeedKeys" xml:space="preserve">
+    <value>successful keys :</value>
+  </data>
+  <data name="Common_SelectDirectory" xml:space="preserve">
+    <value>Please select a directory</value>
+  </data>
+  <data name="Export_SelectEncryptedLogMsg" xml:space="preserve">
+    <value>Please select an encrypted file.</value>
+  </data>
+  <data name="Revert_MsgLength" xml:space="preserve">
+    <value>Reason  must  between 0 and 200 characters.</value>
+  </data>
+  <data name="Revert_ResultMsg" xml:space="preserve">
+    <value>Revert Keys :  {0} successful,  {1} failed</value>
+  </data>
+  <data name="Common_EncryptedDisplay" xml:space="preserve">
+    <value>Encrypted</value>
+  </data>
+  <data name="Common_UnEncryptedDisplay" xml:space="preserve">
+    <value>UnEncrypted</value>
+  </data>
+  <data name="Export_Note" xml:space="preserve">
+    <value>*Only encrypted file can be re-exported.</value>
+  </data>
+  <data name="Export_KeysTxtTpi" xml:space="preserve">
+    <value>Export Keys to Down Level System (FFKI)</value>
+  </data>
+  <data name="Export_ReKeysTxtTpi" xml:space="preserve">
+    <value>Re-Export Keys to Down Level System (FFKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxtTpi" xml:space="preserve">
+    <value>Export Keys to Up Level System (CKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxtTpi" xml:space="preserve">
+    <value>Re-Export Keys to Up Level System (CKI)</value>
+  </data>
+  <data name="Import_KeysTxtTpi" xml:space="preserve">
+    <value>Import Keys from Up Level System (CKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxtTpi" xml:space="preserve">
+    <value>Import Keys from Down Level System (FFKI)</value>
+  </data>
+  <data name="ULSSettingViewModel_ULSCNNotBeCN" xml:space="preserve">
+    <value>Up Level System Customer Number must not be equal to  current Customer Number.</value>
+  </data>
+</root>

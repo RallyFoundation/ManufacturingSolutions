@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="zh-cn" Codepage="936" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <!-- _locID@Culture="en-US" _locComment="American English" -->
+    <!-- _locID@Codepage="1252" _locComment="Windows-1252" -->
+    <!--         Copyright (c) Microsoft Corporation.  All rights reserved.          The use and distribution terms for this software are covered by the         Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)         which can be found in the file CPL.TXT at the root of this distribution.         By using this software in any fashion, you are agreeing to be bound by         the terms of this license.              You must not remove this notice, or any other, from this software.     -->
+    <String Id="InstallationModeDlgTitle" Overridable="yes">安装模式</String>
+    <String Id="InstallationModeDlgDescription" Overridable="yes">为TPI选择安装模式.</String>
+    <String Id="InstanceModeInput" Overridable="yes">安装模式:</String>
+
+    <String Id="UninstallR5_0" Overridable="yes">注意:请遵守以下步骤:</String>
+    <String Id="UninstallR5_1" Overridable="yes">1.卸载 R5。</String>
+    <String Id="UninstallR5_2" Overridable="yes">2.手动卸载 R6 数据库。</String>
+    <String Id="UninstallR5_3" Overridable="yes">3.安装 R6。</String>
+    <String Id="NeedUpgradePatch" Overridable="yes">请先运行 DIS 升级补丁。</String>
+    <String Id="DatabaseExists" Overridable="yes">数据库已经存在。</String>
+
+    <String Id="KMTConfigDescription" Overridable="yes">配置</String>
+    <String Id="KMTConfigCustomNumberDesc" Overridable="yes">OEM 提供</String>
+    <String Id="KMTDBConfigDescription" Overridable="yes">数据库的配置</String>
+
+    <String Id="IisConfigurationTitle" Overridable="yes">IIS 配置</String>
+    <String Id="IisConfigurationDescription" Overridable="yes"> Web 服务。</String>
+    <String Id="Port" Overridable="yes">端口</String>
+    <String Id="ExternalWebServicePortInput" Overridable="yes">外部 Web 服务端口:</String>
+    <String Id="InternalWebServicePortInput" Overridable="yes">内部 Web 服务端口:</String>
+
+    <String Id="InstallTypeDlgTitle" Overridable="yes">安装类型配置</String>
+    <String Id="InstallTypeDlgDescription" Overridable="yes">配置安装类型。</String>
+    <String Id="InstallTypeLabel" Overridable="yes">安装类型:</String>
+    <String Id="CustomerConfigurationDescription" Overridable="yes">客户编号:</String>
+
+    <String Id="DbConfigurationTitle" Overridable="yes">数据库配置</String>
+    <String Id="DbConfigurationDescription" Overridable="yes">配置数据库连接。</String>
+    <String Id="AuthTypeInput" Overridable="yes">验证类型:</String>
+    <String Id="InstanceNameInput" Overridable="yes">SQL 实例名称:</String>
+    <String Id="DatabaseNameInput" Overridable="yes">数据库名称:</String>
+    <String Id="UsernameInput" Overridable="yes">用户名:</String>
+    <String Id="PasswordInput" Overridable="yes">密码:</String>
+    <String Id="Warning" Overridable="yes">警告</String>
+    <String Id="DbConnectionFailure" Overridable="yes">数据库连接失败。</String>
+    <String Id="NoFeatureSelected" Overridable="yes">请至少选择一个安装。</String>
+    <String Id="OK" Overridable="yes">确定</String>
+
+    <String Id="CloudConfigurationTitle" Overridable="yes">设置DIS配置云</String>
+    <String Id="CloudConfigurationDescription" Overridable="yes">配置以连接到DIS配置云</String>
+    <String Id="CloudServicePointInput" Overridable="yes">服务点:</String>
+    <String Id="CloudHttpPortNumberInput" Overridable="yes">HTTP端口号:</String>
+    <String Id="CloudDatabaseBackupLocationInput" Overridable="yes">数据库备份位置:</String>
+    <String Id="CloudConfigurationMetaCachingPolicy" Overridable="yes">配置元数据缓存策略:</String>
+    <String Id="CloudConfigurationMetaCachingPolicyRemoteOnly" Overridable="yes">总是使用来自云端的元数据.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyMergedAll" Overridable="yes">同时使用来自云端和本地缓存的元数据.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyLocalOnly" Overridable="yes">仅使用来自本地缓存的元数据.</String>
+    <String Id="CloudConnectionFailureErrorMessage" Overridable="yes">使用当前给定值到达DIS配置云的连接不可用.请再次确认您的输入.</String>
+
+    <String Id="RequireNetFramework40" Overridable="yes">[ProductName] 要求安装 .NET Framework 4.0。请先安装 .NET Framework 4.0，然后重新运行此安装程序。</String>
+    <String Id="RequireSqlServer2008R2" Overridable="yes">[ProductName] 要求安装 SQL Server 2008 R2。请先安装 SQL Server 2008 R2，然后重新运行此安装程序。</String>
+    <String Id="RequireSystem" Overridable="yes">[ProductName] 只能在 Windows Vista、Windows 7、Windows Server 2008 或更高版本上运行。</String>
+    <String Id="RequireIIS" Overridable="yes">无法连接到 Internet Information Server。</String>
+    <String Id="RequireVcRedist" Overridable="yes">[ProductName] 要求安装 Visual C++ 2010 Redistributable Package。</String>
+
+    <String Id="DowngradeErrMessage" Overridable="yes">已安装了更新版本的安装程序</String>
+
+    <String Id="AliasConfigurationTitle" Overridable="yes">别名配置</String>
+    <String Id="AliasConfigurationDescription" Overridable="yes">请输入别名。</String>
+    <String Id="AliasConfigurationText" Overridable="yes">别名:</String>
+
+    <String Id="msierrIISCannotConnect" Overridable="yes">无法连接到 Internet Information Server。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSite" Overridable="yes">处理 WebSite 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebDirs" Overridable="yes">处理 WebDir 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadVDirs" Overridable="yes">处理 WebVirtualDir 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadFilters" Overridable="yes">处理 WebFilter 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadMimeMap" Overridable="yes">处理 MimeMap 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadAppPool" Overridable="yes">处理 WebAppPool 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadProp" Overridable="yes">处理 WebPropertie 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSvcExt" Overridable="yes">处理 WebServiceExtension 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebError" Overridable="yes">处理 WebError 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadHttpHeader" Overridable="yes">处理 HttpHeader 时失败。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedTransaction" Overridable="yes">无法计划对 IIS 变更的事务处理。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebs" Overridable="yes">无法计划 IIS 网站的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebDirs" Overridable="yes">无法计划 IIS Web 目录的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallVDirs" Overridable="yes">无法计划 IIS 虚拟目录的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallFilters" Overridable="yes">无法计划 IIS 过滤器的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallAppPool" Overridable="yes">无法计划 IIS AppPool 的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallProp" Overridable="yes">无法计划 IIS 属性的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebSvcExt" Overridable="yes">无法计划 IIS Web 服务扩展的安装。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebs" Overridable="yes">无法计划 IIS 网站的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebDirs" Overridable="yes">无法计划 IIS Web 目录的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallVDirs" Overridable="yes">无法计划 IIS 虚拟目录的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallFilters" Overridable="yes">无法计划 IIS 过滤器的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallAppPool" Overridable="yes">无法计划 IIS AppPool 的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallProp" Overridable="yes">无法计划 IIS 属性的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebSvcExt" Overridable="yes">无法计划 IIS Web 服务扩展的卸载。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedStartTransaction" Overridable="yes">无法启动 IIS 事务处理。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedOpenKey" Overridable="yes">无法打开 Metabase 密钥。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateKey" Overridable="yes">无法创建 Metabase 密钥。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedWriteData" Overridable="yes">无法将数据写入 Metabase 密钥。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateApp" Overridable="yes">无法创建 Web 应用程序。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteKey" Overridable="yes">无法删除 Metabase 密钥。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteValue" Overridable="yes">无法删除 Metabase 值。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCommitInUse" Overridable="yes">由于共享违规，无法认可 IIS 事务处理。部分其他应用程序可能正在配置 IIS。</String>
+    <String Id="ConfigureIIs" Overridable="yes">正在配置 IIS</String>
+    <String Id="ConfigureIIsExec" Overridable="yes">正在执行 IIS 配置</String>
+    <String Id="StartMetabaseTransaction" Overridable="yes">正在激活 IIS Metabase 事务处理</String>
+    <String Id="RollbackMetabaseTransaction" Overridable="yes">正在回滚 IIS Metabase 事务处理</String>
+    <String Id="CommitMetabaseTransaction" Overridable="yes">正在认可 IIS Metabase 事务处理</String>
+    <String Id="WriteMetabaseChanges" Overridable="yes">正在安装 Metabase 密钥和值</String>
+    <String Id="ConfigureIIs7Exec" Overridable="yes">正在配置 IIS</String>
+    <String Id="StartIIS7ConfigTransaction" Overridable="yes">正在启动 IIS 配置事务处理</String>
+    <String Id="RollbackIIS7ConfigTransaction" Overridable="yes">正在回滚 IIS 配置事务处理</String>
+    <String Id="CommitIIS7ConfigTransaction" Overridable="yes">正在认可 IIS 配置事务处理</String>
+    <String Id="WriteIIS7ConfigChanges" Overridable="yes">正在安装配置密钥和值</String>
+
+    <String Id="msierrFirewallCannotConnect" Overridable="yes">无法连接到 Windows 防火墙。([2]   [3]   [4]   [5])</String>
+    <String Id="WixSchedFirewallExceptionsInstall" Overridable="yes">正在配置 Windows 防火墙</String>
+    <String Id="WixSchedFirewallExceptionsUninstall" Overridable="yes">正在配置 Windows 防火墙</String>
+    <String Id="WixRollbackFirewallExceptionsInstall" Overridable="yes">正在回滚 Windows 防火墙配置</String>
+    <String Id="WixExecFirewallExceptionsInstall" Overridable="yes">正在安装 Windows 防火墙配置</String>
+    <String Id="WixRollbackFirewallExceptionsUninstall" Overridable="yes">正在回滚 Windows 防火墙配置</String>
+    <String Id="WixExecFirewallExceptionsUninstall" Overridable="yes">正在卸载 Windows 防火墙配置</String>
+
+    <String Id="msierrUSRFailedUserCreate" Overridable="yes">无法创建用户。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreatePswd" Overridable="yes">由于密码无效，无法创建用户。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserGroupAdd" Overridable="yes">无法将用户添加至群组。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreateExists" Overridable="yes">因为用户已经存在，无法创建该用户。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedCreate" Overridable="yes">无法创建网络共享。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedDrop" Overridable="yes">无法取消网络共享。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedRegisterDLL" Overridable="yes">无法向 PerfMon 注册 DLL。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedUnregisterDLL" Overridable="yes">无法向 PerfMon 取消注册 DLL。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrInstallPerfCounterData" Overridable="yes">无法安装性能计数器。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUninstallPerfCounterData" Overridable="yes">无法卸载性能计数器。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSecureObjectsFailedCreateSD" Overridable="yes">无法创建 [3]\[4] 的安全描述符，系统错误:[2]</String>
+    <String Id="msierrSecureObjectsFailedSet" Overridable="yes">无法设置对象 [3] 的安全描述符，系统错误:[2]</String>
+    <String Id="msierrSecureObjectsUnknownType" Overridable="yes">未知的对象类型 [3]，系统错误:[2]</String>
+    <String Id="msierrXmlFileFailedRead" Overridable="yes">配置 XML 文件时失败。</String>
+    <String Id="msierrXmlFileFailedOpen" Overridable="yes">无法打开 XML 文件 [3]，系统错误:[2]</String>
+    <String Id="msierrXmlFileFailedSelect" Overridable="yes">无法找到节点:[3] 在 XML 文件:[4] 中，系统错误:[2]</String>
+    <String Id="msierrXmlFileFailedSave" Overridable="yes">无法保存 XML 文件 [3] 的更改，系统错误:[2]</String>
+    <String Id="msierrXmlConfigFailedRead" Overridable="yes">配置 XML 文件时失败。</String>
+    <String Id="msierrXmlConfigFailedOpen" Overridable="yes">无法打开 XML 文件 [3]，系统错误:[2]</String>
+    <String Id="msierrXmlConfigFailedSelect" Overridable="yes">无法找到节点:[3] 在 XML 文件:[4] 中，系统错误:[2]</String>
+    <String Id="msierrXmlConfigFailedSave" Overridable="yes">无法保存 XML 文件 [3] 的更改，系统错误: [2]</String>
+
+    <String Id="msierrSQLFailedCreateDatabase" Overridable="yes">错误 [2]:无法创建 SQL 数据库:[3]，错误详情信息:[4].</String>
+    <String Id="msierrSQLFailedDropDatabase" Overridable="yes">错误 [2]:无法取消 SQL 数据库:[3]，错误详情信息:[4].</String>
+    <String Id="msierrSQLFailedConnectDatabase" Overridable="yes">无法连接到 SQL 数据库。([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSQLFailedExecString" Overridable="yes">错误 [2]:无法执行 SQL 字符串，错误详细信息:[3]，SQL 密钥:[4] SQL 字符串:[5]</String>
+    <String Id="msierrSQLDatabaseAlreadyExists" Overridable="yes">数据库 [3] 已经存在。是否要继续？</String>
+
+    <String Id="ConfigureSql" Overridable="yes">正在配置 SQL Server</String>
+    <String Id="CreateDatabase" Overridable="yes">正在创建数据库</String>
+    <String Id="DropDatabase" Overridable="yes">正在取消数据库</String>
+    <String Id="ExecuteSqlStrings" Overridable="yes">正在执行 SQL 字符串</String>
+    <String Id="RollbackExecuteSqlStrings" Overridable="yes">正在回滚 SQL 字符串</String>
+    <String Id="CertAccount" Overridable="yes">请使用和安装 Microsoft 证书时相同的帐号</String>
+</WixLocalization>

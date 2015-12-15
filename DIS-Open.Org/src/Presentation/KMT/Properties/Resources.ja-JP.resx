@@ -1,0 +1,1275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Dev" xml:space="preserve">
+    <value>This software solution has been developed by Chinasoft International Inc., for Microsoft Corporation.</value>
+  </data>
+  <data name="About_DIS" xml:space="preserve">
+    <value>Digital   Inventory   System</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version    1.0.0    (2011)</value>
+  </data>
+  <data name="AccountSetting_BasicInfo" xml:space="preserve">
+    <value>基本情報</value>
+  </data>
+  <data name="AccountSetting_ChangePassword" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="AccountSetting_CurrentPassword" xml:space="preserve">
+    <value>現在のパスワード</value>
+  </data>
+  <data name="AccountSetting_Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="AccountSetting_NewPassword" xml:space="preserve">
+    <value>新しいパスワード</value>
+  </data>
+  <data name="AllFilesFilter" xml:space="preserve">
+    <value>すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Partner Integration Toolkit</value>
+  </data>
+  <data name="AssignKeysViewModel_AssignKeysResult" xml:space="preserve">
+    <value>{0} キーを正常に割り当てました。</value>
+  </data>
+  <data name="AssignKeysViewModel_ExportQuantityOver" xml:space="preserve">
+    <value>割り当てるキーの量は利用可能なキーの量以上にはできません！</value>
+  </data>
+  <data name="AssignKeysViewModel_NoQuantity" xml:space="preserve">
+    <value>キーの量を入力してください！</value>
+  </data>
+  <data name="AssignKeysViewModel_NotInvalidKeys" xml:space="preserve">
+    <value>割り当てには無効なキーです！</value>
+  </data>
+  <data name="AssignKeysViewModel_NotSelectKeys" xml:space="preserve">
+    <value>割り当てるキーを選択してください！</value>
+  </data>
+  <data name="AssignKeysViewModel_SelectAssignKeysMessage" xml:space="preserve">
+    <value>割り当てるキーを選択してください！</value>
+  </data>
+  <data name="BackupView_BackupFilename" xml:space="preserve">
+    <value>バックアップ ファイル名:InventoryBackup.bak</value>
+  </data>
+  <data name="BackupView_BackupInventoryDatabase" xml:space="preserve">
+    <value>バックアップ インベントリ データベース</value>
+  </data>
+  <data name="BackupView_ChangeFolder" xml:space="preserve">
+    <value>変更</value>
+  </data>
+  <data name="BackupView_Folder" xml:space="preserve">
+    <value>バックアップ フォルダ</value>
+  </data>
+  <data name="BackupView_Frequency" xml:space="preserve">
+    <value>頻度:</value>
+  </data>
+  <data name="BackupView_ImmediateBackup" xml:space="preserve">
+    <value>すぐにバックアップ</value>
+  </data>
+  <data name="BackupView_Prompt" xml:space="preserve">
+    <value>キー管理ツールを閉じるときっバックアップを取る指示します。キーは重要な資産であり、追加の定期的な間隔でバックアップする必要があります。データを保護するには、インベントリ データベースを頻繁にバックアップする必要があります。</value>
+  </data>
+  <data name="BackupView_RunBackupOnSchedule" xml:space="preserve">
+    <value>スケジュールでバックアップを実行します（推奨）</value>
+  </data>
+  <data name="BackupView_ScheduledBackup" xml:space="preserve">
+    <value>スケジュールされたバックアップ</value>
+  </data>
+  <data name="BackupView_StartBackup" xml:space="preserve">
+    <value>バックアップを今すぐ開始します</value>
+  </data>
+  <data name="CancelConfirm" xml:space="preserve">
+    <value>このウィンドウを本当に閉じますか？</value>
+  </data>
+  <data name="ChooseExportFile" xml:space="preserve">
+    <value>エクスポート ファイルを選択します</value>
+  </data>
+  <data name="ChooseImportFile" xml:space="preserve">
+    <value>インポート ファイルを選択します</value>
+  </data>
+  <data name="Common_About" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Common_AccessKey" xml:space="preserve">
+    <value>アクセス キー:</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Common_AdvancedSearch" xml:space="preserve">
+    <value>詳細検索</value>
+  </data>
+  <data name="Common_Apply" xml:space="preserve">
+    <value>適用</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>参照</value>
+  </data>
+  <data name="Common_ByKeys" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="Common_ByQuantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Common_CallOffReferenceNumber" xml:space="preserve">
+    <value>コールオフ参考番号</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Common_ColumnAssignTo" xml:space="preserve">
+    <value>割り当て</value>
+  </data>
+  <data name="Common_ColumnAvailableKeys" xml:space="preserve">
+    <value>利用可能なキー</value>
+  </data>
+  <data name="Common_ColumnFulfilledDate" xml:space="preserve">
+    <value>MS Fulfilled Date</value>
+  </data>
+  <data name="Common_ColumnHardwareHash" xml:space="preserve">
+    <value>ハードウェア ハッシュ</value>
+  </data>
+  <data name="Common_ColumnHeaderAvailableKeys" xml:space="preserve">
+    <value>利用可能なキー</value>
+  </data>
+  <data name="Common_ColumnHeaderCreateDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="Common_ColumnHeaderCreatedBy" xml:space="preserve">
+    <value>作成者</value>
+  </data>
+  <data name="Common_ColumnHeaderCreatedDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="Common_ColumnHeaderCurrentState" xml:space="preserve">
+    <value>現在のステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderDepartment" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="Common_ColumnHeaderDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Common_ColumnHeaderEmail" xml:space="preserve">
+    <value>電子メール</value>
+  </data>
+  <data name="Common_ColumnHeaderExportDate" xml:space="preserve">
+    <value>エクスポート日</value>
+  </data>
+  <data name="Common_ColumnHeaderExportFrom" xml:space="preserve">
+    <value>エクスポート元</value>
+  </data>
+  <data name="Common_ColumnHeaderExportQuantity" xml:space="preserve">
+    <value>エクスポート量</value>
+  </data>
+  <data name="Common_ColumnHeaderExportTo" xml:space="preserve">
+    <value>エクスポート先</value>
+  </data>
+  <data name="Common_ColumnHeaderFailedReason" xml:space="preserve">
+    <value>失敗理由</value>
+  </data>
+  <data name="Common_ColumnHeaderFileName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="Common_ColumnHeaderHardwareHash" xml:space="preserve">
+    <value>ハードウェア ハッシュ</value>
+  </data>
+  <data name="Common_ColumnHeaderHardwareId" xml:space="preserve">
+    <value>ハードウェア ID</value>
+  </data>
+  <data name="Common_ColumnHeaderID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyCount" xml:space="preserve">
+    <value>キー カウント</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyDetails" xml:space="preserve">
+    <value>キー詳細</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyHistory" xml:space="preserve">
+    <value>キー履歴</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyID" xml:space="preserve">
+    <value>製品キー ID</value>
+  </data>
+  <data name="Common_ColumnHeaderKeyStatus" xml:space="preserve">
+    <value>キー ステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderLoginID" xml:space="preserve">
+    <value>ログイン ID</value>
+  </data>
+  <data name="Common_ColumnHeaderMSPartNumber" xml:space="preserve">
+    <value>MS 部品番号</value>
+  </data>
+  <data name="Common_ColumnHeaderNewState" xml:space="preserve">
+    <value>新しいステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderOEMPartNumber" xml:space="preserve">
+    <value>OEM 部品番号</value>
+  </data>
+  <data name="Common_ColumnHeaderOEMPONumber" xml:space="preserve">
+    <value>OEM PO 番号</value>
+  </data>
+  <data name="Common_ColumnHeaderOperator" xml:space="preserve">
+    <value>オペレータ</value>
+  </data>
+  <data name="Common_ColumnHeaderProductID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKey" xml:space="preserve">
+    <value>製品キー</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyDBState" xml:space="preserve">
+    <value>DB のキー ステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyID" xml:space="preserve">
+    <value>製品キー ID</value>
+  </data>
+  <data name="Common_ColumnHeaderProductKeyState" xml:space="preserve">
+    <value>ファイルのキー ステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderQuantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Common_ColumnHeaderRefNumber" xml:space="preserve">
+    <value>コールオフ参考番号</value>
+  </data>
+  <data name="Common_ColumnHeaderRole" xml:space="preserve">
+    <value>ロール</value>
+  </data>
+  <data name="Common_ColumnHeaderSeverity" xml:space="preserve">
+    <value>重大レベル</value>
+  </data>
+  <data name="Common_ColumnHeaderStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderTimestamp" xml:space="preserve">
+    <value>タイムスタンプ</value>
+  </data>
+  <data name="Common_ColumnHeaderTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="Common_ColumnProductKey" xml:space="preserve">
+    <value>製品キー:</value>
+  </data>
+  <data name="Common_ColumnStatus" xml:space="preserve">
+    <value>ステータス:</value>
+  </data>
+  <data name="Common_ConfirmPassword" xml:space="preserve">
+    <value>確認パスワード</value>
+  </data>
+  <data name="Common_ConnectServiceError" xml:space="preserve">
+    <value>リモート サーバに接続できません！ </value>
+  </data>
+  <data name="Common_CustomerName" xml:space="preserve">
+    <value>顧客名:</value>
+  </data>
+  <data name="Common_CustomerNumber" xml:space="preserve">
+    <value>顧客番号:</value>
+  </data>
+  <data name="Common_Department" xml:space="preserve">
+    <value>部署:</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Common_Email" xml:space="preserve">
+    <value>電子メール:</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="Common_Failed" xml:space="preserve">
+    <value>失敗:</value>
+  </data>
+  <data name="Common_Filter" xml:space="preserve">
+    <value>フィルタ</value>
+  </data>
+  <data name="Common_Find" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Common_FirstName" xml:space="preserve">
+    <value>名前:</value>
+  </data>
+  <data name="Common_From" xml:space="preserve">
+    <value>から:</value>
+  </data>
+  <data name="Common_FulfilledDateFrom" xml:space="preserve">
+    <value>MS Fulfilled 日 から:</value>
+  </data>
+  <data name="Common_GenerateAccessKey" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Common_Host" xml:space="preserve">
+    <value>ホスト:</value>
+  </data>
+  <data name="Common_Invalid" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Common_KeyStatus" xml:space="preserve">
+    <value>キー ステータス</value>
+  </data>
+  <data name="Common_KMT" xml:space="preserve">
+    <value>Key Management Tool</value>
+  </data>
+  <data name="Common_LastName" xml:space="preserve">
+    <value>名字:</value>
+  </data>
+  <data name="Common_Location" xml:space="preserve">
+    <value>場所:</value>
+  </data>
+  <data name="Common_LogDetails" xml:space="preserve">
+    <value>ログ詳細</value>
+  </data>
+  <data name="Common_Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="Common_LoginId" xml:space="preserve">
+    <value>ログイン ID:</value>
+  </data>
+  <data name="Common_LogLevel" xml:space="preserve">
+    <value>ログ レベル:</value>
+  </data>
+  <data name="Common_Message" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="Common_MSOrderNumber" xml:space="preserve">
+    <value>MS 注文番号:</value>
+  </data>
+  <data name="Common_MSPartNumber" xml:space="preserve">
+    <value>MS 部品番号</value>
+  </data>
+  <data name="Common_Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Common_NotMatch" xml:space="preserve">
+    <value>一致しません</value>
+  </data>
+  <data name="Common_OEMPartNumber" xml:space="preserve">
+    <value>OEM 部品番号:</value>
+  </data>
+  <data name="Common_OEMPONumber" xml:space="preserve">
+    <value>OEM PO 番号:</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Options" xml:space="preserve">
+    <value>オプション</value>
+  </data>
+  <data name="Common_PartNumber" xml:space="preserve">
+    <value>部品番号:</value>
+  </data>
+  <data name="Common_Password" xml:space="preserve">
+    <value>パスワード:</value>
+  </data>
+  <data name="Common_Phone" xml:space="preserve">
+    <value>電話番号:</value>
+  </data>
+  <data name="Common_Port" xml:space="preserve">
+    <value>ポート:</value>
+  </data>
+  <data name="Common_Position" xml:space="preserve">
+    <value>位置:</value>
+  </data>
+  <data name="Common_Previous" xml:space="preserve">
+    <value>以前</value>
+  </data>
+  <data name="Common_Quantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="Common_RecordInTimeframe" xml:space="preserve">
+    <value>タイムフレームで記録:</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Common_Reports" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Common_Required" xml:space="preserve">
+    <value>要求</value>
+  </data>
+  <data name="Common_Role" xml:space="preserve">
+    <value>ロール:</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Common_Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Common_Select" xml:space="preserve">
+    <value>選択</value>
+  </data>
+  <data name="Common_SelectKeys" xml:space="preserve">
+    <value>キーを選択</value>
+  </data>
+  <data name="Common_SelectKeyStatus" xml:space="preserve">
+    <value>キー ステータスの選択:</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Common_Successful" xml:space="preserve">
+    <value>成功:</value>
+  </data>
+  <data name="Common_Summary" xml:space="preserve">
+    <value>サマリ</value>
+  </data>
+  <data name="Common_Target" xml:space="preserve">
+    <value>ターゲット:</value>
+  </data>
+  <data name="Common_To" xml:space="preserve">
+    <value>先:</value>
+  </data>
+  <data name="Common_TotalKeys" xml:space="preserve">
+    <value>合計キー:</value>
+  </data>
+  <data name="Common_Unassign" xml:space="preserve">
+    <value>非割り当て</value>
+  </data>
+  <data name="Common_UserName" xml:space="preserve">
+    <value>ユーザ名</value>
+  </data>
+  <data name="Common_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="ConfigurationView_DISSetting" xml:space="preserve">
+    <value>デジタル インベントリ システム設定</value>
+  </data>
+  <data name="Configuration_InvalidLifeDays" xml:space="preserve">
+    <value>残り日数は {0} から {1} 日の間です。</value>
+  </data>
+  <data name="Configuration_Setting_Account" xml:space="preserve">
+    <value>アカウント設定</value>
+  </data>
+  <data name="Configuration_Setting_BackUp" xml:space="preserve">
+    <value>データ バックアップ</value>
+  </data>
+  <data name="Configuration_Setting_DownLevelSystem" xml:space="preserve">
+    <value>ダウン レベル システム設定</value>
+  </data>
+  <data name="Configuration_Setting_System" xml:space="preserve">
+    <value>システム設定</value>
+  </data>
+  <data name="Configuration_Setting_UpLevelSystem" xml:space="preserve">
+    <value>アップ レベル システム設定</value>
+  </data>
+  <data name="ConfigViewModel_DeleteSubSidiary" xml:space="preserve">
+    <value>いくつかのキーを割り当てるためには、この補助を削除できません！</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="Control_All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="Control_ShowAll" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="CreateHeadQuarterViewModel_HeadContent_Add" xml:space="preserve">
+    <value>アップ レベル システムを追加</value>
+  </data>
+  <data name="CreateHeadQuarterViewModel_HeadContent_Edit" xml:space="preserve">
+    <value>アップ レベル システムを編集</value>
+  </data>
+  <data name="CreateHeadQuarterViewModel_Title_Edit" xml:space="preserve">
+    <value>アップ レベル システムを編集</value>
+  </data>
+  <data name="CreateHeadQuarterViewModel_Title_New" xml:space="preserve">
+    <value>アップ レベル システムを作成</value>
+  </data>
+  <data name="CreateSubSidiaryViewModel_Password" xml:space="preserve">
+    <value>ID を最初に入力してください！</value>
+  </data>
+  <data name="CreateSubSidiaryViewModel_Title_Edit" xml:space="preserve">
+    <value>ダウン レベル システムの編集</value>
+  </data>
+  <data name="CreateSubSidiaryViewModel_Title_New" xml:space="preserve">
+    <value>ダウン レベル システムの作成</value>
+  </data>
+  <data name="CreateSubSidiary_HeadContent_Add" xml:space="preserve">
+    <value>ダウン レベル システムの追加</value>
+  </data>
+  <data name="CreateSubSidiary_HeadContent_Edit" xml:space="preserve">
+    <value>ダウン レベル システムの編集</value>
+  </data>
+  <data name="CreateUserViewModel_CannotDeleteSelf" xml:space="preserve">
+    <value>固有のアカウントは削除できません！</value>
+  </data>
+  <data name="CreateUserViewModel_ConfirmPasswordNotMatch" xml:space="preserve">
+    <value>パスワードっが一致しません！</value>
+  </data>
+  <data name="CreateUserViewModel_EmailInvalid" xml:space="preserve">
+    <value>電子メールが無効です！</value>
+  </data>
+  <data name="CreateUserViewModel_LoginIDRequired" xml:space="preserve">
+    <value>ログイン ID が必要です！</value>
+  </data>
+  <data name="CreateUserViewModel_NewPasswordRequired" xml:space="preserve">
+    <value>新しいパスワードが必要です！</value>
+  </data>
+  <data name="CreateUserViewModel_PasswordRequired" xml:space="preserve">
+    <value>現在のパスワードが必要です！</value>
+  </data>
+  <data name="CreateUserViewModel_Title_AddUser" xml:space="preserve">
+    <value>ユーザの追加</value>
+  </data>
+  <data name="CreateUserViewModel_Title_EditUser" xml:space="preserve">
+    <value>ユーザの編集</value>
+  </data>
+  <data name="DataPollingIntervalInvalid" xml:space="preserve">
+    <value>間隔は {0} から {1} 分の間です。</value>
+  </data>
+  <data name="DateRangeInvalidMessage" xml:space="preserve">
+    <value>日数の範囲が無効です！</value>
+  </data>
+  <data name="DownLevelSystemView_DLSSetting" xml:space="preserve">
+    <value>ダウン レベル システム設定</value>
+  </data>
+  <data name="ErrorDialog_Copy" xml:space="preserve">
+    <value>コピーの詳細</value>
+  </data>
+  <data name="ErrorDialog_ErrorDetails" xml:space="preserve">
+    <value>エラーの詳細</value>
+  </data>
+  <data name="ErrorDialog_ErrorTitle" xml:space="preserve">
+    <value>リクエストの処理中にエラーが発生しました。アプリケーションを再起動し再度試してください。</value>
+  </data>
+  <data name="ErrorDialog_Exit" xml:space="preserve">
+    <value>アプリケーションを閉じる</value>
+  </data>
+  <data name="ErrorDialog_WindowTitle" xml:space="preserve">
+    <value>キー管理 – エラー</value>
+  </data>
+  <data name="Exception_FailedToConnectDB" xml:space="preserve">
+    <value>SQL サーバとの接続を確立できませんでした。</value>
+  </data>
+  <data name="Exception_NetworkFailed" xml:space="preserve">
+    <value>ネットワークの問題のためリモート サーバとの接続を確立できませんでした。</value>
+  </data>
+  <data name="ExportKeysViewModel_ExistingTxt" xml:space="preserve">
+    <value>場所の選択:</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportCBRTxt" xml:space="preserve">
+    <value>CBR/Return キーのエクスポート</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportError" xml:space="preserve">
+    <value>キーのエクスポート中にエラーが発生しました！</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportKeysTxt" xml:space="preserve">
+    <value>キーのエクスポート</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportMsg" xml:space="preserve">
+    <value>選択されたキーはこの場所にエクスポートされました:</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportOA3ToolFiletxt" xml:space="preserve">
+    <value>OA3 ツールにキーをエクスポート</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportSuccessMsg" xml:space="preserve">
+    <value>キーは正常にエクスポートされました！</value>
+  </data>
+  <data name="ExportKeysViewModel_ExportTitle" xml:space="preserve">
+    <value>キーのエクスポート</value>
+  </data>
+  <data name="ExportKeysViewModel_FinishTxt" xml:space="preserve">
+    <value>正常にエクスポートされました！</value>
+  </data>
+  <data name="ExportKeysViewModel_InputQuarityMsg" xml:space="preserve">
+    <value>エクスポートする量を入力してください！</value>
+  </data>
+  <data name="ExportKeysViewModel_NoKeysMsg" xml:space="preserve">
+    <value>エクスポートする有効なキーはありません！</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportKey" xml:space="preserve">
+    <value>再エクスポート キー</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportOA3Key" xml:space="preserve">
+    <value>OA3 ツールにキーを再エクスポート</value>
+  </data>
+  <data name="ExportKeysViewModel_ReExportSelectLogTitle" xml:space="preserve">
+    <value>最エクスポートするファイルを選択します</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectExportKeysSummary1" xml:space="preserve">
+    <value>エクスポートするキーを選択します</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectExportKeysSummary2" xml:space="preserve">
+    <value>キーを選択してください</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectExportTypeMsg" xml:space="preserve">
+    <value>エクスポート タイプを選択してください！</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectFileMsg" xml:space="preserve">
+    <value>エクスポートする場所を選択してください！</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectTPIMsg" xml:space="preserve">
+    <value>エクスポート ターゲットを選択してください！</value>
+  </data>
+  <data name="ExportKeysViewModel_SelectType" xml:space="preserve">
+    <value>タイプの選択</value>
+  </data>
+  <data name="ExportKeysViewModel_VaidateQuarityMsg" xml:space="preserve">
+    <value>範囲外の量です！</value>
+  </data>
+  <data name="ExportKeysViewModel_WindowTitle" xml:space="preserve">
+    <value>キーのエクスポート</value>
+  </data>
+  <data name="ExportLogsSucceed" xml:space="preserve">
+    <value>ログは正常にエクスポートされました。</value>
+  </data>
+  <data name="ExportLogs_ExportTo" xml:space="preserve">
+    <value>場所を選択してください:</value>
+  </data>
+  <data name="ExportLogs_SelectLocation" xml:space="preserve">
+    <value>場所を選択してください。</value>
+  </data>
+  <data name="ExportLogs_WindowTitle" xml:space="preserve">
+    <value>エクスポート ログ</value>
+  </data>
+  <data name="FinishReportKeys_ReportKeysSummary" xml:space="preserve">
+    <value>レポートのサマリ。</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportDetails" xml:space="preserve">
+    <value>エラーの詳細</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportKeys" xml:space="preserve">
+    <value>場所を選択してください:</value>
+  </data>
+  <data name="ImportKeysViewModel_ImportResultSummary" xml:space="preserve">
+    <value>インポートのサマリ</value>
+  </data>
+  <data name="ImportKey_RbKeytxt" xml:space="preserve">
+    <value>キーまたは CBR のインポート</value>
+  </data>
+  <data name="ImportKey_RbOA3Keytxt" xml:space="preserve">
+    <value>OA3Tool で生成されたファイルのインポート</value>
+  </data>
+  <data name="ImportKey_WindowTitle" xml:space="preserve">
+    <value>インポート キー</value>
+  </data>
+  <data name="KeyAssing_NotCloseMsg" xml:space="preserve">
+    <value>キーが割り当て中です。少しお待ちください！</value>
+  </data>
+  <data name="KeyExport_NotCloseMsg" xml:space="preserve">
+    <value>キーがエクスポート中です。少しお待ちください！</value>
+  </data>
+  <data name="KeyImport_NotCloseMsg" xml:space="preserve">
+    <value>キーがインポート中です。少しお待ちください！</value>
+  </data>
+  <data name="KeyManagementViewModel_DateSearch" xml:space="preserve">
+    <value>日付の範囲を選択してください！</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateBtnMessage" xml:space="preserve">
+    <value>ハンドル中</value>
+  </data>
+  <data name="KeyManagementViewModel_DuplicateMessage" xml:space="preserve">
+    <value>{0} の重複キーがあります</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeyError" xml:space="preserve">
+    <value>キーの取得中にエラーが発生しました！</value>
+  </data>
+  <data name="KeyManagementViewModel_GetKeySuccess" xml:space="preserve">
+    <value>正常にキーを取得しました！</value>
+  </data>
+  <data name="KeyManagementViewModel_KeyHistory" xml:space="preserve">
+    <value>キー履歴</value>
+  </data>
+  <data name="KeyManagementViewModel_KeyHistoryError" xml:space="preserve">
+    <value>履歴を取得中にエラーが発生しました！</value>
+  </data>
+  <data name="KeyManagementViewModel_KeySearch" xml:space="preserve">
+    <value>検索キー</value>
+  </data>
+  <data name="KeyManagementViewModel_KeySearchError" xml:space="preserve">
+    <value>キーを検索中にエラーが発生しました！</value>
+  </data>
+  <data name="KeyManagementViewModel_MarkReturn" xml:space="preserve">
+    <value>Return としてマーク</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportBinding" xml:space="preserve">
+    <value>レポート バインディング</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportBindingError" xml:space="preserve">
+    <value>Bound キーをレポート中にエラーが発生しました！</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportReturn" xml:space="preserve">
+    <value>レポート Return</value>
+  </data>
+  <data name="KeyManagementViewModel_ReportReturnError" xml:space="preserve">
+    <value>Return キーをレポート中にエラーが発生しました！</value>
+  </data>
+  <data name="KeyManagerViewModel_BindingKeysErrorMessage" xml:space="preserve">
+    <value>「Bound」キーを選択してレポートしてください！</value>
+  </data>
+  <data name="KeyManagerViewModel_BoundkeysErrorMessage" xml:space="preserve">
+    <value>「Bound」キーを選択してレポートしてください！</value>
+  </data>
+  <data name="KeyManagerViewModel_ExportKeysBoundOrReturnErrorMessage" xml:space="preserve">
+    <value>「Bound」または「Return」キーを選択してエクスポートしてください！</value>
+  </data>
+  <data name="KeyManagerViewModel_ExportKeysErrorMessage" xml:space="preserve">
+    <value>エクスポートするキーを選択してください！</value>
+  </data>
+  <data name="KeyManagerViewModel_ExportKeysFulfilledErrorMessage" xml:space="preserve">
+    <value>エクスポートする「Fulfilled」キーを選択してください！</value>
+  </data>
+  <data name="KeyManagerViewModel_ImportKeysErrorMessage" xml:space="preserve">
+    <value>有効な XML ではありません！</value>
+  </data>
+  <data name="KeyManagerViewModel_Keys" xml:space="preserve">
+    <value>キー </value>
+  </data>
+  <data name="KeyManagerViewModel_NoRecordsFoundMessage" xml:space="preserve">
+    <value>データが見つかりません！</value>
+  </data>
+  <data name="KeyManagerViewModel_ReturnedkeysErrorMessage" xml:space="preserve">
+    <value>「Return」キーを選択してレポートしてください！</value>
+  </data>
+  <data name="KeyManagerViewModel_ReturnkeysErrorMessage" xml:space="preserve">
+    <value>「Return」キーを選択してレポートしてください！</value>
+  </data>
+  <data name="KeyManagerViewModel__ExportedKeysSuccessMessage" xml:space="preserve">
+    <value>正常にエクスポートされました！</value>
+  </data>
+  <data name="KeyManagerViewModel__ImportedKeysSuccessMessage" xml:space="preserve">
+    <value>正常にインポートされました！</value>
+  </data>
+  <data name="KeyManagerViewModel__MarkAsReturnErrorMessage" xml:space="preserve">
+    <value>検証キーを選択してください</value>
+  </data>
+  <data name="KeyManagerViewModel__MarkAsReturnKeyStateErrorMessage" xml:space="preserve">
+    <value>「Allocated」、「Consumed」または「Bound」キーを選択してください！</value>
+  </data>
+  <data name="KeyMarkAllocate_NotCloseMsg" xml:space="preserve">
+    <value>処理中は少しお待ちください！</value>
+  </data>
+  <data name="KeyMarkReturn_NotCloseMsg" xml:space="preserve">
+    <value>処理中は少しお待ちください！</value>
+  </data>
+  <data name="KeyProxy_WrongExportTarget" xml:space="preserve">
+    <value>ファイルはエクスポートされません。この誤ったファイルの顧客を知らせてください！</value>
+  </data>
+  <data name="KeyReportSearch_ByKeys" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="KeyReportSearch_ByQuantity" xml:space="preserve">
+    <value>量</value>
+  </data>
+  <data name="KeyReportSearch_KeyStatus" xml:space="preserve">
+    <value>キー ステータス:</value>
+  </data>
+  <data name="KeyReportSearch_Prompt" xml:space="preserve">
+    <value>キーを選択してください</value>
+  </data>
+  <data name="KeyReportSearch_SelectKeysForReport" xml:space="preserve">
+    <value>レポートするキーを選択してください</value>
+  </data>
+  <data name="KeyReport_NotCloseMsg" xml:space="preserve">
+    <value>処理中は少しお待ちください！</value>
+  </data>
+  <data name="KeySelectView_MarkReturnPrompt" xml:space="preserve">
+    <value>「Return としてマーク」にキーを選択してください。</value>
+  </data>
+  <data name="KeyStateName_All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="KeyStateName_Assigned" xml:space="preserve">
+    <value>Assigned</value>
+  </data>
+  <data name="KeyStateName_Bound" xml:space="preserve">
+    <value>Bound</value>
+  </data>
+  <data name="KeyStateName_Consumed" xml:space="preserve">
+    <value>Consumed</value>
+  </data>
+  <data name="KeyStateName_Fulfilled" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="KeyStateName_NotifiedBound" xml:space="preserve">
+    <value>NotifiedBound</value>
+  </data>
+  <data name="KeyStateName_NotifiedReturned" xml:space="preserve">
+    <value>NotifiedReturned</value>
+  </data>
+  <data name="KeyStateName_ReportedBound" xml:space="preserve">
+    <value>ReportedBound</value>
+  </data>
+  <data name="KeyStateName_ReportedReturned" xml:space="preserve">
+    <value>ReportedReturned</value>
+  </data>
+  <data name="KeyStateName_Retrieved" xml:space="preserve">
+    <value>Retrieved</value>
+  </data>
+  <data name="KeyStateName_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="KeyUnAssing_NotCloseMsg" xml:space="preserve">
+    <value>キーを非割り当て中です。少しお待ちください！</value>
+  </data>
+  <data name="MainWindow_Action" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="MainWindow_AddUser" xml:space="preserve">
+    <value>ユーザの追加</value>
+  </data>
+  <data name="MainWindow_Assign" xml:space="preserve">
+    <value>割り当てキー</value>
+  </data>
+  <data name="MainWindow_Assignment" xml:space="preserve">
+    <value>割り当て</value>
+  </data>
+  <data name="MainWindow_Condition" xml:space="preserve">
+    <value>条件</value>
+  </data>
+  <data name="MainWindow_EditUser" xml:space="preserve">
+    <value>ユーザの編集</value>
+  </data>
+  <data name="MainWindow_Export" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="MainWindow_Fresh" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="MainWindow_GenReport" xml:space="preserve">
+    <value>レポートの生成</value>
+  </data>
+  <data name="MainWindow_GetKeys" xml:space="preserve">
+    <value>キーの取得</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="MainWindow_Import" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="MainWindow_KeyManagement" xml:space="preserve">
+    <value>キー管理</value>
+  </data>
+  <data name="MainWindow_Locate" xml:space="preserve">
+    <value>Return としてマーク</value>
+  </data>
+  <data name="MainWindow_LogType" xml:space="preserve">
+    <value>ログ タイプ</value>
+  </data>
+  <data name="MainWindow_LogView" xml:space="preserve">
+    <value>ログ ビューア</value>
+  </data>
+  <data name="MainWindow_MarkAsFulfilled" xml:space="preserve">
+    <value>Fulfilled としてマーク</value>
+  </data>
+  <data name="MainWindow_MenuExit" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="MainWindow_MenuHelp" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="MainWindow_Offline" xml:space="preserve">
+    <value>オフライン</value>
+  </data>
+  <data name="MainWindow_Online" xml:space="preserve">
+    <value>オンライン</value>
+  </data>
+  <data name="MainWindow_Operation" xml:space="preserve">
+    <value>オペレーション</value>
+  </data>
+  <data name="MainWindow_Page" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="MainWindow_Print" xml:space="preserve">
+    <value>印刷</value>
+  </data>
+  <data name="MainWindow_RemoveUser" xml:space="preserve">
+    <value>ユーザの削除</value>
+  </data>
+  <data name="MainWindow_ReportKeys" xml:space="preserve">
+    <value>キーのレポート</value>
+  </data>
+  <data name="MainWindow_Reports" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="MainWindow_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="MainWindow_SearchUser" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="MainWindow_SelectLogType" xml:space="preserve">
+    <value>ログ タイプの選択 :</value>
+  </data>
+  <data name="MainWindow_SendReport" xml:space="preserve">
+    <value>レポートの送信</value>
+  </data>
+  <data name="MainWindow_Unassign" xml:space="preserve">
+    <value>非割り当てキー</value>
+  </data>
+  <data name="MainWindow_User" xml:space="preserve">
+    <value>ユーザ</value>
+  </data>
+  <data name="MainWindow_UserManagement" xml:space="preserve">
+    <value>ユーザ管理</value>
+  </data>
+  <data name="MainWindow_UserRole" xml:space="preserve">
+    <value>ユーザ ロール:</value>
+  </data>
+  <data name="MarkAsReturnViewModel_summaryText" xml:space="preserve">
+    <value>{0} キーは「Return」としてマークされます。</value>
+  </data>
+  <data name="MarkFulfilledKeysViewModel_SelectKeysMsg" xml:space="preserve">
+    <value>製品キーを選択して Fulfilled としてマークしてください</value>
+  </data>
+  <data name="MarkFulfilledKeysViewModel_Title" xml:space="preserve">
+    <value>Fulfilled キーをマーク</value>
+  </data>
+  <data name="MarkFulfilledKeys_WindowTitle" xml:space="preserve">
+    <value>Fulfilled としてマーク</value>
+  </data>
+  <data name="MarkFulfilledViewModel_summaryText" xml:space="preserve">
+    <value>{0} キーは「Fulfilled」としてマークされます。</value>
+  </data>
+  <data name="MarkReturnKeysViewModel_ReturnTitle" xml:space="preserve">
+    <value>Return キー</value>
+  </data>
+  <data name="MarkReturnKeysViewModel_SelectKeysMsg" xml:space="preserve">
+    <value>キーを選択してください！</value>
+  </data>
+  <data name="MarkReturnKeys_WindowTitle" xml:space="preserve">
+    <value>Return としてマーク</value>
+  </data>
+  <data name="MessageBox_Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="NoLogsFound" xml:space="preserve">
+    <value>ログが見つかりません。</value>
+  </data>
+  <data name="OperateMsg" xml:space="preserve">
+    <value>オペレート メッセージを入力してください！</value>
+  </data>
+  <data name="OperateMsgView_ReasonMarkFulfilledKeys" xml:space="preserve">
+    <value>「Fulfilled」としてマークする理由:</value>
+  </data>
+  <data name="OperateMsgView_ReasonMarkReturnKeys" xml:space="preserve">
+    <value>「Return」としてマークする理由:</value>
+  </data>
+  <data name="OperateMsgView_SelectMarkFulfilledKeys" xml:space="preserve">
+    <value>マーク Fulfilled キーの選択 :</value>
+  </data>
+  <data name="OperateMsgView_SelectMarkReturnKeys" xml:space="preserve">
+    <value>マーク Return キーの選択 :</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_HadleKeys" xml:space="preserve">
+    <value>正常に {0} をハンドルして再利用しました！</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_MessageTitle" xml:space="preserve">
+    <value>ハンドル重複キー</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_NoKeysMsg" xml:space="preserve">
+    <value>重複キーをハンドルしてください！ </value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_NOReason" xml:space="preserve">
+    <value>理由を入力してください！</value>
+  </data>
+  <data name="ProcessDuplicateKeysViewModel_ReasonLb" xml:space="preserve">
+    <value>理由 :</value>
+  </data>
+  <data name="RepoReportKeysViewModel_ReportFailed" xml:space="preserve">
+    <value>キーをレポート中にエラーが発生しました！</value>
+  </data>
+  <data name="ReportKeysViewModel_inputQuarityMsg" xml:space="preserve">
+    <value>キーの量を入力してください！</value>
+  </data>
+  <data name="ReportKeysViewModel_inputToMuchQuarityMsg" xml:space="preserve">
+    <value>レポートするキーが多すぎます </value>
+  </data>
+  <data name="ReportKeysViewModel_NoKeysMsg" xml:space="preserve">
+    <value>レポートする有効なキーはありません！</value>
+  </data>
+  <data name="ReportKeysViewModel_ReportSuccess" xml:space="preserve">
+    <value>キーは正常にレポートされました！</value>
+  </data>
+  <data name="ReportKeysViewModel_ReportTitle" xml:space="preserve">
+    <value>キーのレポート</value>
+  </data>
+  <data name="ReportKeysViewModel_SelectKeysMsg" xml:space="preserve">
+    <value>キーを選択してください！</value>
+  </data>
+  <data name="ReportKeysViewModel_VaidateQuarityMsg" xml:space="preserve">
+    <value>レポート量は利用可能な量以上にはできません！</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="SavingConfigurationConfirmation" xml:space="preserve">
+    <value>これらのシステム設定を本当に変更しますか？</value>
+  </data>
+  <data name="SearchTextCannotBeEmpty" xml:space="preserve">
+    <value>検索条件を選択してください！</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_CustomerIDLengthOver" xml:space="preserve">
+    <value>顧客番号が長すぎます！</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryCount" xml:space="preserve">
+    <value>FKI または FFKI の数は 5 以下である必要があります！</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryDuplicate" xml:space="preserve">
+    <value>顧客番号はすでに存在しています。</value>
+  </data>
+  <data name="SubsidaryEditorViewModel_SubsidiaryNotEmpty" xml:space="preserve">
+    <value>顧客番号が必要です！</value>
+  </data>
+  <data name="SubsidiaryEditor_Type" xml:space="preserve">
+    <value>タイプ:</value>
+  </data>
+  <data name="SummaryView_MarkFulfilledPrompt" xml:space="preserve">
+    <value>「Fulfilled」としてマークするサマリ:</value>
+  </data>
+  <data name="SummaryView_MarkReturnPrompt" xml:space="preserve">
+    <value>「Return」としてマークするサマリ:</value>
+  </data>
+  <data name="SystemError" xml:space="preserve">
+    <value>システムエラーです。アドミニストレータに連絡してください！</value>
+  </data>
+  <data name="SystemSettingView_AutoGetFulfillment" xml:space="preserve">
+    <value>実行されたキーを自動的に取得</value>
+  </data>
+  <data name="SystemSettingView_AutoReport" xml:space="preserve">
+    <value>自動的にレポート</value>
+  </data>
+  <data name="SystemSettingView_DataPollingInterval" xml:space="preserve">
+    <value>データ ポーリング間隔</value>
+  </data>
+  <data name="SystemSettingView_FulfillmentInterval" xml:space="preserve">
+    <value>間隔を自動的に取得</value>
+  </data>
+  <data name="SystemSettingView_InternalWebService" xml:space="preserve">
+    <value>内部 Web サービス</value>
+  </data>
+  <data name="SystemSettingView_LifeDays" xml:space="preserve">
+    <value>キーの利用可能日数:</value>
+  </data>
+  <data name="SystemSettingView_MsWebService" xml:space="preserve">
+    <value>Microsoft Web サービス</value>
+  </data>
+  <data name="SystemSettingView_Others" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="SystemSettingView_ReportInterval" xml:space="preserve">
+    <value>レポート間隔:</value>
+  </data>
+  <data name="SystemSettingView_UserKey" xml:space="preserve">
+    <value>ユーザ キー:</value>
+  </data>
+  <data name="UnAssignKeysViewModel_ErrorMessage" xml:space="preserve">
+    <value>キーの非割り当て中にエラーが発生しました！</value>
+  </data>
+  <data name="UnAssignkeysViewModel_Prompt" xml:space="preserve">
+    <value>非割り当てするキーを選択してください！</value>
+  </data>
+  <data name="UnAssignKeysViewModel_Result" xml:space="preserve">
+    <value>{0} キーが正常に非割り当てされました！</value>
+  </data>
+  <data name="UnAssignViewModel_SelectKeys" xml:space="preserve">
+    <value>{0} から非割り当てするキーを選択してください！</value>
+  </data>
+  <data name="UpLevelSystemViewModel_CustomNameNotEmpty" xml:space="preserve">
+    <value>顧客名が必要です！</value>
+  </data>
+  <data name="UpLevelSystemViewModel_CustomNumberDuplicate" xml:space="preserve">
+    <value>顧客名が重複しています！</value>
+  </data>
+  <data name="UpLevelSystemViewModel_HostOrPortNotBeEmpty" xml:space="preserve">
+    <value>ホストまたはポートは空にできません！</value>
+  </data>
+  <data name="UpLevelSystemView_ULSSetting" xml:space="preserve">
+    <value>アップ レベル システム設定</value>
+  </data>
+  <data name="UserManagementViewModel_DeleteConfirm" xml:space="preserve">
+    <value>選択されたユーザを本当に削除しますか？</value>
+  </data>
+  <data name="UserManagementViewModel_DeleteCurrentUser" xml:space="preserve">
+    <value>現在のユーザは削除できません！</value>
+  </data>
+  <data name="UserManagement_CreatedDate" xml:space="preserve">
+    <value>作成日:</value>
+  </data>
+  <data name="UserManagement_Roles" xml:space="preserve">
+    <value>ロール:</value>
+  </data>
+  <data name="UserManagement_UserDetails" xml:space="preserve">
+    <value>ユーザの詳細</value>
+  </data>
+  <data name="UserManagement_UserList" xml:space="preserve">
+    <value>ユーザ リスト</value>
+  </data>
+  <data name="UserManagement_WindowTitle" xml:space="preserve">
+    <value>ユーザ管理</value>
+  </data>
+  <data name="UserProxy_CannotRemoveLastAdmin" xml:space="preserve">
+    <value>システムの最後のマネージャを削除できません。</value>
+  </data>
+  <data name="UserProxy_LoginIDOrPasswordIncorrect" xml:space="preserve">
+    <value>ログイン ID またはパスワードが正しくありません。</value>
+  </data>
+  <data name="UserProxy_PasswordIncorrect" xml:space="preserve">
+    <value>現在のパスワードが正しくありません！</value>
+  </data>
+  <data name="UserProxy_UserAlreadyExist" xml:space="preserve">
+    <value>ログイン ID はすでに使用されています。</value>
+  </data>
+  <data name="ViewLogs_Critical" xml:space="preserve">
+    <value>重大</value>
+  </data>
+  <data name="ViewLogs_Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ViewLogs_Info" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="ViewLogs_OperationLog" xml:space="preserve">
+    <value>オペレーション ログ</value>
+  </data>
+  <data name="ViewLogs_OperationLogView" xml:space="preserve">
+    <value>オペレーション ログ表示</value>
+  </data>
+  <data name="ViewLogs_SystemLog" xml:space="preserve">
+    <value>システム ログ</value>
+  </data>
+  <data name="ViewLogs_SystemLogView" xml:space="preserve">
+    <value>システム ログ表示</value>
+  </data>
+  <data name="ViewLogs_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="WebServiceHostIsInvalid" xml:space="preserve">
+    <value>Web サービス ホストが無効です！</value>
+  </data>
+  <data name="WebServicePortIsInvalid" xml:space="preserve">
+    <value>Web サービス ポートが無効です！</value>
+  </data>
+</root>

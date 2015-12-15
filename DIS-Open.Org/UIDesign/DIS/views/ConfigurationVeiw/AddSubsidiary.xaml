@@ -1,0 +1,50 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.AddSubsidiary"
+	x:Name="Window"
+	Title="Add Subsidiary"
+	Width="480" Height="380" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.163*"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="1" Margin="50,0,50,40">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="auto"/>
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Label Content="ID :" d:LayoutOverrides="Width, Height" FontWeight="Bold" HorizontalAlignment="Right"/>
+			<Label Content="Type :" d:LayoutOverrides="Width" Margin="0,-0.001,0,0" Grid.Row="1" FontWeight="Bold" HorizontalAlignment="Right"/>
+			<Label Content="User Name :" d:LayoutOverrides="Width" Grid.Row="2" FontWeight="Bold" HorizontalAlignment="Right"/>
+			<Label Content="Password :" d:LayoutOverrides="Width, Height" Margin="0,-0.001" Grid.Row="3" FontWeight="Bold" HorizontalAlignment="Right"/>
+			<StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Top" Grid.Column="1" d:LayoutOverrides="GridBox" Margin="0,20,0,0" HorizontalAlignment="Center">
+				<Button Content="Save" Width="75" Margin="0,0,25,0"/>
+				<Button x:Name="btnCancel" Content="Cancel" Width="75" Margin="25,0,0,0" Click="btnCancel_Click"/>
+			</StackPanel>
+			<TextBox TextWrapping="Wrap" Grid.Column="1" Margin="4" d:LayoutOverrides="Width" Padding="3"/>
+			<ComboBox Margin="4" Grid.Column="1" Grid.Row="1" SelectedIndex="0" Height="25">
+				<ComboBoxItem>Factory Key Inventory</ComboBoxItem>
+				<ComboBoxItem>Factory Floor Key Inventory</ComboBoxItem>
+			</ComboBox>
+			<PasswordBox Margin="4" Grid.Column="1" Grid.Row="3" Padding="3"/>
+			<StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="0,4,4,4" HorizontalAlignment="Right" Width="287.477">
+				<TextBox TextWrapping="Wrap" Margin="1" Padding="3" Height="25.96" Width="150" MinWidth="100"/>
+				<Button Content="Generate Password" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="10,2,2,2"/>
+			</StackPanel>
+		</Grid>
+		<Rectangle Fill="#FF999999" Stroke="Black" StrokeThickness="0"/>
+		<TextBlock TextWrapping="Wrap" Text="Add Factory Key Inventory or Factory Floor Key Inventory for System" d:LayoutOverrides="Width, Height" FontWeight="Bold" FontSize="16" Padding="30,30,30,0"/>
+	</Grid>
+</Window>

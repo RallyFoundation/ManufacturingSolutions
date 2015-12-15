@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="DIS.Presentation.KMT.Controls.SearchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+             mc:Ignorable="d">
+    <Grid x:Uid="LayoutRoot_1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Uid="Label_4" Grid.Column="0" Content="{x:Static res:MergedResources.Common_FulfilledDateFrom}" Style="{DynamicResource LblBoldSty}"/>
+        <DatePicker x:Uid="txtStartChangeStateDate" Grid.Column="1" x:Name="txtStartChangeStateDate" Style="{DynamicResource DpkNormalSty}" SelectedDate="{Binding BeginMsFulfiledDate}"/>
+        <Label x:Uid="Label_5" Grid.Column="2" Content="{x:Static res:MergedResources.Common_To}" Style="{DynamicResource LblBoldSty}" />
+        <DatePicker  x:Uid="txtEndChangeStateDate" Grid.Column="3" x:Name="txtEndChangeStateDate" Style="{DynamicResource DpkNormalSty}" SelectedDate="{Binding EndMsFulfiledDate}"/>
+
+        <Label x:Uid="Label_5" Grid.Column="0" Grid.Row="1" Content="{x:Static res:MergedResources.Common_OEMPONumber}" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtSearchPONumber" Text="{Binding SearchPONumber}" Grid.Column="1" Grid.Row="1" Name="txtSearchPONumber" Style="{DynamicResource TxtNormalSty}"  MaxLength="30" />
+        <Label x:Uid="Label_6" Grid.Column="2" Grid.Row="1" Content="{x:Static res:MergedResources.Common_OEMPartNumber}" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtOEMPartNumber" x:Name="txtOEMPartNumber" Text="{Binding SearchOEMNumber}" Grid.Column="3" Grid.Row="1" TextWrapping="NoWrap" Style="{DynamicResource TxtNormalSty}" MaxLength="18"/>
+        <Label x:Uid="Label_3" Grid.Column="0" Grid.Row="2" Content="{x:Static res:MergedResources.Common_LicensablePartNumber}" Style="{DynamicResource LblBoldSty}" />
+        <TextBox x:Uid="txtMSPartNumber" x:Name="txtMSPartNumber" Grid.Column="1" Grid.Row="2" Text="{Binding SearchMSNumber}" TextWrapping="NoWrap" Style="{DynamicResource TxtNormalSty}"  />
+        <StackPanel x:Uid="lbTypeAndState" Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Margin="0,0,3,0" HorizontalAlignment="Right">
+            <Label x:Uid="Label_4" Margin="0" Padding="0"
+               Content="{x:Static res:MergedResources.Common_ColumnHeaderType}"  
+               Style="{DynamicResource LblBoldSty}"
+               Visibility="{Binding ElementName=keyTypes,Path=Visibility}" />
+            <Label x:Uid="Label_3" Margin="0" Padding="0"
+               Content="{x:Static res:ResourcesOfR6.Common_ColumnStatus}" 
+               Style="{DynamicResource LblBoldSty}" 
+               Visibility="{Binding ElementName=cbState,Path=Visibility}" 
+               />
+            <Label x:Uid="Label_5" Margin="0" Padding="0"
+               Content="{x:Static res:ResourcesOfR6.Common_ColumnSemicolon}" 
+               Style="{DynamicResource LblBoldSty}" 
+               Visibility="{Binding ElementName=keyTypes,Path=Visibility}" 
+               />
+        </StackPanel>
+        <ComboBox x:Uid="keyTypes" 
+                  x:Name="keyTypes" 
+                  Grid.Row="2" 
+                  Grid.Column="3"                   
+                  SelectedIndex="0"  
+                  Style="{StaticResource CboSearchSty}" 
+                  ItemContainerStyle="{StaticResource ComboBoxItemStyle}" 
+                  Height="28"
+                  Width="85"
+                  ItemsSource="{Binding KeyTypes}" 
+                  SelectedItem="{Binding SelectedKeyType, Mode=TwoWay}"
+                  Visibility="{Binding KeyTypesVisibility,Mode=TwoWay}"
+                  >
+        </ComboBox>
+        <ComboBox x:Uid="cbState" 
+                  x:Name="cbState" 
+                  Grid.Row="2" 
+                  Grid.Column="3"                   
+                  SelectedIndex="0"  
+                  Style="{StaticResource CboSearchSty}" 
+                  ItemContainerStyle="{StaticResource ComboBoxItemStyle}" 
+                  Height="28"
+                  Width="85"
+                  ItemsSource="{Binding KeyStates}" 
+                  SelectedItem="{Binding SelectedKeyState, Mode=TwoWay}" 
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Right"
+                  >           
+        </ComboBox>
+
+        <Label x:Uid="lblProductKeyIDFrom" Grid.Column="0" Grid.Row="3" Content="Product Key ID From:" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtProductKeyIDFrom" Text="{Binding ProductKeyIDFrom}" Grid.Column="1" Grid.Row="3" Name="txtProductKeyIDFrom" Style="{DynamicResource TxtNormalSty}"  MaxLength="30" />
+
+        <Label x:Uid="lblProductKeyIDTo" Grid.Column="2" Grid.Row="3" Content="Product Key ID To:" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtProductKeyIDTo" Text="{Binding ProductKeyIDTo}" Grid.Column="3" Grid.Row="3" Name="txtProductKeyIDTo" Style="{DynamicResource TxtNormalSty}"  MaxLength="30" />
+
+        <Label x:Uid="lblProductKey" Grid.Column="0" Grid.Row="4" Content="Product Key:" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtProductKey" Text="{Binding ProductKey}" Grid.Column="1" Grid.Row="4" Name="txtProductKey" Style="{DynamicResource TxtNormalSty}"  MaxLength="30" />
+
+        <Label x:Uid="lblProductKeyID" Grid.Column="2" Grid.Row="4" Content="Product Key ID:" Style="{DynamicResource LblBoldSty}"/>
+        <TextBox x:Uid="txtProductKeyID" Text="{Binding ProductKeyID}" Grid.Column="3" Grid.Row="4" Name="txtProductKeyID" Style="{DynamicResource TxtNormalSty}"  MaxLength="30" />
+         
+        <Label x:Uid="lblRMADateBeginID" Grid.Column="0" Grid.Row="5" Content="RMA DATE FROM:"  Style="{DynamicResource LblBoldSty}"/>
+        <DatePicker x:Uid="dbkFrom" Grid.Column="1" Grid.Row="5"  x:Name="StartRMAChangeStateDate" SelectedDate="{Binding StartOemRMADate}" Style="{StaticResource DpkNormalSty}"/>
+        <Label x:Uid="lblRMADateENdID" Grid.Column="2" Grid.Row="5" Content="RMA DATE END:" Style="{DynamicResource LblBoldSty}"/>
+        <DatePicker x:Uid="dbkEnd" Grid.Column="3" Grid.Row="5" x:Name="EndRMAChangeStateDate" SelectedDate="{Binding EndOemRMADate}" Style="{DynamicResource DpkNormalSty}"/>
+
+        <Button x:Uid="btnFilter" 
+                Content="{x:Static res:MergedResources.Common_Search}" 
+                Grid.Column="4" Grid.RowSpan="3" 
+                VerticalAlignment="Center"
+                Margin="0,0,0,0"
+                HorizontalAlignment="Center"
+                Command="{Binding SearchCommand}"
+                IsDefault="True"
+                Style="{DynamicResource FilterButtonSty}"/>
+        </Grid>
+</UserControl>

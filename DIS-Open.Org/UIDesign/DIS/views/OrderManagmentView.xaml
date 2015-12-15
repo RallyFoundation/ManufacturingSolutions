@@ -1,0 +1,140 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.OrderList" xmlns:SampleData1="clr-namespace:Expression.Blend.SampleData.OrderDetails" xmlns:local="clr-namespace:DIS" mc:Ignorable="d"
+	x:Class="DIS.OrderManagmentView"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="auto" Height="auto">
+
+	<Page.Resources>
+		<SampleData1:Orders x:Key="OrderDetails" d:IsDataSource="True"/>
+		<SampleData:Orders x:Key="OrderList" d:IsDataSource="True"/>
+	</Page.Resources>
+
+	<Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource OrderList}}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="50*"/>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="50*"/>
+			</Grid.RowDefinitions>
+			<Label Content="Order List" HorizontalAlignment="Left" Width="125.993" Panel.ZIndex="1" FontWeight="Bold" Foreground="Black"/>
+			<Label Content="Order Details" HorizontalAlignment="Left" Width="125.993" Grid.Row="2" FontWeight="Bold" Panel.ZIndex="1" Foreground="Black"/>
+			<Rectangle Stroke="Black" StrokeThickness="0" Fill="#FF999999"/>
+			<Rectangle Stroke="Black" Grid.Row="2" StrokeThickness="0" Fill="#FF999999"/>
+			<DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding OrderCollection}" GridLinesVisibility="None" AlternatingRowBackground="#FFD2E7FC"
+				CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False" 
+				CanUserDeleteRows="False" Background="White" RowHeaderWidth="20" SelectionMode="Single"  SelectionUnit="FullRow" 
+				MinRowHeight="20" EnableRowVirtualization="True" EnableColumnVirtualization="True" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Center" BorderThickness="1">
+				<DataGrid.Columns>
+					<DataGridTemplateColumn>
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<CheckBox x:Name="chk_header" IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}, Path=Tag}"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<CheckBox HorizontalAlignment="Center">
+									<CheckBox.Style>
+        								<Style TargetType="{x:Type CheckBox}">
+            								<Style.Triggers>
+                								<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}, Path=Tag}" Value="True">
+                    								<Setter Property="IsChecked" Value="True"/>
+                								</DataTrigger>
+                								<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}, Mode=FindAncestor}, Path=Tag}" Value="False">
+                    								<Setter Property="IsChecked" Value="False"/>
+                								</DataTrigger>
+            								</Style.Triggers>
+        								</Style>
+    								</CheckBox.Style>
+								</CheckBox>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+					<DataGridTextColumn Binding="{Binding oemreferencenumber}" MinWidth="150" Header="OEM Reference Number"/>
+					<DataGridTextColumn Binding="{Binding soldto}" MinWidth="150" Header="Sold To"/>
+					<DataGridTextColumn Binding="{Binding shipto}" MinWidth="150" Header="Ship To"/>
+					<DataGridTextColumn Binding="{Binding orderdate}" MinWidth="90" Header="Order Date"/>
+					<DataGridTextColumn Binding="{Binding msordernumber}" MinWidth="100" Header="MS Order Number"/>
+					<DataGridTextColumn Binding="{Binding contractnumber}" MinWidth="105" Header="Contract Number"/>
+					<DataGridTextColumn Binding="{Binding oemponumber}" MinWidth="150" Header="OEM PO Number"/>
+					<DataGridTextColumn Binding="{Binding oempodate}" MinWidth="90" Header="OEM PO Date"/>
+					<DataGridTextColumn Binding="{Binding status}" MinWidth="80" Header="Status"/>
+					<DataGridTextColumn Binding="{Binding errordetails}" MinWidth="150" Header="Error Details"/>
+				</DataGrid.Columns>
+			</DataGrid>
+			<DataGrid Grid.Row="3" AutoGenerateColumns="False" ItemsSource="{Binding OrderCollection}" GridLinesVisibility="None" AlternatingRowBackground="#FFD2E7FC"
+			CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False" 
+			CanUserDeleteRows="False" Background="White" RowHeaderWidth="20" SelectionMode="Single"  SelectionUnit="FullRow" 
+			MinRowHeight="20" EnableRowVirtualization="True" EnableColumnVirtualization="True" HorizontalScrollBarVisibility="Auto" DataContext="{Binding Source={StaticResource OrderDetails}}" BorderThickness="1">
+				<DataGrid.Columns>
+					<DataGridTextColumn Binding="{Binding mspartnumber}" Width="20*" Header="MS Part Number"/>
+					<DataGridTextColumn Binding="{Binding oempartnumber}" Width="20*" Header="OEM Part Number"/>
+					<DataGridTextColumn Binding="{Binding itemname}" Width="20*" Header="Item Name"/>
+					<DataGridTextColumn Binding="{Binding quantity}" Width="10*" Header="Quantity"/>
+					<DataGridTextColumn Binding="{Binding requestedshipdate}" Width="15*" Header="Requested Ship Date"/>
+					<DataGridTextColumn Binding="{Binding fulfilleddate}" Width="15*" Header="Fulfilled Date"/>	
+					</DataGrid.Columns>
+			</DataGrid>
+			<local:Pager HorizontalAlignment="Right" Margin="0,0,30,0"/>
+		</Grid>
+		<Rectangle Fill="#FFFFFFFF" Stroke="Black" StrokeThickness="0"/>
+		<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" FontWeight="Bold">
+			<StackPanel Margin="4,0">
+				<GroupBox Header="Order Information" Height="Auto">
+					<StackPanel>
+						<Label Content="OEM PO No. :"/>
+						<TextBox TextWrapping="Wrap" FontWeight="Normal" Margin="10,2"/>
+						<Label Content="Reference No. :"/>
+						<TextBox TextWrapping="Wrap" FontWeight="Normal" Margin="10,2"/>
+						<Label Content="Order Type :" Margin="0"/>
+						<ComboBox FontWeight="Normal" Margin="10,2" SelectedIndex="0">
+							<ComboBoxItem>All</ComboBoxItem>
+							<ComboBoxItem>COGS</ComboBoxItem>
+							<ComboBoxItem>Sample</ComboBoxItem>
+						</ComboBox>
+						<Label Content="Order Status :"/>
+						<ComboBox FontWeight="Normal" Margin="10,2" SelectedIndex="0">
+							<ComboBoxItem>All</ComboBoxItem>
+							<ComboBoxItem>Draft</ComboBoxItem>
+							<ComboBoxItem>Submitted</ComboBoxItem>
+							<ComboBoxItem>Fulfilled</ComboBoxItem>
+							<ComboBoxItem>Failed</ComboBoxItem>
+						</ComboBox>
+						<GroupBox Header="OEM PO Date Range" Height="Auto">
+							<StackPanel>
+								<Label Content="From :" FontWeight="Normal"/>
+								<DatePicker FontWeight="Normal" Margin="10,2"/>
+								<Label Content="To :" FontWeight="Normal"/>
+								<DatePicker FontWeight="Normal" Margin="10,2"/>
+							</StackPanel>
+						</GroupBox>
+					</StackPanel>
+				</GroupBox>
+				<GroupBox Header="Participants" Height="Auto">
+					<StackPanel>
+						<Label Content="Ship To Customer :"/>
+						<ComboBox FontWeight="Normal" Margin="10,2" SelectedIndex="0">
+							<ComboBoxItem>Select Customer...</ComboBoxItem>
+							<ComboBoxItem>Fabrikam, Inc.</ComboBoxItem>
+						</ComboBox>
+						<Label Content="Sold To Customer :"/>
+						<ComboBox FontWeight="Normal" Margin="10,2" SelectedIndex="0">
+							<ComboBoxItem>Select Customer...</ComboBoxItem>
+							<ComboBoxItem>Fabrikam, Inc.</ComboBoxItem>
+						</ComboBox>
+					</StackPanel>
+				</GroupBox>
+				<Button Content="Search" FontWeight="Normal" Margin="0,15,0,0" HorizontalAlignment="Center" Width="75"/>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Page>

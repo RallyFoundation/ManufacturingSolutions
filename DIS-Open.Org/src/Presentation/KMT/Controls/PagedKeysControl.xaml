@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="DIS.Presentation.KMT.Controls.PagedKeysControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+             xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+             mc:Ignorable="d" 
+             >
+    <Grid x:Name="tabGrid" 
+          x:Uid="tabGrid">
+
+        <DataGrid  x:Uid="dgByKeys" 
+                               ItemsSource="{Binding Keys}"   
+                               SelectedItem="{Binding SelectedKey}"
+                               Style="{StaticResource DgNormalSty}"
+                               ScrollBar.Scroll="ExportByKeys_Scroll" 
+                               ScrollViewer.ScrollChanged="ExportByKeys_ScrollChanged" 
+                               Sorting="ExportByKeys_Sorting"
+                               Height="230" 
+                           HorizontalAlignment="Stretch"
+>
+            <DataGrid.RowValidationRules>
+                <ExceptionValidationRule />
+            </DataGrid.RowValidationRules>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate >
+                            <CheckBox x:Uid="chkAllIsChecked" 
+                                              IsThreeState="False"
+                                              IsChecked="{Binding IsAllChecked}" 
+                                              DataContext="{Binding ElementName=tabGrid, Path=DataContext}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <CheckBox x:Uid="chkKeyIsChecked" 
+                                              IsThreeState="False" 
+                                              Checked="SelectSingleKey" Unchecked="SelectSingleKey"
+                                              IsChecked="{Binding IsSelected,Mode=TwoWay, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Margin="4,0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding keyInfo.KeyId}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}"  IsReadOnly="True" SortMemberPath="KeyId"/>
+                <DataGridTextColumn Binding="{Binding keyInfo.ProductKey}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}"  IsReadOnly="True" SortMemberPath="ProductKey"/>
+                <DataGridTextColumn Binding="{Binding ZFRM_FACTOR_CL1}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderFactor1}" IsReadOnly="True" SortMemberPath="ZFRM_FACTOR_CL1"/>
+                <DataGridTextColumn Binding="{Binding ZFRM_FACTOR_CL2}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderFactor2}" IsReadOnly="True" SortMemberPath="ZFRM_FACTOR_CL2"/>
+                <DataGridTextColumn Binding="{Binding ZSCREEN_SIZE}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderScreenSize}" IsReadOnly="True" SortMemberPath="ZSCREEN_SIZE"/>
+                <DataGridTextColumn Binding="{Binding ZTOUCH_SCREEN, Converter={StaticResource touchScreenEnumConverter}}" Header="{x:Static res:ResourcesOfRTMv1_8.EditOptionalInfo_ColumnHeaderTouchScreen}" IsReadOnly="True" SortMemberPath="ZTOUCH_SCREEN"/>
+                <DataGridTextColumn Binding="{Binding ZPC_MODEL_SKU}" Header="{x:Static res:MergedResources.EditOptionalInfo_ColumnHeaderPcModelSku}" IsReadOnly="True" SortMemberPath="ZPC_MODEL_SKU"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

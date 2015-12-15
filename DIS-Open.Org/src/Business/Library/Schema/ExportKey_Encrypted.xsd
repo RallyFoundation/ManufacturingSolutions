@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ExportKey_encrypted"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/ExportKey_encrypted.xsd"
+    xmlns:mstns="http://tempuri.org/ExportKey_encrypted.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="EncryptedExportKeyList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Key" minOccurs="1" maxOccurs="1" type="xs:string"></xs:element>
+        <xs:element name="IV" minOccurs="1" maxOccurs="1" type="xs:string"></xs:element>
+        <xs:element name="ProductKeys" minOccurs="1" maxOccurs="1" type="xs:string"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

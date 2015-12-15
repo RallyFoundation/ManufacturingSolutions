@@ -1,0 +1,7 @@
+﻿CREATE NONCLUSTERED INDEX [IX_ProductKeyInfo_ZSCREEN_SIZE] ON [dbo].[ProductKeyInfo] 
+(
+    [ZSCREEN_SIZE] ASC
+)
+WHERE ([ZSCREEN_SIZE] IS NOT NULL)
+    ON [PRIMARY];
+

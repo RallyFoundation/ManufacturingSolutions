@@ -1,0 +1,41 @@
+﻿<Window x:Class="DIS.Presentation.KMT.DiagnosticWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        Title="{x:Static res:MergedResources.Common_Diagnostic}" 
+        Height="540" 
+        Width="500"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        x:Uid="wndDiagnostic">
+    <Grid x:Uid="grdRoot">        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <CheckBox x:Uid="chkAutoDiagnostic" Grid.Row="0" Margin="20,10" Command="{Binding AutoDiagnoseChangedCommand}" Content="{x:Static res:ResourcesOfR6.DiagnosticView_AutoDiagnostic}" IsChecked="{Binding IsAutoDiagnostic,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ChkNormalSty}"></CheckBox>
+        <Button x:Uid="btnTestInternalConn" IsEnabled="{Binding IsBtnEnble}" Grid.Row="1" Margin="20"  Command="{Binding TestInternalCommand}" Style="{DynamicResource DiagnosticBtnSty}" Content="{x:Static res:MergedResources.Diagnostic_InternalConnection}"></Button>
+        <Button x:Uid="btnTestULSConn" IsEnabled="{Binding IsBtnEnble}" Grid.Row="2" Margin="20"  Command="{Binding TestUpLevelSystemCommand}" Content="{x:Static res:MergedResources.Diagnostic_ULSConnection}" Visibility="{Binding UpLevelSystemTestVisibility}" Style="{DynamicResource DiagnosticBtnSty}"></Button>
+        <Grid Grid.Row="3" Margin="20,20,0,20" Visibility="{Binding DLSTestingVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Uid="cboSubsidaries" IsEnabled="{Binding IsBtnEnble}" ItemsSource="{Binding Subsidiaries}" SelectedItem="{Binding SelectedSubsidiary,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DisplayName" Grid.Column="0" Margin="0,0,20,0" MinWidth="180" Style="{DynamicResource CboNormalSty}" ></ComboBox>
+            <Button x:Uid="btnTestDLSConn" IsEnabled="{Binding IsBtnEnble}" Grid.Column="1" Command="{Binding TestDownLevelSystemCommand}" Content="{x:Static res:ResourcesOfR6.Diagnostic_DLSConnection}" Style="{DynamicResource DiagnosticBtnSty}"></Button>
+        </Grid>
+        <Button x:Uid="btnTestMSConn" IsEnabled="{Binding IsBtnEnble}" Grid.Row="4" Margin="20"   Command="{Binding TestMicrosoftCommand}" Content="{x:Static res:MergedResources.Diagnostic_MicrosoftConnection}" Visibility="{Binding MicrosoftTestVisibility}" Style="{DynamicResource DiagnosticBtnSty}"></Button>
+        <TextBox x:Uid="txtResult" Grid.Row="5" Margin="20,10,20,0" IsReadOnly="True" Text="{Binding Result}"  Style="{DynamicResource MultiLineTxtSty}"></TextBox>
+        
+        <StackPanel x:Uid="stpBtns" Grid.Row="6"  Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+            <Button x:Uid="btnCopy" Margin="8,0,0,0" Command="{Binding CopyCommand}" Content="{x:Static res:MergedResources.Common_Copy}" Style="{DynamicResource BtnNormalSty}"></Button>
+            <Button x:Uid="btnEixt" Margin="8,0,0,0" Command="{Binding ExitCommand}" Content="{x:Static res:MergedResources.Common_Exit}" Style="{DynamicResource BtnNormalSty}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

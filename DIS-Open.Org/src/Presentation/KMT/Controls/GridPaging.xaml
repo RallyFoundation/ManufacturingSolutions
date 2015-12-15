@@ -1,0 +1,55 @@
+﻿<UserControl x:Uid="UserControl_1" 
+             x:Class="DIS.Presentation.KMT.Controls.GridPaging"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="auto"
+             xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+             Width="Auto">
+    <UserControl.Resources>
+        <Style x:Uid="Style_1" x:Key="DisableButtonStyle" TargetType="{x:Type Button}">
+            <Style.Resources>
+                <Style x:Uid="Style_2" TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                        <DataTrigger x:Uid="DataTrigger_1" Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}, AncestorLevel=1}, Path=IsEnabled}" Value="False">
+                            <Setter x:Uid="Setter_1" Property="Opacity" Value="0.40"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel x:Uid="StackPanel_1" Orientation="Horizontal">
+        <Label x:Uid="lblTotal" Name="lblTotal" Width="auto" Content="{x:Static res:MergedResources.Common_TotalKeys}" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+        <TextBlock x:Uid="txtTotalCount" Name="txtTotalCount"  Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+        <Label x:Uid="lblPerPage" Name="lblGoto" Width="auto" Margin="10,0,0,0" Content="{x:Static res:MergedResources.GridPaging_RowsPerPage}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+        <ComboBox x:Uid="cmbPageNo" Name="cmbPageNo" Width="40" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="cmbPageNo_SelectionChanged">
+            <!--<ComboBoxItem Content="1" IsSelected="True"/>
+            <ComboBoxItem Content="2" />
+            <ComboBoxItem Content="30" />
+            <ComboBoxItem Content="50" />-->
+        </ComboBox>
+        <Label x:Uid="Label_1" Width="5" />
+        <Button x:Uid="btnFirst" Name="btnFirst" Background="Transparent" Click="FirstPage_Click" Style="{StaticResource DisableButtonStyle}">
+            <Image x:Uid="First" Name="First" Width="20" Height="20" HorizontalAlignment="Left" Source="/DIS.Presentation.KMT;component/icons/first.png"></Image>
+        </Button>
+        <Button x:Uid="btnPrev" Name="btnPrev" Background="Transparent" Click="PreviousPage_Click" Style="{StaticResource DisableButtonStyle}">
+            <Image x:Uid="Previous" Name="Previous" Width="20" Height="20" HorizontalAlignment="Left" Source="/DIS.Presentation.KMT;component/icons/Previous.png"></Image>
+        </Button>
+        <Label x:Uid="lblPageNo" Name="lblPageNo" Width="auto"  Content="{x:Static res:MergedResources.GridPaging_Page}" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+        <TextBlock x:Uid="txtCurrentPageNo" Name="txtCurrentPageNo" Width="auto"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <Label x:Uid="lblOf" Name="lblOf" Width="auto" Content="/" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+        <TextBlock x:Uid="txtPageCount" Name="txtPageCount" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <Label x:Uid="Label_2" Width="5" />
+
+        <Button x:Uid="btnNext" Name="btnNext" Background="Transparent" Click="NextPage_Click" Style="{StaticResource DisableButtonStyle}">
+            <Image x:Uid="Next" Name="Next" Width="20" Height="20" HorizontalAlignment="Left" Source="/DIS.Presentation.KMT;component/icons/Next.png"></Image>
+        </Button>
+        <Button x:Uid="btnLast" Name="btnLast" Background="Transparent" Click="LastPage_Click" Style="{StaticResource DisableButtonStyle}">
+            <Image x:Uid="Last" Name="Last" Width="20" Height="20" HorizontalAlignment="Left" Source="/DIS.Presentation.KMT;component/icons/Last.png"></Image>
+        </Button>
+        
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,35 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.ReportKeysView"
+	x:Name="Window"
+	Title="Report Keys"
+	Width="840" Height="480" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.2*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="0.505*"/>
+			<RowDefinition Height="0.295*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="150"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Label x:Name="lbl_keysselect" Content="Select Keys to report" Grid.Row="2" d:LayoutOverrides="Width" HorizontalContentAlignment="Right" Margin="0,0,10,0" FontWeight="Bold"/>
+		<Label x:Name="lbl_summary" Content="Summary" Grid.Row="3" d:LayoutOverrides="Width" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+		<Rectangle Fill="#FFCCCCCC" Grid.RowSpan="7" Stroke="Black" Panel.ZIndex="-1" StrokeThickness="0"/>
+		<Frame x:Name="frame_keysselect" Content="" Grid.RowSpan="6" Grid.Column="1" Source="/DIS;component/views/ReportKeys/ReportKeysSelect.xaml"/>
+		<Frame x:Name="frame_summary" Content="" Grid.RowSpan="6" Grid.Column="1" Source="/DIS;component/views/ReportKeys/ReportKeysSummary.xaml" Visibility="Hidden"/>
+		<StackPanel Margin="0,0,50,0" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+			<Button x:Name="btnReport" Content="OK" Margin="10,30" IsDefault="True" Click="btnNext_Click" HorizontalAlignment="Left" Width="75" Height="27.94" d:LayoutOverrides="HorizontalAlignment"/>
+			<Button x:Name="btnFinish" Content="Close" Margin="10,30" IsDefault="True" Click="btnFinish_Click" HorizontalAlignment="Left" Width="75" Height="27.94" d:LayoutOverrides="HorizontalAlignment" Visibility="Collapsed"/>
+			<Button x:Name="btnCancel" Content="Cancel" Margin="10,30" IsCancel="True" Click="btnCancel_Click" Width="75" Height="27.94" HorizontalAlignment="Left"/>
+		</StackPanel>
+	</Grid>
+</Window>

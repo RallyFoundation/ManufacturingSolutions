@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.5</ProductVersion>
+    <ProjectGuid>{d28f7fce-b465-438d-8541-696a291aa0a9}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>FactoryFloorSetup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\OemSetup\DatabaseExistsDlg.wxs">
+      <Link>DatabaseExistsDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\DbConfigDlg.wxs">
+      <Link>DbConfigDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\InstallationModeDlg.wxs">
+      <Link>InstallationModeDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\InvalidFeatureSelectionDlg.wxs">
+      <Link>InvalidFeatureSelectionDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\InvalidLogonDlg.wxs">
+      <Link>InvalidLogonDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\InvalidCloudConnectionDlg.wxs">
+      <Link>InvalidCloudConnectionDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\KmtConfigDlg.wxs">
+      <Link>KmtConfigDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\RequireIisDlg.wxs">
+      <Link>RequireIisDlg.wxs</Link>
+    </Compile>
+    <Compile Include="..\OemSetup\Wizard.wxs">
+      <Link>Wizard.wxs</Link>
+    </Compile>
+    <Compile Include="CloudConfigDlg.wxs" />
+    <Compile Include="ConfigurationComponent.wxs" />
+    <Compile Include="DatabaseComponent.wxs" />
+    <Compile Include="DataPollingComponent.wxs" />
+    <Compile Include="KeyProviderComponent.wxs" />
+    <Compile Include="KeyProviderConfigDlg.wxs" />
+    <Compile Include="KmtComponent.wxs" />
+    <Compile Include="Product.wxs" />
+    <Compile Include="Properties.wxs" />
+    <Compile Include="WebServicesComponent.wxs" />
+    <Compile Include="WebServicesConfigDlg.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>..\..\References\Setup\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixSqlExtension">
+      <HintPath>..\..\References\Setup\WixSqlExtension.dll</HintPath>
+      <Name>WixSqlExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>..\..\References\Setup\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixIIsExtension">
+      <HintPath>..\..\References\Setup\WixIIsExtension.dll</HintPath>
+      <Name>WixIIsExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixFirewallExtension">
+      <HintPath>..\..\References\Setup\WixFirewallExtension.dll</HintPath>
+      <Name>WixFirewallExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Common\ConfigurationProtectedTool\ConfigurationProtectedTool.csproj">
+      <Name>ConfigurationProtectedTool</Name>
+      <Project>{ff0ca532-1072-49bc-bc27-3ca98d98f8a9}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Presentation\KMT\KMT.csproj">
+      <Name>KMT</Name>
+      <Project>{59a27cd5-b73b-4e9a-a6f8-478d57c4378b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Services\DataPolling\DataPolling.csproj">
+      <Name>DataPolling</Name>
+      <Project>{0c6073dc-0bf7-4dfb-8606-9c8f8edbe45a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Services\KeyProvider\KeyProviderService\KeyProviderService.csproj">
+      <Name>KeyProviderService</Name>
+      <Project>{fca9f4f7-481b-4feb-ae48-d5c3014b9b12}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Services\ProviderWebService\ProviderWebService.csproj">
+      <Name>ProviderWebService</Name>
+      <Project>{65963362-eaf3-42fb-824a-d362a51df8fa}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Services\TransferWebService\TransferWebService.csproj">
+      <Name>TransferWebService</Name>
+      <Project>{8a6523f7-b13d-468d-bb3f-7185af60fd52}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Custom\DbConnectionTest\DbConnectionTest.csproj">
+      <Name>DbConnectionTest</Name>
+      <Project>{bc26a77b-a776-4cd9-b7c3-6ef771641204}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLLOCATION</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Resources\en-US.wxl">
+      <Link>en-US.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\es.wxl">
+      <Link>es.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\ja-JP.wxl">
+      <Link>ja-JP.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\pt-BR.wxl">
+      <Link>pt-BR.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\zh-CN.wxl">
+      <Link>zh-CN.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\zh-TW.wxl">
+      <Link>zh-TW.wxl</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)Deployment\Resources\CreateLocalizedInstallerAllLanguages.cmd" $(TargetName) "$(TargetDir)" "$(SolutionDir)Deployment\Resources"</PostBuildEvent>
+  </PropertyGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

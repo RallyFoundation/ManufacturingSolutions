@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Orders>
+  <Order>
+    <mspartnumber>FSC-00024</mspartnumber>
+    <oempartnumber>WIN800004</oempartnumber>
+    <itemname>Win Pro K 7 Korean OEM OLC Dskls Eval</itemname>
+    <quantity>10</quantity>
+    <requestedshipdate>11-22-2011</requestedshipdate>
+    <fulfilleddate>11-22-2011</fulfilleddate>
+  </Order>
+  <Order>
+    <mspartnumber>FSC-00024</mspartnumber>
+    <oempartnumber>WIN800005</oempartnumber>
+    <itemname>Win Pro K 7 Korean OEM OLC Dskls Eval</itemname>
+    <quantity>10</quantity>
+    <requestedshipdate>11-22-2011</requestedshipdate>
+    <fulfilleddate>11-22-2011</fulfilleddate>
+  </Order>
+</Orders>

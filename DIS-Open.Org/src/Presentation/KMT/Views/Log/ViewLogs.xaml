@@ -1,0 +1,136 @@
+﻿<Page
+    x:Uid="pgViewLogs" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:z="clr-namespace:DIS.Presentation.KMT.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+    x:Class="DIS.Presentation.KMT.View.Log.ViewLogs"
+    xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+    x:Name="Page"
+    WindowTitle="Page"
+    FlowDirection="LeftToRight"
+    Width="Auto" Height="Auto">
+    <Grid x:Uid="grdLogs" x:Name="grdLogs" 
+                Behaviors:BusyIndicator.BusyState="{Binding IsBusy}"
+                Behaviors:BusyIndicator.AddMargins="True"              
+                Behaviors:BusyIndicator.ProcessingText="Loading"
+                Behaviors:BusyIndicator.TargetVisual="{Binding ElementName=grdLogs}">
+        <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <TabControl x:Uid="tbcLogs" SelectedIndex="{Binding CurrentTab}" Grid.Column="1"  TabStripPlacement="Top" BorderThickness="0" Padding="0">
+            <TabItem x:Uid="tbiSystemLogs" Header="{x:Static res:MergedResources.Common_SystemLog}" Visibility="Collapsed" FontSize="13.333" FontFamily="Arial">
+                <Grid x:Uid="grdSystemLogs" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto"/>
+                        <RowDefinition  Height="30"/>
+                        <RowDefinition  Height="0.50*"/>
+                        <RowDefinition  Height="0.50*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Uid="stpSysLogDetails" Grid.Row="0">
+                        <Grid x:Uid="grdSysLogDetails" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Uid="lblSysLogRecordInTimeframe" Content="{x:Static res:MergedResources.Common_RecordInTimeframe}" HorizontalAlignment="Left" Grid.ColumnSpan="2" Style="{DynamicResource LblBoldSty}"/>
+                            <Label x:Uid="lblSysLogFrom"  Content="{x:Static res:MergedResources.Common_From}" Grid.Row="1" Style="{DynamicResource LblBoldSty}" />
+                            <Label x:Uid="lblSysLogTo" Content="{x:Static res:MergedResources.Common_To}" Grid.Row="2" Style="{DynamicResource LblBoldSty}"/>
+                            <Label x:Uid="lblSysLogLogLevel" Margin="8,0,0,0" Content="{x:Static res:MergedResources.Common_LogLevel}" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Style="{DynamicResource LblBoldSty}"/>
+                            <DatePicker x:Uid="dpkSysLogFrom" SelectedDate="{Binding SystemLogDateFrom}" Grid.Column="1" Grid.Row="1" Style="{DynamicResource DpkNormalSty}"/>
+                            <DatePicker x:Uid="dpkSysLogTo" SelectedDate="{Binding SystemLogDateTo}" Grid.Column="1" Grid.Row="2" Style="{DynamicResource DpkNormalSty}"/>
+                            <CheckBox x:Uid="chkIsCritical" Margin="10,0,0,0" IsChecked="{Binding IsCriticalChecked}" Content="{x:Static res:MergedResources.ViewLogs_Critical}" Grid.Column="2" Grid.Row="1" Style="{DynamicResource ChkLogLevelSty}"/>
+                            <CheckBox x:Uid="chkIsError" IsChecked="{Binding IsErrorChecked}" Content="{x:Static res:MergedResources.Common_Error}" Grid.Column="3" Grid.Row="1" Style="{DynamicResource ChkLogLevelSty}"/>
+                            <CheckBox x:Uid="chkIsWarning" Margin="10,0,0,0" IsChecked="{Binding IsWarningChecked}" Content="{x:Static res:MergedResources.Common_Warning}" Grid.Column="2" Grid.Row="2" Style="{DynamicResource ChkLogLevelSty}"/>
+                            <CheckBox x:Uid="chkIsInfo" IsChecked="{Binding IsInformationChecked}" Content="{x:Static res:MergedResources.Common_Information}" Grid.Column="3" Grid.Row="2" Style="{DynamicResource ChkLogLevelSty}"/>
+                            <Button x:Uid="btnFilter" Command="{Binding FilterCommand}" Content="{x:Static res:MergedResources.Common_Search}" Grid.Column="4" Grid.RowSpan="3" Margin="10,0,0,0" VerticalAlignment="Center" Style="{DynamicResource FilterButtonSty}"/>
+                        </Grid>
+                    </StackPanel>
+                    <Rectangle x:Uid="rectSystemLogBackground1" Grid.Row="1" Style="{DynamicResource RectBackgroundSty}"/>
+                    <Label x:Uid="lblSystemLogView" Content="{x:Static res:MergedResources.ViewLogs_SystemLogView}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Style="{DynamicResource LblBoldTitleSty}"/>
+                    <z:GridPaging x:Uid="gpSystemLogs" CurrentPageNumber="{Binding SystemLogCurrentPage, Mode=TwoWay}" ItemsPerPage="{Binding SystemLogPageSize, Mode=TwoWay}" PageCount="{Binding SystemLogPageCount, Mode=TwoWay}" HorizontalAlignment="Right" Grid.Row="1" FontSize="10.667" Width="auto" VerticalAlignment="Center" PageChangedCommand="{Binding ChangePageCommand}" />
+                    <DataGrid x:Uid="dgSystemLogs" 
+                              ItemsSource="{Binding SystemLogs}" 
+                              SelectedItem="{Binding SelectedSystemLog}" 
+                              Style="{StaticResource DgNormalSty}"
+                              Grid.Row="2"
+                              Sorting="DataGrid_Sorting"
+                              >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderTimestamp}" Width="12*" Binding="{Binding Timestamp}" SortMemberPath="TimestampUtc" IsReadOnly="True"/>
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderSeverity}" Width="6*"  Binding="{Binding Severity}" SortMemberPath="SeverityName" IsReadOnly="True"/>
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderTitle}" Width="10*" Binding="{Binding Title}" SortMemberPath="Title" IsReadOnly="True" />
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_Message}" Width="30*" Binding="{Binding InlineMessage}" SortMemberPath="Message" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Rectangle x:Uid="rectSystemBackground2" Height="30" VerticalAlignment="Top" Grid.Row="3" Style="{DynamicResource RectBackgroundSty}"/>
+                    <Label x:Uid="lblSysLogDetails" VerticalAlignment="Top" Content="{x:Static res:MergedResources.Common_LogDetails}" HorizontalAlignment="Left" Grid.Row="3" Width="172.63" Style="{DynamicResource LblBoldTitleSty}"/>
+                    <TextBox x:Uid="txtSysLogDetals" Name="txtSystemLogDetail" Text="{Binding SelectedSystemLog.FormattedMessage, IsAsync=True}" IsReadOnly="True" Margin="8,38,8,8" Grid.Row="4" Style="{DynamicResource MultiLineTxtSty}" />
+                    <GridSplitter Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="6" Background="#FF999999"></GridSplitter>
+                    <Rectangle Grid.Row="3" Margin="0,1,0,0" Stroke="white" Width="100" VerticalAlignment="Top" Height="4" StrokeThickness="0,1"></Rectangle>
+                </Grid>
+            </TabItem>
+            <TabItem x:Uid="tbiOperationLogs" Visibility="Collapsed" Header="{x:Static res:MergedResources.Common_OperationLog}" FontSize="13.333" FontFamily="Arial">
+                <Grid x:Uid="grdOperationLogs" Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto"/>
+                        <RowDefinition  Height="30"/>
+                        <RowDefinition  Height="0.50*"/>
+                        <RowDefinition  Height="0.50*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Uid="stpOperLogDetails" Grid.Row="0">
+                        <Grid x:Uid="gridOperLogDetails" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="auto"/>
+                                <ColumnDefinition  Width="auto"/>
+                                <ColumnDefinition  Width="auto"/>
+                                <ColumnDefinition  Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="35"/>
+                                <RowDefinition  Height="40"/>
+                                <RowDefinition  Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Label x:Uid="lblOperRecordInTimeframe" Content="{x:Static res:MergedResources.Common_RecordInTimeframe}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Style="{DynamicResource LblBoldSty}"/>
+                            <Label x:Uid="lblOperLoginId" Padding="0" HorizontalContentAlignment="Left" Content="{x:Static res:MergedResources.Common_LoginId}" Grid.Column="2" Margin="8,0,0,0" HorizontalAlignment="Left" Style="{DynamicResource LblBoldSty}"/>
+                            <Label x:Uid="lblOperFrom" Content="{x:Static res:MergedResources.Common_From}" Grid.Row="1" Style="{DynamicResource LblBoldSty}"/>
+                            <Label x:Uid="lblOperTo" Content="{x:Static res:MergedResources.Common_To}" Grid.Row="2" Style="{DynamicResource LblBoldSty}"/>
+                            <DatePicker x:Uid="dpkOperFrom" SelectedDate="{Binding OperationLogDateFrom}" Grid.Column="1" Grid.Row="1" Style="{DynamicResource DpkNormalSty}"/>
+                            <DatePicker x:Uid="dpkOperTo"  SelectedDate="{Binding OperationLogDateTo}" Grid.Column="1" Grid.Row="2" Style="{DynamicResource DpkNormalSty}"/>
+                            <TextBox x:Uid="txtLoginId" Text="{Binding OperationLogUserName}" IsReadOnly="{Binding IsOperationLogUserNameReadOnly}" Margin="8,0,0,0" Grid.Column="2" Grid.Row="1" Style="{DynamicResource TxtNormalSty}"/>
+                            <Button x:Uid="btnFilter"   Command="{Binding FilterCommand}" Content="{x:Static res:MergedResources.Common_Filter}" Grid.Column="3" Grid.RowSpan="3" VerticalAlignment="Center" Margin="15,0,0,0" Style="{DynamicResource FilterButtonSty}"/>
+                        </Grid>
+                    </StackPanel>
+                    <Rectangle x:Uid="rectOLBack1" Grid.Row="1" Style="{DynamicResource RectBackgroundSty}"/>
+                    <Label x:Uid="lblOperationLogView" Content="{x:Static res:MergedResources.ViewLogs_OperationLogView}" Grid.Row="1" d:IsLocked="True" Style="{DynamicResource LblBoldTitleSty}"/>
+                    <z:GridPaging x:Uid="gpOperationLogs" CurrentPageNumber="{Binding OperationLogCurrentPage, Mode=TwoWay}" ItemsPerPage="{Binding OperationLogPageSize, Mode=TwoWay}" PageCount="{Binding OperationLogPageCount, Mode=TwoWay}" HorizontalAlignment="Right" Grid.Row="1" FontSize="10.667" VerticalAlignment="Center" d:IsLocked="True" PageChangedCommand="{Binding ChangePageCommand}" />
+                    <DataGrid x:Uid="dgOperationLogs" 
+                              ItemsSource="{Binding OperationLogs}" 
+                              SelectedItem="{Binding SelectedOperationLog}" 
+                              Style="{StaticResource DgNormalSty}" 
+                              Grid.Row="2"
+                              Sorting="DataGrid_Sorting">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderTimestamp}" Width="12*" Binding="{Binding Timestamp}" SortMemberPath="TimestampUtc" IsReadOnly="True"/>
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderTitle}" Width="6*" Binding="{Binding Title}" SortMemberPath="Title" IsReadOnly="True" />
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderOperator}" Width="8*" Binding="{Binding Operator}" SortMemberPath="Title" IsReadOnly="True" />
+                            <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_Message}" Width="30*" Binding="{Binding InlineMessage}" SortMemberPath="Message" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Rectangle Height="30" VerticalAlignment="Top" x:Uid="rectOLBack2" Grid.Row="3" Style="{DynamicResource RectBackgroundSty}"/>
+                    <GridSplitter Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="6" Background="#FF999999"></GridSplitter>
+                    <Label x:Uid="lblOperationLogDetails" Width="auto" VerticalAlignment="Top" Content="{x:Static res:MergedResources.Common_LogDetails}" Grid.Row="3" d:IsLocked="True" Style="{DynamicResource LblBoldTitleSty}"/>
+                    <Rectangle Grid.Row="3" Stroke="white" Width="100" VerticalAlignment="Top" Margin="0,1,0,0" Height="4" StrokeThickness="0,1"></Rectangle>
+                    <TextBox x:Uid="txtOperationLogDetail" Name="txtOperationLogDetail" Text="{Binding SelectedOperationLog.FormattedMessage, IsAsync=True}" IsReadOnly="True" Margin="8,38,8,8" Grid.Row="3" Style="{DynamicResource MultiLineTxtSty}" ></TextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

@@ -1,0 +1,30 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.LanguageSetting"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="Auto" Height="Auto">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="40"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<GroupBox Header="Language Setting" Margin="0,0,6.747,0" Grid.RowSpan="2" d:LayoutOverrides="Height" FontWeight="Bold">
+			<StackPanel Orientation="Horizontal" Margin="0,0,0,27.04" Width="247.74" HorizontalAlignment="Left">
+				<Label Content="Language :" Width="74.74" VerticalContentAlignment="Center" Margin="0" FontWeight="Normal"/>
+				<ComboBox Width="123" Margin="10,8" SelectedIndex="0" FontWeight="Normal">
+					<ComboBoxItem Content="English(Default)"/>
+					<ComboBoxItem Content="Tradition Chinese"/>
+					<ComboBoxItem Content="Simple Chinese"/>
+					<ComboBoxItem Content="Japanese"/>
+					<ComboBoxItem Content="Korean"/>
+				</ComboBox>
+			</StackPanel>
+		</GroupBox>
+	</Grid>
+</Page>

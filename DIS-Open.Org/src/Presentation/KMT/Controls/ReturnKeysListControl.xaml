@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="DIS.Presentation.KMT.Controls.ReturnKeysListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+             xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors">
+    <UserControl.Resources>
+        <Behaviors:ColorConverterReturnKey x:Key="ColorConverterReturnKey"></Behaviors:ColorConverterReturnKey>
+        <Behaviors:ColorConverterReturnState x:Key="ColorConverterReturnState"></Behaviors:ColorConverterReturnState>
+    </UserControl.Resources>
+
+    <Grid x:Name="returnKeyListGrid" x:Uid="returnKeyListGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Uid="dgKeys" 
+                  x:Name="dgKeys"
+                  HorizontalAlignment="Stretch"
+                  Height="245"
+                  Margin="0,20,0,0"
+                  ItemsSource="{Binding ReturnKeys}" 
+                  Style="{StaticResource DgNormalSty}" 
+                  ScrollBar.Scroll="ReturnByKeys_Scroll" 
+                  ScrollViewer.ScrollChanged="ReturnByKeys_ScrollChanged" 
+                  Sorting="ReturnByKeys_Sorting"
+                  >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="White">
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+
+                </Style>
+
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate >
+                            <CheckBox x:Uid="chkAllIsChecked" 
+                                      IsThreeState="False" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"  
+                                      IsChecked="{Binding IsAllChecked}" 
+                                      DataContext="{Binding ElementName=returnKeyListGrid, Path=DataContext}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <CheckBox x:Uid="chkKeyIsChecked" IsThreeState="False" IsChecked="{Binding ReturnReportKey.IsSelected,Mode=TwoWay, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn  SortMemberPath="KeyId" IsReadOnly="True" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"> 
+                                <TextBlock Background="{Binding Converter={StaticResource ColorConverterReturnKey}}" Width="12" Height="12" Margin="3,0"></TextBlock>
+                                <TextBlock x:Uid="tbkeyId" Text="{Binding ReturnReportKey.keyInfo.KeyId}" Margin="3,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  SortMemberPath="ProductKey" IsReadOnly="True" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBlock x:Uid="tbProductKey" Text="{Binding ReturnReportKey.keyInfo.ProductKey}" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  SortMemberPath="KeyStateName" IsReadOnly="True" Header="{x:Static res:MergedResources.Common_ColumnHeaderStatus}" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock x:Uid="tbkStateName" Text="{Binding ReturnReportKey.keyInfo.KeyStateName}"  Foreground="{Binding Converter={StaticResource ColorConverterReturnState}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  SortMemberPath="KeyInfoEx.KeyTypeId" IsReadOnly="True" Header="{x:Static res:ResourcesOfR6.Common_KeyType}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBlock x:Uid="tbkeyType" Text="{Binding ReturnReportKey.keyInfo.KeyInfoEx.KeyType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn  SortMemberPath="LicensablePartNumber" IsReadOnly="True" Header="{x:Static res:MergedResources.Common_ColumnHeaderLicensablePartNumber}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBlock x:Uid="tbLicensablePartNumber" Text="{Binding ReturnReportKey.keyInfo.LicensablePartNumber}"/>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.HeaderTemplate >
+                        <DataTemplate >
+                            <TextBlock x:Uid="tbkOperation" Text="{x:Static res:ResourcesOfR6.ReturnKeysView_ReturnType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <ComboBox x:Uid="cboReuseOperations" 
+                                      ItemsSource="{Binding ReturnRequestTypes}" 
+                                      SelectedValue="{Binding SelectReturnRequestType, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsEnabled="{Binding ReturnReportKey.IsSelected}" 
+                                      Style="{StaticResource CboSearchSty}" 
+                                      Width="175"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Margin="0,5,0,0" Orientation="Horizontal">
+            <TextBlock Background="Black" Width="15" Height="15" Margin="5,0" ></TextBlock>
+            <Label Content="{x:Static res:ResourcesOfR6.Common_StandardKey}" Style="{StaticResource LblNormalSty}"></Label>
+            <TextBlock Background="Green" Width="15" Height="15" Margin="5,0" ></TextBlock>
+            <Label Content="{x:Static res:ResourcesOfR6.Common_MotherBoardReplacementKey}" Style="{StaticResource LblNormalSty}"></Label>
+            <TextBlock Background="Blue" Width="15" Height="15" Margin="5,0" ></TextBlock>
+            <Label Content="{x:Static res:ResourcesOfR6.Common_MultipleActivationTestKey}" Style="{StaticResource LblNormalSty}"></Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

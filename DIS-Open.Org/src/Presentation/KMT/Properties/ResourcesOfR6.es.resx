@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_DLSName" xml:space="preserve">
+    <value>Nombre de DLS</value>
+  </data>
+  <data name="Common_DLSName1" xml:space="preserve">
+    <value>Nombre de DLS:</value>
+  </data>
+  <data name="Common_KeyType" xml:space="preserve">
+    <value>Tipo de clave</value>
+  </data>
+  <data name="Common_KeyType1" xml:space="preserve">
+    <value>Tipo de clave:</value>
+  </data>
+  <data name="Common_ULSName" xml:space="preserve">
+    <value>Nombre de ULS</value>
+  </data>
+  <data name="Common_ULSName1" xml:space="preserve">
+    <value>Nombre de ULS:</value>
+  </data>
+  <data name="Diagnostic_TestingDLS" xml:space="preserve">
+    <value>Probar conexión al sistema de nivel inferior...</value>
+  </data>
+  <data name="DLSVM_DLSNameExists" xml:space="preserve">
+    <value>El nombre de DLS ya existe.</value>
+  </data>
+  <data name="DLSVM_DLSNameNotEmpty" xml:space="preserve">
+    <value>Se requiere el nombre de DLS.</value>
+  </data>
+  <data name="KeyTypeConfigurationView_Title" xml:space="preserve">
+    <value>Configuración del tipo de clave</value>
+  </data>
+  <data name="ReturnKeysViewModel_ReturnSuccess" xml:space="preserve">
+    <value>Claves devueltas:  {0} correctas,  {1} con errores</value>
+  </data>
+  <data name="ULSVM_ULSNameExists" xml:space="preserve">
+    <value>El nombre de ULS ya existe.</value>
+  </data>
+  <data name="ULSVM_ULSNameNotEmpty" xml:space="preserve">
+    <value>El nombre de ULS es obligatorio.</value>
+  </data>
+  <data name="Diagnostic_DLSConnection" xml:space="preserve">
+    <value>Conectar al sistema de nivel inferior</value>
+  </data>
+  <data name="ULSView_Centralize" xml:space="preserve">
+    <value>Modo centralizado</value>
+  </data>
+  <data name="ULSView_Decentralize" xml:space="preserve">
+    <value>Modo descentralizado</value>
+  </data>
+  <data name="ReturnKeysView_OEMRMANumber" xml:space="preserve">
+    <value>Número de RMA de OEM:</value>
+  </data>
+  <data name="ReturnKeysView_OemRmaNumberError" xml:space="preserve">
+    <value>El número de RMA de OEM es demasiado extenso. </value>
+  </data>
+  <data name="ReturnKeysView_ReturnNoCredit" xml:space="preserve">
+    <value>Sin crédito </value>
+  </data>
+  <data name="ReturnKeysView_ReturnNoCreditWaring" xml:space="preserve">
+    <value>¿Está seguro de que desea incluir claves de devolución sin crédito?</value>
+  </data>
+  <data name="ReturnKeysView_ReturnType" xml:space="preserve">
+    <value>Descripción del tipo de devolución</value>
+  </data>
+  <data name="ReturnKeysView_Title" xml:space="preserve">
+    <value>Claves de devolución</value>
+  </data>
+  <data name="DLSVM_UserNameExists" xml:space="preserve">
+    <value>El nombre de usuario ya existe.</value>
+  </data>
+  <data name="Export_ReReturnKeyTxt" xml:space="preserve">
+    <value>Volver a exportar las claves de devolución a MS</value>
+  </data>
+  <data name="Export_ReturnKeyTxt" xml:space="preserve">
+    <value>Exportar claves de devolución a MS</value>
+  </data>
+  <data name="Import_ReturnAckTxt" xml:space="preserve">
+    <value>Importar la confirmación de devolución de MS</value>
+  </data>
+  <data name="MainWindow_ReturnKeys" xml:space="preserve">
+    <value>Claves de devolución</value>
+  </data>
+  <data name="ExportLog_ArchiveInput" xml:space="preserve">
+    <value>Archivo:</value>
+  </data>
+  <data name="ExportLog_ArchiveLabel" xml:space="preserve">
+    <value>Eliminar registros exportados</value>
+  </data>
+  <data name="Common_SystemStatus" xml:space="preserve">
+    <value>Estado del sistema</value>
+  </data>
+  <data name="Notification_DatePollingErrorMessage" xml:space="preserve">
+    <value>El Sondeo de datos no funciona.</value>
+  </data>
+  <data name="Notification_DownLevelSystemErrorMessage" xml:space="preserve">
+    <value>Los sistemas de nivel inferior no funcionan.</value>
+  </data>
+  <data name="Notification_InternalErrorMessage" xml:space="preserve">
+    <value>El servicio web interno no funciona.</value>
+  </data>
+  <data name="Notification_KeyProviderServiceErrorMessage" xml:space="preserve">
+    <value>El servicio de provisión de claves no funciona.</value>
+  </data>
+  <data name="Notification_MSConnectionErrorMessage" xml:space="preserve">
+    <value>No se pudo realizar la conexión al servicio web de Microsoft.</value>
+  </data>
+  <data name="Notification_UpLevelSystemErrorMessage" xml:space="preserve">
+    <value>El sistema de nivel superior no funciona.</value>
+  </data>
+  <data name="Export_SelectReturnKey_Tit" xml:space="preserve">
+    <value>Seleccionar las claves de devolución</value>
+  </data>
+  <data name="Notification_DataBaseErrorMessage" xml:space="preserve">
+    <value>La base de datos no funciona.</value>
+  </data>
+  <data name="Notification_UnknowMessage" xml:space="preserve">
+    <value>estado desconocido</value>
+  </data>
+  <data name="Notification_YouHaveSystemNotifications" xml:space="preserve">
+    <value>  Notificaciones del sistema ({0})</value>
+  </data>
+  <data name="ReturnKeysView_NoOemRmaNumberError" xml:space="preserve">
+    <value>Escriba el número RMA de OEM.</value>
+  </data>
+  <data name="DiagnosticView_AutoDiagnostic" xml:space="preserve">
+    <value>Verificar el estado de los componentes del sistema de forma automática</value>
+  </data>
+  <data name="DiagnosticVM_SSIdNotEmpty" xml:space="preserve">
+    <value>No hay sistema de nivel inferior para diagnosticar.</value>
+  </data>
+  <data name="Common_ColumnSemicolon" xml:space="preserve">
+    <value> :</value>
+  </data>
+  <data name="Common_ColumnStatus" xml:space="preserve">
+    <value>/Estado</value>
+  </data>
+  <data name="Common_MotherBoardReplacementKey" xml:space="preserve">
+    <value>Clave MBR</value>
+  </data>
+  <data name="Common_MultipleActivationTestKey" xml:space="preserve">
+    <value>Clave MAT</value>
+  </data>
+  <data name="Common_StandardKey" xml:space="preserve">
+    <value>Clave estándar</value>
+  </data>
+  <data name="ReturnKeysView_ReturnNotice" xml:space="preserve">
+    <value>Es posible que el sistema con la clave especificada se haya enviado al usuario final.</value>
+  </data>
+  <data name="Common_ReturnedWithCredit" xml:space="preserve">
+    <value>Devolución con crédito</value>
+  </data>
+  <data name="Common_ReturnedWithNoCredit" xml:space="preserve">
+    <value>Devolución sin crédito</value>
+  </data>
+  <data name="Export_OpenFolder" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="Import_ReturnACKHeader" xml:space="preserve">
+    <value>Devolver confirmación.</value>
+  </data>
+  <data name="Common_AllReturnedKeys" xml:space="preserve">
+    <value>Todas las claves devueltas</value>
+  </data>
+  <data name="ReturnKeysView_OEMRMADate" xml:space="preserve">
+    <value>Fecha de RMA de OEM:</value>
+  </data>
+  <data name="Export_ReturnRMADateInvalid" xml:space="preserve">
+    <value>La fecha de RMA de OEM debe ser de +/-5 años a partir de ahora.</value>
+  </data>
+  <data name="Export_ReturnRMADateMsg" xml:space="preserve">
+    <value>Seleccione la fecha de RMA de OEM</value>
+  </data>
+  <data name="Notification_UpmapKeyPartNumber" xml:space="preserve">
+    <value>El sistema incluye números de pieza sujetos a licencia que no se asocian con el tipo de clave.</value>
+  </data>
+  <data name="ReturnKeysView_ZOADescription" xml:space="preserve">
+    <value>No Documentation Required</value>
+  </data>
+  <data name="ReturnKeysView_ZOBDescription" xml:space="preserve">
+    <value>End User</value>
+  </data>
+  <data name="ReturnKeysView_ZOCDescription" xml:space="preserve">
+    <value>Manufacturer Damage</value>
+  </data>
+  <data name="ReturnKeysView_ZODDescription" xml:space="preserve">
+    <value>Test Key</value>
+  </data>
+  <data name="ReturnKeysView_ZOEDescription" xml:space="preserve">
+    <value>Lost/Stolen</value>
+  </data>
+  <data name="ReturnKeysView_ZOFDescription" xml:space="preserve">
+    <value>Other (no credit)</value>
+  </data>
+  <data name="KeyTypeConfigurationVM_SaveConfirm" xml:space="preserve">
+    <value>Los números de pieza sujetos a licencia y la asociación con el tipo de clave no se pueden cambiar más tarde, ¿está seguro de que desea guardar la configuración?</value>
+  </data>
+  <data name="Export_ReturnHeader" xml:space="preserve">
+    <value>Devolver</value>
+  </data>
+  <data name="Common_CreditSelect" xml:space="preserve">
+    <value>Crédito</value>
+  </data>
+  <data name="CertVM_CertPickerTitle" xml:space="preserve">
+    <value>Seleccionar un certificado</value>
+  </data>
+  <data name="SystemSettingView_MSCert" xml:space="preserve">
+    <value>Certificado de MS:</value>
+  </data>
+  <data name="Common_GeneralExceptionMsg" xml:space="preserve">
+    <value>Excepción desconocida. Comuníquese con el administrador y verifique el registro.</value>
+  </data>
+  <data name="RevertKey_InputMsg" xml:space="preserve">
+    <value>Ingrese el mensaje de reversión.</value>
+  </data>
+  <data name="Common_Host1" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Common_ReportedKeyFailed" xml:space="preserve">
+    <value>No se pudieron informar {0} claves.</value>
+  </data>
+  <data name="Common_ReportedKeyFailedTitle" xml:space="preserve">
+    <value>Se produjo un error en el informe de claves</value>
+  </data>
+  <data name="Common_ReturnedKeyFailed" xml:space="preserve">
+    <value>No se pudieron devolver {0} claves.</value>
+  </data>
+  <data name="Common_ReturnedKeyFailedTitle" xml:space="preserve">
+    <value>Se produjo un error en la devolución de claves</value>
+  </data>
+  <data name="KeyManagementViewModel_FulfillmentFail" xml:space="preserve">
+    <value>Se produjo un error en la utilización de claves de Microsoft.</value>
+  </data>
+  <data name="Common_ReportFailed" xml:space="preserve">
+    <value>Nota: Estas claves con error se informarán mediante el Sondeo de datos de forma automática.</value>
+  </data>
+  <data name="ReturnKeysView_CreditTitle" xml:space="preserve">
+    <value>¿Desea devolver las claves que no recibirán crédito?</value>
+  </data>
+  <data name="ReturnKeysView_NoCredit" xml:space="preserve">
+    <value>No, no devolver las claves que no recibirán crédito. (Predeterminado).</value>
+  </data>
+  <data name="ReturnKeysView_YesCredit" xml:space="preserve">
+    <value>Sí, devolver las claves que no recibirán crédito.</value>
+  </data>
+  <data name="SystemSettingView_MSUrl" xml:space="preserve">
+    <value>MS Url :</value>
+  </data>
+</root>

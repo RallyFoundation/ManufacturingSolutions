@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WCFDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="WCFDataModelStoreContainer">
+          <EntitySet Name="ComputerBuildReport" EntityType="WCFDataModel.Store.ComputerBuildReport" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HardwareBindingReport" EntityType="WCFDataModel.Store.HardwareBindingReport" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductKeyInfo" EntityType="WCFDataModel.Store.ProductKeyInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ReturnReport" EntityType="WCFDataModel.Store.ReturnReport" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ReturnReportKey" EntityType="WCFDataModel.Store.ReturnReportKey" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_HardwareBindingReport_ComputerBuildReport" Association="WCFDataModel.Store.FK_HardwareBindingReport_ComputerBuildReport">
+            <End Role="ComputerBuildReport" EntitySet="ComputerBuildReport" />
+            <End Role="HardwareBindingReport" EntitySet="HardwareBindingReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HardwareBindingReport_ProductKeyInfo" Association="WCFDataModel.Store.FK_HardwareBindingReport_ProductKeyInfo">
+            <End Role="ProductKeyInfo" EntitySet="ProductKeyInfo" />
+            <End Role="HardwareBindingReport" EntitySet="HardwareBindingReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnReportKey_ProductKeyInfo" Association="WCFDataModel.Store.FK_ReturnReportKey_ProductKeyInfo">
+            <End Role="ProductKeyInfo" EntitySet="ProductKeyInfo" />
+            <End Role="ReturnReportKey" EntitySet="ReturnReportKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnReportKey_ReturnReport" Association="WCFDataModel.Store.FK_ReturnReportKey_ReturnReport">
+            <End Role="ReturnReport" EntitySet="ReturnReport" />
+            <End Role="ReturnReportKey" EntitySet="ReturnReportKey" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ComputerBuildReport">
+          <Key>
+            <PropertyRef Name="CustomerReportUniqueID" />
+          </Key>
+          <Property Name="MSReportUniqueID" Type="uniqueidentifier" />
+          <Property Name="CustomerReportUniqueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MSReceivedDateUTC" Type="date" />
+          <Property Name="SoldToCustomerID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceivedFromCustomerID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CBRAckFileTotal" Type="int" />
+          <Property Name="CBRAckFileNumber" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="HardwareBindingReport">
+          <Key>
+            <PropertyRef Name="ProductKeyID" />
+            <PropertyRef Name="CustomerReportUniqueID" />
+          </Key>
+          <Property Name="ProductKeyID" Type="bigint" Nullable="false" />
+          <Property Name="HardwareHash" Type="nvarchar" MaxLength="128" />
+          <Property Name="OEMOptionalInfo" Type="xml" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CustomerReportUniqueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReasonCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="ReasonCodeDescription" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="ProductKeyInfo">
+          <Key>
+            <PropertyRef Name="ProductKeyID" />
+          </Key>
+          <Property Name="ProductKeyID" Type="bigint" Nullable="false" />
+          <Property Name="ProductKey" Type="varchar" Nullable="false" MaxLength="29" />
+          <Property Name="HardwareID" Type="varchar" MaxLength="128" />
+          <Property Name="EndItemPartNumber" Type="varchar" MaxLength="18" />
+          <Property Name="OEMPartNumber" Type="varchar" MaxLength="18" />
+          <Property Name="OEMAdditionalInfo" Type="xml" />
+          <Property Name="SoldToCustomerName" Type="varchar" MaxLength="30" />
+          <Property Name="OrderUniqueID" Type="uniqueidentifier" />
+          <Property Name="SoldToCustomerID" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="CallOffReferenceNumber" Type="varchar" MaxLength="20" />
+          <Property Name="OEMPONumber" Type="varchar" MaxLength="30" />
+          <Property Name="OEMPOLineNumber" Type="int" />
+          <Property Name="MSOrderNumber" Type="varchar" MaxLength="20" />
+          <Property Name="MSOrderLineNumber" Type="int" />
+          <Property Name="LicensablePartNumber" Type="varchar" MaxLength="18" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ProductKeyState" Type="varchar" MaxLength="20" />
+          <Property Name="SKUID" Type="varchar" MaxLength="50" />
+          <Property Name="ReturnReasonCode" Type="varchar" MaxLength="10" />
+          <Property Name="ActionCode" Type="varchar" MaxLength="1" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="FulfillmentResendIndicator" Type="bit" />
+          <Property Name="FulfillmentNumber" Type="char" MaxLength="10" />
+          <Property Name="FulfilledDateUTC" Type="datetime" />
+          <Property Name="FulfillmentCreateDateUTC" Type="datetime" />
+          <Property Name="OEMPODateUTC" Type="datetime" />
+          <Property Name="ShipToCustomerID" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="ShipToCustomerName" Type="varchar" MaxLength="30" />
+          <Property Name="LicensableName" Type="varchar" MaxLength="50" />
+          <Property Name="CallOffLineNumber" Type="varchar" MaxLength="10" />
+          <Property Name="DeliveryNumber" Type="varchar" MaxLength="10" />
+          <Property Name="DeliveryLineItemNumber" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="ProductKeyStateID" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReturnReport">
+          <Key>
+            <PropertyRef Name="ReturnUniqueID" />
+          </Key>
+          <Property Name="ReturnUniqueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MSReturnNumber" Type="nchar" MaxLength="10" />
+          <Property Name="ReturnDateUTC" Type="datetime" />
+          <Property Name="OEMRMADateUTC" Type="datetime" Nullable="false" />
+          <Property Name="OEMRMANumber" Type="nvarchar" Nullable="false" MaxLength="35" />
+          <Property Name="SoldToCustomerName" Type="nvarchar" MaxLength="40" />
+          <Property Name="OEMRMADate" Type="datetime" Nullable="false" />
+          <Property Name="SoldToCustomerID" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="ReturnNoCredit" Type="bit" Nullable="false" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="ReturnReportKey">
+          <Key>
+            <PropertyRef Name="ReturnUniqueID" />
+            <PropertyRef Name="ProductKeyID" />
+          </Key>
+          <Property Name="ReturnUniqueID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OEMRMALineNumber" Type="int" Nullable="false" />
+          <Property Name="ReturnTypeID" Type="nchar" Nullable="false" MaxLength="3" />
+          <Property Name="ProductKeyID" Type="bigint" Nullable="false" />
+          <Property Name="MSReturnLineNumber" Type="int" />
+          <Property Name="LicensablePartNumber" Type="nvarchar" MaxLength="16" />
+          <Property Name="ReturnReasonCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="ReturnReasonCodeDescription" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK_HardwareBindingReport_ComputerBuildReport">
+          <End Role="ComputerBuildReport" Type="WCFDataModel.Store.ComputerBuildReport" Multiplicity="1" />
+          <End Role="HardwareBindingReport" Type="WCFDataModel.Store.HardwareBindingReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerBuildReport">
+              <PropertyRef Name="CustomerReportUniqueID" />
+            </Principal>
+            <Dependent Role="HardwareBindingReport">
+              <PropertyRef Name="CustomerReportUniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HardwareBindingReport_ProductKeyInfo">
+          <End Role="ProductKeyInfo" Type="WCFDataModel.Store.ProductKeyInfo" Multiplicity="1" />
+          <End Role="HardwareBindingReport" Type="WCFDataModel.Store.HardwareBindingReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductKeyInfo">
+              <PropertyRef Name="ProductKeyID" />
+            </Principal>
+            <Dependent Role="HardwareBindingReport">
+              <PropertyRef Name="ProductKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnReportKey_ProductKeyInfo">
+          <End Role="ProductKeyInfo" Type="WCFDataModel.Store.ProductKeyInfo" Multiplicity="1" />
+          <End Role="ReturnReportKey" Type="WCFDataModel.Store.ReturnReportKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductKeyInfo">
+              <PropertyRef Name="ProductKeyID" />
+            </Principal>
+            <Dependent Role="ReturnReportKey">
+              <PropertyRef Name="ProductKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnReportKey_ReturnReport">
+          <End Role="ReturnReport" Type="WCFDataModel.Store.ReturnReport" Multiplicity="1" />
+          <End Role="ReturnReportKey" Type="WCFDataModel.Store.ReturnReportKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnReport">
+              <PropertyRef Name="ReturnUniqueID" />
+            </Principal>
+            <Dependent Role="ReturnReportKey">
+              <PropertyRef Name="ReturnUniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WCFDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WCFDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ComputerBuildReports" EntityType="WCFDataModel.ComputerBuildReport" />
+          <EntitySet Name="HardwareBindingReports" EntityType="WCFDataModel.HardwareBindingReport" />
+          <EntitySet Name="ProductKeyInfoes" EntityType="WCFDataModel.ProductKeyInfo" />
+          <AssociationSet Name="FK_HardwareBindingReport_ComputerBuildReport" Association="WCFDataModel.FK_HardwareBindingReport_ComputerBuildReport">
+            <End Role="ComputerBuildReport" EntitySet="ComputerBuildReports" />
+            <End Role="HardwareBindingReport" EntitySet="HardwareBindingReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HardwareBindingReport_ProductKeyInfo" Association="WCFDataModel.FK_HardwareBindingReport_ProductKeyInfo">
+            <End Role="ProductKeyInfo" EntitySet="ProductKeyInfoes" />
+            <End Role="HardwareBindingReport" EntitySet="HardwareBindingReports" />
+          </AssociationSet>
+          <EntitySet Name="ReturnReports" EntityType="WCFDataModel.ReturnReport" />
+          <EntitySet Name="ReturnReportKeys" EntityType="WCFDataModel.ReturnReportKey" />
+          <AssociationSet Name="FK_ReturnReportKey_ProductKeyInfo" Association="WCFDataModel.FK_ReturnReportKey_ProductKeyInfo">
+            <End Role="ProductKeyInfo" EntitySet="ProductKeyInfoes" />
+            <End Role="ReturnReportKey" EntitySet="ReturnReportKeys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReturnReportKey_ReturnReport" Association="WCFDataModel.FK_ReturnReportKey_ReturnReport">
+            <End Role="ReturnReport" EntitySet="ReturnReports" />
+            <End Role="ReturnReportKey" EntitySet="ReturnReportKeys" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ComputerBuildReport">
+          <Key>
+            <PropertyRef Name="CustomerReportUniqueID" />
+          </Key>
+          <Property Type="Guid" Name="MSReportUniqueID" />
+          <Property Type="Guid" Name="CustomerReportUniqueID" Nullable="false" />
+          <Property Type="DateTime" Name="MSReceivedDateUTC" />
+          <Property Type="String" Name="SoldToCustomerID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ReceivedFromCustomerID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CBRAckFileTotal" />
+          <Property Type="Int32" Name="CBRAckFileNumber" />
+          <Property Type="Boolean" Name="Status" />
+          <NavigationProperty Name="HardwareBindingReports" Relationship="WCFDataModel.FK_HardwareBindingReport_ComputerBuildReport" FromRole="ComputerBuildReport" ToRole="HardwareBindingReport" />
+        </EntityType>
+        <EntityType Name="HardwareBindingReport">
+          <Key>
+            <PropertyRef Name="ProductKeyID" />
+            <PropertyRef Name="CustomerReportUniqueID" />
+          </Key>
+          <Property Type="Int64" Name="ProductKeyID" Nullable="false" />
+          <Property Type="String" Name="HardwareHash" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OEMOptionalInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="Guid" Name="CustomerReportUniqueID" Nullable="false" />
+          <Property Type="String" Name="ReasonCode" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ReasonCodeDescription" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ComputerBuildReport" Relationship="WCFDataModel.FK_HardwareBindingReport_ComputerBuildReport" FromRole="HardwareBindingReport" ToRole="ComputerBuildReport" />
+          <NavigationProperty Name="ProductKeyInfo" Relationship="WCFDataModel.FK_HardwareBindingReport_ProductKeyInfo" FromRole="HardwareBindingReport" ToRole="ProductKeyInfo" />
+        </EntityType>
+        <EntityType Name="ProductKeyInfo">
+          <Key>
+            <PropertyRef Name="ProductKeyID" />
+          </Key>
+          <Property Type="Int64" Name="ProductKeyID" Nullable="false" />
+          <Property Type="String" Name="ProductKey" Nullable="false" MaxLength="29" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HardwareID" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EndItemPartNumber" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OEMPartNumber" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OEMAdditionalInfo" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SoldToCustomerName" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="OrderUniqueID" />
+          <Property Type="String" Name="SoldToCustomerID" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CallOffReferenceNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OEMPONumber" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="OEMPOLineNumber" />
+          <Property Type="String" Name="MSOrderNumber" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="MSOrderLineNumber" />
+          <Property Type="String" Name="LicensablePartNumber" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Quantity" />
+          <Property Type="String" Name="ProductKeyState" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SKUID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ReturnReasonCode" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ActionCode" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CreatedBy" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedDate" />
+          <Property Type="String" Name="ModifiedBy" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ModifiedDate" />
+          <Property Type="Boolean" Name="FulfillmentResendIndicator" />
+          <Property Type="String" Name="FulfillmentNumber" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="FulfilledDateUTC" />
+          <Property Type="DateTime" Name="FulfillmentCreateDateUTC" />
+          <Property Type="DateTime" Name="OEMPODateUTC" />
+          <Property Type="String" Name="ShipToCustomerID" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ShipToCustomerName" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LicensableName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CallOffLineNumber" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DeliveryNumber" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DeliveryLineItemNumber" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="Byte" Name="ProductKeyStateID" Nullable="false" />
+          <NavigationProperty Name="HardwareBindingReports" Relationship="WCFDataModel.FK_HardwareBindingReport_ProductKeyInfo" FromRole="ProductKeyInfo" ToRole="HardwareBindingReport" />
+          <NavigationProperty Name="ReturnReportKeys" Relationship="WCFDataModel.FK_ReturnReportKey_ProductKeyInfo" FromRole="ProductKeyInfo" ToRole="ReturnReportKey" />
+        </EntityType>
+        <Association Name="FK_HardwareBindingReport_ComputerBuildReport">
+          <End Type="WCFDataModel.ComputerBuildReport" Role="ComputerBuildReport" Multiplicity="1" />
+          <End Type="WCFDataModel.HardwareBindingReport" Role="HardwareBindingReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComputerBuildReport">
+              <PropertyRef Name="CustomerReportUniqueID" />
+            </Principal>
+            <Dependent Role="HardwareBindingReport">
+              <PropertyRef Name="CustomerReportUniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HardwareBindingReport_ProductKeyInfo">
+          <End Type="WCFDataModel.ProductKeyInfo" Role="ProductKeyInfo" Multiplicity="1" />
+          <End Type="WCFDataModel.HardwareBindingReport" Role="HardwareBindingReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductKeyInfo">
+              <PropertyRef Name="ProductKeyID" />
+            </Principal>
+            <Dependent Role="HardwareBindingReport">
+              <PropertyRef Name="ProductKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ReturnReport">
+          <Key>
+            <PropertyRef Name="ReturnUniqueID" />
+          </Key>
+          <Property Type="Guid" Name="ReturnUniqueID" Nullable="false" />
+          <Property Type="String" Name="MSReturnNumber" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="ReturnDateUTC" />
+          <Property Type="DateTime" Name="OEMRMADateUTC" Nullable="false" />
+          <Property Type="String" Name="OEMRMANumber" Nullable="false" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SoldToCustomerName" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="OEMRMADate" Nullable="false" />
+          <Property Type="String" Name="SoldToCustomerID" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="ReturnNoCredit" Nullable="false" />
+          <Property Type="Boolean" Name="status" />
+          <NavigationProperty Name="ReturnReportKeys" Relationship="WCFDataModel.FK_ReturnReportKey_ReturnReport" FromRole="ReturnReport" ToRole="ReturnReportKey" />
+        </EntityType>
+        <EntityType Name="ReturnReportKey">
+          <Key>
+            <PropertyRef Name="ReturnUniqueID" />
+            <PropertyRef Name="ProductKeyID" />
+          </Key>
+          <Property Type="Guid" Name="ReturnUniqueID" Nullable="false" />
+          <Property Type="Int32" Name="OEMRMALineNumber" Nullable="false" />
+          <Property Type="String" Name="ReturnTypeID" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Int64" Name="ProductKeyID" Nullable="false" />
+          <Property Type="Int32" Name="MSReturnLineNumber" />
+          <Property Type="String" Name="LicensablePartNumber" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ReturnReasonCode" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ReturnReasonCodeDescription" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductKeyInfo" Relationship="WCFDataModel.FK_ReturnReportKey_ProductKeyInfo" FromRole="ReturnReportKey" ToRole="ProductKeyInfo" />
+          <NavigationProperty Name="ReturnReport" Relationship="WCFDataModel.FK_ReturnReportKey_ReturnReport" FromRole="ReturnReportKey" ToRole="ReturnReport" />
+        </EntityType>
+        <Association Name="FK_ReturnReportKey_ProductKeyInfo">
+          <End Type="WCFDataModel.ProductKeyInfo" Role="ProductKeyInfo" Multiplicity="1" />
+          <End Type="WCFDataModel.ReturnReportKey" Role="ReturnReportKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductKeyInfo">
+              <PropertyRef Name="ProductKeyID" />
+            </Principal>
+            <Dependent Role="ReturnReportKey">
+              <PropertyRef Name="ProductKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReturnReportKey_ReturnReport">
+          <End Type="WCFDataModel.ReturnReport" Role="ReturnReport" Multiplicity="1" />
+          <End Type="WCFDataModel.ReturnReportKey" Role="ReturnReportKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnReport">
+              <PropertyRef Name="ReturnUniqueID" />
+            </Principal>
+            <Dependent Role="ReturnReportKey">
+              <PropertyRef Name="ReturnUniqueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WCFDataModelStoreContainer" CdmEntityContainer="WCFDataEntities">
+          <EntitySetMapping Name="ComputerBuildReports">
+            <EntityTypeMapping TypeName="WCFDataModel.ComputerBuildReport">
+              <MappingFragment StoreEntitySet="ComputerBuildReport">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CBRAckFileNumber" ColumnName="CBRAckFileNumber" />
+                <ScalarProperty Name="CBRAckFileTotal" ColumnName="CBRAckFileTotal" />
+                <ScalarProperty Name="ReceivedFromCustomerID" ColumnName="ReceivedFromCustomerID" />
+                <ScalarProperty Name="SoldToCustomerID" ColumnName="SoldToCustomerID" />
+                <ScalarProperty Name="MSReceivedDateUTC" ColumnName="MSReceivedDateUTC" />
+                <ScalarProperty Name="CustomerReportUniqueID" ColumnName="CustomerReportUniqueID" />
+                <ScalarProperty Name="MSReportUniqueID" ColumnName="MSReportUniqueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HardwareBindingReports">
+            <EntityTypeMapping TypeName="WCFDataModel.HardwareBindingReport">
+              <MappingFragment StoreEntitySet="HardwareBindingReport">
+                <ScalarProperty Name="ReasonCodeDescription" ColumnName="ReasonCodeDescription" />
+                <ScalarProperty Name="ReasonCode" ColumnName="ReasonCode" />
+                <ScalarProperty Name="CustomerReportUniqueID" ColumnName="CustomerReportUniqueID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OEMOptionalInfo" ColumnName="OEMOptionalInfo" />
+                <ScalarProperty Name="HardwareHash" ColumnName="HardwareHash" />
+                <ScalarProperty Name="ProductKeyID" ColumnName="ProductKeyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductKeyInfoes">
+            <EntityTypeMapping TypeName="WCFDataModel.ProductKeyInfo">
+              <MappingFragment StoreEntitySet="ProductKeyInfo">
+                <ScalarProperty Name="ProductKeyStateID" ColumnName="ProductKeyStateID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeliveryLineItemNumber" ColumnName="DeliveryLineItemNumber" />
+                <ScalarProperty Name="DeliveryNumber" ColumnName="DeliveryNumber" />
+                <ScalarProperty Name="CallOffLineNumber" ColumnName="CallOffLineNumber" />
+                <ScalarProperty Name="LicensableName" ColumnName="LicensableName" />
+                <ScalarProperty Name="ShipToCustomerName" ColumnName="ShipToCustomerName" />
+                <ScalarProperty Name="ShipToCustomerID" ColumnName="ShipToCustomerID" />
+                <ScalarProperty Name="OEMPODateUTC" ColumnName="OEMPODateUTC" />
+                <ScalarProperty Name="FulfillmentCreateDateUTC" ColumnName="FulfillmentCreateDateUTC" />
+                <ScalarProperty Name="FulfilledDateUTC" ColumnName="FulfilledDateUTC" />
+                <ScalarProperty Name="FulfillmentNumber" ColumnName="FulfillmentNumber" />
+                <ScalarProperty Name="FulfillmentResendIndicator" ColumnName="FulfillmentResendIndicator" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ActionCode" ColumnName="ActionCode" />
+                <ScalarProperty Name="ReturnReasonCode" ColumnName="ReturnReasonCode" />
+                <ScalarProperty Name="SKUID" ColumnName="SKUID" />
+                <ScalarProperty Name="ProductKeyState" ColumnName="ProductKeyState" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="LicensablePartNumber" ColumnName="LicensablePartNumber" />
+                <ScalarProperty Name="MSOrderLineNumber" ColumnName="MSOrderLineNumber" />
+                <ScalarProperty Name="MSOrderNumber" ColumnName="MSOrderNumber" />
+                <ScalarProperty Name="OEMPOLineNumber" ColumnName="OEMPOLineNumber" />
+                <ScalarProperty Name="OEMPONumber" ColumnName="OEMPONumber" />
+                <ScalarProperty Name="CallOffReferenceNumber" ColumnName="CallOffReferenceNumber" />
+                <ScalarProperty Name="SoldToCustomerID" ColumnName="SoldToCustomerID" />
+                <ScalarProperty Name="OrderUniqueID" ColumnName="OrderUniqueID" />
+                <ScalarProperty Name="SoldToCustomerName" ColumnName="SoldToCustomerName" />
+                <ScalarProperty Name="OEMAdditionalInfo" ColumnName="OEMAdditionalInfo" />
+                <ScalarProperty Name="OEMPartNumber" ColumnName="OEMPartNumber" />
+                <ScalarProperty Name="EndItemPartNumber" ColumnName="EndItemPartNumber" />
+                <ScalarProperty Name="HardwareID" ColumnName="HardwareID" />
+                <ScalarProperty Name="ProductKey" ColumnName="ProductKey" />
+                <ScalarProperty Name="ProductKeyID" ColumnName="ProductKeyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnReports">
+            <EntityTypeMapping TypeName="WCFDataModel.ReturnReport">
+              <MappingFragment StoreEntitySet="ReturnReport">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ReturnNoCredit" ColumnName="ReturnNoCredit" />
+                <ScalarProperty Name="SoldToCustomerID" ColumnName="SoldToCustomerID" />
+                <ScalarProperty Name="OEMRMADate" ColumnName="OEMRMADate" />
+                <ScalarProperty Name="SoldToCustomerName" ColumnName="SoldToCustomerName" />
+                <ScalarProperty Name="OEMRMANumber" ColumnName="OEMRMANumber" />
+                <ScalarProperty Name="OEMRMADateUTC" ColumnName="OEMRMADateUTC" />
+                <ScalarProperty Name="ReturnDateUTC" ColumnName="ReturnDateUTC" />
+                <ScalarProperty Name="MSReturnNumber" ColumnName="MSReturnNumber" />
+                <ScalarProperty Name="ReturnUniqueID" ColumnName="ReturnUniqueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnReportKeys">
+            <EntityTypeMapping TypeName="WCFDataModel.ReturnReportKey">
+              <MappingFragment StoreEntitySet="ReturnReportKey">
+                <ScalarProperty Name="ReturnReasonCodeDescription" ColumnName="ReturnReasonCodeDescription" />
+                <ScalarProperty Name="ReturnReasonCode" ColumnName="ReturnReasonCode" />
+                <ScalarProperty Name="LicensablePartNumber" ColumnName="LicensablePartNumber" />
+                <ScalarProperty Name="MSReturnLineNumber" ColumnName="MSReturnLineNumber" />
+                <ScalarProperty Name="ProductKeyID" ColumnName="ProductKeyID" />
+                <ScalarProperty Name="ReturnTypeID" ColumnName="ReturnTypeID" />
+                <ScalarProperty Name="OEMRMALineNumber" ColumnName="OEMRMALineNumber" />
+                <ScalarProperty Name="ReturnUniqueID" ColumnName="ReturnUniqueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model" ZoomLevel="94">
+        <EntityTypeShape EntityType="WCFDataModel.ComputerBuildReport" Width="1.5" PointX="3.375" PointY="1" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="WCFDataModel.HardwareBindingReport" Width="1.5" PointX="5.625" PointY="1" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="WCFDataModel.ProductKeyInfo" Width="1.5" PointX="3.125" PointY="6.625" Height="8.3262337239583317" />
+        <AssociationConnector Association="WCFDataModel.FK_HardwareBindingReport_ComputerBuildReport" >
+          <ConnectorPoint PointX="4.875" PointY="2.37474609375" />
+          <ConnectorPoint PointX="5.625" PointY="2.37474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WCFDataModel.FK_HardwareBindingReport_ProductKeyInfo" >
+          <ConnectorPoint PointX="4.625" PointY="13.761414388020834" />
+          <ConnectorPoint PointX="6.041666666666667" PointY="13.761414388020834" />
+          <ConnectorPoint PointX="6.208333333333333" PointY="13.761414388020834" />
+          <ConnectorPoint PointX="7.03125" PointY="13.761414388020834" />
+          <ConnectorPoint PointX="7.03125" PointY="3.7494921874999996" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WCFDataModel.ReturnReport" Width="1.5" PointX="3.125" PointY="16.375" Height="3.1340950520833317" />
+        <EntityTypeShape EntityType="WCFDataModel.ReturnReportKey" Width="1.5" PointX="5.375" PointY="9.375" Height="2.9417936197916674" />
+        <AssociationConnector Association="WCFDataModel.FK_ReturnReportKey_ProductKeyInfo" >
+          <ConnectorPoint PointX="4.625" PointY="10.845896809895834" />
+          <ConnectorPoint PointX="5.375" PointY="10.845896809895834" />
+        </AssociationConnector>
+        <AssociationConnector Association="WCFDataModel.FK_ReturnReportKey_ReturnReport" >
+          <ConnectorPoint PointX="4.625" PointY="17.942047526041666" />
+          <ConnectorPoint PointX="6.125" PointY="17.942047526041666" />
+          <ConnectorPoint PointX="6.125" PointY="12.316793619791667" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
