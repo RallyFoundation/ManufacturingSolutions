@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xsd:element name="Adapter">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Source" type="EndPointType"/>
+        <xsd:element name="Destination" type="EndPointType"/>
+        <xsd:element name="Transformer" type="XSLTEndPointType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="ArgumentType">
+    <xsd:sequence>
+      <xsd:element name="Category" type="xsd:string" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="Name" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="Value" type="xsd:string" minOccurs="1" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ArgumentArrayType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Argument" type="ArgumentType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="ProtocolType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string" />
+      <xsd:element name="Vendor" type="xsd:string" />
+      <xsd:element name="Version" type="xsd:decimal" />
+      <xsd:element name="Component" type="xsd:string" />
+      <xsd:element name="Arguments" type="ArgumentArrayType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="AuthenticationTypeType">
+    <xsd:restriction base="xs:string">
+      <xsd:enumeration value="PlainText"/>
+      <xsd:enumeration value="X509Certificate"/>
+      <xsd:enumeration value="Kerberos"/>
+      <xsd:enumeration value="NTLM"/>
+      <xsd:enumeration value="Negociate"/>
+      <xsd:enumeration value="Custom"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="AuthenticationType">
+    <xsd:sequence>
+      <xsd:element name="Type" type="AuthenticationTypeType" />
+      <xsd:element name="Identifier" type="xsd:string" />
+      <xsd:element name="Password" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:simpleType name="OperationMethodType">
+    <xsd:restriction base="xs:string">
+      <xsd:enumeration value="Create"/>
+      <xsd:enumeration value="Modify"/>
+      <xsd:enumeration value="Replace"/>
+      <xsd:enumeration value="Append"/>
+      <xsd:enumeration value="Delete"/>
+      <xsd:enumeration value="Move"/>
+      <xsd:enumeration value="Retrieve"/>
+      <xsd:enumeration value="List"/>
+      <xsd:enumeration value="BatchWrite"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="OperationType">
+    <xsd:sequence>
+      <xsd:element name="Name" type="xsd:string" />
+      <xsd:element name="Message" type="xsd:string" />
+      <xsd:element name="Method" type="OperationMethodType" />
+      <xsd:element name="Arguments" type="ArgumentArrayType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="SubsequentOperation" type="OperationType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="OperationArrayType">
+    <xsd:sequence>
+      <xsd:element name="Operation" type="OperationType" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RefMemberType">
+    <xsd:attribute name="Name" type="xsd:string" use="required" />
+    <xsd:attribute name="Type" type="xsd:string" use="required" />
+  </xsd:complexType>
+
+  <xsd:complexType name="RefDataTypeType">
+    <xsd:sequence>
+      <xsd:element name="RefMember" type="RefMemberType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="ID" type="xsd:string" use="required" />
+    <xsd:attribute name="Name" type="xsd:string" use="required" />
+  </xsd:complexType>
+
+  <xsd:complexType name="RefDataTypeArrayType">
+    <xsd:sequence>
+      <xsd:element name="RefDataType" type="RefDataTypeType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="EndPointType" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="Protocol" type="ProtocolType"/>
+      <xsd:element name="DataType" type="xsd:string" />
+      <xsd:element name="Authentication" type="AuthenticationType"/>
+      <xsd:element name="Operations" type="OperationArrayType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="Address" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="RDBMSEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+        <xsd:sequence>
+          <xsd:element name="PrimaryKeys" type="RefDataTypeArrayType" minOccurs="0" maxOccurs="1"/>
+          <xsd:element name="ForeignKeys" type="RefDataTypeArrayType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SOAPEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="HTTPEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FileSystemEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FTPEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="LDAPEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="XSLTEndPointType">
+    <xsd:complexContent>
+      <xsd:extension base="EndPointType">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+</xs:schema>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataIntegrator</RootNamespace>
+    <AssemblyName>DataIntegrator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapter.cs" />
+    <Compile Include="Argument.cs" />
+    <Compile Include="Authentication.cs" />
+    <Compile Include="AuthenticationType.cs" />
+    <Compile Include="Descriptions\DataListSerializable.cs" />
+    <Compile Include="Descriptions\DSMLSerializable.cs" />
+    <Compile Include="Descriptions\FSDDLSerializable.cs" />
+    <Compile Include="Descriptions\QueryXPathFilterSerializable.cs" />
+    <Compile Include="Descriptions\RefDataTypeKeySerializable.cs" />
+    <Compile Include="Descriptions\SearchItemSerializable.cs" />
+    <Compile Include="EndPoint.cs" />
+    <Compile Include="Extensions\DefaultXSLTExtension.cs" />
+    <Compile Include="FileSystemEndPoint.cs" />
+    <Compile Include="FTPEndPoint.cs" />
+    <Compile Include="Helpers\FileSystemHelper.cs" />
+    <Compile Include="Helpers\RDBMSHelper.cs" />
+    <Compile Include="Helpers\SnapshotHelper.cs" />
+    <Compile Include="Helpers\TracingHelper.cs" />
+    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Helpers\XSLTHelper.cs" />
+    <Compile Include="HTTPEndPoint.cs" />
+    <Compile Include="Helpers\HTTPHelper.cs" />
+    <Compile Include="IAdapter.cs" />
+    <Compile Include="IEndPoint.cs" />
+    <Compile Include="IManager.cs" />
+    <Compile Include="LDAPEndPoint.cs" />
+    <Compile Include="Helpers\LDAPHelper.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="Operation.cs" />
+    <Compile Include="OperationMethod.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol.cs" />
+    <Compile Include="RDBMSEndPoint.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="SOAPEndPoint.cs" />
+    <Compile Include="XSLTEndPoint.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

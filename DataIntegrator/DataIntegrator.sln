@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIntegrator", "DataIntegrator\DataIntegrator.csproj", "{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "DataIntegrator.Model", "DataIntegrator.Model\DataIntegrator.Model.modelproj", "{072F2644-9F87-4E41-ACA7-1944C43E8201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataIntegrator.ModelLib", "DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj", "{32C70180-A08E-4DFB-8097-1E0595C5806D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{22A458AB-54BF-46AD-95D1-AE3E52C36464}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ServiceBusCloud", "http://localhost:11049", "{20A0667F-6D7D-4EFE-AC51-FBB33B3ED77E}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{8b6eac29-2cd5-4ca0-9a02-6ff5ad03781d}|DataIntegrator.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_11049"
+		Debug.AspNetCompiler.PhysicalPath = "ServiceBusCloud\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_11049\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_11049"
+		Release.AspNetCompiler.PhysicalPath = "ServiceBusCloud\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_11049\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "ServiceBusCloud\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBusPowerShell", "ServiceBusPowerShell\ServiceBusPowerShell.csproj", "{D579DBCB-9F12-4663-805A-CF9EC7F97E87}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UnitTest-DB_CascadedDeletionTest", "UnitTest-DB_CascadedDeletionTest\UnitTest-DB_CascadedDeletionTest.sqlproj", "{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B6EAC29-2CD5-4CA0-9A02-6FF5AD03781D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{072F2644-9F87-4E41-ACA7-1944C43E8201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072F2644-9F87-4E41-ACA7-1944C43E8201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072F2644-9F87-4E41-ACA7-1944C43E8201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072F2644-9F87-4E41-ACA7-1944C43E8201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C70180-A08E-4DFB-8097-1E0595C5806D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C70180-A08E-4DFB-8097-1E0595C5806D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C70180-A08E-4DFB-8097-1E0595C5806D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C70180-A08E-4DFB-8097-1E0595C5806D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A458AB-54BF-46AD-95D1-AE3E52C36464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A458AB-54BF-46AD-95D1-AE3E52C36464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A458AB-54BF-46AD-95D1-AE3E52C36464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A458AB-54BF-46AD-95D1-AE3E52C36464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A0667F-6D7D-4EFE-AC51-FBB33B3ED77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A0667F-6D7D-4EFE-AC51-FBB33B3ED77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A0667F-6D7D-4EFE-AC51-FBB33B3ED77E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A0667F-6D7D-4EFE-AC51-FBB33B3ED77E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{D579DBCB-9F12-4663-805A-CF9EC7F97E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D579DBCB-9F12-4663-805A-CF9EC7F97E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D579DBCB-9F12-4663-805A-CF9EC7F97E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D579DBCB-9F12-4663-805A-CF9EC7F97E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D6D59B-008C-4600-B7E4-CEF1685AC0A8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 11.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/CodeGenLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="High" Text="Code generation or text transformation started." />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="Name = ClassTemplate" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="ProjectPath = ..\DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:07:47" Importance="Medium" Text="DataIntegrator.Model's Text Template Binding: 'ClassTemplate' will apply ClassTemplate.t4 to: 'DataIntegrator.Model::Operation' -  (Class), 'DataIntegrator.Model::Adapter' -  (Class), 'DataIntegrator.Model::Protocol' -  (Class), 'DataIntegrator.Model::Argument' -  (Class), 'DataIntegrator.Model::Authentication' -  (Class), 'DataIntegrator.Model::EndPoint' -  (Class), 'DataIntegrator.Model::LDAPEndPoint' -  (Class), 'DataIntegrator.Model::RDBMSEndPoint' -  (Class), 'DataIntegrator.Model::SOAPEndPoint' -  (Class), 'DataIntegrator.Model::HTTPEndPoint' -  (Class), 'DataIntegrator.Model::FTPEndPoint' -  (Class), 'DataIntegrator.Model::FileSystemEndPoint' -  (Class), 'DataIntegrator.Model::XSLTEndPoint' -  (Class) " />
+  <Message Timestamp="2013-04-07T14:08:10" Importance="Medium" Text="Project Added: c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj" />
+  <Message Timestamp="2013-04-07T14:08:10" Importance="Medium" Text="'DataIntegrator.Model::Operation' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\Operation.cs" />
+  <Message Timestamp="2013-04-07T14:08:11" Importance="Medium" Text="'DataIntegrator.Model::Adapter' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\Adapter.cs" />
+  <Message Timestamp="2013-04-07T14:08:11" Importance="Medium" Text="'DataIntegrator.Model::Protocol' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\Protocol.cs" />
+  <Message Timestamp="2013-04-07T14:08:12" Importance="Medium" Text="'DataIntegrator.Model::Argument' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\Argument.cs" />
+  <Message Timestamp="2013-04-07T14:08:12" Importance="Medium" Text="'DataIntegrator.Model::Authentication' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\Authentication.cs" />
+  <Message Timestamp="2013-04-07T14:08:12" Importance="Medium" Text="'DataIntegrator.Model::EndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\EndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:12" Importance="Medium" Text="'DataIntegrator.Model::LDAPEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\LDAPEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::RDBMSEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\RDBMSEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::SOAPEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\SOAPEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::HTTPEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\HTTPEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::FTPEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\FTPEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::FileSystemEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\FileSystemEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="'DataIntegrator.Model::XSLTEndPoint' -  (Class) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\XSLTEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="Name = EnumTemplate" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="ProjectPath = ..\DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:13" Importance="Medium" Text="DataIntegrator.Model's Text Template Binding: 'EnumTemplate' will apply EnumTemplate.t4 to: 'DataIntegrator.Model::AuthenticationType' -  (Enumeration), 'DataIntegrator.Model::OperationMethod' -  (Enumeration) " />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Medium" Text="'DataIntegrator.Model::AuthenticationType' -  (Enumeration) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\AuthenticationType.cs" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Medium" Text="'DataIntegrator.Model::OperationMethod' -  (Enumeration) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\OperationMethod.cs" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="Name = InterfaceTemplate" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="ProjectPath = ..\DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:14" Importance="Medium" Text="DataIntegrator.Model's Text Template Binding: 'InterfaceTemplate' will apply InterfaceTemplate.t4 to: 'DataIntegrator.Model::IAdapter' -  (Interface), 'DataIntegrator.Model::IEndPoint' -  (Interface) " />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Medium" Text="'DataIntegrator.Model::IAdapter' -  (Interface) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\IAdapter.cs" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Medium" Text="'DataIntegrator.Model::IEndPoint' -  (Interface) : success (file created) - c:\users\v-rawang\documents\visual studio 2012\Projects\DataIntegrator\DataIntegrator.ModelLib\GeneratedCode\IEndPoint.cs" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="Name = StructTemplate" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="ProjectPath = ..\DataIntegrator.ModelLib\DataIntegrator.ModelLib.csproj" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Medium" Text="DataIntegrator.Model's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'DataIntegrator.Model::Operation' -  (Class), 'DataIntegrator.Model::Adapter' -  (Class), 'DataIntegrator.Model::Protocol' -  (Class), 'DataIntegrator.Model::Argument' -  (Class), 'DataIntegrator.Model::Authentication' -  (Class), 'DataIntegrator.Model::EndPoint' -  (Class), 'DataIntegrator.Model::LDAPEndPoint' -  (Class), 'DataIntegrator.Model::RDBMSEndPoint' -  (Class), 'DataIntegrator.Model::SOAPEndPoint' -  (Class), 'DataIntegrator.Model::HTTPEndPoint' -  (Class), 'DataIntegrator.Model::FTPEndPoint' -  (Class), 'DataIntegrator.Model::FileSystemEndPoint' -  (Class), 'DataIntegrator.Model::XSLTEndPoint' -  (Class) " />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="'DataIntegrator.Model::Operation' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="'DataIntegrator.Model::Adapter' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:15" Importance="Diagnostic" Text="'DataIntegrator.Model::Protocol' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::Argument' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::Authentication' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::EndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::LDAPEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::RDBMSEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::SOAPEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::HTTPEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::FTPEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::FileSystemEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::XSLTEndPoint' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="The selection included 9 elements which were not bound to a template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::' -  (InterfaceRealization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'DataIntegrator.Model::' -  (InterfaceRealization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'026075cb-4d96-4196-8629-b41085ec86ca' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'564967e7-1369-427c-a938-cc3570b4fe91' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'8bf7cff2-a55f-4121-a20e-dc1963c17820' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'cab8b30d-7920-4f5e-9079-d834c67d533a' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'ed58ca40-52fd-41a0-b112-a7afc39662c8' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'b1549ab5-5326-4fa4-ac30-2de3e74a64a9' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="Diagnostic" Text="'af98f034-e951-4bb9-9a9a-6ea0032bc207' -  (Generalization): no bound template." />
+  <Message Timestamp="2013-04-07T14:08:16" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
+</Log>

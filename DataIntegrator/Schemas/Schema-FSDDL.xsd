@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  
+  <xsd:element name="Directory" type="DirectoryType"/>
+
+  <xsd:complexType name="DirectoryType">
+    <xsd:sequence>
+      <xsd:element name="Title" type="xsd:string" />
+      <xsd:element name="Description" type="xsd:string" />
+      <xsd:element name="Owner" type="xsd:string" />
+      <xsd:element name="Role" type="xsd:string" />
+      <xsd:element name="Files" type="FileArrayType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="Directories" type="DirectoryArrayType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="Name" type="xsd:string" use="required" />
+    <xsd:attribute name="Type" type="xsd:string" use="required" />
+  </xsd:complexType>
+
+  <xsd:complexType name="DirectoryArrayType">
+    <xsd:sequence>
+      <xsd:element name="Directory" type="DirectoryType" minOccurs="0" maxOccurs="unbounded">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="FileType">
+    <xsd:sequence>
+      <xsd:element name="ID" type="xsd:string" />
+      <xsd:element name="Type" type="xsd:string" />
+      <xsd:element name="Title" type="xsd:string" />
+      <xsd:element name="Owner" type="xsd:string" />
+      <xsd:element name="Role" type="xsd:string" />
+      <xsd:element name="Link" type="xsd:string" />
+      <xsd:element name="Content" type="xsd:string" />
+    </xsd:sequence>
+    <xsd:attribute name="Name" type="xsd:string" use="required" />
+    <xsd:attribute name="Size" type="xsd:unsignedShort" use="required" />
+  </xsd:complexType>
+
+  <xsd:complexType name="FileArrayType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="File" type="FileType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xs:schema>
