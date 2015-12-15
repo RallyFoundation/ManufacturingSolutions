@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common_Clear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Common_ColumnAssignedTo" xml:space="preserve">
+    <value>割り当て:</value>
+  </data>
+  <data name="Common_ColumnHeaderAckFileDate" xml:space="preserve">
+    <value>受取日の確認</value>
+  </data>
+  <data name="Common_ColumnHeaderCustomerReportUniqueID" xml:space="preserve">
+    <value>顧客レポートの固有 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="Common_ColumnHeaderFulfillmentNumber" xml:space="preserve">
+    <value>Fulfillment Number</value>
+  </data>
+  <data name="Common_ColumnHeaderIsEncrypted" xml:space="preserve">
+    <value>暗号化されている</value>
+  </data>
+  <data name="Common_ColumnHeaderIsExport" xml:space="preserve">
+    <value>エクスポートである</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMaximum" xml:space="preserve">
+    <value> 最大</value>
+  </data>
+  <data name="Common_ColumnHeaderKeysMinimum" xml:space="preserve">
+    <value> 最小</value>
+  </data>
+  <data name="Common_ColumnHeaderLicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number</value>
+  </data>
+  <data name="Common_ColumnHeaderModifiedDate" xml:space="preserve">
+    <value>最終更新日</value>
+  </data>
+  <data name="Common_ColumnHeaderMSFulfulledDate" xml:space="preserve">
+    <value>MS Fulfulled Date</value>
+  </data>
+  <data name="Common_ColumnHeaderMSReportUniqueID" xml:space="preserve">
+    <value>MS レポートの固有 ID</value>
+  </data>
+  <data name="Common_ColumnHeaderNewState" xml:space="preserve">
+    <value>新しいステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderOldState" xml:space="preserve">
+    <value>古いステータス</value>
+  </data>
+  <data name="Common_ColumnHeaderOrderUniqueId" xml:space="preserve">
+    <value>固有 ID の注文</value>
+  </data>
+  <data name="Common_ColumnHeaderOverDays" xml:space="preserve">
+    <value>日経過</value>
+  </data>
+  <data name="Common_ColumnHeaderShipTo" xml:space="preserve">
+    <value>送付先</value>
+  </data>
+  <data name="Common_ColumnHeaderSoldTo" xml:space="preserve">
+    <value>販売先</value>
+  </data>
+  <data name="Common_ColumnHeaderTarget" xml:space="preserve">
+    <value>ターゲット </value>
+  </data>
+  <data name="Common_ColumnoAssignTo" xml:space="preserve">
+    <value>割り当て先</value>
+  </data>
+  <data name="Common_Description" xml:space="preserve">
+    <value>説明:</value>
+  </data>
+  <data name="Common_Directory" xml:space="preserve">
+    <value>ディレクトリ:</value>
+  </data>
+  <data name="Common_DontPopupAgain" xml:space="preserve">
+    <value>ポップアップしない</value>
+  </data>
+  <data name="Common_EncryptedDisplay" xml:space="preserve">
+    <value>暗号化</value>
+  </data>
+  <data name="Common_ExportDateFrom" xml:space="preserve">
+    <value>エクスポート日から:</value>
+  </data>
+  <data name="Common_ExportTo" xml:space="preserve">
+    <value>エクスポート先:</value>
+  </data>
+  <data name="Common_failedKeys" xml:space="preserve">
+    <value>失敗したキー:</value>
+  </data>
+  <data name="Common_FailedType" xml:space="preserve">
+    <value>失敗したタイプ:</value>
+  </data>
+  <data name="Common_FileName" xml:space="preserve">
+    <value>ファイル名:</value>
+  </data>
+  <data name="Common_FilePath" xml:space="preserve">
+    <value>ファイル パス:</value>
+  </data>
+  <data name="Common_Info" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="Common_LicensablePartNumber" xml:space="preserve">
+    <value>Licensable Part Number:</value>
+  </data>
+  <data name="Common_MSFulfilledDate" xml:space="preserve">
+    <value>MS Fulfilled Date:</value>
+  </data>
+  <data name="Common_Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Common_OEMOptionInfo" xml:space="preserve">
+    <value>OEM Optional Info</value>
+  </data>
+  <data name="Common_OperationLimitQualityMsg" xml:space="preserve">
+    <value>品質維持のためには 1 度に 5000 キー以上できません。</value>
+  </data>
+  <data name="Common_OperationNoKeysMsg" xml:space="preserve">
+    <value>オペレートするキーがありません。</value>
+  </data>
+  <data name="Common_OperationNoSubsidiaryMsg" xml:space="preserve">
+    <value>オペレートする補助がありません。</value>
+  </data>
+  <data name="Common_OperationQuantityOver" xml:space="preserve">
+    <value>入力量は利用可能な量以上にはできません。</value>
+  </data>
+  <data name="Common_ProductKeyID" xml:space="preserve">
+    <value>製品キー ID:</value>
+  </data>
+  <data name="Common_ProxySetting" xml:space="preserve">
+    <value>プロキシ</value>
+  </data>
+  <data name="Common_SelectDirectory" xml:space="preserve">
+    <value>ディレクトリを選択してください</value>
+  </data>
+  <data name="Common_ShowAll" xml:space="preserve">
+    <value>72 時間を超えて含まれる</value>
+  </data>
+  <data name="Common_succeedKeys" xml:space="preserve">
+    <value>成功したキー:</value>
+  </data>
+  <data name="Common_TrackingInfo" xml:space="preserve">
+    <value>追跡情報:</value>
+  </data>
+  <data name="Common_UnEncryptedDisplay" xml:space="preserve">
+    <value>未暗号化</value>
+  </data>
+  <data name="Common_View" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="Common_ViewDetail" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Diagnostic_InternalConnection" xml:space="preserve">
+    <value>内部 Web サービスをテスト</value>
+  </data>
+  <data name="Diagnostic_MicrosoftConnection" xml:space="preserve">
+    <value>Microsoft の Web サービスをテスト</value>
+  </data>
+  <data name="Diagnostic_ULSConnection" xml:space="preserve">
+    <value>アップ レベル システムへの接続をテスト</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_PcModelSkuError" xml:space="preserve">
+    <value>PC Model/SKU 長が長すぎます。 </value>
+  </data>
+  <data name="EditOptionalInfoViewModel_ProEligValueError" xml:space="preserve">
+    <value>Program Eligibility Valuesが長すぎます。</value>
+  </data>
+  <data name="EditOptionalInfoViewModel_UpdateResult" xml:space="preserve">
+    <value>OEM Optional Infoをアップデート:{1} 成功、{0} 失敗。</value>
+  </data>
+  <data name="EditOptionalInfo_ChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID :</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderChaRelId" xml:space="preserve">
+    <value>Channel Relationship ID</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderOemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderPcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number</value>
+  </data>
+  <data name="EditOptionalInfo_ColumnHeaderProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values</value>
+  </data>
+  <data name="EditOptionalInfo_ManGeo" xml:space="preserve">
+    <value>Manufacture GeoLocation:</value>
+  </data>
+  <data name="EditOptionalInfo_OemExtId" xml:space="preserve">
+    <value>OEM Extended Identifier:</value>
+  </data>
+  <data name="EditOptionalInfo_PcModelSku" xml:space="preserve">
+    <value>PC Model/SKU Number:</value>
+  </data>
+  <data name="EditOptionalInfo_ProEligValue" xml:space="preserve">
+    <value>Program Eligibility Values:</value>
+  </data>
+  <data name="EditOptionalInfo_Title" xml:space="preserve">
+    <value>OEM Optional Infoの編集</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_DuplicateCBRsMessage" xml:space="preserve">
+    <value>{0} の重複 CBR キー</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ExportCBRAgain" xml:space="preserve">
+    <value>エクスポート CBR を含める</value>
+  </data>
+  <data name="ExportDuplicateCBRNotificationViewModel_ViewTitle" xml:space="preserve">
+    <value>重複 CBR キーを表示</value>
+  </data>
+  <data name="ExportKey_ConfirmMsg" xml:space="preserve">
+    <value>本当によいですか?</value>
+  </data>
+  <data name="ExportKey_Encryptselect" xml:space="preserve">
+    <value>ファイルを暗号化</value>
+  </data>
+  <data name="ExportKey_NonEncryptMsg" xml:space="preserve">
+    <value>暗号化なしにファイルをエクスポートすることには、大きなセキュリティ リスクが伴います</value>
+  </data>
+  <data name="Export_CBRTxt" xml:space="preserve">
+    <value>CBR を MS にエクスポート</value>
+  </data>
+  <data name="Export_ConfirmToMsg" xml:space="preserve">
+    <value>キーを {0} にエクスポート</value>
+  </data>
+  <data name="Export_DuplicateCBRTxt" xml:space="preserve">
+    <value>重複 CBR のエクスポート</value>
+  </data>
+  <data name="Export_InvalidPath" xml:space="preserve">
+    <value>無効なファイルまたはパスです！</value>
+  </data>
+  <data name="Export_KeysTxt" xml:space="preserve">
+    <value>ダウン レベル システムにキーをエクスポート (FKI/FFKI)</value>
+  </data>
+  <data name="Export_KeysTxtTpi" xml:space="preserve">
+    <value>ダウン レベル システムにキーをエクスポート (FFKI)</value>
+  </data>
+  <data name="Export_Ms" xml:space="preserve">
+    <value>MS</value>
+  </data>
+  <data name="Export_Note" xml:space="preserve">
+    <value>*暗号化されたファイルだけが再エクスポートできます。</value>
+  </data>
+  <data name="Export_ReCBRTxt" xml:space="preserve">
+    <value>CBR を MS に再エクスポート</value>
+  </data>
+  <data name="Export_ReDuplicateCBRTxt" xml:space="preserve">
+    <value>重複 CBR の再エクスポート</value>
+  </data>
+  <data name="Export_ReKeysTxt" xml:space="preserve">
+    <value>ダウン レベル システムにキーを再エクスポート (FKI/FFKI)</value>
+  </data>
+  <data name="Export_ReKeysTxtTpi" xml:space="preserve">
+    <value>ダウン レベル システムにキーを再エクスポート (FFKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxt" xml:space="preserve">
+    <value>アップ レベル システムにキーをエクスポート (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReportKeysTxtTpi" xml:space="preserve">
+    <value>アップ レベル システムにキーをエクスポート (CKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxt" xml:space="preserve">
+    <value>アップ レベル システムにキーを再エクスポート (CKI/FKI)</value>
+  </data>
+  <data name="Export_ReReportKeysTxtTpi" xml:space="preserve">
+    <value>アップ レベル システムにキーを再エクスポート (CKI)</value>
+  </data>
+  <data name="Export_resultMsg" xml:space="preserve">
+    <value>キーのエクスポート:{0} 成功、{1} 失敗</value>
+  </data>
+  <data name="Export_ReToolKeysTxt" xml:space="preserve">
+    <value>OA3Tool にキーを再エクスポート</value>
+  </data>
+  <data name="Export_SelectDuplicateKeyTit" xml:space="preserve">
+    <value>重複 CBR の選択</value>
+  </data>
+  <data name="Export_SelectEncryptedLogMsg" xml:space="preserve">
+    <value>暗号化されたファイルを選択してください。</value>
+  </data>
+  <data name="Export_SelectLogMsg" xml:space="preserve">
+    <value>ファイルを選択してください。</value>
+  </data>
+  <data name="Export_SelectLogTit" xml:space="preserve">
+    <value>ファイルを選択</value>
+  </data>
+  <data name="Export_ToolKeysTxt" xml:space="preserve">
+    <value>OA3Tool にキーをエクスポート</value>
+  </data>
+  <data name="Export_ViewKeyTit" xml:space="preserve">
+    <value>キーの詳細のエクスポート</value>
+  </data>
+  <data name="Export_WinTit" xml:space="preserve">
+    <value>キーのエクスポート</value>
+  </data>
+  <data name="ImportKey_ResultMsg" xml:space="preserve">
+    <value>キーのインポート: {0} 成功、{1} 失敗</value>
+  </data>
+  <data name="Import_CBRAckTxt" xml:space="preserve">
+    <value>MS から CBR ACK. をインポート</value>
+  </data>
+  <data name="Import_DuplicateCBRTxt" xml:space="preserve">
+    <value>重複 CBR のインポート</value>
+  </data>
+  <data name="Import_KeysTxt" xml:space="preserve">
+    <value>アップ レベル システムからキーをインポート (CKI/FKI)</value>
+  </data>
+  <data name="Import_KeysTxtTpi" xml:space="preserve">
+    <value>アップ レベル システムからキーをインポート (CKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxt" xml:space="preserve">
+    <value>ダウン レベル システムからキーをインポート (FKI/FFKI)</value>
+  </data>
+  <data name="Import_ReportKeysTxtTpi" xml:space="preserve">
+    <value>ダウン レベル システムからキーをインポート (FFKI)</value>
+  </data>
+  <data name="Import_SelectFileTit" xml:space="preserve">
+    <value>ファイルを選択</value>
+  </data>
+  <data name="Import_ToolkeysTxt" xml:space="preserve">
+    <value>OA3Tool からキーをインポート</value>
+  </data>
+  <data name="Import_WinTit" xml:space="preserve">
+    <value>キーのインポート</value>
+  </data>
+  <data name="KeyManagementViewModel_OldTimelineExceedMessage" xml:space="preserve">
+    <value>{0} キーがタイム ラインを超えました</value>
+  </data>
+  <data name="KeysExpiredNotificationViewModel_TimeLineDays" xml:space="preserve">
+    <value>タイム ラインの日数:{0} 日間。</value>
+  </data>
+  <data name="KeysStockConfigViewModel_MsPartNumberNotSelect" xml:space="preserve">
+    <value>Licensable Part Numberを選択していません。</value>
+  </data>
+  <data name="KeysStockConfigViewModel_RangeError" xml:space="preserve">
+    <value>最大は最小より大きい必要があります。</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMaximum" xml:space="preserve">
+    <value>最大:</value>
+  </data>
+  <data name="KeysStockConfigView_KeysMinimum" xml:space="preserve">
+    <value>最小:</value>
+  </data>
+  <data name="KeysStockConfigView_Title" xml:space="preserve">
+    <value>Licensable Part Numberのストック</value>
+  </data>
+  <data name="KeysStockNotificationView_Title" xml:space="preserve">
+    <value>ライセンスLicensable Part Numberのストックを表示</value>
+  </data>
+  <data name="MainWindow_KeysExpired" xml:space="preserve">
+    <value>古いタイム ラインがキーを超えました</value>
+  </data>
+  <data name="MainWindow_ReAcknowledgement" xml:space="preserve">
+    <value>Re-Acknowledgement</value>
+  </data>
+  <data name="MainWindow_ReFulfillment" xml:space="preserve">
+    <value>Re-Fulfillment</value>
+  </data>
+  <data name="MainWindow_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="Notification_CopiedToClipboard" xml:space="preserve">
+    <value>コンテンツはクリップボードにコピーされました。</value>
+  </data>
+  <data name="Notification_KeysStockOutOfRangeMessage" xml:space="preserve">
+    <value>{0} のライセンス可能部品番号のストックが範囲外です。</value>
+  </data>
+  <data name="Notification_ReAcknowledgeMessage" xml:space="preserve">
+    <value>{0} のacknowledgementが失敗しました。</value>
+  </data>
+  <data name="Notification_ReFulfillmentMessage" xml:space="preserve">
+    <value>{0} のfulfillmentが失敗しました。</value>
+  </data>
+  <data name="Notification_YouHaveNotifications" xml:space="preserve">
+    <value>通知 ({0})</value>
+  </data>
+  <data name="Offline_CBRTit" xml:space="preserve">
+    <value>CBR</value>
+  </data>
+  <data name="Offline_DLSTit" xml:space="preserve">
+    <value>DLS</value>
+  </data>
+  <data name="Offline_DuplicateCBRTit" xml:space="preserve">
+    <value>重複 CBR</value>
+  </data>
+  <data name="Offline_OA3ToolTit" xml:space="preserve">
+    <value>OA3Tool</value>
+  </data>
+  <data name="Offline_ULSTit" xml:space="preserve">
+    <value>ULS</value>
+  </data>
+  <data name="ProxySetting_Customize" xml:space="preserve">
+    <value>カスタマイズ</value>
+  </data>
+  <data name="ProxySetting_Default" xml:space="preserve">
+    <value>IE のプロキシ設定を使用</value>
+  </data>
+  <data name="ProxySetting_None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="ProxySetting_UseSSL" xml:space="preserve">
+    <value>SSL を使用</value>
+  </data>
+  <data name="RevertKey_ReasonTxt" xml:space="preserve">
+    <value>Revertの理由:</value>
+  </data>
+  <data name="RevertKey_SelectedTxt" xml:space="preserve">
+    <value>選択されたキー:</value>
+  </data>
+  <data name="Revert_MsgLength" xml:space="preserve">
+    <value>理由は 0 から 200 文字の間です。</value>
+  </data>
+  <data name="Revert_ReasonPageTit" xml:space="preserve">
+    <value>入力の理由</value>
+  </data>
+  <data name="Revert_ResultMsg" xml:space="preserve">
+    <value>キーのRevert: {0} 成功、{1} 失敗</value>
+  </data>
+  <data name="Revert_RevertTxt" xml:space="preserve">
+    <value>キーのRevert</value>
+  </data>
+  <data name="SSIDEditorViewModel_SSIDCNNotBeCN" xml:space="preserve">
+    <value>ダウン レベル システムの顧客番号は現在の顧客番号と同じであってはなりません。</value>
+  </data>
+  <data name="SystemSettingView_CustomerNumberShouldNotInHeadQuarter" xml:space="preserve">
+    <value>ULS の顧客番号を自分の番号として使用することはできません。</value>
+  </data>
+  <data name="SystemSettingView_IsCarbonCopy" xml:space="preserve">
+    <value>Carbon Copyを有効にする</value>
+  </data>
+  <data name="SystemSettingView_MSCertNotEmpty" xml:space="preserve">
+    <value>Microsoft 証明書件名が必要です。</value>
+  </data>
+  <data name="ULSSettingViewModel_ULSCNNotBeCN" xml:space="preserve">
+    <value>アップ レベル システムの顧客番号は現在の顧客番号と同じであってはなりません。</value>
+  </data>
+</root>

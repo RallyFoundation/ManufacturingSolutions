@@ -1,0 +1,74 @@
+﻿<Window x:Class="DIS.Presentation.KMT.Views.Configuration.CertPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select Certificate" 
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+        
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <Grid Height="600" 
+        Width="500"
+          x:Name="grdRoot"
+          Behaviors:BusyIndicator.BusyState="{Binding IsBusy}"
+          Behaviors:BusyIndicator.AddMargins="True"              
+          Behaviors:BusyIndicator.ProcessingText="Loading"
+          Behaviors:BusyIndicator.TargetVisual="{Binding ElementName=grdRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <DataGrid 
+                  x:Uid="dgCerts"
+                  ItemsSource="{Binding Certs}"
+                  SelectedItem="{Binding SelectedCert,UpdateSourceTrigger=PropertyChanged}"
+                  Margin="20,10" 
+                  Grid.Row="0"
+                  VerticalScrollBarVisibility="Auto"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  Style="{DynamicResource DgNormalSty}"
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="125" Header="{x:Static res:ResourcesOfR6.CertVM_IssuedTo}" Binding="{Binding Subject,Mode=OneWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="180" Header="{x:Static res:ResourcesOfR6.CertVM_IssuedBy}" Binding="{Binding SimpleName,Mode=OneWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="{x:Static res:ResourcesOfR6.CertVM_ExpirationDate}" Binding="{Binding ValidTo,Mode=OneWay}" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="1"
+                  x:Uid="dgCertDetails"
+                  Name="details"
+                  ItemsSource="{Binding CertDetails}"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto" 
+                  Margin="20,10" 
+                  GridLinesVisibility="None"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn IsReadOnly="True" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3" Text="{Binding Path=Key,Mode=OneWay}">
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3" Text="{Binding Path=Value,Mode=OneWay}" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2" Margin="20,10">
+            <Button x:Uid="btnOK"  Content="{x:Static res:MergedResources.Common_Ok}" Command="{Binding SelectCertCommand}" Margin="0,0,90,0" HorizontalAlignment="Right" Style="{DynamicResource BtnNormalSty}"/>
+            <Button x:Uid="btnCancel" Content="{x:Static res:MergedResources.Common_Cancel}" IsCancel="True" HorizontalAlignment="Right" Style="{DynamicResource BtnNormalSty}"/>
+        </Grid>
+    </Grid>
+</Window>

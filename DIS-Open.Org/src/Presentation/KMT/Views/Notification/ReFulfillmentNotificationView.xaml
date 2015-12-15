@@ -1,0 +1,30 @@
+﻿<Window x:Class="DIS.Presentation.KMT.Views.Notification.ReFulfillmentNotificationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        Title="{x:Static res:MergedResources.MainWindow_ReFulfillment}" Height="300" 
+        Width="600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <StackPanel x:Uid="StackPanel_1" Orientation="Horizontal" Margin="10,15,10,0" VerticalAlignment="Center">
+            <CheckBox x:Uid="chkEncrypt" Margin="400,0,0,0" IsChecked="{Binding IsShowAllChecked,Mode=TwoWay,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Content="{x:Static res:MergedResources.Common_ShowAll}"  Style="{StaticResource ChkLogLevelSty}"></CheckBox>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Margin="5" Style="{StaticResource DgNormalSty}" ItemsSource="{Binding Infoes}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderOrderUniqueId}"  Binding="{Binding OrderUniqueId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderFulfillmentNumber}" Binding="{Binding FulfillmentNumber}" IsReadOnly="True" />
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderSoldTo}" Binding="{Binding SoldToCustomerId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="{x:Static res:MergedResources.Common_ColumnHeaderModifiedDate}" Binding="{Binding ModifiedDate}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Uid="btnCopy" Grid.Row="2" Margin="0,6,131,6" Content="{x:Static res:MergedResources.Common_Copy}" HorizontalAlignment="Right" Style="{StaticResource BtnNormalSty}" IsDefault="True" Command="{Binding CopyCommand}"/>
+        <Button x:Uid="btnClose" Grid.Row="2" Margin="0,0,30,0" Content="{x:Static res:MergedResources.Common_Close}" HorizontalAlignment="Right" Style="{StaticResource BtnNormalSty}" IsCancel="True" />
+    </Grid>
+</Window>

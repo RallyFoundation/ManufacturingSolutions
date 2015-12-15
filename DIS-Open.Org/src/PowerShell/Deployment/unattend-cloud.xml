@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<unattend xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <applicationRoot>C:\Program Files (x86)\DIS Solution\</applicationRoot><!--The root of the installation point. The value should be an absolute path.-->
+  <installationType>Cloud</installationType><!--The type of the DIS installation : 0: Cloud; 1: Oem; 2: Tpi; 4: FactoryFloor-->
+  <settings>
+    <component name="DISConfigurationCloud">
+      <dbServer isIncluded="true">
+        <serverAddress>localhost</serverAddress><!--Instance name of SQL Server: [Machine Name]\[Instance Name]-->
+        <serverLoginName>DIS</serverLoginName><!--SQL Server logon user name (for SQL Server authentication mode)-->
+        <serverPassword>D!S@OMSG.msft</serverPassword><!--SQL Server logon password (for SQL Server authentication mode)-->
+        <dbName>DISConfigurationCloud</dbName><!--The name of the database for persisting the configuration meta-->
+      </dbServer>
+      <appServer isIncluded="true">
+        <rootDirectory>DISConfigurationCloud</rootDirectory><!--Physical directory where DIS Configuration Cloud resides. The value should be a relative path to the value specified in /unattend/applicationRoot-->
+        <httpPortNumber>8818</httpPortNumber><!--HTTP port number for DIS Configuration Cloud-->
+        <appName>DISConfigurationCloud</appName>
+        <appPoolName>DISConfigurationCloudAppPool</appPoolName>
+        <appPoolIdentityType>LocalSystem</appPoolIdentityType><!--Identity type of the application pool upon which the component is running: 0: LocalSystem; 1: LocalService; 2: NetworkService; 3: SpecificUser-->
+      </appServer>
+      <appConfig>
+        <databaseBackupLocation>C:\DISConfigurationCloud\Backup\</databaseBackupLocation><!--Physical path for storing SQL Server database back up files for each backup created in the cloud-->
+      </appConfig>
+    </component>
+  </settings>
+</unattend>

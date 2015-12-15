@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="pt-br" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <!-- _locID@Culture="en-US" _locComment="American English" -->
+    <!-- _locID@Codepage="1252" _locComment="Windows-1252" -->
+    <!--         Copyright (c) Microsoft Corporation.  All rights reserved.          The use and distribution terms for this software are covered by the         Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)         which can be found in the file CPL.TXT at the root of this distribution.         By using this software in any fashion, you are agreeing to be bound by         the terms of this license.              You must not remove this notice, or any other, from this software.     -->
+    <String Id="InstallationModeDlgTitle" Overridable="yes">Modo de instalação</String>
+    <String Id="InstallationModeDlgDescription" Overridable="yes">Escolha o modo de instalação para sua instância TPI.</String>
+    <String Id="InstanceModeInput" Overridable="yes">Modo de instância:</String>
+
+  <String Id="UninstallR5_0" Overridable="yes">Observação: siga estas etapas:</String>
+  <String Id="UninstallR5_1" Overridable="yes">1. Desinstale o R5.</String>
+  <String Id="UninstallR5_2" Overridable="yes">2. Remova o Banco de Dados do R5 manualmente.</String>
+  <String Id="UninstallR5_3" Overridable="yes">3. Instale o R6.</String><String Id="NeedUpgradePatch" Overridable="yes">Primeiro precisas de run DIS actualizador.</String>
+    <String Id="DatabaseExists" Overridable="yes">O banco de dadas ja existe.</String>
+
+    <String Id="KMTConfigDescription" Overridable="yes">Configuração</String>
+    <String Id="KMTConfigCustomNumberDesc" Overridable="yes">Fornecimento de OEM</String>
+    <String Id="KMTDBConfigDescription" Overridable="yes">Configuração de Banco de Dados</String>
+
+    <String Id="IisConfigurationTitle" Overridable="yes">Configuração do IIS</String>
+    <String Id="IisConfigurationDescription" Overridable="yes">Configure seus serviços Web.</String>
+    <String Id="Port" Overridable="yes">Portas</String>
+    <String Id="ExternalWebServicePortInput" Overridable="yes">Porta de Serviços Web Externa:</String>
+    <String Id="InternalWebServicePortInput" Overridable="yes">Porta de Serviços Web Interna:</String>
+
+    <String Id="InstallTypeDlgTitle" Overridable="yes">Configuração do Tipo de Instalação</String>
+    <String Id="InstallTypeDlgDescription" Overridable="yes">Configure o seu tipo de instalação.</String>
+    <String Id="InstallTypeLabel" Overridable="yes">Tipo de Instalação:</String>
+    <String Id="CustomerConfigurationDescription" Overridable="yes">Número do Cliente:</String>
+
+    <String Id="DbConfigurationTitle" Overridable="yes">Configuração de Banco de Dados</String>
+    <String Id="DbConfigurationDescription" Overridable="yes">Configure a sua conexão de banco de dados.</String>
+    <String Id="AuthTypeInput" Overridable="yes">Tipo de Autenticação:</String>
+    <String Id="InstanceNameInput" Overridable="yes">Nome da Instância do SQL:</String>
+    <String Id="DatabaseNameInput" Overridable="yes">Nome do Banco de Dados:</String>
+    <String Id="UsernameInput" Overridable="yes">Nome do Usuário:</String>
+    <String Id="PasswordInput" Overridable="yes">Senha:</String>
+    <String Id="Warning" Overridable="yes">Aviso</String>
+    <String Id="DbConnectionFailure" Overridable="yes">Falha na conexão do banco de dados.</String>
+    <String Id="NoFeatureSelected" Overridable="yes">Selecione pelo menos uma instalação.</String>
+    <String Id="OK" Overridable="yes">OK</String>
+
+    <String Id="CloudConfigurationTitle" Overridable="yes">DIS Configuration Cloud Settings</String>
+    <String Id="CloudConfigurationDescription" Overridable="yes">Configure to connect to DIS Configuration Cloud</String>
+    <String Id="CloudServicePointInput" Overridable="yes">Service Point:</String>
+    <String Id="CloudHttpPortNumberInput" Overridable="yes">HTTP Port Number:</String>
+    <String Id="CloudDatabaseBackupLocationInput" Overridable="yes">Database Backup Location:</String>
+    <String Id="CloudConfigurationMetaCachingPolicy" Overridable="yes">Configuration Meta Caching Policy:</String>
+    <String Id="CloudConfigurationMetaCachingPolicyRemoteOnly" Overridable="yes">Always use meta from cloud.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyMergedAll" Overridable="yes">Use meta from both cloud and local cache.</String>
+    <String Id="CloudConfigurationMetaCachingPolicyLocalOnly" Overridable="yes">Only use meta from local cache.</String>
+    <String Id="CloudConnectionFailureErrorMessage" Overridable="yes">The connection to DIS Configuration Cloud with the specified value is invalid. Please double confirm your input.</String>
+
+    <String Id="RequireNetFramework40" Overridable="yes">O [ProductName] requer o .NET Framework 4.0. Instale o .NET Framework 4.0 e execute este instalador novamente.</String>
+    <String Id="RequireSqlServer2008R2" Overridable="yes">O [ProductName] requer que o SQL Server 2008 R2 esteja instalado. Instale o SQL Server 2008 R2 e execute este instalador novamente.</String>
+    <String Id="RequireSystem" Overridable="yes">O [ProductName] possui suporte somente no Windows Vista, Windows 7, Windows Server 2008 ou superior.</String>
+    <String Id="RequireIIS" Overridable="yes">Não é possível conectar ao Internet Information Server.</String>
+    <String Id="RequireVcRedist" Overridable="yes">O [ProductName] requer o Visual C++ 2010 Redistributable Package.</String>
+
+    <String Id="DowngradeErrMessage" Overridable="yes">Uma versão mais nova do instalador já está instalada.</String>
+
+    <String Id="AliasConfigurationTitle" Overridable="yes">Configuração de Alias</String>
+    <String Id="AliasConfigurationDescription" Overridable="yes">Insira o nome do alias.</String>
+    <String Id="AliasConfigurationText" Overridable="yes">Alias:</String>
+
+    <String Id="msierrIISCannotConnect" Overridable="yes">Não é possível conectar ao Internet Information Server.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSite" Overridable="yes">Falha ao processar WebSites.   ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebDirs" Overridable="yes">Falha ao processar WebDirs.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadVDirs" Overridable="yes">Falha ao processar WebVirtualDirs.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadFilters" Overridable="yes">Falha ao processar WebFilters.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadMimeMap" Overridable="yes">Falha ao processar MimeMaps. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadAppPool" Overridable="yes">Falha ao processar WebAppPools. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadProp" Overridable="yes">Falha ao processar WebProperties. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebSvcExt" Overridable="yes">Falha ao processar WebServiceExtensions. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadWebError" Overridable="yes">Falha ao processar WebErrors. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedReadHttpHeader" Overridable="yes">Falha ao processar HttpHeaders. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedTransaction" Overridable="yes">Falha ao agendar transação para alterações no IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebs" Overridable="yes">Falha ao agendar instalação de Sites do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebDirs" Overridable="yes">Falha ao agendar instalação de Diretórios da Web do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallVDirs" Overridable="yes">Falha ao agendar instalação de Diretórios Virtuais do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallFilters" Overridable="yes">Falha ao agendar instalação de Filtros do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallAppPool" Overridable="yes">Falha ao agendar instalação de Pools de Aplicativos do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallProp" Overridable="yes">Falha ao agendar instalação de Propriedades do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedInstallWebSvcExt" Overridable="yes">Falha ao agendar instalação de Extensões de Serviços da Web  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebs" Overridable="yes">Falha ao agendar desinstalação de Sites do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebDirs" Overridable="yes">Falha ao agendar desinstalação de Diretórios da Web do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallVDirs" Overridable="yes">Falha ao agendar desinstalação de Diretórios Virtuais do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallFilters" Overridable="yes">Falha ao agendar desinstalação de Filtros do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallAppPool" Overridable="yes">Falha ao agendar desinstalação de Pools de Aplicativos do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallProp" Overridable="yes">Falha ao agendar desinstalação de Propriedades do IIS.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedSchedUninstallWebSvcExt" Overridable="yes">Falha ao agendar desinstalação de Extensões de Serviços da Web.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedStartTransaction" Overridable="yes">Falha ao iniciar transação do IIS. ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedOpenKey" Overridable="yes">Falha ao abrir chave de metabase.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateKey" Overridable="yes">Falha ao criar chave de metabase.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedWriteData" Overridable="yes">Falha ao gravar dados na chave de metabase.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCreateApp" Overridable="yes">Falha ao criar aplicativo da Web.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteKey" Overridable="yes">Falha ao excluir chave de metabase.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedDeleteValue" Overridable="yes">Falha ao excluir valor de metabase.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrIISFailedCommitInUse" Overridable="yes">Falha ao confirmar transação do IIS devido a uma violação de compartilhamento.  Algum outro aplicativo pode estar configurando o IIS.</String>
+    <String Id="ConfigureIIs" Overridable="yes">Configurando o IIS</String>
+    <String Id="ConfigureIIsExec" Overridable="yes">Executando a configuração do IIS</String>
+    <String Id="StartMetabaseTransaction" Overridable="yes">Iniciando transação de metabase do IIS</String>
+    <String Id="RollbackMetabaseTransaction" Overridable="yes">Revertendo transação de metabase do IIS</String>
+    <String Id="CommitMetabaseTransaction" Overridable="yes">Confirmando transação de metabase do IIS</String>
+    <String Id="WriteMetabaseChanges" Overridable="yes">Instalando chaves e valores de metabase</String>
+    <String Id="ConfigureIIs7Exec" Overridable="yes">Configurando o IIS</String>
+    <String Id="StartIIS7ConfigTransaction" Overridable="yes">Iniciando transação de configuração do IIS</String>
+    <String Id="RollbackIIS7ConfigTransaction" Overridable="yes">Revertendo transação de configuração do IIS</String>
+    <String Id="CommitIIS7ConfigTransaction" Overridable="yes">Confirmando transação de configuração do IIS</String>
+    <String Id="WriteIIS7ConfigChanges" Overridable="yes">Instalando chaves e valores de configuração</String>
+
+    <String Id="msierrFirewallCannotConnect" Overridable="yes">Não é possível conectar ao Firewall do Windows.  ([2]   [3]   [4]   [5])</String>
+    <String Id="WixSchedFirewallExceptionsInstall" Overridable="yes">Configurando Firewall do Windows</String>
+    <String Id="WixSchedFirewallExceptionsUninstall" Overridable="yes">Configurando Firewall do Windows</String>
+    <String Id="WixRollbackFirewallExceptionsInstall" Overridable="yes">Revertendo configuração de Firewall do Windows</String>
+    <String Id="WixExecFirewallExceptionsInstall" Overridable="yes">Instalando configuração de Firewall do Windows</String>
+    <String Id="WixRollbackFirewallExceptionsUninstall" Overridable="yes">Revertendo configuração de Firewall do Windows</String>
+    <String Id="WixExecFirewallExceptionsUninstall" Overridable="yes">Desinstalando configuração de Firewall do Windows</String>
+
+    <String Id="msierrUSRFailedUserCreate" Overridable="yes">Falha ao criar usuário.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreatePswd" Overridable="yes">Falha ao criar usuário devido à senha inválida.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserGroupAdd" Overridable="yes">Falha ao adicionar usuário a grupo.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUSRFailedUserCreateExists" Overridable="yes">Falha ao criar usuário, pois ele já existe.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedCreate" Overridable="yes">Falha ao criar compartilhamento de rede.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSMBFailedDrop" Overridable="yes">Falha ao remover compartilhamento de rede.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedRegisterDLL" Overridable="yes">Falha ao registrar DLL com PerfMon.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrPERFMONFailedUnregisterDLL" Overridable="yes">Falha ao cancelar registro de DLL com PerfMon.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrInstallPerfCounterData" Overridable="yes">Falha ao instalar contadores de desempenho.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrUninstallPerfCounterData" Overridable="yes">Falha ao desinstalar contadores de desempenho.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSecureObjectsFailedCreateSD" Overridable="yes">Falha ao criar descritor de segurança para [3]\[4], erro do sistema: [2]</String>
+    <String Id="msierrSecureObjectsFailedSet" Overridable="yes">Falha ao definir descritor de segurança no objeto [3]\[4], erro do sistema: [2]</String>
+    <String Id="msierrSecureObjectsUnknownType" Overridable="yes">Tipo de Objeto Desconhecido [3], erro do sistema: [2]</String>
+    <String Id="msierrXmlFileFailedRead" Overridable="yes">Falha ao configurar arquivos XML.</String>
+    <String Id="msierrXmlFileFailedOpen" Overridable="yes">Falha ao abrir arquivo XML [3], erro do sistema: [2]</String>
+    <String Id="msierrXmlFileFailedSelect" Overridable="yes">Falha ao localizar nó: [3] no arquivo XML: [4], erro do sistema: [2]</String>
+    <String Id="msierrXmlFileFailedSave" Overridable="yes">Falha ao salvar alterações no arquivo XML [3], erro do sistema: [2]</String>
+    <String Id="msierrXmlConfigFailedRead" Overridable="yes">Falha ao configurar arquivos XML.</String>
+    <String Id="msierrXmlConfigFailedOpen" Overridable="yes">Falha ao abrir arquivo XML [3], erro do sistema: [2]</String>
+    <String Id="msierrXmlConfigFailedSelect" Overridable="yes">Falha ao localizar nó: [3] no arquivo XML: [4], erro do sistema: [2]</String>
+    <String Id="msierrXmlConfigFailedSave" Overridable="yes">Falha ao salvar alterações no arquivo XML [3], erro do sistema: [2]</String>
+
+    <String Id="msierrSQLFailedCreateDatabase" Overridable="yes">Erro [2]: falha ao criar banco de dados SQL: [3], detalhe do erro: [4].</String>
+    <String Id="msierrSQLFailedDropDatabase" Overridable="yes">Erro [2]: falha ao remover banco de dados SQL: [3], detalhe do erro: [4].</String>
+    <String Id="msierrSQLFailedConnectDatabase" Overridable="yes">Falha ao conectar ao banco de dados SQL.  ([2]   [3]   [4]   [5])</String>
+    <String Id="msierrSQLFailedExecString" Overridable="yes">Erro [2]: falha ao executar a cadeia de caracteres SQL, detalhe do erro: [3], chave SQL: [4], cadeia de caracteres SQL: [5]</String>
+    <String Id="msierrSQLDatabaseAlreadyExists" Overridable="yes">O banco de dados [3] já existe. Deseja continuar?</String>
+
+    <String Id="ConfigureSql" Overridable="yes">Configurando o SQL Server</String>
+    <String Id="CreateDatabase" Overridable="yes">Criando banco de dados</String>
+    <String Id="DropDatabase" Overridable="yes">Removendo banco de dados</String>
+    <String Id="ExecuteSqlStrings" Overridable="yes">Executando cadeias de caracteres SQL</String>
+    <String Id="RollbackExecuteSqlStrings" Overridable="yes">Revertendo cadeias de caracteres SQL</String>
+    <String Id="CertAccount" Overridable="yes">Exactly the same account which you install Microsoft certification.</String>
+</WixLocalization>
+

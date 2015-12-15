@@ -1,0 +1,59 @@
+﻿<Window
+    x:Uid="wndSSIDEditor" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    x:Class="DIS.Presentation.KMT.View.Configuration.SubsidiaryEditor"
+    xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+    xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+    x:Name="Window"
+    Title="{Binding WndTitle}"
+    ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen"
+    SizeToContent="WidthAndHeight"
+    >
+    <Grid x:Uid="grdRoot"
+    Behaviors:BusyIndicator.BusyState="{Binding IsBusy}"
+    Behaviors:BusyIndicator.AddMargins="True"              
+    Behaviors:BusyIndicator.ProcessingText="Loading"
+    Behaviors:BusyIndicator.TargetVisual="{Binding ElementName=grdRoot}"
+>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="Auto"/>
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="40"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+        </Grid.RowDefinitions>
+        <Rectangle Style="{DynamicResource RectRootSty}"></Rectangle>
+        <Label x:Uid="lblDLSName" Content="{x:Static res:ResourcesOfR6.Common_DLSName1}" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblType" Content="{x:Static res:MergedResources.SubsidiaryEditor_Type}" Grid.Row="1" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblHost" Content="{x:Static res:MergedResources.Common_Host}" Grid.Row="2" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblPort" Content="{x:Static res:MergedResources.Common_Port}" Grid.Row="3" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblUserName" Content="{x:Static res:MergedResources.Common_UserName}"  Grid.Row="4" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblAccessKey" Content="{x:Static res:MergedResources.Common_AccessKey}" Grid.Row="5" Style="{DynamicResource LblBoldSty}"/>
+        <Label x:Uid="lblDesc" Content="{x:Static res:MergedResources.Common_Description}" Grid.Row="6" VerticalAlignment="Top" Margin="0,5,0,0" Style="{DynamicResource LblBoldSty}"/>
+
+        <TextBox x:Uid="txtDLSName" Grid.Column="1" Margin="1"  Text="{Binding DLSName, UpdateSourceTrigger=PropertyChanged}" MaxLength="10"  Style="{DynamicResource TxtNormalSty}"/>
+        <ComboBox x:Uid="cboTypes" MinWidth="180" Margin="1" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding SubsidiaryTypes}" SelectedItem="{Binding DLSType}" Style="{DynamicResource CboNormalSty}">
+        </ComboBox>
+        <TextBox x:Uid="txtHost"    MaxLength="180"     Grid.Row="2" Grid.Column="1" Text="{Binding Host,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TxtNormalSty}"></TextBox>
+        <TextBox x:Uid="txtPort" Behaviors:TextBoxFilters.IsNumericFilter="True"   MaxLength="5"  Grid.Row="3"  Grid.Column="1" Text="{Binding Port,UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TxtNormalSty}"></TextBox>
+        <TextBox x:Uid="txtServiceUserName" Grid.Column="1" Grid.Row="4" Padding="3" Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged}" MaxLength="10" Style="{DynamicResource TxtNormalSty}"/>
+        <StackPanel x:Uid="stpAccessKey" Grid.Column="1" Margin="1,8,20,0" Grid.Row="5" Orientation="Horizontal"  >
+            <TextBox x:Uid="txtAccessKey" Text="{Binding AccessKey}" IsReadOnly="True"  Style="{DynamicResource TxtNormalSty}"/>
+            <Button x:Uid="btnGenerate" Content="{x:Static res:MergedResources.Common_GenerateAccessKey}" Margin="10,0,0,0"  Command="{Binding GenerateCommand}" Style="{DynamicResource BtnNormalSty}"/>
+        </StackPanel>
+        <TextBox x:Uid="txtDescription" Height="50" Margin="1,10,20,0" Width="265" HorizontalAlignment="Left" MinHeight="50" Grid.Row="6" Grid.Column="1" Text="{Binding Description}"  Style="{DynamicResource MultiLineTxtSty}" MaxLength="50"/>
+        <StackPanel x:Uid="stpBtns" Grid.Row="7" Orientation="Horizontal" Margin="0,20,20,20" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Button x:Uid="btnSave" Content="{x:Static res:MergedResources.Common_Save}" Margin="8,0,0,0" Command="{Binding SaveCommand}" Style="{DynamicResource BtnNormalSty}"/>
+            <Button x:Uid="btnCancel" Content="{x:Static res:MergedResources.Common_Cancel}"  Margin="8,0,0,0" Command="{Binding CancelCommand}" Style="{DynamicResource BtnNormalSty}"/>
+        </StackPanel>
+    </Grid>
+</Window>

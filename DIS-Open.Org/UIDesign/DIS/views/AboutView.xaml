@@ -1,0 +1,29 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.AboutView"
+	x:Name="Window"
+	Title="About Key Management Tool"
+	Width="491" Height="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.ColumnDefinitions>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.5*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="0.5*"/>
+			<RowDefinition Height="35"/>
+		</Grid.RowDefinitions>
+		<Label Content="Digital Inventory System " FontSize="13.333" HorizontalAlignment="Left" Width="158.993" Margin="91,25,0,0" Height="35.96" VerticalAlignment="Top" d:LayoutOverrides="GridBox"/>
+		<Label Content="Key Management Tool" Margin="91,60.96,42.537,19.08" FontSize="21.333" FontWeight="Bold" d:LayoutOverrides="GridBox"/>
+		<Label Content="Version: 1.0.0.1" Grid.Row="1" d:LayoutOverrides="Width" Margin="20,0,0,0"/>
+		<Label Content="Product ID: XXXXX-XX-XXXXXXX-XXXXX" Grid.Row="2" d:LayoutOverrides="Width" Margin="20,0,0,0"/>
+		<TextBlock TextWrapping="Wrap" Grid.Row="3" Margin="30,0,0,0" Padding="5"><Run Text="Warning: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/><Run Text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/><Run Text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/><Run Text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/><Run Text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/><Run Text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/><LineBreak/></TextBlock>
+		<Label Content="Copyright here" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="4" Width="128.993"/>
+		<Button x:Name="btnok_about" Content="OK" HorizontalAlignment="Right" Width="75" Margin="0,4,42.537,8" Grid.Row="4" d:LayoutOverrides="Height" Click="btnok_about_Click" IsDefault="True" IsCancel="True"/>
+		<Rectangle Fill="#FFAAAAAA" Stroke="Black" Panel.ZIndex="-1" StrokeThickness="0"/>
+	</Grid>
+</Window>

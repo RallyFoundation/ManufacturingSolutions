@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DIS.Services.TransferWebService.TransferService" Factory="DIS.Services.WebServiceLibrary.IdentityModel.InternalHostFactory" %>

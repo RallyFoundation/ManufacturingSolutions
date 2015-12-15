@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13DF4280-7C9C-4FD8-9051-FB4E3AC3A8D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DIS.Business.Proxy</RootNamespace>
+    <AssemblyName>DIS.Business.Proxy</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\References\Data\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigProxy.cs" />
+    <Compile Include="HeadQuarterProxy.cs" />
+    <Compile Include="Interfaces\IConfigProxy.cs" />
+    <Compile Include="Interfaces\IHeadQuarterProxy.cs" />
+    <Compile Include="Interfaces\IKeyProxy.cs" />
+    <Compile Include="Interfaces\IKeyTypeConfigurationProxy.cs" />
+    <Compile Include="Interfaces\IKeyStoreProviderProxy.cs" />
+    <Compile Include="Interfaces\ILogProxy.cs" />
+    <Compile Include="Interfaces\ISubsidiaryProxy.cs" />
+    <Compile Include="Interfaces\IUserProxy.cs" />
+    <Compile Include="KeyProxy\KeyOfflineProxy.cs" />
+    <Compile Include="KeyProxy\KeyReportProxy.cs" />
+    <Compile Include="KeyProxy\KeyFulfillmentProxy.cs" />
+    <Compile Include="KeyProxy\KeyProxy.cs" />
+    <Compile Include="KeyProxy\KeyReturnProxy.cs" />
+    <Compile Include="KeyProxy\KeyStoreProviderProxy.cs" />
+    <Compile Include="KeyTypeConfigurationProxy.cs" />
+    <Compile Include="LogProxy.cs" />
+    <Compile Include="Parameters\IParameter.cs" />
+    <Compile Include="Parameters\LicensablePartNumberParameter.cs" />
+    <Compile Include="Parameters\OEMPartNumberParameter.cs" />
+    <Compile Include="Parameters\OEMPONumberParameter.cs" />
+    <Compile Include="Parameters\SerialNumberParameter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubsidiaryProxy.cs" />
+    <Compile Include="UserProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Microsoft.ServiceModel.Web\Microsoft.ServiceModel.Web.csproj">
+      <Project>{CBC8A641-D6B5-4E9F-96B4-3AF72E8ACFB3}</Project>
+      <Name>Microsoft.ServiceModel.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Utility\Utility.csproj">
+      <Project>{14824F21-28DB-46BB-941C-8B21A8DA5E0E}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DataAccess\DataAccess.csproj">
+      <Project>{8DB82B02-43A3-442C-9847-2A2C296CC13E}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DataContract\DataContract.csproj">
+      <Project>{549E007B-EB95-4EE9-9F5B-36C06C77B765}</Project>
+      <Name>DataContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client\Client.csproj">
+      <Project>{B349387B-E8E3-4710-8476-8E8331EC2AEC}</Project>
+      <Name>Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{5097AC1F-A14C-465B-8BA6-FB43DB71651C}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Schema\Parameters.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Schema\ProductKeyInfo.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

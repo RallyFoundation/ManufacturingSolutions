@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<KeyStatus>
+  <Status>Show All</Status>
+  <Stauts>Fulfilled</Stauts>
+  <Status>Allocated</Status>
+  <Status>Bound</Status>
+  <Status>Consumed</Status>
+  <Status>Reported</Status>
+  <Status>Returned</Status>
+</KeyStatus>

@@ -1,0 +1,40 @@
+﻿<Page x:Uid="Page_1" x:Class="DIS.Presentation.KMT.RevertKeysView.RevertKeysSummary"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	>
+
+    <Grid x:Uid="grdRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="80"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label x:Uid="lblSummaryTxt" Margin="0,0,0,8" Content="{Binding SummaryText}" Grid.Row="1" Style="{StaticResource LblNormalSty}"/>
+        <DataGrid x:Uid="dgKeys" 
+                  Grid.Row="2" 
+                  Height="170"
+                  HorizontalAlignment="Stretch"
+                  Style="{StaticResource DgNormalSty}" BorderThickness="1"
+                  ItemsSource="{Binding KeyOperationResults}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn  Binding="{Binding Key.KeyId}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}"  IsReadOnly="True" />
+                <DataGridTextColumn   Binding="{Binding Key.ProductKey}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}" IsReadOnly="True"/>
+                <!--<DataGridTextColumn   Binding="{Binding Failed}" Header="{x:Static res:MergedResources.Common_ColumnHeaderIsFailed}" IsReadOnly="True"/>-->
+                <DataGridTemplateColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderOperationResult}" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <TextBlock x:Uid="txtFailed" Text="{Binding Failed, Converter={StaticResource OperationResultConverter}}" Foreground="{Binding Failed, Converter={StaticResource OperationResultColorConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn   Binding="{Binding FailedType}" Header="{x:Static res:MergedResources.Common_ColumnHeaderFailedReason}" IsReadOnly="True"/>
+                <DataGridTextColumn  Binding="{Binding Key.KeyState}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOldState}" IsReadOnly="True"/>
+                <DataGridTextColumn   Binding="{Binding KeyInDb.KeyState}" Header="{x:Static res:MergedResources.Common_ColumnHeaderNewState}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

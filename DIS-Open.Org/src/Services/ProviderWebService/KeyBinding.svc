@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DIS.Services.ProviderWebService.ProviderService" Factory="DIS.Services.WebServiceLibrary.IdentityModel.DisHostFactory" %>

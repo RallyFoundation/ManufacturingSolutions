@@ -1,0 +1,35 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.ExportLogView"
+	x:Name="Window"
+	Title="Export Logs"
+	Width="480" Height="400">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100"/>
+			<RowDefinition Height="0.5*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="0.5*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
+		<StackPanel x:Name="stpanel_location" Grid.Row="2" Orientation="Horizontal" Width="auto" Margin="30,0">
+			<Label Content="Export To :"/>
+			<TextBox TextWrapping="Wrap" Width="220" MinWidth="200" Margin="3"/>
+			<Button Content="Browser" Width="75" Margin="10,3,0,3"/>
+		</StackPanel>
+		<StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,40,0">
+			<Button x:Name="btn_ok" Content="OK" Width="75" Margin="0,3,10,3" Click="btn_ok_Click"/>
+			<Button x:Name="btn_Cancel" Content="Cancel" Width="75" Margin="10,3,0,3" Click="btn_Cancel_Click"/>
+		</StackPanel>
+		<TextBox TextWrapping="Wrap" Text="Please select the location you want to export log to" d:LayoutOverrides="Width, Height" Background="#FF999999" FontWeight="Bold" FontSize="16" Padding="20,30,20,10"/>
+		<StackPanel x:Name="stpanel_progress" Margin="0" Grid.Row="3" Orientation="Horizontal" Visibility="Collapsed">
+			<Label Content="20%" Margin="30,0,0,0" VerticalAlignment="Center"/>
+			<ProgressBar Width="332" Value="20" Margin="3,4"/>
+		</StackPanel>
+	</Grid>
+</Window>

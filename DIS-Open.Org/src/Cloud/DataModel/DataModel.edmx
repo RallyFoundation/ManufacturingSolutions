@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="DataModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Configurations" EntityType="DataModel.Store.Configurations" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ConfigurationCustomer" Association="DataModel.Store.ConfigurationCustomer">
+      <End Role="Configuration" EntitySet="Configurations" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="ReferenceId" Type="nvarchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Configurations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="CustomerId" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="DbConnectionString" Type="nvarchar" Nullable="false" MaxLength="450" />
+  </EntityType>
+  <Association Name="ConfigurationCustomer">
+    <End Role="Configuration" Type="DataModel.Store.Configurations" Multiplicity="*" />
+    <End Role="Customer" Type="DataModel.Store.Customers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Configuration">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" >
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="DataModel.Customer" />
+          <EntitySet Name="Configurations" EntityType="DataModel.Configuration" />
+          <AssociationSet Name="ConfigurationCustomer" Association="DataModel.ConfigurationCustomer">
+            <End Role="Configuration" EntitySet="Configurations" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="300" />
+          <NavigationProperty Name="Configuration" Relationship="DataModel.ConfigurationCustomer" FromRole="Customer" ToRole="Configuration" />
+          <Property Name="ReferenceId" Type="String" Nullable="true" MaxLength="Max" />
+        </EntityType>
+        <EntityType Name="Configuration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="36" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="DbConnectionString" Type="String" Nullable="false" MaxLength="450" />
+          <NavigationProperty Name="Customer" Relationship="DataModel.ConfigurationCustomer" FromRole="Configuration" ToRole="Customer" />
+        </EntityType>
+        <Association Name="ConfigurationCustomer">
+          <End Type="DataModel.Configuration" Role="Configuration" Multiplicity="*" />
+          <End Type="DataModel.Customer" Role="Customer" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Configuration">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configurations">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Configuration)">
+        <MappingFragment StoreEntitySet="Configurations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="DbConnectionString" ColumnName="DbConnectionString" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

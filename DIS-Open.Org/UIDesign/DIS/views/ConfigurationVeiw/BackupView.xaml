@@ -1,0 +1,50 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.BackupView"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="auto" Height="auto">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="4*"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="6*"/>
+		</Grid.RowDefinitions>
+		<Label Content="Backup Inventory Database" d:LayoutOverrides="Width" FontWeight="Bold" FontSize="16" Padding="20,5,5,5" VerticalAlignment="Center"/>
+		<TextBlock TextWrapping="Wrap" Text="You will be prompted to backup when you close Key Management Tool. Your key is a valuable asset and should be backed up at additional regular interval.  To safeguard your data, you should frequently backup your Inventory database." Grid.Row="1" d:LayoutOverrides="Width, Height" Padding="30,0"/>
+		<StackPanel Grid.Row="2" Orientation="Horizontal">
+			<Label Content="Backup folder :" Padding="30,5,5,5"/>
+			<TextBox TextWrapping="Wrap" Width="150" Margin="3,3,2,3"/>
+			<Button Content="Change" Width="75" Margin="3"/>
+		</StackPanel>
+		<Label Content="Backup filename :  InventoryBackup.bak" d:LayoutOverrides="Width" Grid.Row="3" Padding="30,5,5,5"/>
+		<Label Content="Scheduled backup :" d:LayoutOverrides="Width" Grid.Row="4" Padding="30,5,5,5"/>
+		<StackPanel x:Name="stkpnl_frequency" Margin="0,1,0,0" Grid.Row="6" Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=chk_backup}">
+			<Label Content="Frequency :" Padding="60,5,5,5"/>
+			<ComboBox Width="60" Margin="3" MaxDropDownHeight="341.333333333333" SelectedIndex="0">
+				<ComboBoxItem>30 minutes</ComboBoxItem>
+				<ComboBoxItem>1 hour</ComboBoxItem>
+				<ComboBoxItem>6 hours</ComboBoxItem>
+				<ComboBoxItem>24 hours</ComboBoxItem>
+			</ComboBox>
+			<Button Content="Apply" Width="75" Margin="3"/>
+		</StackPanel>
+		<StackPanel Grid.Row="7" Orientation="Horizontal">
+			<Label Content="Immediate backup :" Padding="30,5,5,5"/>
+			<Button Content="Start backup now" Width="110" Margin="3"/>
+		</StackPanel>
+		<StackPanel Margin="0,0,0,-1" Orientation="Horizontal" Grid.Row="5">
+			<CheckBox x:Name="chk_backup" Content="Run backup on a schedule (Recommended)" Width="359.42" Margin="30,0,0,0" VerticalAlignment="Center" Checked="chk_backup_Checked"/>
+		</StackPanel>
+	</Grid>
+</Page>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <?Include $(var.ProjectDir)\Wizard.wxs ?>
+  <?Include $(var.ProjectDir)\DataPollingComponent.wxs ?>
+  <!--<?Include $(var.ProjectDir)\DatabaseComponent.wxs ?>-->
+  <?Include $(var.ProjectDir)\KmtComponent.wxs ?>
+  <?Include $(var.ProjectDir)\WebServicesComponent.wxs ?>
+  <?Include $(var.ProjectDir)\Properties.wxs ?>
+  <?Include $(var.ProjectDir)\ConfigurationComponent.wxs ?>
+
+  <Product Id="{D889F876-1EC8-4A09-90FC-2182ABE24D13}" Name="DIS Solution - OEMCorp" Language="1033" Version="12.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{1DED372C-E990-4B9E-8082-EAA2C2737DF7}">
+    <Package Comments="This installer database contains the logic and data required to install DIS Solution." Compressed="yes" Description="DIS Solution" InstallerVersion="400"  Languages="1033" Manufacturer="Microsoft Corporation" Platform="x86"/>
+    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
+    <Property Id="ARPNOMODIFY" Value="yes" Secure="yes" />
+    <Upgrade Id="{1DED372C-E990-4B9E-8082-EAA2C2737DF7}">
+      <UpgradeVersion
+         Minimum="9.0.0.0" Maximum="12.0.0.0"
+         Property="PREVIOUSVERSIONSINSTALLED"
+         IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade>
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrMessage)" Schedule="afterInstallValidate" />
+    <Condition Message="!(loc.RequireNetFramework40)">Installed OR (NETFRAMEWORK40FULL_SERVICING_LEVEL)</Condition>
+    <Media Id="1" Cabinet="DISSolution.cab" EmbedCab="yes" />
+    <UIRef Id="MyWixUI" />
+    <PropertyRef Id="IISMAJORVERSION"/>
+
+    <!--<Feature Id="DatabaseFeature" Title="DATABASE" Level="1" Display="collapse" AllowAdvertise="no">
+      <ComponentRef Id="CreateDB_WinAuth" />
+      <ComponentRef Id="CreateDB_SqlAuth" />
+        <ComponentRef Id="UpgradeDB_WinAuth" />
+        <ComponentRef Id="UpgradeDB_SqlAuth" />
+    </Feature>-->
+
+    <Feature Id="KmtFeature" Title="KMT" Level="1" Display="collapse" AllowAdvertise="no">
+      <ComponentGroupRef Id="KMTFeatures"/>
+    </Feature>
+
+    <Feature Id="WebServicesFeature" Level="1" Title="Web Services" Display="collapse" AllowAdvertise="no">
+      <ComponentGroupRef Id="WebserviceCompnents"/>
+      <!--<ComponentGroupRef Id="Product.Generated" />-->
+    </Feature>
+
+    <Feature Id="DataPollingFeature" Title="Data Polling Service" Level="1" Display="collapse" AllowAdvertise="no">
+      <ComponentRef Id="DataPollingModifyConfig" />
+      <ComponentRef Id="DataPollingComponent" />
+      <ComponentRef Id="DatePollingCertificate"/>
+    </Feature>
+
+    <Feature Id="KeyProviderFeature" Title="Key Provider Service" Level="0" Display="hidden" AllowAdvertise="no">
+    </Feature>
+
+    <Feature Id="RegeditySetValuesFeature" Title="Set Registry" Level="1" Display="hidden">
+      <ComponentRef Id="RegeditySetValuesComponent" />
+    </Feature>
+
+	<Feature Id="ConfigurationFeature" Title="Configuration Tool" Level="1" Display="hidden">
+		<ComponentGroupRef Id="CfgFeatures" />
+	</Feature>
+
+    <Component Id="RegeditySetValuesComponent" Guid="{3FBFD785-1A2C-43D4-BF89-0E514601724D}" Directory='INSTALLLOCATION'>
+      <RegistryKey Root="HKCU" Key="SOFTWARE\Microsoft\DIS Solution\OEM">
+        <RegistryValue Name="InstallType" Type="string" Value="[INSTALLTYPE]"/>
+        <RegistryValue Name="InstallTypeValue" Type="string" Value="[INSTALLTYPEVALUE]"/>
+        <!--<RegistryValue Name="AuthType" Type="string" Value="[AUTHTYPE]"/>
+        <RegistryValue Name="ServerName" Type="string" Value="[SERVERNAME]"/>
+        <RegistryValue Name="DatabaseName" Type="string" Value="[DATABASENAME]"/>
+        <RegistryValue Name="SqlPassword" Type="string" Value="[PASSWORD]"/>
+        <RegistryValue Name="SqlUserName" Type="string" Value="[USERNAME]"/>
+        <RegistryValue Name="CustomNumber" Type="string" Value="[CUSTOMNUMBERVALUE]"/>
+        <RegistryValue Name="ExPort" Type="string" Value="[EXPORT]"/>
+        <RegistryValue Name="InPort" Type="string" Value="[INPORT]"/>
+        <RegistryValue Name="ConnectionString" Type="string" Value="[CONNECTIONSTRING]"/>-->
+        <RegistryValue Name="IndentityName" Type="string" Value="[WEB_APP_POOL_IDENTITY_NAME]"/>
+        <RegistryValue Name="IndentityPassword" Type="string" Value="[WEB_APP_POOL_IDENTITY_PWD]"/>
+		    <RegistryValue Name="InstallLocation" Type="string" Value="[INSTALLLOCATION]"/>
+      </RegistryKey>
+      <CreateFolder/>
+    </Component>
+
+    <Binary Id='ConnectDbBinary' SourceFile='$(var.DbConnectionTest.TargetDir)DIS.Deployment.Custom.DbConnectionTest.CA.dll' />
+    <CustomAction Id='ProtectConfigFileAction' BinaryKey='ConnectDbBinary' DllEntry='ProtectConfigFiles' />
+    
+    <InstallExecuteSequence>
+      <Custom Action="AddCertificateAction" After="InstallFinalize">$KMTCertificate&gt;2 AND NOT Installed</Custom>
+      <Custom Action="ProtectConfigFileAction" After="AddCertificateAction">NOT REMOVE="ALL"</Custom>
+      <!--<Custom Action="InsertDbPortAction" After="AddCertificateAction">$InternalWebService_IIS&gt;2</Custom>-->
+      <Custom Action="DeleteKeyShareDirAction" After="InstallFinalize">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+    </InstallExecuteSequence>
+      
+    <Binary Id="CABinary" SourceFile="..\Resources\CA.cer" />
+    <Binary Id="CrlBinary" SourceFile="..\Resources\CA.crl" />
+    <Binary Id="CFGBinary" SourceFile="..\Resources\CFG.pfx" />
+    <Binary Id="IISBinary" SourceFile="..\Resources\IIS.pfx" />
+    <Binary Id="KMTforR5Binary" SourceFile="..\Resources\KMTforR5.pfx" />
+  </Product>
+</Wix>

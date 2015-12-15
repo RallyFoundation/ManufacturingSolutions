@@ -1,0 +1,21 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.TypeSelectPage"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="auto" Height="auto">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.2*"/>
+			<RowDefinition Height="0.3*"/>
+			<RowDefinition Height="0.3*"/>
+			<RowDefinition Height="0.2*" />
+		</Grid.RowDefinitions>
+		<RadioButton Content="Export keys." Grid.Row="1" d:LayoutOverrides="Width, Height" Margin="30,0,0,10" VerticalAlignment="Bottom" GroupName="ExportType"/>
+		<RadioButton Content="Export CBR/Un-used keys. " Grid.Row="2" d:LayoutOverrides="Width, Height" Margin="30,10,0,0" VerticalContentAlignment="Stretch" VerticalAlignment="Top" GroupName="ExportType"/>
+	</Grid>
+</Page>

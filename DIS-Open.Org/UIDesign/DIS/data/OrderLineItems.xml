@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+  <Item>
+    <mspartnumber>FSC-00024</mspartnumber>
+    <oempartnumber>WIN800004</oempartnumber>
+    <quantity>8</quantity>
+    <requestedshipdate>11-21-2011</requestedshipdate>
+  </Item>
+  <Item>
+    <mspartnumber>GFC-00016</mspartnumber>
+    <oempartnumber>WIN800005</oempartnumber>
+    <quantity>18</quantity>
+    <requestedshipdate>11-21-2011</requestedshipdate>
+  </Item>
+</Items>

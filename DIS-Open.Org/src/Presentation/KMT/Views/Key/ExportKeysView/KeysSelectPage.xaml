@@ -1,0 +1,142 @@
+﻿<Page xmlns:my="clr-namespace:DIS.Presentation.KMT.Controls"  x:Uid="pgExportKeySelect" x:Class="DIS.Presentation.KMT.ExportKeysView.KeysSelectPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+      xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+      mc:Ignorable="d" 
+      WindowTitle="Page"
+      FlowDirection="LeftToRight"
+      Width="Auto"
+      Height="Auto">
+    <Grid  x:Uid="exportGrid" x:Name="exportGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Uid="stpAssignKeysMsg" Grid.Row="1">
+            <my:SearchControl x:Name="searchControl" x:Uid="searchControl" />
+        </StackPanel>
+        <TabControl x:Uid="tbcExportKeys" 
+                    Grid.Row="2" 
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top" 
+                    Margin="0,8,0,0" 
+                    SelectedIndex="{Binding Path=TabIndex}"
+                    >
+            <TabItem x:Uid="tbiKeysByQuantity" 
+                     Header="{x:Static res:MergedResources.Common_ByQuantity}" Name="ByQuantity">
+                <DataGrid x:Uid="dgByQuantity" Grid.Column="1"  
+                          ItemsSource="{Binding KeyGroups}" 
+                          SelectedItem="{Binding SelectedKeyGroup}"
+                          Style="{StaticResource DgNormalSty}" 
+                          Height="170"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          >
+                    <DataGrid.RowValidationRules>
+                        <ExceptionValidationRule />
+                    </DataGrid.RowValidationRules>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Binding="{Binding KeyGroup.KeyType}" Header="{x:Static res:ResourcesOfR6.Common_KeyType}" IsReadOnly="True"/>
+                        <DataGridTextColumn  Binding="{Binding KeyGroup.MsLicensablePartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderLicensablePartNumber}" IsReadOnly="True"/>
+                        <DataGridTextColumn  Binding="{Binding KeyGroup.OEMPONumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPONumber}" IsReadOnly="True"/>
+                        <DataGridTextColumn  Binding="{Binding KeyGroup.OEMPartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPartNumber}" IsReadOnly="True"/>
+                        <DataGridTextColumn  Binding="{Binding KeyGroup.AvailableKeysCount}" Header="{x:Static res:MergedResources.Common_ColumnHeaderAvailableKeys}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn >
+                            <DataGridTemplateColumn.HeaderTemplate >
+                                <DataTemplate  >
+                                    <TextBlock x:Uid="tbkQuantity" Text="{x:Static res:MergedResources.Common_ColumnHeaderQuantity}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <TextBox x:Uid="txtKeysCount" Text="{Binding Path=QuantityString,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Behaviors:TextBoxFilters.IsNumericFilter="True" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Uid="tbiByKeys" Header="{x:Static res:MergedResources.Common_ByKeys}">
+                <DataGrid x:Uid="dgByKeys" 
+                             Height="170"
+                             HorizontalAlignment="Stretch"
+                              ItemsSource="{Binding Keys}" 
+                              Style="{StaticResource DgNormalSty}"              
+                              ScrollBar.Scroll="ExportByKeys_Scroll" 
+                              ScrollViewer.ScrollChanged="ExportByKeys_ScrollChanged" 
+                              Sorting="ExportByKeys_Sorting"                              
+                              VerticalAlignment="Top"
+                              >
+                    <DataGrid.RowValidationRules>
+                        <ExceptionValidationRule />
+                    </DataGrid.RowValidationRules>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn >
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate >
+                                    <CheckBox x:Uid="chkAllIsChecked" 
+                                                  IsThreeState="False"
+                                                  IsChecked="{Binding IsAllChecked}" 
+                                              DataContext="{Binding ElementName=exportGrid, Path=DataContext}"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                                  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <CheckBox x:Uid="chkKeyIsChecked" IsThreeState="False" IsChecked="{Binding IsSelected,Mode=TwoWay, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn  Binding="{Binding keyInfo.KeyId}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}"  IsReadOnly="True" SortMemberPath="KeyId" />
+                        <DataGridTextColumn  Binding="{Binding keyInfo.ProductKey}" Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}"  IsReadOnly="True" SortMemberPath="ProductKey" />
+                        <DataGridTextColumn  Binding="{Binding keyInfo.KeyInfoEx.KeyType}" Header="{x:Static res:ResourcesOfR6.Common_KeyType}" IsReadOnly="True" SortMemberPath="KeyInfoEx.KeyTypeId"/>
+                        <DataGridTextColumn  Binding="{Binding keyInfo.LicensablePartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderLicensablePartNumber}" IsReadOnly="True" SortMemberPath="LicensablePartNumber"/>
+                        <DataGridTextColumn  Binding="{Binding keyInfo.OemPoNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPONumber}" IsReadOnly="True" SortMemberPath="OemPoNumber"/>
+                        <DataGridTextColumn  Binding="{Binding keyInfo.OemPartNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderOEMPartNumber}" IsReadOnly="True" SortMemberPath="OemPartNumber"/>
+                        <DataGridTextColumn  Binding="{Binding keyInfo.CallOffReferenceNumber}" Header="{x:Static res:MergedResources.Common_ColumnHeaderRefNumber}" IsReadOnly="True" SortMemberPath="CallOffReferenceNumber"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,8,0,0">
+            <Label x:Uid="lblSubsidiary" Visibility="{Binding Path=SubsidiaryVisibility,Converter={StaticResource boolToVis}}" Content="{x:Static res:MergedResources.Common_To}" Style="{StaticResource LblNormalSty}"/>
+            <ComboBox x:Uid="cboSubsidiaries" Margin="4,0,0,0" 
+                      Visibility="{Binding Path=SubsidiaryVisibility,Converter={StaticResource boolToVis}}"  
+                      Height="25"
+                      Style="{StaticResource CboNormalSty}"
+                      ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
+                      ItemsSource="{Binding Subsidiarys}"  
+                      DisplayMemberPath="DisplayName" 
+                      SelectedItem="{Binding SelectedSubsidiary, Mode=TwoWay}" 
+                      >
+
+            </ComboBox>
+            <Label x:Uid="lblHeadQuarter" Visibility="{Binding Path=HeadQuarterVisibility,Converter={StaticResource boolToVis}}" Content="{x:Static res:MergedResources.Common_To}" Style="{StaticResource LblNormalSty}"/>
+            <ComboBox x:Uid="cboHeadQuarters" 
+                      Margin="4,0,0,0" 
+                      Visibility="{Binding Path=HeadQuarterVisibility,Converter={StaticResource boolToVis}}"  
+                      ItemsSource="{Binding HeadQuarters}" 
+                      DisplayMemberPath="DisplayName" 
+                      SelectedItem="{Binding SelectedHeadQuarter, Mode=TwoWay}" 
+                      Style="{StaticResource CboNormalSty}"
+                      ItemContainerStyle="{StaticResource ComboBoxItemStyle}"
+                      Height="25"
+                      />
+            <CheckBox x:Uid="chkEncrypt" IsChecked="{Binding IsEncryptChecked,Mode=TwoWay,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=EncryptCheckedVisibility,Converter={StaticResource boolToVis}}" Content="{x:Static res:MergedResources.ExportKey_Encryptselect}"  Style="{StaticResource ChkLogLevelSty}"></CheckBox>
+            <CheckBox x:Uid="checkBoxIsCompatibleModeEnabled" x:Name="checkBoxIsCompatibleModeEnabled" Margin="20,0,0,0" IsChecked="{Binding IsInCompatibleMode,Mode=TwoWay,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=EncryptCheckedVisibility,Converter={StaticResource boolToVis}}" Content="{x:Static res:MergedResources.ExportKey_CompatibleFormat}" Style="{StaticResource ChkLogLevelSty}" />
+        </StackPanel>
+        <StackPanel  Grid.Row="4" VerticalAlignment="Bottom" Margin="0,8,0,0" Orientation="Horizontal" >
+            <Label x:Uid="lblExistingMsg"  Content="{Binding FileLabelTxt}" Style="{StaticResource LblNormalSty}"/>
+            <TextBox x:Uid="txtFile"  Margin="4,0,0,0" x:Name="txtFile" Text="{Binding FileName}" Style="{StaticResource TxtFileLocationSty}" Width="450"  />
+            <Button x:Uid="btnBrowse" Margin="10,0,0,0" Content="{x:Static res:MergedResources.Common_Browse}" Command="{Binding BrowseCommand}" Style="{StaticResource BtnNormalSty}"/>
+        </StackPanel>
+    </Grid>
+</Page>

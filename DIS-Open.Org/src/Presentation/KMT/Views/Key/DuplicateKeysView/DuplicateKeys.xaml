@@ -1,0 +1,63 @@
+﻿<Window x:Class="DIS.Presentation.KMT.Views.Key.DuplicateKeysView.DuplicateKeys"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Behaviors="clr-namespace:DIS.Presentation.KMT.Behaviors"
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        x:Name="Window"
+        Title="Handle Duplicated Keys"
+        SizeToContent="WidthAndHeight" 
+        ResizeMode="NoResize"
+        x:Uid="wndDuplicatedKeys">
+    <Grid x:Uid="grdRoot"
+                Behaviors:BusyIndicator.BusyState="{Binding IsBusy}"
+                Behaviors:BusyIndicator.AddMargins="True"              
+                Behaviors:BusyIndicator.ProcessingText="Loading"
+                Behaviors:BusyIndicator.TargetVisual="{Binding ElementName=LayoutRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Rectangle Style="{DynamicResource RectRootSty}" Grid.RowSpan="3"></Rectangle>
+        <DataGrid  x:Uid="dgDuplicatedKeys"
+                      Grid.Row="0" 
+                      ItemsSource="{Binding KeyCollection}"   
+                      Style="{StaticResource DgNormalSty}"                     
+                      Height="170"
+                      Margin="20"
+                   Width="620">
+            <DataGrid.RowValidationRules>
+                <ExceptionValidationRule/>
+            </DataGrid.RowValidationRules>
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKeyID}"  IsReadOnly="True" Binding="{Binding ProductKeyId}"/>
+                <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderProductKey}" IsReadOnly="True" Binding="{Binding ProductKey}"/>
+                <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderHardwareHash}" IsReadOnly="True" Binding="{Binding HardwareHash}"/>
+                <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderCurrentState}" IsReadOnly="True" Binding="{Binding CurrentState}"/>
+                <DataGridTextColumn  Header="{x:Static res:MergedResources.Common_ColumnHeaderNewState}" IsReadOnly="True" Binding="{Binding NewState}"/>
+                <DataGridTemplateColumn >
+                    <DataGridTemplateColumn.HeaderTemplate >
+                        <DataTemplate >
+                            <TextBlock x:Uid="tbkOperation" Text="Operation"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <ComboBox x:Uid="cboReuseOperations" ItemsSource="{Binding ReuseOperations}" SelectedValue="{Binding ReuseOperation, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumConverter}}" Style="{StaticResource CboNormalSty}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel x:Uid="stpReason" Margin="20,0,20,20" Grid.Row="1" Orientation="Vertical">
+            <Label x:Uid="lblReason" Content="{x:Static res:MergedResources.ProcessDuplicateKeysViewModel_ReasonLb}" Style="{StaticResource LblNormalSty}"/>
+            <TextBox x:Uid="txtReason" Text="{Binding Path=CommentText,Mode=TwoWay}" Grid.Row="3" AcceptsReturn="True" Style="{StaticResource MultiLineTxtSty}"/>
+        </StackPanel>
+        <StackPanel x:Uid="stpBtns" Margin="20,0,20,20" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Uid="btnNext" Content="{x:Static res:MergedResources.Common_Ok}" Margin="8,0,0,0" IsDefault="True"  Visibility="{Binding Path=NextButtonStepWizard,Converter={StaticResource boolToVis}}"  Command="{Binding FinishCommand}" Style="{StaticResource BtnNormalSty}"/>
+            <Button x:Uid="btnCancel" Content="{x:Static res:MergedResources.Common_Cancel}" Margin="8,0,0,0" IsCancel="True" Visibility="{Binding Path=CancelButtonStepWizard,Converter={StaticResource boolToVis}}" Command="{Binding CancelCommand}" Style="{StaticResource BtnNormalSty}"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
+

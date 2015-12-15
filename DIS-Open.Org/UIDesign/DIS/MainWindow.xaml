@@ -1,0 +1,135 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Custom="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon" mc:Ignorable="d"
+	x:Class="DIS.MainWindow"
+	x:Name="Window"
+	Title="Key Management Tool"
+	Width="1280" Height="960" WindowStartupLocation="CenterScreen">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Custom:Ribbon x:Name="mainRibbon" VerticalAlignment="Bottom" Grid.Row="0" d:LayoutOverrides="Width" SelectionChanged="mainRibbon_SelectionChanged" Background="#FFCCCCCC">
+			<Custom:Ribbon.ApplicationMenu>
+                <Custom:RibbonApplicationMenu Opacity="0.7" Visibility="Visible">
+                	<Custom:RibbonApplicationMenuItem x:Name="settingMenuItem" Header="Options" ImageSource="icons/setting.png"  Click="settingMenuItem_Click" d:IsLocked="True" /> 
+					<Custom:RibbonApplicationMenuItem x:Name="helpMenuItem" Header="Help" ImageSource="icons/help.png" d:IsLocked="True" />             
+					<Custom:RibbonApplicationMenuItem x:Name="aboutMenuItem" Header="About" ImageSource="icons/info.png" d:IsLocked="True" Click="aboutMenuItem_Click" /> 
+					<Custom:RibbonApplicationMenuItem x:Name="exitMenuItem" ImageSource="icons/shut_down.png" Header="Exit" Click="exitMenuItem_Click" />
+				</Custom:RibbonApplicationMenu>
+            </Custom:Ribbon.ApplicationMenu>
+			<!--Custom:RibbonTab x:Name="tabHome" Header="Home">
+				
+			</Custom:RibbonTab-->
+			<Custom:RibbonTab x:Name="tabOrderManagement" Header="Order Management">
+				<Custom:RibbonGroup Header="Order">
+					<Custom:RibbonButton x:Name="btnnew" Label="New" LargeImageSource="icons/new.png" Click="btnnew_Click" />
+					<Custom:RibbonButton x:Name="btnedit" Label="Edit" SmallImageSource="icons/edit.png" Margin="0,10,0,0" />
+					<Custom:RibbonButton x:Name="btndelete" Label="Delete" SmallImageSource="icons/delete.png" />
+					<Custom:RibbonButton x:Name="btnsubmit" Label="Submit" LargeImageSource="icons/submit.png" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Select">
+					<Custom:RibbonButton x:Name="btnselectall" Label="Select All" SmallImageSource="icons/selectall.png" />
+					<Custom:RibbonButton x:Name="btnclear" Label="Clear Selection" SmallImageSource="icons/clear.png" />
+					<Custom:RibbonButton x:Name="btnreverseselection" Label="Reverse Selection" SmallImageSource="icons/reverseselection.png" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Page">
+					<Custom:RibbonButton x:Name="btnrefresh" Label="Refresh" LargeImageSource="icons/refresh.png"  />
+				</Custom:RibbonGroup>
+			</Custom:RibbonTab>
+			<Custom:RibbonTab x:Name="tabKeyManagement" Header="Key Management" >
+				<Custom:RibbonGroup Header="Offline">
+					<Custom:RibbonButton x:Name="btnexportkeys" Label="Export" LargeImageSource="icons/export.png" Click="btnexportkeys_Click"/>
+					<Custom:RibbonButton x:Name="btnimportkeys" Label="Import" LargeImageSource="icons/import.png" Click="btnimportkeys_Click"/>
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Online">
+					<Custom:RibbonButton x:Name="btngetKeys" LargeImageSource="icons/get_keys.png"  Label="Get Keys" />
+					<Custom:RibbonButton x:Name="btnreportKeys" LargeImageSource="icons/sendcbr.png" Label="Report Keys" Click="btnreportKeys_Click" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Assignment">
+					<Custom:RibbonButton x:Name="btnassign" Label="Assign Keys" Click="btnassign_Click" LargeImageSource="icons/mark.png"  />
+					<Custom:RibbonButton x:Name="btnUnassign" Label="Unassign Keys" Click="btnUnassign_Click"  LargeImageSource="icons/unmark.png"  />
+					<!--Custom:RibbonButton x:Name="btnunmark" Label="Unmark As Assinged" SmallImageSource="icons/unmark.png" /-->
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Return">
+					<Custom:RibbonButton x:Name="btnMarkAsReturn" LargeImageSource="icons/markasreturn.png"  Label="Mark As Return" Click="btnMarkAsReturn_Click" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Page">
+					<Custom:RibbonButton x:Name="btnrefreshkey" Label="Refresh" LargeImageSource="icons/refresh.png" />
+				</Custom:RibbonGroup>
+			</Custom:RibbonTab>
+			<Custom:RibbonTab x:Name="tabUserManagement" Header="User Management">
+				<!--Custom:RibbonGroup Header="Role">
+					<Custom:RibbonButton x:Name="btnroles" LargeImageSource="icons/role.png" Label="Roles" />
+				</Custom:RibbonGroup-->
+				<Custom:RibbonGroup Header="User">
+					<Custom:RibbonButton x:Name="btnadduser" SmallImageSource="icons/add_user.png" Label="Add User" Click="btnadduser_Click" />
+					<Custom:RibbonButton x:Name="btnremoveuser" SmallImageSource="icons/delete_user.png" Label="Remove User" />
+					<Custom:RibbonButton x:Name="btnedituser" SmallImageSource="icons/edit_profile.png" Label="Edit User" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Search">
+					<Grid Margin="0,10,10,0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="0.5*" />
+							<RowDefinition Height="0.5*" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="0.5*" />
+							<ColumnDefinition Width="0.5*" />
+						</Grid.ColumnDefinitions>
+						<Label Width="auto" Content="User Name :" HorizontalAlignment="Right" />
+						<Label Width="auto" Content="User Role :" Grid.Row="1" HorizontalAlignment="Right" />
+						<TextBox Width="100" Grid.Column="1" Margin="2" />
+						<ComboBox Width="100" Grid.Column="1" Grid.Row="1" Margin="2">
+							<ComboBoxItem>All</ComboBoxItem>
+							<ComboBoxItem>Manager</ComboBoxItem>
+							<ComboBoxItem>Operator</ComboBoxItem>
+						</ComboBox>
+					</Grid>
+					<Custom:RibbonButton x:Name="btnfilter" LargeImageSource="icons/search_user.png" Label="Search User" />
+				</Custom:RibbonGroup>
+			</Custom:RibbonTab>
+			<Custom:RibbonTab x:Name="tabDiagonosis" Header="Log View">
+				<Custom:RibbonGroup Header="Action">
+					<Custom:RibbonButton x:Name="btnexportlog" LargeImageSource="icons/exportlog.png" Label="Export Log" />
+				</Custom:RibbonGroup>
+				
+				<Custom:RibbonGroup Header="Page">
+					<Custom:RibbonButton x:Name="btnrefreshlog" LargeImageSource="icons/refresh.png" Label="Refresh" />
+				</Custom:RibbonGroup>
+				<Custom:RibbonGroup Header="Log Type">
+					<Grid Margin="0,10,0,0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="0.5*" />
+							<RowDefinition Height="0.5*" />
+						</Grid.RowDefinitions>
+						<Label Content="Select Log Type :" Grid.Row="0" />
+						<ComboBox Grid.Row="1" >
+							<ComboBoxItem>System Log</ComboBoxItem>
+							<ComboBoxItem>Operation Log</ComboBoxItem>
+						</ComboBox>
+					</Grid>
+				</Custom:RibbonGroup>
+			</Custom:RibbonTab>
+			<!--Custom:RibbonTab x:Name="tabReports" Header="Reports">
+				<Custom:RibbonGroup Header="Reports">
+					<Custom:RibbonButton x:Name="btngeneratereport" Label="Generate Report" />
+					<Custom:RibbonButton x:Name="btnsendreport" Label="Send Report" />
+					<Custom:RibbonButton x:Name="btnprintreport" Label="Print" />
+				</Custom:RibbonGroup>
+			</Custom:RibbonTab-->
+		</Custom:Ribbon>
+		<Frame x:Name="frame_home" Content="" Margin="0,0,0,0" Grid.Row="1" Source="/DIS;component/views/HomeView.xaml" Visibility="Hidden" />
+		<Frame x:Name="frame_orderManagement" Content="" Margin="0,0,0,0" Grid.Row="1" Source="/DIS;component/views/OrderManagmentView.xaml" />
+		<Frame x:Name="frame_keyManagement" Content="" Margin="0,0,0,0" Grid.Row="1" Visibility="Hidden" Source="/DIS;component/views/KeyManagementView.xaml" />
+		<Frame x:Name="frame_userManagement" Content="" Margin="0,0,0,0" Grid.Row="1" Visibility="Hidden" Source="/DIS;component/views/UserManagementView.xaml" />
+		<Frame x:Name="frame_reports" Content="" Margin="0,0,0,0" Grid.Row="1" Visibility="Hidden"/>
+		<Frame x:Name="frame_systemlog" Content="" Margin="0,0,0,0" Grid.Row="1" Visibility="Hidden" Source="/DIS;component/views/SystemLogView.xaml"/>
+		<TextBlock TextWrapping="Wrap" Text="Sync the data..." Margin="0" d:LayoutOverrides="Width" Grid.Row="2" Background="#FFEFEBEB"/>
+		<Frame x:Name="frame_operationlog" Content="" Margin="0,0,0,0" Grid.Row="1" Visibility="Hidden" Source="/DIS;component/views/OperationLogView.xaml"/>
+	</Grid>
+</Window>

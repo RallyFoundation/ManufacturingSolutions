@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a708d4c9-3131-42d3-9008-7e6fb66cc74a}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>ServerPreparation</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="db\RunSqlCmd.cmd" />
+    <Content Include="db\SetDISDB.sql" />
+    <Content Include="db\SetFirewallFPS.cmd" />
+    <Content Include="db\SetFirewallSQLServer1433.cmd" />
+    <Content Include="lib\AddDISOSUser.ps1" />
+    <Content Include="lib\ServerConfig-NET351-2012.ps1" />
+    <Content Include="lib\ServerConfig-NET351-2K8.ps1" />
+    <Content Include="lib\ServerConfig-WebServerRole-2012.ps1" />
+    <Content Include="lib\ServerConfig-WebServerRole-2K8.ps1" />
+    <Content Include="lib\SetFirewallExternal.ps1" />
+    <Content Include="lib\SetFirewallFPS.ps1" />
+    <Content Include="lib\SetFirewallInternal.ps1" />
+    <Content Include="lib\SetFirewallKPS8765.ps1" />
+    <Content Include="lib\SetFirewallSQLServer1433.ps1" />
+    <Content Include="pkg\dotNetFx40_Full_x86_x64.exe" />
+    <Content Include="pkg\EntityFramework41.exe" />
+    <Content Include="pkg\PowerShellTools.msi" />
+    <Content Include="pkg\SharedManagementObjects.msi" />
+    <Content Include="pkg\SharedManagementObjects_x86.msi" />
+    <Content Include="pkg\SqlCmdLnUtils.msi" />
+    <Content Include="pkg\sqlncli.msi">
+      <Publish>True</Publish>
+    </Content>
+    <Content Include="pkg\SQLSysClrTypes.msi" />
+    <Content Include="pkg\SQLSysClrTypes_x86.msi" />
+    <Content Include="pkg\vcredist_x86.exe" />
+    <Content Include="run.ps1" />
+    <Content Include="sp\Windows6.1-KB2506143-x64.msu" />
+    <Content Include="sp\WMF 3 Release Notes.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
+    <Folder Include="db\" />
+    <Folder Include="sp\" />
+    <Folder Include="pkg\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="db\run.cmd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="Build" />
+</Project>

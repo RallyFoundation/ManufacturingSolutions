@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Orders>
+  <Order>
+    <oemreferencenumber>000001A</oemreferencenumber>
+    <soldto>Fabrikam, Inc.</soldto>
+    <shipto>Fabrikam, Inc.</shipto>
+    <orderdate>11-22-2011</orderdate>
+    <msordernumber>FSC-00024</msordernumber>
+    <contractnumber>1234567890</contractnumber>
+    <oemponumber>00001PO</oemponumber>
+	<oempodate>11-22-2011</oempodate>
+	<status>Fulfilled</status>
+	<errordetails>None</errordetails>
+  </Order>
+  <Order>
+    <oemreferencenumber>000001A</oemreferencenumber>
+    <soldto>Fabrikam, Inc.</soldto>
+    <shipto>Fabrikam, Inc.</shipto>
+    <orderdate>11-22-2011</orderdate>
+    <msordernumber>FSC-00024</msordernumber>
+    <contractnumber>1234567890</contractnumber>
+    <oemponumber>00001PO</oemponumber>
+    <oempodate>11-22-2011</oempodate>
+    <status>Fulfilled</status>
+    <errordetails>None</errordetails>
+  </Order>
+  <Order>
+    <oemreferencenumber>000001A</oemreferencenumber>
+    <soldto>Fabrikam, Inc.</soldto>
+    <shipto>Fabrikam, Inc.</shipto>
+    <orderdate>11-22-2011</orderdate>
+    <msordernumber>FSC-00024</msordernumber>
+    <contractnumber>1234567890</contractnumber>
+    <oemponumber>00001PO</oemponumber>
+    <oempodate>11-22-2011</oempodate>
+    <status>Fulfilled</status>
+    <errordetails>None</errordetails>
+  </Order>
+  <Order>
+    <oemreferencenumber>000001A</oemreferencenumber>
+    <soldto>Fabrikam, Inc.</soldto>
+    <shipto>Fabrikam, Inc.</shipto>
+    <orderdate>11-22-2011</orderdate>
+    <msordernumber>FSC-00024</msordernumber>
+    <contractnumber>1234567890</contractnumber>
+    <oemponumber>00001PO</oemponumber>
+    <oempodate>11-22-2011</oempodate>
+    <status>Fulfilled</status>
+    <errordetails>None</errordetails>
+    <Order>
+      <oemreferencenumber>000001A</oemreferencenumber>
+      <soldto>Fabrikam, Inc.</soldto>
+      <shipto>Fabrikam, Inc.</shipto>
+      <orderdate>11-22-2011</orderdate>
+      <msordernumber>GFC-00016</msordernumber>
+      <contractnumber>1234567890</contractnumber>
+      <oemponumber>00001PO</oemponumber>
+      <oempodate>11-22-2011</oempodate>
+      <status>Fulfilled</status>
+      <errordetails>None</errordetails>
+      <Order>
+        <oemreferencenumber>000001A</oemreferencenumber>
+        <soldto>Fabrikam, Inc.</soldto>
+        <shipto>Fabrikam, Inc.</shipto>
+        <orderdate>11-22-2011</orderdate>
+        <msordernumber>FSC-00025</msordernumber>
+        <contractnumber>1234567890</contractnumber>
+        <oemponumber>00001PO</oemponumber>
+        <oempodate>11-22-2011</oempodate>
+        <status>Fulfilled</status>
+        <errordetails>None</errordetails>
+      </Order>
+      <Order>
+        <oemreferencenumber>000001A</oemreferencenumber>
+        <soldto>Fabrikam, Inc.</soldto>
+        <shipto>Fabrikam, Inc.</shipto>
+        <orderdate>11-22-2011</orderdate>
+        <msordernumber>GFC-00017</msordernumber>
+        <contractnumber>1234567890</contractnumber>
+        <oemponumber>00001PO</oemponumber>
+        <oempodate>11-22-2011</oempodate>
+        <status>Fulfilled</status>
+        <errordetails>None</errordetails>
+      </Order>
+      <Order>
+        <oemreferencenumber>000001A</oemreferencenumber>
+        <soldto>Fabrikam, Inc.</soldto>
+        <shipto>Fabrikam, Inc.</shipto>
+        <orderdate>11-22-2011</orderdate>
+        <msordernumber>FSC-00024</msordernumber>
+        <contractnumber>1234567890</contractnumber>
+        <oemponumber>00001PO</oemponumber>
+        <oempodate>11-22-2011</oempodate>
+        <status>Fulfilled</status>
+        <errordetails>None</errordetails>
+      </Order>
+    </Order>
+  </Order>
+</Orders>

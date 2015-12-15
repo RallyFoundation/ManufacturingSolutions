@@ -1,0 +1,57 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.Unassignkeylist" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="DIS.ReturnKeySelectView"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="auto" Height="auto">
+
+	<Page.Resources>
+		<SampleData:items x:Key="Unassignkeylist" d:IsDataSource="True"/>
+	</Page.Resources>
+
+	<Grid x:Name="LayoutRoot" DataContext="{Binding Source={StaticResource Unassignkeylist}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30" />
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Label Content="Please select product keys you want to return :" Grid.Row="1" d:LayoutOverrides="Width" Margin="30,0,0,0"/>
+		<DataGrid Grid.Row="3" Margin="30,2,30,10" AutoGenerateColumns="False" ItemsSource="{Binding itemCollection}" GridLinesVisibility="None" AlternatingRowBackground="#FFD2E7FC"
+			CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False" 
+			CanUserDeleteRows="False" Background="White" RowHeaderWidth="20" SelectionMode="Single"  SelectionUnit="FullRow" 
+			MinRowHeight="20" EnableRowVirtualization="True" EnableColumnVirtualization="True" BorderThickness="1">
+			<DataGrid.Columns>
+				<DataGridCheckBoxColumn>
+						<DataGridCheckBoxColumn.HeaderTemplate>
+							<DataTemplate>
+								<CheckBox />
+							</DataTemplate>
+						</DataGridCheckBoxColumn.HeaderTemplate>
+					</DataGridCheckBoxColumn>
+				<DataGridTextColumn Width="20*" Binding="{Binding productkeyid}" Header="Key ID"/>
+				<DataGridTextColumn Width="50*" Binding="{Binding productkey}" Header="Product Key"/>
+				<DataGridTextColumn Width="20*" Binding="{Binding keystatus}" Header="Key Status"/>
+				<DataGridTextColumn Width="40*" Binding="{Binding mspartnumber}" Header="MS Part Number"/>
+				<DataGridTextColumn Width="40*" Binding="{Binding oempartnumber}" Header="OEM Part Number"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<StackPanel Margin="0,0,30,0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Width="300">
+			<Label Content="Product Key :"/>
+			<TextBox TextWrapping="Wrap" Width="75" Margin="5,3"/>
+			<Button Content="Find Next" Width="75" Margin="5,3" d:LayoutOverrides="Height"/>
+		</StackPanel>
+		<StackPanel HorizontalAlignment="Left" Width="232" Height="30" Orientation="Horizontal" Margin="30,0,0,0" Grid.Row="2" d:LayoutOverrides="HorizontalAlignment">
+			<Label Content="Select Key Status :"/>
+			<ComboBox Width="120" Margin="2,3" SelectedIndex="0">
+				<ComboBoxItem Content="All"/>
+				<ComboBoxItem Content="Bound"/>
+				<ComboBoxItem Content="Consumed"/>
+				<ComboBoxItem Content="Allocated"/>
+			</ComboBox>
+		</StackPanel>
+	</Grid>
+</Page>

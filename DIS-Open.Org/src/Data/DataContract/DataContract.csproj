@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{549E007B-EB95-4EE9-9F5B-36C06C77B765}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DIS.Data.DataContract</RootNamespace>
+    <AssemblyName>DIS.Data.DataContract</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\DataContract.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\DataContract.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\References\Data\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CbrStatus.cs" />
+    <Compile Include="CbrSearchCriteria.cs" />
+    <Compile Include="Comparers.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DiagnosticResult.cs" />
+    <Compile Include="DisCert.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\CategoryLog.cs" />
+    <Compile Include="Entities\Cbr.cs" />
+    <Compile Include="Entities\CbrDuplicated.cs" />
+    <Compile Include="Entities\CbrKey.cs" />
+    <Compile Include="Entities\Configuration.cs" />
+    <Compile Include="Entities\FulfillmentInfo.cs" />
+    <Compile Include="Entities\HeadQuarter.cs" />
+    <Compile Include="Entities\KeyDuplicated.cs" />
+    <Compile Include="Entities\KeyExportLog.cs" />
+    <Compile Include="Entities\KeyHistory.cs" />
+    <Compile Include="Entities\TempKeyId.cs" />
+    <Compile Include="Entities\KeyInfo.cs" />
+    <Compile Include="Entities\KeyInfoEx.cs" />
+    <Compile Include="Entities\KeyInfoState.cs" />
+    <Compile Include="Entities\KeyOperationHistory.cs" />
+    <Compile Include="Entities\KeyTypeConfiguration.cs" />
+    <Compile Include="Entities\KeySyncNotification.cs" />
+    <Compile Include="Entities\Log.cs" />
+    <Compile Include="Entities\ReturnReport.cs" />
+    <Compile Include="Entities\ReturnReportKey.cs" />
+    <Compile Include="FormFactorL1Enum.cs" />
+    <Compile Include="FormFactorL2Enum.cs" />
+    <Compile Include="InstallType.cs" />
+    <Compile Include="KeyType.cs" />
+    <Compile Include="LogToView.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Subsidiary.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserHeadQuarter.cs" />
+    <Compile Include="ExportLogSearchCriteria.cs" />
+    <Compile Include="ExportParameters.cs" />
+    <Compile Include="KeyFile\ExportKeyInfo.cs" />
+    <Compile Include="KeyFile\EncryptedExportKeyList.cs" />
+    <Compile Include="FulfillmentStatus.cs" />
+    <Compile Include="KeyFile\OemOptionalInfoField.cs" />
+    <Compile Include="KeyGroup.cs" />
+    <Compile Include="KeyErrorType.cs" />
+    <Compile Include="KeyFile\ExportKeyList.cs" />
+    <Compile Include="KeyOperationResult.cs" />
+    <Compile Include="KeyState.cs" />
+    <Compile Include="LogSearchCriteria.cs" />
+    <Compile Include="Entities\Ohr.cs" />
+    <Compile Include="Entities\OhrKey.cs" />
+    <Compile Include="OhrName.cs" />
+    <Compile Include="OhrStatus.cs" />
+    <Compile Include="PasswordVersion.cs" />
+    <Compile Include="ProxySetting.cs" />
+    <Compile Include="ReturnKeySearchCriteria.cs" />
+    <Compile Include="ReturnKeyType.cs" />
+    <Compile Include="ReturnReportStatus.cs" />
+    <Compile Include="ToolKey\ToolKeyInfo.cs" />
+    <Compile Include="ToolKey\ToolReportKeyInfo.cs" />
+    <Compile Include="OemOptionalInfo.cs" />
+    <Compile Include="PagedList.cs" />
+    <Compile Include="SearchCriteriaBase.cs" />
+    <Compile Include="ServiceConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="KeySearchCriteria.cs" />
+    <Compile Include="TouchEnum.cs" />
+    <Compile Include="TypeConversionExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Utility\Utility.csproj">
+      <Project>{14824F21-28DB-46BB-941C-8B21A8DA5E0E}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

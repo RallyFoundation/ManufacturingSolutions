@@ -1,0 +1,43 @@
+﻿<Window x:Class="DIS.Presentation.KMT.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:DIS.Presentation.KMT.Properties"
+        Title="{x:Static res:MergedResources.Common_Notifications}" 
+        Height="300" Width="420"
+        ResizeMode="NoResize" 
+        WindowStartupLocation="Manual" 
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Style="{StaticResource RectRootSty}"></Rectangle>
+        <ScrollViewer x:Uid="scvNotifications" Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="10">
+            <ListBox x:Uid="lstNotifications" ItemsSource="{Binding Notifications}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="370" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="23"></RowDefinition>
+                                <RowDefinition Height="23"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Uid="tbkMessage" Text="{Binding Message}" Margin="8" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="3" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock x:Uid="tbkTimestamp" Text="{Binding Timestamp}" Margin="16,0,0,0" Grid.Row="2" Grid.Column="0"></TextBlock>
+                            <Button x:Uid="btnView" Command="{Binding ButtonCommand}" Visibility="{Binding ButtonVisibility}" Content="{Binding ButtonContent}" Style="{DynamicResource BtnViewSty}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"></Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <CheckBox x:Uid="chkDontPopup" IsChecked="{Binding ShouldNotificationNotPopup}" IsThreeState="False" Grid.Row="1" Content="{x:Static res:MergedResources.Common_DontPopupAgain}" Style="{DynamicResource ChkDontPopupSty}"></CheckBox>
+        <Button x:Uid="btnClose" Grid.Row="1" Content="{x:Static res:MergedResources.Common_Close}" IsCancel="True" Style="{DynamicResource BtnNotificationCloseSty}"></Button>
+    </Grid>
+</Window>
