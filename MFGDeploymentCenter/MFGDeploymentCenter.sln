@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{B2D563AE-1018-4C49-98E6-C1A9A58A32FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSInvokingTest", "PSInvokingTest\PSInvokingTest.csproj", "{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFGDeploymentCenter", "MFGDeploymentCenter\MFGDeploymentCenter.csproj", "{2AE503E6-7F43-428B-B223-FF8BB8E60A96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE503E6-7F43-428B-B223-FF8BB8E60A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE503E6-7F43-428B-B223-FF8BB8E60A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE503E6-7F43-428B-B223-FF8BB8E60A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE503E6-7F43-428B-B223-FF8BB8E60A96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE1506C5-AF1A-4634-8D42-FF7618F3FDA2} = {B2D563AE-1018-4C49-98E6-C1A9A58A32FC}
+	EndGlobalSection
+EndGlobal

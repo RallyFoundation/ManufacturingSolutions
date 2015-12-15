@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2AE503E6-7F43-428B-B223-FF8BB8E60A96}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MfgSolutionsDeploymentCenter</RootNamespace>
+    <AssemblyName>MfgSolutionsDeploymentCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MB_0038_Control-Panel1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DIS.Management.Deployment">
+      <HintPath>Reference\DIS.Management.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="DIS.Management.Security">
+      <HintPath>Reference\DIS.Management.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="DIS.Management.Service">
+      <HintPath>Reference\DIS.Management.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="DIS.Management.Storage">
+      <HintPath>Reference\DIS.Management.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="DISConfigurationCloud.Client">
+      <HintPath>Reference\DISConfigurationCloud.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DISConfigurationCloud.ResourceIntegrator">
+      <HintPath>Reference\DISConfigurationCloud.ResourceIntegrator.dll</HintPath>
+    </Reference>
+    <Reference Include="DISConfigurationCloud.StorageManagement">
+      <HintPath>Reference\DISConfigurationCloud.StorageManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="DISConfigurationCloud.Utility">
+      <HintPath>Reference\DISConfigurationCloud.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>Reference\MetroFramework\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design">
+      <HintPath>Reference\MetroFramework\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts">
+      <HintPath>Reference\MetroFramework\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Management.Automation\v4.0_3.0.0.0__31bf3856ad364e35\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormCloudInstallation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCloudInstallation.Designer.cs">
+      <DependentUpon>FormCloudInstallation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConfirmPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfirmPassword.Designer.cs">
+      <DependentUpon>FormConfirmPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormInstallation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInstallation.Designer.cs">
+      <DependentUpon>FormInstallation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAllInOneCommon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAllInOneCommon.Designer.cs">
+      <DependentUpon>FormAllInOneCommon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPreparation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPreparation.Designer.cs">
+      <DependentUpon>FormPreparation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUSBCopySNTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUSBCopySNTool.Designer.cs">
+      <DependentUpon>FormUSBCopySNTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUSBCopySFT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUSBCopySFT.Designer.cs">
+      <DependentUpon>FormUSBCopySFT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUSBCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUSBCopy.Designer.cs">
+      <DependentUpon>FormUSBCopy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UCCloudInstallation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCCloudInstallation.Designer.cs">
+      <DependentUpon>UCCloudInstallation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility.cs" />
+    <EmbeddedResource Include="FormCloudInstallation.resx">
+      <DependentUpon>FormCloudInstallation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfirmPassword.resx">
+      <DependentUpon>FormConfirmPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInstallation.resx">
+      <DependentUpon>FormInstallation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAllInOneCommon.resx">
+      <DependentUpon>FormAllInOneCommon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPreparation.resx">
+      <DependentUpon>FormPreparation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUSBCopySNTool.resx">
+      <DependentUpon>FormUSBCopySNTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUSBCopySFT.resx">
+      <DependentUpon>FormUSBCopySFT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUSBCopy.resx">
+      <DependentUpon>FormUSBCopy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UCCloudInstallation.resx">
+      <DependentUpon>UCCloudInstallation.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Tools\import-dis-certs.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Tools\install.ps1" />
+    <None Include="Tools\restart-sql-service.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Tools\run.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MB_0038_Control-Panel1.ico" />
+    <Content Include="Tools\unattend-cloud.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\unattend-ff.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\unattend-oem.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\unattend-tpi.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\unattend-mes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\MB_0020_sett-big.png" />
+    <None Include="Resources\MB_0006_back.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

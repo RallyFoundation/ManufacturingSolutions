@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<unattend xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <applicationRoot>C:\Program Files\MES\</applicationRoot><!--The root of the installation point. The value should be an absolute path.-->
+  <settings>
+    <component name="MESCloud">
+      <isIncluded>true</isIncluded>
+      <dbServer isIncluded="true">
+        <serverAddress>localhost</serverAddress><!--Instance name of SQL Server: [Machine Name]\[Instance Name]-->
+        <serverLoginName>MES</serverLoginName><!--SQL Server logon user name (for SQL Server authentication mode)-->
+        <serverPassword>M(S@OMSG.msft</serverPassword><!--SQL Server logon password (for SQL Server authentication mode)-->
+        <dbName>MESDB</dbName><!--The name of the database for persisting the configuration meta-->
+      </dbServer>
+      <appServer isIncluded="true">
+        <httpPortNumber>8919</httpPortNumber><!--HTTP port number for MES Cloud-->
+        <appName>MESCloud</appName>
+        <appPoolName>MESCloudAppPool</appPoolName>
+        <appPoolIdentityType>LocalSystem</appPoolIdentityType><!--Identity type of the application pool upon which the component is running: 0: LocalSystem; 1: LocalService; 2: NetworkService; 3: SpecificUser-->
+      </appServer>
+    </component>
+    <component name="DetectionConsole">
+      <isIncluded>true</isIncluded>
+    </component>
+    <component name="AcquisitionConsole">
+      <isIncluded>true</isIncluded>
+    </component>
+  </settings>
+</unattend>
