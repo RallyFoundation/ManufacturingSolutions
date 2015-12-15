@@ -1,1 +1,0 @@
-sqlcmd -S . -i .\SetDISDB.sql -o .\SQLOutput_SetDISDB.txt

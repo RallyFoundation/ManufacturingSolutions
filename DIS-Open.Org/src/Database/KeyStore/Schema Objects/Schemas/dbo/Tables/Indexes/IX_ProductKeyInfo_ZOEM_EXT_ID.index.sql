@@ -1,4 +1,0 @@
-﻿CREATE NONCLUSTERED INDEX [IX_ProductKeyInfo_ZOEM_EXT_ID]
-    ON [dbo].[ProductKeyInfo]([ZOEM_EXT_ID] ASC) WHERE ([ZOEM_EXT_ID] IS NOT NULL)
-    ON [PRIMARY];
-

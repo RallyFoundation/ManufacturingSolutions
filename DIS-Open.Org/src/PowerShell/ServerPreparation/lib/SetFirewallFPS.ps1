@@ -1,1 +1,0 @@
-﻿Netsh AdvFirewall Firewall Set Rule Group = "File and Printer Sharing" New Enable = Yes
