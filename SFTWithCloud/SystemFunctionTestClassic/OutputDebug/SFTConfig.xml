@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FactoryTest>
+  <Lang>en-US</Lang>
+  <TestSettings> <!-- Input for each test:  -->
+    <!--For SystemInfo auto-judge pass/fail: Sample input [Note: need exactly 5 inputs, in the following order and format]
+      "Bios info and date" "Size of Disk0" "Size of RAM" "Processor name" "floating value" 
+    <SystemInfo> "LENOVO INKT26AUS, 8/22/2014" "950GB" "4GB" "Intel(R) Core(TM) i5-4460T CPU @ 1.90GHz" "1"</SystemInfo> -->
+    
+    <!--For Touch: - "Number of multi-point touch" "Number of multi-point touch swipe"-->
+    <Touch>"5" "3"</Touch>
+    <FrontCamera></FrontCamera>
+    <RearCamera></RearCamera>
+    <RemovableDevice></RemovableDevice>
+    <ExternalDisplay>"D:\TestVideo.mp4"</ExternalDisplay>
+    <!--For Hardwarebuttons: please refer to: https://msdn.microsoft.com/en-us/library/system.windows.forms.keys(v=vs.110).aspx -->
+    <HardwareButton>"LWin,VolumeUp,VolumeDown"</HardwareButton>
+    <!--For Keyboard: a full set of configurable buttons are 
+      <Keyboard>Alt_R,Apps,Ctrl_R,Shift_R,Home,End,Delete,PageUp,Next</Keyboard> --> 
+    <Keyboard>"Alt_R,Apps,Ctrl_R,Shift_R,Home,End,Delete,PageUp,Next"</Keyboard>
+    <Audio>"D:\TestAudio.wav"</Audio>
+    <AudioHeadset>"D:\TestAudio.wav"</AudioHeadset>
+    <!--For Bluetooth auto-judge pass/fail [Note: need exactly 2 inputs.ex:"Scaned BT lists" "BT scanning time(second)"]-->
+    <!--<Bluetooth>"MYBTKEYBOARD,MYBTMOUSE" "6"</Bluetooth> -->
+    <!--For Wifi auto-judge pass/fail 
+    [Note: need exactly 3 inputs.ex:"Scaned WiFi AP lists" "the spec of signal strength" "If it need to connect the AP which is the first SSID on the 1st Parameter"] -->
+     <!--<Wifi>"MSFTCORP,Nokia" "50" "1"</Wifi> 
+    <Wifi>"MSFTCORP,Nokia" "50" "0"</Wifi> 
+    <Wifi>"MSFTCORP,Nokia" "0" "1"</Wifi>
+    <Wifi>"MSFTCORP,Nokia" "0" "0"</Wifi>
+    <Wifi></Wifi> -->
+    <!--For Battery auto-judge pass/fail [Note: If you do not input any parameter, UI can see the charging rate vary with time]-->
+    <!--<Battery>70</Battery> -->
+  </TestSettings>
+
+  <Phase Name="Default">
+    <TestMenu>
+      <TestItem Name="SystemInfo"/>
+      <TestItem Name="Battery"/>
+      <TestItem Name="Brightness"/>
+      <TestItem Name="Display"/>
+      <TestItem Name="ExternalDisplay"/>
+      <TestItem Name="FrontCamera"/>
+      <TestItem Name="RearCamera"/>
+      <TestItem Name="Accelerometer"/>
+      <TestItem Name="Gyrometer"/>
+      <TestItem Name="ALS"/>
+      <TestItem Name="Compass"/>
+      <TestItem Name="GPS"/>
+      <TestItem Name="Pen"/>
+      <TestItem Name="Touch"/>
+      <TestItem Name="Touchpad"/>
+      <TestItem Name="Keyboard"/>
+      <TestItem Name="RemovableDevice"/>
+      <TestItem Name="Wifi"/>
+      <TestItem Name="Bluetooth"/>
+      <TestItem Name="SIM"/>
+      <TestItem Name="Audio"/>
+      <TestItem Name="AudioHeadset"/>
+      <TestItem Name="HardwareButton"/>
+    </TestMenu>
+  </Phase>
+  <Phase Name="Sensors">
+    <TestMenu>
+      <TestItem Name="Accelerometer"/>
+      <TestItem Name="Gyrometer"/>
+      <TestItem Name="ALS"/>
+      <TestItem Name="Compass"/>
+      <TestItem Name="GPS"/>
+    </TestMenu>
+  </Phase>
+
+  <TestPath>
+    <GenerateSystemSettings>GenerateSystemSettings.exe</GenerateSystemSettings>
+    <SystemInfo>SystemInfoTest.exe</SystemInfo>
+    <Bluetooth>Bluetooth.exe</Bluetooth>
+    <Battery>Battery.exe</Battery>
+    <Brightness>Brightness.exe</Brightness>
+    <Display>Display.exe</Display>
+    <ExternalDisplay>ExternalDisplay.exe</ExternalDisplay>
+    <Accelerometer>Accelerometer.exe</Accelerometer>
+    <Gyrometer>Gyrometer.exe</Gyrometer>
+    <ALS>LightSensor.exe</ALS>
+    <Compass>Compass.exe</Compass>
+    <GPS>Geolocation.exe</GPS>
+    <Pen>Pen.exe</Pen>
+    <Touch>Touch.exe</Touch>
+    <Touchpad>Touchpad.exe</Touchpad>
+    <Keyboard>Keyboard.exe</Keyboard>
+    <RemovableDevice>RemovableDevice.exe</RemovableDevice>
+    <Wifi>Wifi.exe</Wifi>
+    <SIM>SIM.exe</SIM>
+    <Audio>Audio.exe</Audio>
+    <AudioHeadset>AudioHeadset.exe</AudioHeadset>
+    <HardwareButton>HardwareButton.exe</HardwareButton>
+    <FrontCamera>FrontCameraSkin.exe</FrontCamera>
+    <RearCamera>RearCameraSkin.exe</RearCamera>
+  </TestPath>
+
+</FactoryTest>

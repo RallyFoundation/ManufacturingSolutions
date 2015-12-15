@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accelerometer" xml:space="preserve">
+    <value>Accelerometer</value>
+  </data>
+  <data name="ALS" xml:space="preserve">
+    <value>ALS </value>
+  </data>
+  <data name="Battery" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="Bluetooth" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="Compass" xml:space="preserve">
+    <value>Compass</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="ExternalDisplay" xml:space="preserve">
+    <value>External Display</value>
+  </data>
+  <data name="FrontCamera" xml:space="preserve">
+    <value>Front Camera</value>
+  </data>
+  <data name="GPS" xml:space="preserve">
+    <value>GPS</value>
+  </data>
+  <data name="Gyrometer" xml:space="preserve">
+    <value>Gyrometer</value>
+  </data>
+  <data name="Hibernate" xml:space="preserve">
+    <value>Hibernate</value>
+  </data>
+  <data name="Inclinometer" xml:space="preserve">
+    <value>Inclinometer</value>
+  </data>
+  <data name="IRCamera" xml:space="preserve">
+    <value>IR Camera</value>
+  </data>
+  <data name="Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="Audio" xml:space="preserve">
+    <value>Speaker and mic</value>
+  </data>
+  <data name="Pen" xml:space="preserve">
+    <value>Pen</value>
+  </data>
+  <data name="RearCamera" xml:space="preserve">
+    <value>Rear Camera</value>
+  </data>
+  <data name="SIM" xml:space="preserve">
+    <value>SIM Card</value>
+  </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>Sleep</value>
+  </data>
+  <data name="Touch" xml:space="preserve">
+    <value>Touch</value>
+  </data>
+  <data name="Touchpad" xml:space="preserve">
+    <value>Touchpad</value>
+  </data>
+  <data name="Wifi" xml:space="preserve">
+    <value>Wifi</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Flashlight</value>
+  </data>
+  <data name="RemovableDevice" xml:space="preserve">
+    <value>Removable Device</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="RunAll" xml:space="preserve">
+    <value>Run All</value>
+  </data>
+  <data name="SysInfo" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Orientation" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
+  <data name="HardwareButton" xml:space="preserve">
+    <value>Hardware Button</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="Pass" xml:space="preserve">
+    <value>Pass</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="ALSReading" xml:space="preserve">
+    <value>Light Reading</value>
+  </data>
+  <data name="AudioPlay" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="AudioRecording" xml:space="preserve">
+    <value>Recording</value>
+  </data>
+  <data name="AudioRecordingNow" xml:space="preserve">
+    <value>Recording now...</value>
+  </data>
+  <data name="AudioStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="AudioStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Battery_bat" xml:space="preserve">
+    <value>Battery % :</value>
+  </data>
+  <data name="CompassMagnetic" xml:space="preserve">
+    <value>Magnetic</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="GeolocationAccuracy" xml:space="preserve">
+    <value>Accuracy</value>
+  </data>
+  <data name="GeolocationLatitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="GeolocationLongitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="HardwareBtnVolumeDown" xml:space="preserve">
+    <value>Volume Down</value>
+  </data>
+  <data name="HardwareBtnVolumeUp" xml:space="preserve">
+    <value>Volume Up</value>
+  </data>
+  <data name="HardwareBtnWinBtn" xml:space="preserve">
+    <value>Windows Button</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Device Not Found</value>
+  </data>
+  <data name="RemovableArgsDrive" xml:space="preserve">
+    <value>Config Drives</value>
+  </data>
+  <data name="RemovableAvailableFreeSpace" xml:space="preserve">
+    <value>Available space to current user</value>
+  </data>
+  <data name="RemovableDriveType" xml:space="preserve">
+    <value>Drive type</value>
+  </data>
+  <data name="RemovableTotalFreeSpace" xml:space="preserve">
+    <value>Total available space</value>
+  </data>
+  <data name="RemovableTotalSize" xml:space="preserve">
+    <value>Total size</value>
+  </data>
+  <data name="SIMFound" xml:space="preserve">
+    <value>SIM inserted</value>
+  </data>
+  <data name="SIMNotFound" xml:space="preserve">
+    <value>SIM card not found</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value> Test</value>
+  </data>
+  <data name="TouchpadDouble" xml:space="preserve">
+    <value>Double Click</value>
+  </data>
+  <data name="TouchpadLeft" xml:space="preserve">
+    <value>Left Click</value>
+  </data>
+  <data name="TouchpadRight" xml:space="preserve">
+    <value>Right Click</value>
+  </data>
+  <data name="Wait" xml:space="preserve">
+    <value>Wait... </value>
+  </data>
+  <data name="WAxis" xml:space="preserve">
+    <value>WAxis</value>
+  </data>
+  <data name="XAxis" xml:space="preserve">
+    <value>X Axis</value>
+  </data>
+  <data name="YAxis" xml:space="preserve">
+    <value>Y Axis</value>
+  </data>
+  <data name="ZAxis" xml:space="preserve">
+    <value>Z Axit</value>
+  </data>
+  <data name="Battery_chargeStatus" xml:space="preserve">
+    <value>Charge Status :</value>
+  </data>
+  <data name="Battery_pwrStatus" xml:space="preserve">
+    <value>Power Status :</value>
+  </data>
+  <data name="Brightness_text" xml:space="preserve">
+    <value>Start to test brightness....</value>
+  </data>
+  <data name="ExternalDisplay_Err" xml:space="preserve">
+    <value>Cannot load media file</value>
+  </data>
+  <data name="Brightness_text2" xml:space="preserve">
+    <value>End Brightness test</value>
+  </data>
+  <data name="XDegree" xml:space="preserve">
+    <value>X Degree</value>
+  </data>
+  <data name="YDegree" xml:space="preserve">
+    <value>Y Degree</value>
+  </data>
+  <data name="ZDegree" xml:space="preserve">
+    <value>Z Degree</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="PenInstruction1" xml:space="preserve">
+    <value>Eraser to clear Yellow</value>
+  </data>
+  <data name="PenInstruction2" xml:space="preserve">
+    <value>Clear red dots</value>
+  </data>
+  <data name="Battery_chargeRate" xml:space="preserve">
+    <value>Charging Rate :</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AudioFileNotFound" xml:space="preserve">
+    <value>Audio file not found</value>
+  </data>
+  <data name="AudioNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="AudioPlayAudio" xml:space="preserve">
+    <value>Play Audio file</value>
+  </data>
+  <data name="SystemInfo" xml:space="preserve">
+    <value>System Info</value>
+  </data>
+  <data name="TouchTest1" xml:space="preserve">
+    <value>Clear all grid</value>
+  </data>
+  <data name="TouchTest2" xml:space="preserve">
+    <value>-touch point test: </value>
+  </data>
+  <data name="TouchTest3" xml:space="preserve">
+    <value>Swipe from left to right with {0} fingers</value>
+  </data>
+  <data name="Accuracy" xml:space="preserve">
+    <value>Accuracy</value>
+  </data>
+  <data name="MagneticHeading" xml:space="preserve">
+    <value>Magnetic heading</value>
+  </data>
+  <data name="TrueHeading" xml:space="preserve">
+    <value>True heading</value>
+  </data>
+  <data name="AudioHeadset" xml:space="preserve">
+    <value>Headset and Mic</value>
+  </data>
+  <data name="AudioHeadsetPlay" xml:space="preserve">
+    <value>Please plug in [Headset], then click [Play]  Button to start playing audio. Click [Next] when audio finishes</value>
+  </data>
+  <data name="AudioHeadsetRecord" xml:space="preserve">
+    <value>Please plug in [Headset], then click [Record] Button to start recording.</value>
+  </data>
+  <data name="AudioSpeakerPlay" xml:space="preserve">
+    <value>Please remove [Headset], then click [Play]  Button to start playing audio. Click [Next] when audio finishes</value>
+  </data>
+  <data name="AudioSpeakerRecord" xml:space="preserve">
+    <value>Please remove [Headset], then click [Record] Button to start recording.</value>
+  </data>
+</root>

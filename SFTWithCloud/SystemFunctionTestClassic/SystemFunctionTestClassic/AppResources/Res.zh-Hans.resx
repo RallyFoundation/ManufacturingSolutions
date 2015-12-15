@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accelerometer" xml:space="preserve">
+    <value>加速计</value>
+  </data>
+  <data name="ALS" xml:space="preserve">
+    <value>光传感器</value>
+  </data>
+  <data name="Battery" xml:space="preserve">
+    <value>电池</value>
+  </data>
+  <data name="Bluetooth" xml:space="preserve">
+    <value>蓝牙</value>
+  </data>
+  <data name="Brightness" xml:space="preserve">
+    <value>屏幕亮度</value>
+  </data>
+  <data name="Compass" xml:space="preserve">
+    <value>罗盘</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>显示器</value>
+  </data>
+  <data name="ExternalDisplay" xml:space="preserve">
+    <value>外接显示器</value>
+  </data>
+  <data name="FrontCamera" xml:space="preserve">
+    <value>前摄像头</value>
+  </data>
+  <data name="GPS" xml:space="preserve">
+    <value>卫星定位</value>
+  </data>
+  <data name="Gyrometer" xml:space="preserve">
+    <value>陀螺测试仪</value>
+  </data>
+  <data name="Hibernate" xml:space="preserve">
+    <value>休眠模式</value>
+  </data>
+  <data name="Inclinometer" xml:space="preserve">
+    <value>测斜仪</value>
+  </data>
+  <data name="IRCamera" xml:space="preserve">
+    <value>IR 相机</value>
+  </data>
+  <data name="Keyboard" xml:space="preserve">
+    <value>键盘</value>
+  </data>
+  <data name="Audio" xml:space="preserve">
+    <value>扬声器和麦克风</value>
+  </data>
+  <data name="Pen" xml:space="preserve">
+    <value>笔</value>
+  </data>
+  <data name="RearCamera" xml:space="preserve">
+    <value>后摄像头</value>
+  </data>
+  <data name="SIM" xml:space="preserve">
+    <value>SIM 卡</value>
+  </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>睡眠模式</value>
+  </data>
+  <data name="Touch" xml:space="preserve">
+    <value>触摸</value>
+  </data>
+  <data name="Touchpad" xml:space="preserve">
+    <value>觸控鍵盤</value>
+  </data>
+  <data name="Wifi" xml:space="preserve">
+    <value>无线Wi-Fi</value>
+  </data>
+  <data name="RemovableDevice" xml:space="preserve">
+    <value>外部存储</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="RunAll" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="SysInfo" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="Orientation" xml:space="preserve">
+    <value>方向传感器</value>
+  </data>
+  <data name="HardwareButton" xml:space="preserve">
+    <value>硬件按键</value>
+  </data>
+  <data name="Fail" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="Pass" xml:space="preserve">
+    <value>通过</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="ALSReading" xml:space="preserve">
+    <value>光读数</value>
+  </data>
+  <data name="AudioPlay" xml:space="preserve">
+    <value>播放</value>
+  </data>
+  <data name="AudioRecording" xml:space="preserve">
+    <value>录音</value>
+  </data>
+  <data name="AudioRecordingNow" xml:space="preserve">
+    <value>现在录音....</value>
+  </data>
+  <data name="AudioStart" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="AudioStop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Battery_bat" xml:space="preserve">
+    <value>电量 :</value>
+  </data>
+  <data name="CompassMagnetic" xml:space="preserve">
+    <value>磁北</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>设备错误</value>
+  </data>
+  <data name="GeolocationLongitude" xml:space="preserve">
+    <value>经度</value>
+  </data>
+  <data name="GeolocationAccuracy" xml:space="preserve">
+    <value>准确性</value>
+  </data>
+  <data name="GeolocationLatitude" xml:space="preserve">
+    <value>纬度</value>
+  </data>
+  <data name="HardwareBtnVolumeDown" xml:space="preserve">
+    <value>音量减少</value>
+  </data>
+  <data name="HardwareBtnVolumeUp" xml:space="preserve">
+    <value>音量增加</value>
+  </data>
+  <data name="HardwareBtnWinBtn" xml:space="preserve">
+    <value>Windows按键</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>设备未找到</value>
+  </data>
+  <data name="RemovableArgsDrive" xml:space="preserve">
+    <value>输入设备</value>
+  </data>
+  <data name="RemovableAvailableFreeSpace" xml:space="preserve">
+    <value>可用空间</value>
+  </data>
+  <data name="RemovableDriveType" xml:space="preserve">
+    <value>储设备类型</value>
+  </data>
+  <data name="RemovableTotalFreeSpace" xml:space="preserve">
+    <value>总的可用空间</value>
+  </data>
+  <data name="RemovableTotalSize" xml:space="preserve">
+    <value>总大小</value>
+  </data>
+  <data name="SIMFound" xml:space="preserve">
+    <value>SIM 卡已插入</value>
+  </data>
+  <data name="SIMNotFound" xml:space="preserve">
+    <value>SIM 卡未找到</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>设备状态</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="TouchpadDouble" xml:space="preserve">
+    <value>双击</value>
+  </data>
+  <data name="TouchpadLeft" xml:space="preserve">
+    <value>左键点击</value>
+  </data>
+  <data name="TouchpadRight" xml:space="preserve">
+    <value>右键点击</value>
+  </data>
+  <data name="Wait" xml:space="preserve">
+    <value>等待数据...</value>
+  </data>
+  <data name="WAxis" xml:space="preserve">
+    <value>W轴</value>
+  </data>
+  <data name="XAxis" xml:space="preserve">
+    <value>X轴</value>
+  </data>
+  <data name="XDegree" xml:space="preserve">
+    <value>X度数</value>
+  </data>
+  <data name="YAxis" xml:space="preserve">
+    <value>Y轴</value>
+  </data>
+  <data name="YDegree" xml:space="preserve">
+    <value>Y度数</value>
+  </data>
+  <data name="ZAxis" xml:space="preserve">
+    <value>Z轴</value>
+  </data>
+  <data name="ZDegree" xml:space="preserve">
+    <value>Z度数</value>
+  </data>
+  <data name="Battery_chargeStatus" xml:space="preserve">
+    <value>充电状态 :</value>
+  </data>
+  <data name="Battery_pwrStatus" xml:space="preserve">
+    <value>电源状态 :</value>
+  </data>
+  <data name="Brightness_text" xml:space="preserve">
+    <value>开始测试亮度....</value>
+  </data>
+  <data name="ExternalDisplay_Err" xml:space="preserve">
+    <value>无相应的媒体文件</value>
+  </data>
+  <data name="Brightness_text2" xml:space="preserve">
+    <value>结束亮度测试</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="PenInstruction1" xml:space="preserve">
+    <value>橡皮搽清除黄色</value>
+  </data>
+  <data name="PenInstruction2" xml:space="preserve">
+    <value>清除红点</value>
+  </data>
+  <data name="Battery_chargeRate" xml:space="preserve">
+    <value>充电速度 :</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="AudioFileNotFound" xml:space="preserve">
+    <value>无法找到音頻档案</value>
+  </data>
+  <data name="AudioNext" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="AudioPlayAudio" xml:space="preserve">
+    <value>播放音频档案</value>
+  </data>
+  <data name="SystemInfo" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="TouchTest1" xml:space="preserve">
+    <value>清除所有格子</value>
+  </data>
+  <data name="TouchTest2" xml:space="preserve">
+    <value>-触摸点测试： </value>
+  </data>
+  <data name="TouchTest3" xml:space="preserve">
+    <value>与{0}个手指刷从左到右</value>
+  </data>
+  <data name="Accuracy" xml:space="preserve">
+    <value>准确性</value>
+  </data>
+  <data name="MagneticHeading" xml:space="preserve">
+    <value>磁北</value>
+  </data>
+  <data name="TrueHeading" xml:space="preserve">
+    <value>真北</value>
+  </data>
+  <data name="AudioHeadset" xml:space="preserve">
+    <value>耳机和麦克风</value>
+  </data>
+  <data name="AudioHeadsetPlay" xml:space="preserve">
+    <value>请插入[耳机]，然后点击[播放]按钮开始播放。当播放结束点击[下一步]</value>
+  </data>
+  <data name="AudioHeadsetRecord" xml:space="preserve">
+    <value>请插入[耳机]，然后点击[录音]按钮开始录音。</value>
+  </data>
+  <data name="AudioSpeakerPlay" xml:space="preserve">
+    <value>请脱下[耳机] ，然后点击[播放]按钮开始播放。当播放结束点击[下一步]</value>
+  </data>
+  <data name="AudioSpeakerRecord" xml:space="preserve">
+    <value>请脱下[耳机]，然后点击[录音]按钮开始录音。</value>
+  </data>
+</root>
