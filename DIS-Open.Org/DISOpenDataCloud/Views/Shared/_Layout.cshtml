@@ -1,0 +1,206 @@
+﻿@*<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>*@
+
+@using Microsoft.AspNet.Identity
+@using Platform.DAAS.OData.Core;
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+<!DOCTYPE html>
+<html data-ng-app="KnowledgeManage">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DIS Open Data Cloud</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="~/Content/premium.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/theme.css">
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-cookies.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="../../scripts/ui-bootstrap-tpls.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="" href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span>DIS Open Data Cloud</span></a>
+        </div>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="navbar-collapse collapse" style="height: 1px;">
+                <ul id="main-menu" class="nav navbar-nav navbar-right">
+                    <li class="dropdown hidden-xs">
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li ng-init="user.id='@User.Identity.GetUserId()';user.name='@User.Identity.GetUserName()';">
+                                        @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Settings" })
+                                    </li>
+                                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                                </ul>
+                            }
+                        }
+                    </li>
+                </ul>
+
+            </div>
+        }
+    </div>
+    @if (Request.IsAuthenticated)
+        {
+            ISecurityManager securityManager = Provider.SecurityManager(); //Facade.GetSecurityManager();
+
+        <div class="sidebar-nav">
+            <ul>
+                <li><a href="#" data-target=".biz-menu" class="nav-header collapsed" ng-class="{'collapse':false}" data-toggle="collapse"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Business Management&nbsp;&nbsp;&nbsp<i class="glyphicon glyphicon-chevron-down"></i></a></li>
+                <li>
+                    <ul class="biz-menu nav nav-list ">
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-READ") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-UPDATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-DELETE"))
+                        {
+                            <li><a href="/Business/New/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Business</a></li>
+                        }
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-READ") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-LIST"))
+                        {
+                            <li><a href="/Business/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Business List</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="#" data-target=".dataman-menu" class="nav-header collapsed" ng-class="{'collapse':false}" data-toggle="collapse"><i class="glyphicon glyphicon-book"></i>&nbsp;&nbsp;Data Management&nbsp;&nbsp;&nbsp<i class="glyphicon glyphicon-chevron-down"></i></a></li>
+                <li>
+                    <ul class="dataman-menu nav nav-list ">
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-CREATE"))
+                        {
+                            <li><a href="/Database/New/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Database</a></li>
+                        }
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-BACKUP"))
+                        {
+                            <li><a href="/Database/Backup/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Backup Database</a></li>
+                        }
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-RESTORE"))
+                        {
+                            <li><a href="/Database/Restore/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Restore Database</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="#" data-target=".serviceman-menu" class="nav-header collapsed" ng-class="{'collapse':false}" data-toggle="collapse"><i class="glyphicon glyphicon-cloud"></i>&nbsp;&nbsp;Service Management&nbsp;&nbsp;&nbsp<i class="glyphicon glyphicon-chevron-down"></i></a></li>
+                <li>
+                    <ul class="serviceman-menu nav nav-list ">
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-SERVICE-READ") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-SERVICE-UPDATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-SERVICE-CREATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-SERVICE-DELETE"))
+                        {
+                            <li><a href="/Service/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Services</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="#" data-target=".secman-menu" class="nav-header collapsed" data-toggle="collapse"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;&nbsp;Security Management &nbsp;&nbsp;&nbsp<i class="glyphicon glyphicon-chevron-down"></i></a></li>
+                <li>
+                    <ul class="secman-menu nav nav-list collapse">
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-CREATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-UPDATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-DELETE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-VIEW") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-DISPATCH-OP") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-DISPATCH-ROLE"))
+                        {
+                            <li><a href="/Role"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Roles</a></li>
+                        }
+
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-OP-VIEW") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-OP-DELETE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-ROLE-DISPATCH-OP"))
+                        {
+                            <li><a href="/Operation"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;Operations</a></li>
+                        }
+
+                        @if (securityManager.IsSupperUser(User.Identity))
+                        {
+                            <li><a href="/DataScope"><span class="glyphicon glyphicon-signal"></span>&nbsp;&nbsp;Data Scopes</a></li>
+                        }
+
+                        @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-CREATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-UPDATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-DELETE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-VIEW") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-PWD-RESET") || securityManager.IsAuthorized(User.Identity.GetUserName(), "SYS-USR-DISPATCH-ROLE"))
+                        {
+                            <li><a href="/User"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Users</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="glyphicon glyphicon-user"></i> &nbsp;&nbsp;My Profile</a></li>
+                <li>
+                    <ul class="accounts-menu nav nav-list collapse"></ul>
+                </li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="glyphicon glyphicon-log-out"></i> &nbsp;&nbsp;Logout</a></li>
+                }
+
+            </ul>
+        </div>
+    }
+    <div class="content">
+        @RenderBody()
+        <div class="">
+            <footer>
+                <p class="text-center">&copy; @DateTime.Now.Year - DIS Open Data Cloud</p>
+            </footer>
+        </div>
+    </div>
+
+    @*<div class="main-content">
+
+            <div class="faq-content">
+
+            </div>
+            @Html.Partial("_FooterPartial")
+        </div>*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

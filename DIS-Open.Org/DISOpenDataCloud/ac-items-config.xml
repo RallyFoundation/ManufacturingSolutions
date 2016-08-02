@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <resource id="BUSINESS" name="Business">
+    <key>ID</key>
+    <subjects>
+      <subject type="fixedRole">
+        <id>ROLE-OEM-BIZ-MASTER</id>
+        <name>OEM Business Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-ODM-BIZ-MASTER</id>
+        <name>ODM Business Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-IDH-BIZ-MASTER</id>
+        <name>IDH Business Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-FACTORY-BIZ-MASTER</id>
+        <name>Factory Business Master</name>
+      </subject>
+    </subjects>
+    <scopes>
+      <scope>
+        <id>SCOPE-BIZ-OWNER</id>
+        <name>OWNER[@Role = $Role]</name>
+        <type>string</type>
+      </scope>
+    </scopes>
+    <actions>
+      <action>
+        <id>OP-BIZ-READ</id>
+        <name>View Business</name>
+      </action>
+      <action>
+        <id>OP-BIZ-CREATE</id>
+        <name>Create Business</name>
+      </action>
+      <action>
+        <id>OP-BIZ-UPDATE</id>
+        <name>Update Business</name>
+      </action>
+      <action>
+        <id>OP-BIZ-DELETE</id>
+        <name>Delete Business</name>
+      </action>    
+    </actions>
+  </resource>
+  <resource id="DATA" name="Data">
+    <key>ID</key>
+    <subjects>
+      <subject type="fixedRole">
+        <id>ROLE-OEM-DATA-MASTER</id>
+        <name>OEM Data Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-ODM-DATA-MASTER</id>
+        <name>ODM Data Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-IDH-DATA-MASTER</id>
+        <name>IDH Data Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-FACTORY-DATA-MASTER</id>
+        <name>Factory Data Master</name>
+      </subject>
+    </subjects>
+    <actions>
+      <action>
+        <id>OP-DATA-PUBLISH</id>
+        <name>Publish Data</name>
+      </action>
+      <action>
+        <id>OP-DB-READ</id>
+        <name>View Database</name>
+      </action>
+      <action>
+        <id>OP-DB-CREATE</id>
+        <name>Create Database</name>
+      </action>
+      <action>
+        <id>OP-DB-DELETE</id>
+        <name>Delete Database</name>
+      </action>
+      <action>
+        <id>OP-DB-BACKUP</id>
+        <name>Backup Database</name>
+      </action>
+      <action>
+        <id>OP-DB-RESTORE</id>
+        <name>Restore Database</name>
+      </action>
+    </actions>
+  </resource>
+  <resource id="SERVICE" name="Service">
+    <key>ID</key>
+    <subjects>
+      <subject type="fixedRole">
+        <id>ROLE-OEM-SRV-MASTER</id>
+        <name>OEM Service Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-ODM-SRV-MASTER</id>
+        <name>ODM Service Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-IDH-SRV-MASTER</id>
+        <name>IDH Service Master</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-FACTORY-SRV-MASTER</id>
+        <name>Factory Service Master</name>
+      </subject>
+    </subjects>
+    <actions>
+      <action>
+        <id>OP-SERVICE-READ</id>
+        <name>View Service</name>
+      </action>
+      <action>
+        <id>OP-SERVICE-CREATE</id>
+        <name>Create Service</name>
+      </action>
+      <action>
+        <id>OP-SERVICE-UPDATE</id>
+        <name>Update Service</name>
+      </action> 
+      <action>
+        <id>OP-SERVICE-DELETE</id>
+        <name>Delete Service</name>
+      </action>
+      <action>
+        <id>OP-SERVICE-PUBLISH</id>
+        <name>Publish Service</name>
+      </action>
+    </actions>
+  </resource>
+  <resource id="SYSTEM" name="System">
+    <key></key>
+    <subjects>
+      <subject type="fixedRole">
+        <id>ROLE-SYS-ADMIN</id>
+        <name>System Administrator</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-BIZ-ADMIN</id>
+        <name>Business Administrator</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-DATA-ADMIN</id>
+        <name>Data Administrator</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-SRV-ADMIN</id>
+        <name>Service Administrator</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-SEC-ADMIN</id>
+        <name>Security Administrator</name>
+      </subject>
+      <subject type="fixedRole">
+        <id>ROLE-APP-ADMIN</id>
+        <name>Application Administrator</name>
+      </subject>
+      <subject type="fixedUser">
+        <id>USR-SYS-BUILTIN-SUPER</id>
+        <name>D!S@OMSG.msft</name>
+        <description>Super User</description>
+      </subject>
+    </subjects>
+    <scopes>
+    </scopes>
+    <actions>
+      <action>
+        <id>SYS-SYSTEM-LOGIN</id>
+        <name>Logon to System</name>
+      </action>
+      <action>
+        <id>SYS-USR-CREATE</id>
+        <name>Create User</name>
+      </action>
+      <action>
+        <id>SYS-USR-UPDATE</id>
+        <name>Update User</name>
+      </action>
+      <action>
+        <id>SYS-USR-VIEW</id>
+        <name>View User</name>
+      </action>
+      <action>
+        <id>SYS-USR-DELETE</id>
+        <name>Delete User</name>
+      </action>
+      <action>
+        <id>SYS-USR-PWD-RESET</id>
+        <name>Reset User Password</name>
+      </action>
+      <action>
+        <id>SYS-ROLE-CREATE</id>
+        <name>Create Role</name>
+      </action>
+      <action>
+        <id>SYS-ROLE-UPDATE</id>
+        <name>Update Role</name>
+      </action>
+      <action>
+        <id>SYS-ROLE-VIEW</id>
+        <name>View Role</name>
+      </action>
+      <action>
+        <id>SYS-ROLE-DELETE</id>
+        <name>Delete Role</name>
+      </action>
+      <action>
+        <id>SYS-ROLE-DISPATCH-OP</id>
+        <name>Assign Operation to Role</name>
+      </action>
+      <action>
+        <id>SYS-USR-DISPATCH-ROLE</id>
+        <name>Assign User to Role</name>
+      </action>
+      <action>
+        <id>SYS-OP-VIEW</id>
+        <name>View Operation</name>
+      </action>
+      <action>
+        <id>SYS-OP-DELETE</id>
+        <name>Delete Operation</name>
+      </action>
+    </actions>
+  </resource>
+</resources>
+

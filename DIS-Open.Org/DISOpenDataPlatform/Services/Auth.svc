@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ODataPlatform.Services.Auth" CodeBehind="Auth.svc.cs" %>

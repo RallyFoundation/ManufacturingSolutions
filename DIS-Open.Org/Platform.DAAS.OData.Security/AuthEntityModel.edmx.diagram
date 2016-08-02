@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1d43eb03091d4e76aa5c3a53ace4e61b" Name="Diagram1" >
+        <EntityTypeShape EntityType="AuthEntityModel.Operation" Width="2.25" PointX="4.875" PointY="0.5" />
+        <EntityTypeShape EntityType="AuthEntityModel.DataScope" Width="1.5" PointX="7.875" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuthEntityModel.ObjectOperationAuthItem" Width="2.5" PointX="1.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuthEntityModel.RoleOperation" Width="1.5" PointX="4.875" PointY="3.375" />
+        <EntityTypeShape EntityType="AuthEntityModel.RoleDataScope" Width="1.5" PointX="9" PointY="3.25" />
+        <AssociationConnector Association="AuthEntityModel.OperationObjectOperationAuthItem" />
+        <AssociationConnector Association="AuthEntityModel.DataScopeRoleDataScope" />
+        <AssociationConnector Association="AuthEntityModel.OperationRoleOperation" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
