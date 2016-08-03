@@ -80,6 +80,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -210,12 +211,22 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OperationListViewModel.cs" />
+    <Compile Include="Models\OperationRoleViewModel.cs" />
+    <Compile Include="Models\OperationViewModel.cs" />
+    <Compile Include="Models\RoleOperationViewModel.cs" />
+    <Compile Include="Models\RoleUserViewModel.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\TokenViewModel.cs" />
+    <Compile Include="Models\UserRoleViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -320,6 +331,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\ResetPasswordFailure.cshtml" />
+    <Content Include="Views\User\ResetPasswordSuccess.cshtml" />
+    <Content Include="Views\User\UserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,6 +383,10 @@
     <ProjectReference Include="..\Platform.DAAS.OData.Model\Platform.DAAS.OData.Model.csproj">
       <Project>{60732c26-bd45-4179-a484-dc4dc0da8b11}</Project>
       <Name>Platform.DAAS.OData.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.Security.Extension\Platform.DAAS.OData.Security.Extension.csproj">
+      <Project>{000e6b7a-1e24-4d10-b6bb-c43c0e749aeb}</Project>
+      <Name>Platform.DAAS.OData.Security.Extension</Name>
     </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Security\Platform.DAAS.OData.Security.csproj">
       <Project>{13c631f5-fad7-4ca8-ab18-8ffcfa9ab026}</Project>
