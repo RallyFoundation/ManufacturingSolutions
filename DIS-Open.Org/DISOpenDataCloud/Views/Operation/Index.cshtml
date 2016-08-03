@@ -1,0 +1,73 @@
+﻿@model DISOpenDataCloud.Models.OperationListViewModel
+
+@{
+    ViewBag.Title = "Operation Management";
+    //Layout = null;
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToDelete = securityManager.IsAuthorized(User.Identity.Name, "SYS-OP-DELETE");
+}
+
+<h2>Operation Management</h2>
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <hr />
+    <b>Data Type</b>
+    <br />
+
+    <span>
+        @Html.ActionLink("All", "Index") &nbsp;| &nbsp;
+    </span>
+
+    @if ((Model.DataTypes != null) && (Model.DataTypes.Count > 0))
+    {
+        foreach (var dataType in Model.DataTypes)
+        {
+            <span>
+                @Html.ActionLink(dataType, "Index", new { dataType = dataType }) &nbsp;|&nbsp;
+            </span>
+        }
+    }
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].DataType)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Name)*@
+                @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataType)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.ID })*@
+                @* |*@
+
+                @if (isAuthorizedToDelete || isSupperUser)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                }          
+            </td>
+        </tr>
+    }
+
+</table>

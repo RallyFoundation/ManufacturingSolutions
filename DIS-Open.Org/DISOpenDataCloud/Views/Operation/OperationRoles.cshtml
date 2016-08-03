@@ -1,0 +1,104 @@
+﻿@model DISOpenDataCloud.Models.OperationRoleViewModel
+
+@{
+    ViewBag.Title = "Operation Management";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Operation Management</title>
+</head>
+<body>
+    @using (Html.BeginForm("OperationRoles", "Operation", FormMethod.Post, new { @class = "form-horizontal", role = "form", operationId = Model.ID }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <h4>Dispatch operation "@Html.DisplayFor(model => model.Name)" (ID：@Html.DisplayFor(model => model.ID)) to role(s)</h4>
+            @Html.HiddenFor((model => model.ID))
+            @*@Html.HiddenFor((model => model.Name))*@
+            @*@Html.Hidden(Model.ID, Model);*@
+            @if (Model.Roles != null)
+            {
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Roles[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Roles[0].Description)
+                        </th>
+                        @*<th></th>*@
+                    </tr>
+
+                    @foreach (var item in Model.Roles)
+                    {
+                        <tr>
+                            <td>
+                                @Html.CheckBox(item.ID, ((Model.OperationRoles != null) && (Model.OperationRoles.FirstOrDefault(or => or.ID.ToLower() == item.ID.ToLower()) != null)))
+                                @*@Html.HiddenFor(modelItem => item.ID)
+                                @Html.HiddenFor(modelItem => item.Name)*@
+                                @*@Html.CheckBoxFor(modelItem => item.IsSelected, new { @class = "form-control", @id = item.ID })*@
+                                @*@Html.DisplayFor(modelItem => item.Name)*@
+                                @Html.ActionLink(item.Name, "../Role/Details", new { id = item.ID })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |*@
+                                @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                            @*</td>*@
+                        </tr>
+                    }
+
+                </table>
+            }
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Submit" />
+            </div>
+        </div>
+    }
+
+    <p>
+        @Html.ActionLink("Back to Detail", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+    @*<script type="text/javascript">
+        function OnFormSubmit()
+        {
+            //var inputElements = document.forms[2].getElementsByTagName("input");
+
+            //for (var i = 0; i < inputElements.length; i++)
+            //{
+            //    if (inputElements[i].type == "checkbox")
+            //    {
+            //        inputElements[i].name = inputElements[i].id;
+            //    }
+            //}
+
+            var forms = document.forms;
+
+            //for (var i = 0; i < forms; i++)
+            //{
+            //    if (forms[i].operationId != null)
+            //    {
+            //        forms[i].submit();
+            //        break;
+            //    }
+            //}
+
+            forms[2].submit();
+        }
+    </script>*@
+
+</body>
+</html>
