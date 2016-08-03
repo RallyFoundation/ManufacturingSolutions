@@ -32,7 +32,7 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>Edit User -- @Html.DisplayFor(model => model.UserName)</h4>
+            <h4>Edit user -- @Html.DisplayFor(model => model.UserName)</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)

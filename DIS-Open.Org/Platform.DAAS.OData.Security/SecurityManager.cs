@@ -569,9 +569,12 @@ namespace Platform.DAAS.OData.Security
 
                 foreach (var role in obsoleteRoles.ToArray())
                 {
-                    foreach (var user in users)
+                    if (users != null)
                     {
-                       results.Add(userManager.RemoveFromRole(user.Id, role.Name));
+                        foreach (var user in users.ToArray())
+                        {
+                            results.Add(userManager.RemoveFromRole(user.Id, role.Name));
+                        }
                     }
 
                     results.Add(roleManager.Delete(role));

@@ -1,0 +1,67 @@
+﻿@model DISOpenDataCloud.Models.RoleUserViewModel
+
+@{
+    //Layout = null;
+    ViewBag.Title = "Role Management";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add user(s) to role "@Html.DisplayFor(model => model.Name)"</title>
+</head>
+<body>
+
+    @using (Html.BeginForm("RoleUsers", "Role", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <h4>Add user(s) to role "@Html.DisplayFor(model => model.Name)"</h4>
+
+            @Html.HiddenFor((model => model.ID))
+
+            @if (Model.Users != null)
+            {
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Users[0].UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Users[0].ID)
+                        </th>
+                    </tr>
+
+
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>
+                                @Html.CheckBox(user.ID, ((Model.RoleUsers != null) && (Model.RoleUsers.FirstOrDefault(ru => ru.ID.ToLower() == user.ID.ToLower()) != null)))
+                                @Html.ActionLink(user.UserName, "../Operation/Details", new { id = user.ID })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.ID)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Submit" />
+            </div>
+        </div>
+    }
+    <p>
+        @Html.ActionLink("Back to Detail", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
