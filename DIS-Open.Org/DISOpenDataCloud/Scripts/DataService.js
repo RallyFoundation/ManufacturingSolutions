@@ -1,7 +1,7 @@
 ﻿(function (app) {
-    var KnowledgeManageService = function ($http, movieApiUrl) {
-        var getfuwdxlist = function () {
-            $http.get('/api/FUWDXApi/Search?sortOrder=&searchString=' + $scope.searchtext + '&page=' + $scope.currentpage,
+    var DataManagementService = function ($http, movieApiUrl) {
+        var dblist = function () {
+            $http.get('/api/DataManagement/Database/',
               {
                   headers: { 'Authorization': "oauth_token=xxxx" }
               }
@@ -9,16 +9,15 @@
                    $scope.loading = false;
 
                }).error(function (data) {
-                   $scope.error = "读取数据错误，原因是： " + data;
+                   $scope.error = "Error reading data. Details: " + data;
                    $scope.loading = false;
                });
         };
 
-  
-
-        return {
-            getfuwdxlist: getfuwdxlist
+        return
+        {
+            dblist: dblist
         };
     };
-    app.factory("KnowledgeManageService", KnowledgeManageService);
-})(angular.module("KnowledgeManage"));
+    app.factory("DataManagementService", DataManagementService);
+})(angular.module("DataManagement"));

@@ -1,14 +1,10 @@
 ﻿(function () {
-    // 创建了一个新模块atTheMovies
-    // 第二个参数为空[]，代表这个模块依赖于核心Angular模块ng
-    // var app = angular.module("atTheMovies", []);
-
-    var app = angular.module("KnowledgeManage", ['ui.bootstrap', 'ngCookies', 'ngSanitize'])
+    var app = angular.module("DISOpenDataCloud", ['ui.bootstrap', 'ngCookies', 'ngSanitize'])
         .run(function ($http, $cookies) {
-            $http.defaults.headers.common.Authorization = $cookies.get('CMSBizAPIToken');
+            $http.defaults.headers.common.Authorization = $cookies.get('DISAPIToken');
         });
 
-    angular.module('KnowledgeManage').filter('cut', function () {
+    angular.module('DISOpenDataCloud').filter('cut', function () {
         return function (value, wordwise, max, tail) {
             if (!value) return '';
 
@@ -27,21 +23,31 @@
             return value + (tail || ' …');
         };
     });
-    // 注册常量值
+    // Register domain enums
     app.constant('enums', {
-        status: {
-            0: '已提交',
-            1: '审批通过',
-            2: '审批失败',
-            3: '草稿',
-            4: '删除'
+        dpkStatus: {
+            0: 'Invalid',
+            1: 'Fulfilled',
+            2: 'Consumed',
+            3: 'Bound',
+            4: 'NotifiedBound',
+            5: 'Returned',
+            7: 'ReportedBound',
+            8: 'ReportedReturn',
+            9: 'ActivationEnabled',
+            10: 'ActivationDenied',
+            11: 'Assigned',
+            12: 'Retrieved',
+            13: 'ActivationEnabledPendingUpdate'
         },
-        topicStatus: {
-            0: '打开',
-            1: '关闭',
+        serviceStatus: {
+            0: 'Created',
+            1: 'Published',
+            2: 'Subscribed',
+            3: 'Closed',
         }
     });
-    app.constant('Webapiurl', "http://localhost:39174");
+    app.constant('Webapiurl', "http://localhost:34308");
 
    
 
@@ -68,7 +74,7 @@
                                 }
                                 canvas.width = image.width;
                                 canvas.height = image.height;
-                                //把图片绘制到canvas
+                                //Draw the image to canvas
                                 ctx.drawImage(image, 0, 0, image.width, image.height);
                                 scope.fileread = canvas.toDataURL("image/jpeg");
                             };
@@ -84,11 +90,11 @@
             restrict: 'A' ,
             require: 'ngModel',
             link: function (scope, element, attrs, ctrl) {
-                // 创建编辑器
+                // Create editor
                 scope.editor = new wangEditor('editor-trigger');
                 scope.editor.config.pasteFilter = false;
                 scope.editor.onchange = function () {
-                    // 从 onchange 函数中更新数据
+                    // Update data from the "onchange" event
                     scope.$apply(function () {
                         var html = scope.editor.$txt.html();
                         ctrl.$setViewValue(html);
@@ -120,7 +126,7 @@
                                 modificationTime: file.lastModifiedDate,
                                 isUpload: false,
                             };
-                            //添加文件到文件列表
+                            //Add the file to file list
                             scope.mutifileread.push(item);
                             
                         });
@@ -132,7 +138,7 @@
                     }
                     if (file.size > 50 * 1024 * 1024)
                     {
-                        alert("上传文件不能大于50兆");
+                        alert("File size should NOT exceed 50MB!");
                         return;
                     }
                     
