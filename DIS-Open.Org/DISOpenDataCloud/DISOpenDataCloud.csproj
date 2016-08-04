@@ -395,10 +395,6 @@
       <Project>{75fdd9fa-1a58-497a-a9db-9939f02adb29}</Project>
       <Name>Platform.DAAS.OData.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Platform.DAAS.OData.Model\Platform.DAAS.OData.Model.csproj">
-      <Project>{60732c26-bd45-4179-a484-dc4dc0da8b11}</Project>
-      <Name>Platform.DAAS.OData.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Security.Extension\Platform.DAAS.OData.Security.Extension.csproj">
       <Project>{000e6b7a-1e24-4d10-b6bb-c43c0e749aeb}</Project>
       <Name>Platform.DAAS.OData.Security.Extension</Name>
