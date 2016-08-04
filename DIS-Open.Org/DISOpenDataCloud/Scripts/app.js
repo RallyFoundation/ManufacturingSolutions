@@ -138,7 +138,7 @@
                     }
                     if (file.size > 50 * 1024 * 1024)
                     {
-                        alert("File size should NOT exceed 50MB!");
+                        alert("File size should NOT exceed 50 MB!");
                         return;
                     }
                     

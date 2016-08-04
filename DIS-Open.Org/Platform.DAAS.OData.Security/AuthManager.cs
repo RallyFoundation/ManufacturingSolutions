@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Security;
 using Platform.DAAS.OData.Core.Security;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using Platform.DAAS.OData.Core.DomainModel;
 
 namespace Platform.DAAS.OData.Security
 {

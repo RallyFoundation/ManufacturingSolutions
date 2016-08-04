@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.OData.Builder;
-using DataModel = Platform.DAAS.OData.Model;
+using Platform.DAAS.OData.Core.DomainModel;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using DataModel = Platform.DAAS.OData.Model;
 
 namespace Platform.DAAS.OData.ServiceManager
 {

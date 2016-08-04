@@ -8,6 +8,7 @@ using System.Text;
 using DataModel = Platform.DAAS.OData.Model;
 using Platform.DAAS.OData.Core.ServiceManagement;
 using Platform.DAAS.OData.Facade;
+using Platform.DAAS.OData.Core.DomainModel;
 
 namespace ODataPlatform.Services
 {

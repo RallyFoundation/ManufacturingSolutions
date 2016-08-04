@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Platform.DAAS.OData.Core.DomainModel;
 
 namespace Platform.DAAS.OData.Core.ServiceManagement
 {

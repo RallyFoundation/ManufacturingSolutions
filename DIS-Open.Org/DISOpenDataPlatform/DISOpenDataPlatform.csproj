@@ -463,9 +463,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Platform.DAAS.OData.Model\Platform.DAAS.OData.Model.csproj">
-      <Project>{60732c26-bd45-4179-a484-dc4dc0da8b11}</Project>
-      <Name>Platform.DAAS.OData.Model</Name>
+    <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
+      <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
+      <Name>Platform.DAAS.OData.Core.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Core\Platform.DAAS.OData.Core.csproj">
       <Project>{d58be427-9335-4f33-97f3-89f37eeb6292}</Project>
@@ -491,9 +491,9 @@
       <Project>{13c631f5-fad7-4ca8-ab18-8ffcfa9ab026}</Project>
       <Name>Platform.DAAS.OData.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Platform.DAAS.OData.ServiceManager\Platform.DAAS.OData.ServiceManager.csproj">
+    <ProjectReference Include="..\Platform.DAAS.OData.ServiceManager\Platform.DAAS.OData.ServiceManagement.csproj">
       <Project>{41bb627f-e2b4-4d03-9def-e592e167a73a}</Project>
-      <Name>Platform.DAAS.OData.ServiceManager</Name>
+      <Name>Platform.DAAS.OData.ServiceManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

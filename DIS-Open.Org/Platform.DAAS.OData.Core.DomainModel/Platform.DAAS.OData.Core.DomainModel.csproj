@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D58BE427-9335-4F33-97F3-89F37EEB6292}</ProjectGuid>
+    <ProjectGuid>{25DA5666-0926-42D8-933D-7B0B4A63EB03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Platform.DAAS.OData.Core</RootNamespace>
-    <AssemblyName>Platform.DAAS.OData.Core</AssemblyName>
+    <RootNamespace>Platform.DAAS.OData.Core.DomainModel</RootNamespace>
+    <AssemblyName>Platform.DAAS.OData.Core.DomainModel</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,34 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessManagement\IBusinessManager.cs" />
-    <Compile Include="HTTP\Authentication.cs" />
-    <Compile Include="HTTP\AuthenticationType.cs" />
-    <Compile Include="HTTP\IResourceRouter.cs" />
-    <Compile Include="Security\AuthItem.cs" />
-    <Compile Include="Security\IAuthorizable.cs" />
-    <Compile Include="Security\ISecurityManager.cs" />
-    <Compile Include="ServiceManagement\IODataRepository.cs" />
-    <Compile Include="ServiceManagement\IODataEntityModel.cs" />
-    <Compile Include="Logging\IExHandler.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Security\IAuthManager.cs" />
-    <Compile Include="Security\IEncryptionManager.cs" />
-    <Compile Include="Security\IHashManager.cs" />
-    <Compile Include="Security\IRoleManager.cs" />
-    <Compile Include="ServiceManagement\IServiceManager.cs" />
-    <Compile Include="Logging\ITracer.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Business.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="PersistencyType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorageManagement\IDatabaseManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
-      <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
-      <Name>Platform.DAAS.OData.Core.DomainModel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <Compile Include="Service.cs" />
+    <Compile Include="ServiceConsumption.cs" />
+    <Compile Include="ServiceMeta.cs" />
+    <Compile Include="ServiceSubscription.cs" />
+    <Compile Include="ServiceType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

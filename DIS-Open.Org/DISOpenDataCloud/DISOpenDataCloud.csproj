@@ -407,9 +407,9 @@
       <Project>{13c631f5-fad7-4ca8-ab18-8ffcfa9ab026}</Project>
       <Name>Platform.DAAS.OData.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Platform.DAAS.OData.ServiceManager\Platform.DAAS.OData.ServiceManager.csproj">
+    <ProjectReference Include="..\Platform.DAAS.OData.ServiceManager\Platform.DAAS.OData.ServiceManagement.csproj">
       <Project>{41bb627f-e2b4-4d03-9def-e592e167a73a}</Project>
-      <Name>Platform.DAAS.OData.ServiceManager</Name>
+      <Name>Platform.DAAS.OData.ServiceManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Utility\Platform.DAAS.OData.Utility.csproj">
       <Project>{3a2259d1-b0b2-49f0-a288-4d9834ecc6d3}</Project>

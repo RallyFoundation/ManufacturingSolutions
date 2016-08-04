@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using Platform.DAAS.OData.Core.DomainModel;
 using Platform.DAAS.OData.Facade;
 using DIS.Data.DataContract;
 
@@ -72,7 +73,7 @@ namespace DISConfigurationCloud
                             {
                                 //models = serviceManager.GetEntityModels(service, app);
 
-                                if (service.ServiceType == Platform.DAAS.OData.Core.ServiceType.Custom)
+                                if (service.ServiceType == ServiceType.Custom)
                                 {
                                     models = serviceManager.GetEntityModels(service);
                                 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platform.DAAS.OData.Core.ServiceManagement
+namespace Platform.DAAS.OData.Core.DomainModel
 {
     public class ServiceSubscription
     {

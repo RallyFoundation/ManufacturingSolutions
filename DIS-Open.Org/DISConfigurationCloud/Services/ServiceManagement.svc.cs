@@ -9,6 +9,7 @@ using DataModel = Platform.DAAS.OData.Model;
 using Platform.DAAS.OData.Security;
 using Platform.DAAS.OData.Security.Authorization;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using Platform.DAAS.OData.Core.DomainModel;
 using Platform.DAAS.OData.Facade;
 
 namespace ODataPlatform.Services

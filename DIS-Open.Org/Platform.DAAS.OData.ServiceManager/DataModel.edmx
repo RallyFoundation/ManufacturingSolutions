@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="Applications" EntityType="DataModel.Store.Applications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Services" EntityType="DataModel.Store.Services" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceSubscriptions" EntityType="DataModel.Store.ServiceSubscriptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceConsumptions" EntityType="DataModel.Store.ServiceConsumptions" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ApplicationService" Association="DataModel.Store.ApplicationService">
+      <End Role="Application" EntitySet="Applications" />
+      <End Role="Service" EntitySet="Services" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceServiceConsumption" Association="DataModel.Store.ServiceServiceConsumption">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="ServiceConsumption" EntitySet="ServiceConsumptions" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceServiceSubscription" Association="DataModel.Store.ServiceServiceSubscription">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="ServiceSubscription" EntitySet="ServiceSubscriptions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Applications">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="800" />
+    <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="ApplicationID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DBType" Type="int" Nullable="false" />
+    <Property Name="ServiceType" Type="int" Nullable="false" />
+    <Property Name="ResourceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DBConnectionString" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Url" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="Port" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Parameters" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="UserName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Charset" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="ContentType" Type="nvarchar" Nullable="true" MaxLength="30" />
+    <Property Name="DomainName" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="Size" Type="bigint" Nullable="true" />
+    <Property Name="ModelMeta" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ServiceCode" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Binary" Type="varbinary(max)" Nullable="true" />
+    <Property Name="Version" Type="nvarchar" Nullable="true" MaxLength="25" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="800" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceSubscriptions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="Subscriber" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="ServiceID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceConsumptions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="Consumer" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UrlReferrer" Type="nvarchar" Nullable="true" MaxLength="250" />
+    <Property Name="Result" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ServiceID" Type="nvarchar" Nullable="false" MaxLength="36" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="ApplicationService">
+    <End Role="Application" Type="DataModel.Store.Applications" Multiplicity="1" />
+    <End Role="Service" Type="DataModel.Store.Services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Application">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Service">
+        <PropertyRef Name="ApplicationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceServiceConsumption">
+    <End Role="Service" Type="DataModel.Store.Services" Multiplicity="1" />
+    <End Role="ServiceConsumption" Type="DataModel.Store.ServiceConsumptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ServiceConsumption">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceServiceSubscription">
+    <End Role="Service" Type="DataModel.Store.Services" Multiplicity="1" />
+    <End Role="ServiceSubscription" Type="DataModel.Store.ServiceSubscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ServiceSubscription">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="DataModel.Application" />
+          <EntitySet Name="Services" EntityType="DataModel.Service" />
+          <EntitySet Name="ServiceSubscriptions" EntityType="DataModel.ServiceSubscription" />
+          <EntitySet Name="ServiceConsumptions" EntityType="DataModel.ServiceConsumption" />
+          <AssociationSet Name="ApplicationService" Association="DataModel.ApplicationService">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceServiceConsumption" Association="DataModel.ServiceServiceConsumption">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ServiceConsumption" EntitySet="ServiceConsumptions" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceServiceSubscription" Association="DataModel.ServiceServiceSubscription">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ServiceSubscription" EntitySet="ServiceSubscriptions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="800" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Services" Relationship="DataModel.ApplicationService" FromRole="Application" ToRole="Service" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="ApplicationID" Type="String" Nullable="false" MaxLength="36" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="DBType" Type="Int32" Nullable="false" />
+          <Property Name="ServiceType" Type="Int32" Nullable="false" />
+          <Property Name="ResourceName" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="DBConnectionString" Type="String" Nullable="false" MaxLength="100" />
+          <Property Name="Url" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="Address" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="Port" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Parameters" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="UserName" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Password" Type="String" Nullable="true" MaxLength="50" />
+          <Property Name="Charset" Type="String" Nullable="true" MaxLength="30" />
+          <Property Name="ContentType" Type="String" Nullable="true" MaxLength="30" />
+          <Property Name="DomainName" Type="String" Nullable="true" MaxLength="20" />
+          <Property Name="Size" Type="Int64" Nullable="true" />
+          <Property Name="ModelMeta" Type="String" Nullable="true" />
+          <Property Name="ServiceCode" Type="String" Nullable="true" />
+          <Property Name="Binary" Type="Binary" Nullable="true" />
+          <Property Name="Version" Type="String" Nullable="true" MaxLength="25" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="800" />
+          <NavigationProperty Name="Application" Relationship="DataModel.ApplicationService" FromRole="Service" ToRole="Application" />
+          <NavigationProperty Name="ServiceConsumptions" Relationship="DataModel.ServiceServiceConsumption" FromRole="Service" ToRole="ServiceConsumption" />
+          <NavigationProperty Name="ServiceSubscriptions" Relationship="DataModel.ServiceServiceSubscription" FromRole="Service" ToRole="ServiceSubscription" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EnumType Name="DbType">
+          <Member Name="MySQL" Value="0" />
+          <Member Name="MongoDB" Value="1" />
+          <Member Name="Redis" Value="2" />
+          <Member Name="Other" Value="3" />
+        </EnumType>
+        <EntityType Name="ServiceSubscription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="Subscriber" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Service" Relationship="DataModel.ServiceServiceSubscription" FromRole="ServiceSubscription" ToRole="Service" />
+          <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="36" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceConsumption">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="36" />
+          <Property Name="Consumer" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="UrlReferrer" Type="String" Nullable="true" MaxLength="250" />
+          <Property Name="Result" Type="String" Nullable="false" />
+          <NavigationProperty Name="Service" Relationship="DataModel.ServiceServiceConsumption" FromRole="ServiceConsumption" ToRole="Service" />
+          <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="36" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="ApplicationService">
+          <End Type="DataModel.Application" Role="Application" Multiplicity="1" />
+          <End Type="DataModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="ApplicationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceServiceConsumption">
+          <End Type="DataModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="DataModel.ServiceConsumption" Role="ServiceConsumption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceConsumption">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceServiceSubscription">
+          <End Type="DataModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="DataModel.ServiceSubscription" Role="ServiceSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServiceSubscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="Applications">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Application)">
+        <MappingFragment StoreEntitySet="Applications">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Service)">
+        <MappingFragment StoreEntitySet="Services">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DBType" ColumnName="DBType" />
+          <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+          <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+          <ScalarProperty Name="DBConnectionString" ColumnName="DBConnectionString" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Charset" ColumnName="Charset" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="ModelMeta" ColumnName="ModelMeta" />
+          <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
+          <ScalarProperty Name="Binary" ColumnName="Binary" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceSubscriptions">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.ServiceSubscription)">
+        <MappingFragment StoreEntitySet="ServiceSubscriptions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Subscriber" ColumnName="Subscriber" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceConsumptions">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.ServiceConsumption)">
+        <MappingFragment StoreEntitySet="ServiceConsumptions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Consumer" ColumnName="Consumer" />
+          <ScalarProperty Name="UrlReferrer" ColumnName="UrlReferrer" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToSQL10.tt" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

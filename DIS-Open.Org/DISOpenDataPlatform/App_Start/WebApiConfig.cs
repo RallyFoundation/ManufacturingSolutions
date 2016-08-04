@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using Platform.DAAS.OData.Core.DomainModel;
 using Platform.DAAS.OData.Facade;
 
 namespace ODataPlatform 
