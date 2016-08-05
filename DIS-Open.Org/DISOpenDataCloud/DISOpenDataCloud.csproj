@@ -371,13 +371,17 @@
       <Project>{549e007b-eb95-4ee9-9f5b-36c06c77b765}</Project>
       <Name>DataContract</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{7ce25ff3-1351-4f1a-9a3f-96a49d565f31}</Project>
-      <Name>DataModel</Name>
+    <ProjectReference Include="..\DataController\DataController.csproj">
+      <Project>{96a9672c-44f0-4edf-8aff-5ad04d8a4ee4}</Project>
+      <Name>DataController</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MetaManagement\MetaManagement.csproj">
-      <Project>{6f2e7b9e-fbe3-48bb-bc87-22dd1353b1b9}</Project>
-      <Name>MetaManagement</Name>
+    <ProjectReference Include="..\Platform.DAAS.OData.BusinessManagement\Platform.DAAS.OData.BusinessManagement.csproj">
+      <Project>{a18edb2d-7cd8-472b-9039-a371cc406ae5}</Project>
+      <Name>Platform.DAAS.OData.BusinessManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
+      <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
+      <Name>Platform.DAAS.OData.Core.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Core\Platform.DAAS.OData.Core.csproj">
       <Project>{d58be427-9335-4f33-97f3-89f37eeb6292}</Project>
@@ -407,6 +411,10 @@
       <Project>{41bb627f-e2b4-4d03-9def-e592e167a73a}</Project>
       <Name>Platform.DAAS.OData.ServiceManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.StorageManagement\Platform.DAAS.OData.StorageManagement.csproj">
+      <Project>{0cea159a-f4e8-4f4e-93dc-1973ef490949}</Project>
+      <Name>Platform.DAAS.OData.StorageManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Utility\Platform.DAAS.OData.Utility.csproj">
       <Project>{3a2259d1-b0b2-49f0-a288-4d9834ecc6d3}</Project>
       <Name>Platform.DAAS.OData.Utility</Name>
@@ -414,10 +422,6 @@
     <ProjectReference Include="..\ResourceIntegrator\ResourceIntegrator.csproj">
       <Project>{52401417-15aa-468b-88a1-5578afc71e69}</Project>
       <Name>ResourceIntegrator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StorageManagement\StorageManagement.csproj">
-      <Project>{32505e0d-54b1-4b00-afc8-db3c206341a4}</Project>
-      <Name>StorageManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
