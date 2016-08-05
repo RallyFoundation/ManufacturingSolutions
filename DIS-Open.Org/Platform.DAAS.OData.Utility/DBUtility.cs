@@ -8,6 +8,55 @@ namespace Platform.DAAS.OData.Utility
 {
     public class DBUtility
     {
+        public static void ParseConnectionString(string ConnectionString, out string ServerName, out string DatabaseName, out string UserName, out string Password)
+        {
+            string[] fields = ConnectionString.Split(new string[] { ";" }, StringSplitOptions.None);
+
+            ServerName = null;
+            DatabaseName = null;
+            UserName = null;
+            Password = null;
+
+            if ((fields != null) && (fields.Length == 4))
+            {
+                string[] pair = null;
+
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    pair = fields[i].Split(new string[] { "=" }, StringSplitOptions.None);
+
+                    switch (i)
+                    {
+                        case 0:
+                            {
+                                ServerName = pair[1];
+                                break;
+                            }
+                        case 1:
+                            {
+                                DatabaseName = pair[1];
+                                break;
+                            }
+                        case 2:
+                            {
+                                UserName = pair[1];
+                                break;
+                            }
+                        case 3:
+                            {
+                                Password = pair[1];
+                                break;
+                            }
+                    }
+                }
+            }
+        }
+
+        public static string BuildConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
+        {
+            return String.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", ServerName, DatabaseName, UserName, Password);
+        }
+
         public static void ParseConnectionString(string ConnectionString, out string ServerName, out string PortNumber, out string DatabaseName, out string UserName, out string Password)
         {
             string[] fields = ConnectionString.Split(new string[] { ";" }, StringSplitOptions.None);
