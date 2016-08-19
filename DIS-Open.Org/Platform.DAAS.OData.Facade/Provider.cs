@@ -7,12 +7,16 @@ using Platform.DAAS.OData.Core.HTTP;
 using Platform.DAAS.OData.Core.Logging;
 using Platform.DAAS.OData.Core.Security;
 using Platform.DAAS.OData.Core.ServiceManagement;
+using Platform.DAAS.OData.Core.BusinessManagement;
+using Platform.DAAS.OData.Core.StorageManagement;
 using Platform.DAAS.OData.Authentication;
 using Platform.DAAS.OData.HTTP;
 using Platform.DAAS.OData.Logging;
 using Platform.DAAS.OData.Model;
 using Platform.DAAS.OData.Security;
 using Platform.DAAS.OData.ServiceManager;
+using Platform.DAAS.OData.BusinessManagement;
+using Platform.DAAS.OData.StorageManagement;
 
 namespace Platform.DAAS.OData.Facade
 {
@@ -66,6 +70,16 @@ namespace Platform.DAAS.OData.Facade
         public static ISecurityManager SecurityManager()
         {
             return new SecurityManager();
+        }
+
+        public static IBusinessManager BusinessManager()
+        {
+            return new BusinessManager();
+        }
+
+        public static IDatabaseManager SQLServerDatabaseManager()
+        {
+            return new SQLServerDatabaseManager();
         }
     }
 }

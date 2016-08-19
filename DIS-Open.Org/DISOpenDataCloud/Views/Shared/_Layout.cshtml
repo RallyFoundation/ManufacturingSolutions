@@ -111,7 +111,7 @@
                     <ul class="biz-menu nav nav-list ">
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-READ") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-UPDATE") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-DELETE"))
                         {
-                            <li><a href="/Business/New/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Business</a></li>
+                            <li><a href="/Business/Create/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Business</a></li>
                         }
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-READ") || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-BIZ-LIST"))
                         {

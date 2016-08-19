@@ -16,13 +16,14 @@ namespace Platform.DAAS.OData.BusinessManagement
     public partial class DataModelContainer : DbContext
     {
         public DataModelContainer()
-            : base("name=DataModelContainer")
+            : base("name=DefaultConnection")
         {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //throw new UnintentionalCodeFirstException();
+            base.OnModelCreating(modelBuilder);
         }
     
         public DbSet<Business> Businesses { get; set; }

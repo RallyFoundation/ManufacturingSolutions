@@ -1,0 +1,19 @@
+<table class="dataTable" ng-attr-id="{{uuid}}">
+    <thead>
+    <tr class="headerBorder">
+        <th class="col-1">&nbsp;</th>
+        <th ng-repeat="th in ::data.level.Headings">
+            {{th}}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="tr in ::data.level.TableRows">
+            <td class="col-1">
+                <span class="accordion" ng-if="tr.hasOwnProperty('level')" ng-click="toggleRow($event, tr)">+</span>
+                &nbsp;
+            </td>
+            <td ng-repeat="td in ::tr.data">{{td}}</td>
+        </tr>
+    </tbody>
+</table>

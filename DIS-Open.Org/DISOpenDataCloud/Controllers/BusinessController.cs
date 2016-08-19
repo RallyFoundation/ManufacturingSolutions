@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Platform.DAAS.OData.Core;
+using Platform.DAAS.OData.Core.DomainModel;
+using Platform.DAAS.OData.Facade;
 
 namespace DISOpenDataCloud.Controllers
 {
@@ -11,7 +14,9 @@ namespace DISOpenDataCloud.Controllers
         // GET: Business
         public ActionResult Index()
         {
-            return View();
+            Business[] businessArrary = Provider.BusinessManager().ListBusiness(false);
+
+            return View(businessArrary);
         }
 
         // GET: Business/Details/5

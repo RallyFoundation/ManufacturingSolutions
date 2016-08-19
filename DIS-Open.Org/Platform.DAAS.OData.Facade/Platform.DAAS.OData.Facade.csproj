@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Platform.DAAS.OData.BusinessManagement\Platform.DAAS.OData.BusinessManagement.csproj">
+      <Project>{a18edb2d-7cd8-472b-9039-a371cc406ae5}</Project>
+      <Name>Platform.DAAS.OData.BusinessManagement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
       <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
       <Name>Platform.DAAS.OData.Core.DomainModel</Name>
@@ -72,6 +76,10 @@
     <ProjectReference Include="..\Platform.DAAS.OData.ServiceManager\Platform.DAAS.OData.ServiceManagement.csproj">
       <Project>{41bb627f-e2b4-4d03-9def-e592e167a73a}</Project>
       <Name>Platform.DAAS.OData.ServiceManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.StorageManagement\Platform.DAAS.OData.StorageManagement.csproj">
+      <Project>{0cea159a-f4e8-4f4e-93dc-1973ef490949}</Project>
+      <Name>Platform.DAAS.OData.StorageManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

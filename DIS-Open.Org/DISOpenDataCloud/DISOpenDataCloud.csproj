@@ -360,6 +360,9 @@
     <Content Include="Views\Business\Index.cshtml" />
     <Content Include="Views\Database\Index.cshtml" />
     <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Business\Create.cshtml" />
+    <Content Include="Views\Business\Details.cshtml" />
+    <Content Include="Views\Business\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
