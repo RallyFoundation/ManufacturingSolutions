@@ -1,4 +1,4 @@
-﻿@model Platform.DAAS.OData.Core.DomainModel.Business
+﻿@*@model Platform.DAAS.OData.Core.DomainModel.Business
 
 
 @using (Html.BeginForm()) 
@@ -31,4 +31,173 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+@{
+    ViewBag.Title = "Business Management";
 }
+
+<h2>Business Management</h2>
+
+<hr />
+
+<div ng-controller="BizController">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>Business ID: </dt>
+            <dd>
+                <input ng-model="business.id" class="form-control"/>
+            </dd>
+            <dt>Business Name: </dt>
+            <dd>
+                <input ng-model="business.name" class="form-control"/>
+            </dd>
+         </dl>
+
+        <h4>
+            Configurations: 
+        </h4>
+
+        <hr />
+
+        <p>
+            <a href="#" ng-click="addConf()" ng-show="shouldShowAddButton()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Add</a>
+        </p>
+        
+        <div ng-repeat="conf in business.configurations">
+            <dl class="dl-horizontal">
+                <dt>Type: </dt>
+                <dd>
+                    <select ng-model="conf.type" class="form-control">
+                        <option ng-repeat="conftype in conftypes">{{conftype}}</option>
+                    </select>  
+                </dd>
+                <dt>Server: </dt>
+                <dd>
+                    <input ng-model="conf.serveraddress" class="form-control"/>
+                </dd>
+                <dt>User Name: </dt>
+                <dd>
+                    <input ng-model="conf.username" class="form-control"/>
+                </dd>
+                <dt>Password: </dt>
+                <dd>
+                    <input ng-model="conf.password" class="form-control"/>
+                </dd>          
+                <dt>
+                    Database: 
+                </dt>
+                <dd>
+                    <select ng-model="conf.databasename" class="form-control">
+                        <option ng-repeat="dbname in dbnames[$index]">{{dbname}}</option>
+                    </select>  
+                </dd>
+            </dl> 
+            <p>
+                <a href="#" ng-click="removeConf($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Remove</a>
+                &nbsp;&nbsp;
+                <a href="#" ng-click="doConnect($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Connect</a> 
+            </p>
+            <hr />
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default" ng-click="doSubmit()" />
+</div>
+
+<script type="text/javascript">
+
+    var appModule = angular.module("DISOpenDataCloud", []).controller("BizController",
+
+    function ($scope, $location, $http) {
+        $scope.business =
+            {
+                id: "",
+                name: "New-Business",
+                type: "Licensing",
+                configurations: []
+            };
+
+        $scope.dbnames = [];
+
+        $scope.conftypes = ["OEM", "TPI", "FactoryFloor"];
+
+        $scope.addConf = function ()
+        {
+            //alert($scope.business.name);
+            $scope.business.configurations.push({id: "", serveraddress: "", databasename: "", username: "", password: "", type: ""});
+        };
+
+        $scope.removeConf = function (index)
+        {
+            //alert($scope.business.name);
+            $scope.business.configurations.splice(index, 1);
+        };
+
+        $scope.doConnect = function (index)
+        {
+            //alert($location.protocol());
+            //alert($location.host());
+            //alert($location.port());
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            //alert(url);
+
+            var servicePoint = "api/Database/SQLServer/All";
+
+            //alert(url + servicePoint);
+
+            $http.post(url + servicePoint, $scope.business.configurations[index]).success(function (data, status, headers, config)
+            {
+                $scope.dbnames.push(data);
+
+            }).error(function (data, status, headers, config)
+            {
+                alert(data);
+            });
+        };
+
+        $scope.shouldShowAddButton = function () {
+            return ($scope.business.configurations.length < 3);
+        };
+
+        $scope.shouldShowRemoveButton = function () {
+            return (($scope.business.configurations.length >= 1) && ($scope.business.configurations.length <= 3));
+        };
+
+        $scope.doSubmit = function ()
+        {
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            //alert(url);
+
+            var servicePoint = "api/Business/New";
+
+            //alert(url + servicePoint);
+
+            $http.post(url + servicePoint, $scope.business).success(function (data, status, headers, config)
+            {
+                var bizId = data;
+
+                alert(bizId);
+
+                //window.location = url + "Business";
+
+                window.location = url + "Business/Details/" + bizId;
+
+            }).error(function (data, status, headers, config)
+            {
+                alert(data);
+            });
+        };
+    });
+
+</script>

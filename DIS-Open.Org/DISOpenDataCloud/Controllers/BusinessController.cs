@@ -20,9 +20,11 @@ namespace DISOpenDataCloud.Controllers
         }
 
         // GET: Business/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            Business biz = Provider.BusinessManager().GetBusiness(id);
+
+            return View(biz);
         }
 
         // GET: Business/Create
