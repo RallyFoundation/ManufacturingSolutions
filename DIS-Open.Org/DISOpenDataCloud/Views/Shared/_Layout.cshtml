@@ -147,7 +147,7 @@
                     <ul class="dataman-menu nav nav-list ">
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-CREATE"))
                         {
-                            <li><a href="/Database/New/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Database</a></li>
+                            <li><a href="/Database/Create/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;New Database</a></li>
                         }
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-BACKUP"))
                         {

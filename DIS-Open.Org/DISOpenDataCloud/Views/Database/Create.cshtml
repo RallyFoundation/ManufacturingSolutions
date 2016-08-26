@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Database Management";
+}
+
+<h2>Database Management</h2>
+
+<hr />
+
+<div ng-controller="DBCreationController">
+
+    <dl class="dl-horizontal">
+        <dt>Server: </dt>
+        <dd>
+            <input ng-model="configuration.serveraddress" class="form-control" />
+        </dd>
+        <dt>User Name: </dt>
+        <dd>
+            <input ng-model="configuration.username" class="form-control" />
+        </dd>
+        <dt>Password: </dt>
+        <dd>
+            <input ng-model="configuration.password" class="form-control" />
+        </dd>
+        <dt>
+            Database:
+        </dt>
+        <dd>
+            <select ng-model="configuration.databasename" class="form-control">
+                <option ng-repeat="dbname in dbnames">{{dbname}}</option>
+            </select>
+        </dd>
+    </dl>
+    <p>
+        <a href="#" ng-click="doConnect()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Connect</a>
+    </p>
+
+    <hr />
+
+    <input type="submit" value="Submit" class="btn btn-default" ng-click="doSubmit()" />
+</div>
+
+
+<script type="text/javascript">
+
+    var appModule = angular.module("DISOpenDataCloud", []).controller("DBCreationController",
+
+    function ($scope, $location, $http)
+    {
+        $scope.dbnames = [];
+
+        $scope.configuration = { id: "", serveraddress: "", databasename: "", username: "", password: "", type: "" };
+
+        $scope.doConnect = function ()
+        {
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Database/SQLServer/All";
+
+            $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
+            {
+                $scope.dbnames = data;
+
+            }).error(function (data, status, headers, config)
+            {
+                alert(data);
+            });
+        };
+
+        $scope.doSubmit = function ()
+        {
+            alert("!");
+        };
+    });
+
+</script>

@@ -417,6 +417,7 @@
     <Content Include="Views\Business\Create.cshtml" />
     <Content Include="Views\Business\Details.cshtml" />
     <Content Include="Views\Business\Edit.cshtml" />
+    <Content Include="Views\Database\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

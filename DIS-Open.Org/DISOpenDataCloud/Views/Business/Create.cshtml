@@ -41,7 +41,7 @@
 
 <hr />
 
-<div ng-controller="BizController">
+<div ng-controller="BizCreationController">
     <div>
         <dl class="dl-horizontal">
             <dt>Business ID: </dt>
@@ -106,7 +106,7 @@
 
 <script type="text/javascript">
 
-    var appModule = angular.module("DISOpenDataCloud", []).controller("BizController",
+    var appModule = angular.module("DISOpenDataCloud", []).controller("BizCreationController",
 
     function ($scope, $location, $http) {
         $scope.business =
