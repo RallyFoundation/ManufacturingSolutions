@@ -18,6 +18,31 @@ namespace Platform.DAAS.OData.Facade
 
         public static string ODATA_RESOURCE_ROUTE_PREFIX = "OData/Resource";
 
+        public static void SetDBCreationScipt(Func<String, String> FilePathParser, string FilePath)
+        {
+            Platform.DAAS.OData.StorageManagement.ModuleConfiguration.SQLScriptFile_CreateDB = FilePathParser(FilePath);
+        }
+
+        public static void SetDatabaseStorageCustomizationOption(bool ShouldOrNot)
+        {
+            Platform.DAAS.OData.StorageManagement.ModuleConfiguration.IsCustomizingDatabaseStorage = ShouldOrNot;
+        }
+
+        public static void SetDatabasePhysicalFileLocation(string Location)
+        {
+            Platform.DAAS.OData.StorageManagement.ModuleConfiguration.DefaulDatabasePhysicalFileLocation = Location;
+        }
+
+        public static void SetDatabaseBackupLocation(string Location)
+        {
+            Platform.DAAS.OData.StorageManagement.ModuleConfiguration.DefaultDatabaseBackupLocation = Location;
+        }
+
+        public static void SetSQLCMDOuputLogFilePath(string FilePath)
+        {
+            Platform.DAAS.OData.StorageManagement.ModuleConfiguration.DefaultSQLCMDOuputLogFilePath = FilePath;
+        }
+
         public static void RegisterAuthorizationMeta(string ConfigFilePath)
         {
             if (!String.IsNullOrEmpty(ConfigFilePath))

@@ -24,6 +24,9 @@ namespace DISOpenDataCloud
             SecurityConfig.RegisterAuthorizationMeta(Server.MapPath("/ac-items-config.xml"));
 
             LoggingConfig.SetLoggingSettings();
+
+            StorageConfig.SetSQLServerDatabaseManagementOptions();
+            StorageConfig.SetDISDBCreationScript(Server.MapPath);
         }
     }
 }

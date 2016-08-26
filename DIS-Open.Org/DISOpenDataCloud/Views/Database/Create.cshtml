@@ -25,13 +25,14 @@
             Database:
         </dt>
         <dd>
-            <select ng-model="configuration.databasename" class="form-control">
+            @*<select ng-model="configuration.databasename" class="form-control">
                 <option ng-repeat="dbname in dbnames">{{dbname}}</option>
-            </select>
+            </select>*@
+            <input ng-model="configuration.databasename" class="form-control" />
         </dd>
     </dl>
     <p>
-        <a href="#" ng-click="doConnect()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Connect</a>
+        <a href="#" ng-click="doCheck()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Check</a>
     </p>
 
     <hr />
@@ -46,11 +47,11 @@
 
     function ($scope, $location, $http)
     {
-        $scope.dbnames = [];
+        //$scope.dbnames = [];
 
         $scope.configuration = { id: "", serveraddress: "", databasename: "", username: "", password: "", type: "" };
 
-        $scope.doConnect = function ()
+        $scope.doCheck = function ()
         {
             var protocol = $location.protocol();
             var host = $location.host();
@@ -58,11 +59,18 @@
 
             var url = protocol + "://" + host + ":" + port + "/";
 
-            var servicePoint = "api/Database/SQLServer/All";
+            var servicePoint = "api/Database/SQLServer/Exists";
 
             $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
             {
-                $scope.dbnames = data;
+                if (data == "1")
+                {
+                    alert("Sorry, Database \"" + $scope.configuration.databasename + "\" already exists! Pleae choose a different name.");
+                }
+                else
+                {
+                    alert("Congratulations! Database name \"" + $scope.configuration.databasename + "\" is not currently in use, you may take this name.");
+                }
 
             }).error(function (data, status, headers, config)
             {
@@ -72,7 +80,24 @@
 
         $scope.doSubmit = function ()
         {
-            alert("!");
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Database/SQLServer/Create";
+
+            $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
+            {
+                var result = data;
+
+                alert(result);
+
+            }).error(function (data, status, headers, config)
+            {
+                alert(data);
+            });
         };
     });
 
