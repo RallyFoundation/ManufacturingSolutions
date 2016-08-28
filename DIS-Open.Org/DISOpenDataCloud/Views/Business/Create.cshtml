@@ -89,7 +89,7 @@
                 </dt>
                 <dd>
                     <select ng-model="conf.databasename" class="form-control">
-                        <option ng-repeat="dbname in dbnames[$index]">{{dbname}}</option>
+                        <option ng-repeat="dbname in conf.dbnames">{{dbname}}</option>
                     </select>  
                 </dd>
             </dl> 
@@ -106,25 +106,34 @@
 
 <script type="text/javascript">
 
+    function createGuid()
+    {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c)
+        {
+            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
+
     var appModule = angular.module("DISOpenDataCloud", []).controller("BizCreationController",
 
     function ($scope, $location, $http) {
         $scope.business =
             {
-                id: "",
+                id: createGuid(),
                 name: "New-Business",
                 type: "Licensing",
                 configurations: []
             };
 
-        $scope.dbnames = [];
+        //$scope.dbnames = [];
 
         $scope.conftypes = ["OEM", "TPI", "FactoryFloor"];
 
         $scope.addConf = function ()
         {
             //alert($scope.business.name);
-            $scope.business.configurations.push({id: "", serveraddress: "", databasename: "", username: "", password: "", type: ""});
+            $scope.business.configurations.push({id: createGuid(), serveraddress: "", databasename: "", username: "", password: "", type: "", dbnames: []});
         };
 
         $scope.removeConf = function (index)
@@ -153,7 +162,12 @@
 
             $http.post(url + servicePoint, $scope.business.configurations[index]).success(function (data, status, headers, config)
             {
-                $scope.dbnames.push(data);
+                $scope.business.configurations[index].dbnames = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    $scope.business.configurations[index].dbnames.push(data[i]);
+                }
+                
 
             }).error(function (data, status, headers, config)
             {
