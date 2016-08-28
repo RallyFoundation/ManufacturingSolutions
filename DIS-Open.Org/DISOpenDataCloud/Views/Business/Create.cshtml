@@ -171,7 +171,11 @@
 
             }).error(function (data, status, headers, config)
             {
-                alert(data);
+                for (var key in data)
+                {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
             });
         };
 
@@ -209,7 +213,11 @@
 
             }).error(function (data, status, headers, config)
             {
-                alert(data);
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+
+                //alert(data);
             });
         };
     });
