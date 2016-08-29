@@ -7,37 +7,39 @@
 <hr />
 
 <div ng-controller="DBCreationController">
+    <form ng-submit="doSubmit()" name="formDBCreation">
+        <dl class="dl-horizontal">
+            <dt>Server: </dt>
+            <dd>
+                <input name="serverAddr" ng-model="configuration.serveraddress" required class="form-control" />
+                <span ng-show="formDBCreation.serverAddr.$error.required">*</span>
+            </dd>
+            <dt>User Name: </dt>
+            <dd>
+                <input ng-model="configuration.username" required class="form-control" />
+            </dd>
+            <dt>Password: </dt>
+            <dd>
+                <input type="password" ng-model="configuration.password" required class="form-control" />
+            </dd>
+            <dt>
+                Database:
+            </dt>
+            <dd>
+                @*<select ng-model="configuration.databasename" class="form-control">
+                        <option ng-repeat="dbname in dbnames">{{dbname}}</option>
+                    </select>*@
+                <input ng-model="configuration.databasename" required class="form-control" />
+            </dd>
+        </dl>
+        <p>
+            <a href="#" ng-click="doCheck()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Check</a>
+        </p>
 
-    <dl class="dl-horizontal">
-        <dt>Server: </dt>
-        <dd>
-            <input ng-model="configuration.serveraddress" class="form-control" />
-        </dd>
-        <dt>User Name: </dt>
-        <dd>
-            <input ng-model="configuration.username" class="form-control" />
-        </dd>
-        <dt>Password: </dt>
-        <dd>
-            <input ng-model="configuration.password" class="form-control" />
-        </dd>
-        <dt>
-            Database:
-        </dt>
-        <dd>
-            @*<select ng-model="configuration.databasename" class="form-control">
-                <option ng-repeat="dbname in dbnames">{{dbname}}</option>
-            </select>*@
-            <input ng-model="configuration.databasename" class="form-control" />
-        </dd>
-    </dl>
-    <p>
-        <a href="#" ng-click="doCheck()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Check</a>
-    </p>
+        <hr />
 
-    <hr />
-
-    <input type="submit" value="Submit" class="btn btn-default" ng-click="doSubmit()" />
+        <input type="submit" value="Submit" class="btn btn-default" ng-disabled="formDBCreation.$invalid" />
+    </form>
 </div>
 
 
@@ -74,7 +76,10 @@
 
             }).error(function (data, status, headers, config)
             {
-                alert(data);
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
             });
         };
 
@@ -96,7 +101,10 @@
 
             }).error(function (data, status, headers, config)
             {
-                alert(data);
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
             });
         };
     });
