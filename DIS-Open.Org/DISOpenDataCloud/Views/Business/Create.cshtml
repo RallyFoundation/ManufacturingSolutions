@@ -46,11 +46,11 @@
         <dl class="dl-horizontal">
             <dt>Business ID: </dt>
             <dd>
-                <input ng-model="business.id" class="form-control"/>
+                <input ng-model="business.id" class="form-control" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" maxlength="30"/>
             </dd>
             <dt>Business Name: </dt>
             <dd>
-                <input ng-model="business.name" class="form-control"/>
+                <input ng-model="business.name" class="form-control" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" maxlength="28" />
             </dd>
          </dl>
 
@@ -74,15 +74,15 @@
                 </dd>
                 <dt>Server: </dt>
                 <dd>
-                    <input ng-model="conf.serveraddress" class="form-control"/>
+                    <input ng-model="conf.serveraddress" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                 </dd>
                 <dt>User Name: </dt>
                 <dd>
-                    <input ng-model="conf.username" class="form-control"/>
+                    <input ng-model="conf.username" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                 </dd>
                 <dt>Password: </dt>
                 <dd>
-                    <input ng-model="conf.password" type="password" class="form-control"/>
+                    <input ng-model="conf.password" type="password" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.Password, this)" onmouseout="purgeValue(valuePolicy.Password, this)" />
                 </dd>          
                 <dt>
                     Database: 
@@ -113,6 +113,45 @@
             var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
             return v.toString(16);
         });
+    }
+
+    var valuePolicy = {
+        AlphaNum: "alpha_num",
+        Int: "int",
+        Decimal: "decimal",
+        DateTime: "datetime",
+        Password: "password"
+    };
+
+    function purgeValue(policy, source)
+    {
+        switch (policy)
+        {
+            case valuePolicy.AlphaNum:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                    break;
+                }
+            case valuePolicy.Int:
+                {
+                    source.value = source.value.replace(/[^\d]/g, '');
+                    break;
+                }
+            case valuePolicy.Decimal:
+                {
+                    source.value = source.value.replace(/[^0-9\.]/g, '')
+                    break;
+                }
+            case valuePolicy.Password:
+                {
+                    break;
+                }
+            default:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '')
+                    break;
+                }
+        }
     }
 
     var appModule = angular.module("DISOpenDataCloud", []).controller("BizCreationController",

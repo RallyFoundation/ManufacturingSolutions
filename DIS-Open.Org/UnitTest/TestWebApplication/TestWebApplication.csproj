@@ -400,6 +400,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Scripts\Test\data.json" />
     <Content Include="Scripts\Test\data1.json" />
+    <Content Include="Views\Test\Validate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

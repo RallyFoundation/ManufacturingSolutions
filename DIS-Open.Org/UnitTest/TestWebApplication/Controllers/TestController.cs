@@ -13,5 +13,10 @@ namespace TestWebApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult Validate()
+        {
+            return View();
+        }
     }
 }

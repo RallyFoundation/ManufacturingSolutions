@@ -11,16 +11,18 @@
         <dl class="dl-horizontal">
             <dt>Server: </dt>
             <dd>
-                <input name="serverAddr" ng-model="configuration.serveraddress" required class="form-control" />
-                <span ng-show="formDBCreation.serverAddr.$error.required">*</span>
+                <input name="serverAddr" ng-model="configuration.serveraddress" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.serverAddr.$error.required" class="warning">*</span>
             </dd>
             <dt>User Name: </dt>
             <dd>
-                <input ng-model="configuration.username" required class="form-control" />
+                <input name="usrName" ng-model="configuration.username" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.usrName.$error.required" class="warning">*</span>
             </dd>
             <dt>Password: </dt>
             <dd>
-                <input type="password" ng-model="configuration.password" required class="form-control" />
+                <input name="pwd" type="password" ng-model="configuration.password" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.Password, this)" onmouseout="purgeValue(valuePolicy.Password, this)"/>
+                <span ng-show="formDBCreation.pwd.$error.required" class="warning">*</span>
             </dd>
             <dt>
                 Database:
@@ -29,7 +31,8 @@
                 @*<select ng-model="configuration.databasename" class="form-control">
                         <option ng-repeat="dbname in dbnames">{{dbname}}</option>
                     </select>*@
-                <input ng-model="configuration.databasename" required class="form-control" />
+                <input name="dbName" ng-model="configuration.databasename" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.dbName.$error.required" class="warning">*</span>
             </dd>
         </dl>
         <p>
@@ -42,8 +45,44 @@
     </form>
 </div>
 
-
 <script type="text/javascript">
+
+    var valuePolicy = {
+        AlphaNum: "alpha_num",
+        Int: "int",
+        Decimal: "decimal",
+        DateTime: "datetime",
+        Password: "password"
+    };
+
+    function purgeValue(policy, source) {
+        switch (policy) {
+            case valuePolicy.AlphaNum:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                    break;
+                }
+            case valuePolicy.Int:
+                {
+                    source.value = source.value.replace(/[^\d]/g, '');
+                    break;
+                }
+            case valuePolicy.Decimal:
+                {
+                    source.value = source.value.replace(/[^0-9\.]/g, '')
+                    break;
+                }
+            case valuePolicy.Password:
+                {
+                    break;
+                }
+            default:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '')
+                    break;
+                }
+        }
+    }
 
     var appModule = angular.module("DISOpenDataCloud", []).controller("DBCreationController",
 
