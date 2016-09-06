@@ -40,6 +40,11 @@ namespace DISOpenDataCloud.Controllers
 
             biz.Configurations = confs.ToArray();
 
+            if (business.ReferenceID != null && business.ReferenceID.Length > 0)
+            {
+                biz.ReferenceID = business.ReferenceID.ToArray();
+            }
+
             string bizID = Provider.BusinessManager().AddBusinessConfiguration(biz);
 
             return bizID;

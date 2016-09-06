@@ -54,6 +54,28 @@
             </dd>
          </dl>
 
+        <hr />
+
+        <h4>
+            References:
+        </h4>
+
+        <hr />
+
+        <p>
+            <a href="#" ng-click="addRef()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Add</a>
+        </p>
+
+        <div ng-repeat="ref in business.referenceid">
+            <input ng-model="ref" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+            <p>
+                <a href="#" ng-click="removeRef($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Remove</a>
+            </p>
+            <hr />
+        </div>
+
+        <hr />
+
         <h4>
             Configurations: 
         </h4>
@@ -120,7 +142,8 @@
         Int: "int",
         Decimal: "decimal",
         DateTime: "datetime",
-        Password: "password"
+        Password: "password",
+        DBCCase: "dbc_case"
     };
 
     function purgeValue(policy, source)
@@ -139,16 +162,23 @@
                 }
             case valuePolicy.Decimal:
                 {
-                    source.value = source.value.replace(/[^0-9\.]/g, '')
+                    source.value = source.value.replace(/[^0-9\.]/g, '');
                     break;
                 }
             case valuePolicy.Password:
                 {
                     break;
                 }
+            case valuePolicy.DBCCase:
+                {
+                    source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                    source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                    break;
+                }
             default:
                 {
-                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '')
+                    source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                    source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
                     break;
                 }
         }
@@ -162,6 +192,7 @@
                 id: createGuid(),
                 name: "New-Business",
                 type: "Licensing",
+                referenceid: [],
                 configurations: []
             };
 
@@ -179,6 +210,14 @@
         {
             //alert($scope.business.name);
             $scope.business.configurations.splice(index, 1);
+        };
+
+        $scope.addRef = function () {
+            $scope.business.referenceid.push(($scope.business.referenceid.length + 1));
+        };
+
+        $scope.removeRef = function (index) {
+            $scope.business.referenceid.splice(index, 1);
         };
 
         $scope.doConnect = function (index)

@@ -37,6 +37,25 @@
 
 <hr />
 
+<h4>References: </h4>
+
+@if (Model.ReferenceID != null && Model.ReferenceID.Length > 0)
+{
+    <table class="table">
+
+        @foreach (var item in Model.ReferenceID)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<hr />
+
 <h4>Configurations: </h4>
 
 @if (Model.Configurations != null && Model.Configurations.Length > 0)
