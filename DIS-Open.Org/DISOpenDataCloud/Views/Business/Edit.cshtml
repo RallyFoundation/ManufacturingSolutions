@@ -1,4 +1,4 @@
-﻿@model Platform.DAAS.OData.Core.DomainModel.Business
+﻿@*@model Platform.DAAS.OData.Core.DomainModel.Business
 
 
 @using (Html.BeginForm())
@@ -33,4 +33,330 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+@{
+    ViewBag.Title = "Business Management";
 }
+
+<h2>Business Management</h2>
+
+<hr />
+
+
+<div ng-controller="BizModificationController" ng-init="onInit()">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>Business ID: </dt>
+            <dd>
+                <input ng-model="business.id" class="form-control" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" maxlength="30" />
+            </dd>
+            <dt>Business Name: </dt>
+            <dd>
+                <input ng-model="business.name" class="form-control" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" maxlength="28" />
+            </dd>
+        </dl>
+
+        <hr />
+
+        <h4>
+            References:
+        </h4>
+
+        <hr />
+
+        <p>
+            <a href="#" ng-click="addRef()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Add</a>
+        </p>
+
+        <div ng-repeat="ref in business.referenceid">
+            <input ng-model="ref" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+            <p>
+                <a href="#" ng-click="removeRef($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Remove</a>
+            </p>
+            <hr />
+        </div>
+
+        <hr />
+
+        <h4>
+            Configurations:
+        </h4>
+
+        <hr />
+
+        <p>
+            <a href="#" ng-click="addConf()" ng-show="shouldShowAddButton()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Add</a>
+        </p>
+
+        <div ng-repeat="conf in business.configurations">
+            <dl class="dl-horizontal">
+                <dt>Type: </dt>
+                <dd>
+                    <select ng-model="conf.type" class="form-control">
+                        <option ng-repeat="conftype in conftypes">{{conftype}}</option>
+                    </select>
+                </dd>
+                <dt>Server: </dt>
+                <dd>
+                    <input ng-model="conf.serveraddress" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                </dd>
+                <dt>User Name: </dt>
+                <dd>
+                    <input ng-model="conf.username" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                </dd>
+                <dt>Password: </dt>
+                <dd>
+                    <input ng-model="conf.password" type="password" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.Password, this)" onmouseout="purgeValue(valuePolicy.Password, this)" />
+                </dd>
+                <dt>
+                    Database:
+                </dt>
+                <dd>
+                    <select ng-model="conf.databasename" class="form-control">
+                        <option ng-repeat="dbname in conf.dbnames">{{dbname}}</option>
+                    </select>
+                </dd>
+            </dl>
+            <p>
+                <a href="#" ng-click="removeConf($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Remove</a>
+                &nbsp;&nbsp;
+                <a href="#" ng-click="doConnect($index)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Connect</a>
+            </p>
+            <hr />
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default" ng-click="doSubmit()" />
+</div>
+
+
+<script type="text/javascript">
+
+    function createGuid()
+    {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c)
+        {
+            var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
+
+    var valuePolicy = {
+        AlphaNum: "alpha_num",
+        Int: "int",
+        Decimal: "decimal",
+        DateTime: "datetime",
+        Password: "password",
+        DBCCase: "dbc_case"
+    };
+
+    function purgeValue(policy, source)
+    {
+        switch (policy)
+        {
+            case valuePolicy.AlphaNum:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                    break;
+                }
+            case valuePolicy.Int:
+                {
+                    source.value = source.value.replace(/[^\d]/g, '');
+                    break;
+                }
+            case valuePolicy.Decimal:
+                {
+                    source.value = source.value.replace(/[^0-9\.]/g, '');
+                    break;
+                }
+            case valuePolicy.Password:
+                {
+                    break;
+                }
+            case valuePolicy.DBCCase:
+                {
+                    source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                    source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                    break;
+                }
+            default:
+                {
+                    source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                    source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                    break;
+                }
+        }
+    }
+
+    var appModule = angular.module("DISOpenDataCloud", []).controller("BizModificationController",
+
+    function ($scope, $location, $http) {
+        $scope.business =
+            {
+                id: createGuid(),
+                name: "New-Business",
+                type: "Licensing",
+                referenceid: [],
+                configurations: []
+            };
+
+        //$scope.dbnames = [];
+
+        $scope.conftypes = ["OEM", "TPI", "FactoryFloor"];
+
+        $scope.onInit = function ()
+        {
+            var bizId = location.pathname;
+
+            alert(bizId);
+
+            bizId = bizId.substring(bizId.lastIndexOf("/") + 1);
+
+            alert(bizId);
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            //alert(url);
+
+            var servicePoint = "api/Business/" + bizId;
+
+            alert(url + servicePoint);
+
+            $http.get(url + servicePoint).success(function (data, status, headers, config)
+            {
+                var biz = data;
+
+                //for (var key in data) {
+                //    alert(key + ": " + data[key]);
+                //}
+
+                $scope.business.id = biz.ID;
+                $scope.business.name = biz.Name;
+
+                if (biz.ReferenceID != null && biz.ReferenceID.length > 0) {
+                    $scope.business.referenceid = biz.ReferenceID;
+                }
+
+                if (biz.Configurations != null && biz.Configurations.length > 0) {
+                    $scope.business.configurations = [];
+
+                    for (var i = 0; i < biz.Configurations.length; i++) {
+                        $scope.business.configurations.push({ id: biz.Configurations[i].ID, serveraddress: biz.Configurations[i].ServerAddress, databasename: biz.Configurations[i].DatabaseName, username: biz.Configurations[i].UserName, password: biz.Configurations[i].Password, type: biz.Configurations[i].Type });
+                        $scope.doConnect(i);
+                    }
+                }
+
+            }).error(function (data, status, headers, config) {
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+
+                //alert(data);
+            });
+        };
+
+        $scope.addConf = function ()
+        {
+            //alert($scope.business.name);
+            $scope.business.configurations.push({id: createGuid(), serveraddress: "", databasename: "", username: "", password: "", type: "", dbnames: []});
+        };
+
+        $scope.removeConf = function (index)
+        {
+            //alert($scope.business.name);
+            $scope.business.configurations.splice(index, 1);
+        };
+
+        $scope.addRef = function () {
+            $scope.business.referenceid.push(($scope.business.referenceid.length + 1));
+        };
+
+        $scope.removeRef = function (index) {
+            $scope.business.referenceid.splice(index, 1);
+        };
+
+        $scope.doConnect = function (index)
+        {
+            //alert($location.protocol());
+            //alert($location.host());
+            //alert($location.port());
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            //alert(url);
+
+            var servicePoint = "api/Database/SQLServer/All";
+
+            //alert(url + servicePoint);
+
+            $http.post(url + servicePoint, $scope.business.configurations[index]).success(function (data, status, headers, config)
+            {
+                $scope.business.configurations[index].dbnames = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    $scope.business.configurations[index].dbnames.push(data[i]);
+                }
+
+
+            }).error(function (data, status, headers, config)
+            {
+                for (var key in data)
+                {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
+            });
+        };
+
+        $scope.shouldShowAddButton = function () {
+            return ($scope.business.configurations.length < 3);
+        };
+
+        $scope.shouldShowRemoveButton = function () {
+            return (($scope.business.configurations.length >= 1) && ($scope.business.configurations.length <= 3));
+        };
+
+        $scope.doSubmit = function ()
+        {
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            //alert(url);
+
+            var servicePoint = "api/Business/";
+
+            //alert(url + servicePoint);
+
+            $http.patch(url + servicePoint, $scope.business).success(function (data, status, headers, config)
+            {
+                var result = data;
+
+                alert(result);
+
+                //window.location = url + "Business";
+
+                window.location = url + "Business/Details/" + $scope.business.id;
+
+            }).error(function (data, status, headers, config)
+            {
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+
+                //alert(data);
+            });
+        };
+    });
+
+</script>
