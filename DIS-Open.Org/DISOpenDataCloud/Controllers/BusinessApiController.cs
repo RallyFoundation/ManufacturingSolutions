@@ -61,7 +61,7 @@ namespace DISOpenDataCloud.Controllers
             return null;
         }
 
-        [Route("New")]
+        [Route("")]
         [HttpPost]
         public string CreateBusiness(BusinessModel business)
         {
