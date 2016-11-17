@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module("DISOpenDataCloud", ['ui.bootstrap', 'ngCookies', 'ngSanitize'])
+    var app = angular.module("DISOpenDataCloud", ['ui.bootstrap', 'ngCookies', 'ngSanitize', 'ngDialog'])
         .run(function ($http, $cookies) {
             $http.defaults.headers.common.Authorization = $cookies.get('DISAPIToken');
         });

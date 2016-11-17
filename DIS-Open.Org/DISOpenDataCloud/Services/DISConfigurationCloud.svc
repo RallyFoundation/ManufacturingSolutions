@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DISOpenDataCloud.Services.DISConfigurationCloud" CodeBehind="DISConfigurationCloud.svc.cs" %>

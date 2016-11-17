@@ -188,7 +188,7 @@
         }
     }
 
-    var appModule = angular.module("DISOpenDataCloud", []).controller("BizModificationController",
+    var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("BizModificationController",
 
     function ($scope, $location, $http) {
         $scope.business =
@@ -279,11 +279,36 @@
             $scope.business.referenceid.splice(index, 1);
         };
 
+        $scope.currentDialog = null;
+
+        $scope.showProgress = function () {
+            $scope.currentDialog = ngDialog.open({
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                width: 100,
+                preCloseCallback: function (value) {
+                    return true;
+                }
+            });
+        };
+
+        $scope.hideProgress = function ()
+        {
+            ngDialog.closeAll();
+        };
+
         $scope.doConnect = function (index)
         {
             //alert($location.protocol());
             //alert($location.host());
             //alert($location.port());
+
+            $scope.showProgress();
 
             var protocol = $location.protocol();
             var host = $location.host();
@@ -305,9 +330,12 @@
                     $scope.business.configurations[index].dbnames.push(data[i]);
                 }
 
+                $scope.hideProgress();
 
             }).error(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 for (var key in data)
                 {
                     alert(key + ": " + data[key]);
@@ -326,6 +354,8 @@
 
         $scope.doSubmit = function ()
         {
+            $scope.showProgress();
+
             var protocol = $location.protocol();
             var host = $location.host();
             var port = $location.port();
@@ -342,14 +372,18 @@
             {
                 var result = data;
 
+                $scope.hideProgress();
+
                 alert(result);
 
-                //window.location = url + "Business";
+                //window.location = url + "Business"; 
 
                 window.location = url + "Business/Details/" + $scope.business.id;
 
             }).error(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 for (var key in data) {
                     alert(key + ": " + data[key]);
                 }

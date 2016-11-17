@@ -84,7 +84,7 @@
         }
     }
 
-    var appModule = angular.module("DISOpenDataCloud", []).controller("DBCreationController",
+    var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("DBCreationController",
 
     function ($scope, $location, $http)
     {
@@ -92,8 +92,32 @@
 
         $scope.configuration = { id: "", serveraddress: "", databasename: "", username: "", password: "", type: "" };
 
+        $scope.currentDialog = null;
+
+        $scope.showProgress = function () {
+            $scope.currentDialog = ngDialog.open({
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                width: 100,
+                preCloseCallback: function (value) {
+                    return true;
+                }
+            });
+        };
+
+        $scope.hideProgress = function () {
+            ngDialog.closeAll();
+        };
+
         $scope.doCheck = function ()
         {
+            $scope.showProgress();
+
             var protocol = $location.protocol();
             var host = $location.host();
             var port = $location.port();
@@ -104,6 +128,8 @@
 
             $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 if (data == "1")
                 {
                     alert("Sorry, Database \"" + $scope.configuration.databasename + "\" already exists! Pleae choose a different name.");
@@ -115,6 +141,8 @@
 
             }).error(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 for (var key in data) {
                     alert(key + ": " + data[key]);
                 }
@@ -124,6 +152,8 @@
 
         $scope.doSubmit = function ()
         {
+            $scope.showProgress();
+
             var protocol = $location.protocol();
             var host = $location.host();
             var port = $location.port();
@@ -134,12 +164,16 @@
 
             $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 var result = data;
 
                 alert(result);
 
             }).error(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 for (var key in data) {
                     alert(key + ": " + data[key]);
                 }

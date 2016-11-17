@@ -184,9 +184,9 @@
         }
     }
 
-    var appModule = angular.module("DISOpenDataCloud", []).controller("BizCreationController",
+    var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("BizCreationController",
 
-    function ($scope, $location, $http) {
+    function ($scope, $location, $http, ngDialog) {
         $scope.business =
             {
                 id: createGuid(),
@@ -220,11 +220,52 @@
             $scope.business.referenceid.splice(index, 1);
         };
 
+        $scope.currentDialog = null;
+
+        $scope.showProgress = function () {
+            $scope.currentDialog = ngDialog.open({
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                width: 100,
+                preCloseCallback: function (value) {
+                    return true;
+                }
+            });
+        };
+
+        $scope.hideProgress = function () {
+            //alert($scope.currentDialog);
+            //if ($scope.currentDialog != null) {
+                //$scope.currentDialog.close();
+            //}
+            ngDialog.closeAll();
+        };
+
         $scope.doConnect = function (index)
         {
             //alert($location.protocol());
             //alert($location.host());
             //alert($location.port());
+
+            //ngDialog.open({
+            //    scope: $scope,
+            //    className: 'ngdialog-theme-default',
+            //    template: '<p>Processing, please wait...</p>',
+            //    plain: true,
+            //    showClose: false,
+            //    closeByDocument: false,
+            //    closeByEscape: false,
+            //    preCloseCallback: function (value) {
+            //        return true;
+            //    }
+            //});
+
+            $scope.showProgress();
 
             var protocol = $location.protocol();
             var host = $location.host();
@@ -238,22 +279,25 @@
 
             //alert(url + servicePoint);
 
-            $http.post(url + servicePoint, $scope.business.configurations[index]).success(function (data, status, headers, config)
-            {
+            $http.post(url + servicePoint, $scope.business.configurations[index]).success(function (data, status, headers, config) {
                 $scope.business.configurations[index].dbnames = [];
 
                 for (var i = 0; i < data.length; i++) {
                     $scope.business.configurations[index].dbnames.push(data[i]);
                 }
-                
 
-            }).error(function (data, status, headers, config)
-            {
-                for (var key in data)
-                {
+                //ngDialog.closeAll();
+                $scope.hideProgress();
+
+            }).error(function (data, status, headers, config) {
+                for (var key in data) {
                     alert(key + ": " + data[key]);
                 }
                 //alert(data);
+
+                //ngDialog.closeAll();
+
+                $scope.hideProgress();
             });
         };
 
@@ -267,6 +311,8 @@
 
         $scope.doSubmit = function ()
         {
+            $scope.showProgress();
+
             var protocol = $location.protocol();
             var host = $location.host();
             var port = $location.port();
@@ -283,6 +329,8 @@
             {
                 var bizId = data;
 
+                $scope.hideProgress();
+
                 alert(bizId);
 
                 //window.location = url + "Business";
@@ -291,6 +339,8 @@
 
             }).error(function (data, status, headers, config)
             {
+                $scope.hideProgress();
+
                 for (var key in data) {
                     alert(key + ": " + data[key]);
                 }
