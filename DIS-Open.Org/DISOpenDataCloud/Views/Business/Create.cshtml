@@ -226,8 +226,8 @@
             $scope.currentDialog = ngDialog.open({
                 scope: $scope,
                 className: 'ngdialog-theme-default',
-                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
-                plain: true,
+                template: '/Content/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //plain: true,
                 showClose: false,
                 closeByDocument: false,
                 closeByEscape: false,
@@ -327,7 +327,7 @@
 
             $http.post(url + servicePoint, $scope.business).success(function (data, status, headers, config)
             {
-                var bizId = data;
+                var bizId = String(data).replace(/\"/g, "");
 
                 $scope.hideProgress();
 

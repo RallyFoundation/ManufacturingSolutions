@@ -190,7 +190,7 @@
 
     var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("BizModificationController",
 
-    function ($scope, $location, $http) {
+    function ($scope, $location, $http, ngDialog) {
         $scope.business =
             {
                 id: createGuid(),
@@ -285,8 +285,8 @@
             $scope.currentDialog = ngDialog.open({
                 scope: $scope,
                 className: 'ngdialog-theme-default',
-                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
-                plain: true,
+                template: '/Content/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //plain: true,
                 showClose: false,
                 closeByDocument: false,
                 closeByEscape: false,
@@ -368,8 +368,34 @@
 
             //alert(url + servicePoint);
 
-            $http.patch(url + servicePoint, $scope.business).success(function (data, status, headers, config)
-            {
+            var config = {
+                method: 'patch',
+                url: (url + servicePoint),
+                data: $scope.business,
+                //success: function (data, status, headers, config) {
+                //    var result = data;
+
+                //    $scope.hideProgress();
+
+                //    alert(result);
+
+                //    //window.location = url + "Business"; 
+
+                //    window.location = url + "Business/Details/" + $scope.business.id;
+
+                //},
+                //error: function (data, status, headers, config) {
+                //    $scope.hideProgress();
+
+                //    for (var key in data) {
+                //        alert(key + ": " + data[key]);
+                //    }
+
+                //    //alert(data);
+                //}
+            };
+
+            $http(config).success(function (data, status, headers, config) {
                 var result = data;
 
                 $scope.hideProgress();
@@ -380,8 +406,7 @@
 
                 window.location = url + "Business/Details/" + $scope.business.id;
 
-            }).error(function (data, status, headers, config)
-            {
+            }).error(function (data, status, headers, config) {
                 $scope.hideProgress();
 
                 for (var key in data) {
@@ -390,6 +415,29 @@
 
                 //alert(data);
             });
+
+            //$http(url + servicePoint, $scope.business).success(function (data, status, headers, config)
+            //{
+            //    var result = data;
+
+            //    $scope.hideProgress();
+
+            //    alert(result);
+
+            //    //window.location = url + "Business"; 
+
+            //    window.location = url + "Business/Details/" + $scope.business.id;
+
+            //}).error(function (data, status, headers, config)
+            //{
+            //    $scope.hideProgress();
+
+            //    for (var key in data) {
+            //        alert(key + ": " + data[key]);
+            //    }
+
+            //    //alert(data);
+            //});
         };
     });
 

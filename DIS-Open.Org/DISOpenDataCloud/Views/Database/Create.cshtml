@@ -86,7 +86,7 @@
 
     var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("DBCreationController",
 
-    function ($scope, $location, $http)
+    function ($scope, $location, $http, ngDialog)
     {
         //$scope.dbnames = [];
 
@@ -98,8 +98,8 @@
             $scope.currentDialog = ngDialog.open({
                 scope: $scope,
                 className: 'ngdialog-theme-default',
-                template: '<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
-                plain: true,
+                template: '/Content/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //plain: true,
                 showClose: false,
                 closeByDocument: false,
                 closeByEscape: false,
