@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/05/2016 11:45:27
+-- Date Created: 11/21/2016 15:36:23
 -- Generated from EDMX file: D:\RallyFoundation\ManufacturingSolutions\DIS-Open.Org\Platform.DAAS.OData.BusinessManagement\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,8 +17,8 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ConfigurationCustomer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Configurations] DROP CONSTRAINT [FK_ConfigurationCustomer];
+IF OBJECT_ID(N'[dbo].[FK_ConfigurationBusiness]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Configurations] DROP CONSTRAINT [FK_ConfigurationBusiness];
 GO
 
 -- --------------------------------------------------
@@ -41,7 +41,9 @@ CREATE TABLE [dbo].[Businesses] (
     [Id] nvarchar(36)  NOT NULL,
     [Name] nvarchar(300)  NOT NULL,
     [TypeId] int  NOT NULL,
-    [ReferenceId] nvarchar(max)  NULL
+    [ReferenceId] nvarchar(2500)  NULL,
+    [CreationTime] datetime  NOT NULL,
+    [ModificationTime] datetime  NOT NULL
 );
 GO
 
@@ -50,7 +52,9 @@ CREATE TABLE [dbo].[Configurations] (
     [Id] nvarchar(36)  NOT NULL,
     [BusinessId] nvarchar(36)  NOT NULL,
     [TypeId] int  NOT NULL,
-    [DbConnectionString] nvarchar(450)  NOT NULL
+    [DbConnectionString] nvarchar(450)  NOT NULL,
+    [CreationTime] datetime  NOT NULL,
+    [ModificationTime] datetime  NOT NULL
 );
 GO
 

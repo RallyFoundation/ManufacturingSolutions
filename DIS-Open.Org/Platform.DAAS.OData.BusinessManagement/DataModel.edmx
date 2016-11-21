@@ -20,7 +20,9 @@
     <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="36" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
     <Property Name="TypeId" Type="int" Nullable="false" />
-    <Property Name="ReferenceId" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ReferenceId" Type="nvarchar" Nullable="true" MaxLength="2500" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="ModificationTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Configurations">
     <Key>
@@ -30,6 +32,8 @@
     <Property Name="BusinessId" Type="nvarchar" Nullable="false" MaxLength="36" />
     <Property Name="TypeId" Type="int" Nullable="false" />
     <Property Name="DbConnectionString" Type="nvarchar" Nullable="false" MaxLength="450" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="ModificationTime" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="ConfigurationBusiness">
     <End Role="Configuration" Type="DataModel.Store.Configurations" Multiplicity="*" />
@@ -63,7 +67,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="300" />
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Configuration" Relationship="DataModel.ConfigurationBusiness" FromRole="Business" ToRole="Configuration" />
-          <Property Name="ReferenceId" Type="String" Nullable="true" MaxLength="Max" />
+          <Property Name="ReferenceId" Type="String" Nullable="true" MaxLength="2500" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+          <Property Name="ModificationTime" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="Configuration">
           <Key>
@@ -74,6 +80,8 @@
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="DbConnectionString" Type="String" Nullable="false" MaxLength="450" />
           <NavigationProperty Name="Business" Relationship="DataModel.ConfigurationBusiness" FromRole="Configuration" ToRole="Business" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+          <Property Name="ModificationTime" Type="DateTime" Nullable="false" />
         </EntityType>
         <Association Name="ConfigurationBusiness">
           <End Type="DataModel.Configuration" Role="Configuration" Multiplicity="*" />
@@ -100,6 +108,8 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="TypeId" ColumnName="TypeId" />
           <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="ModificationTime" ColumnName="ModificationTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -110,6 +120,8 @@
           <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
           <ScalarProperty Name="TypeId" ColumnName="TypeId" />
           <ScalarProperty Name="DbConnectionString" ColumnName="DbConnectionString" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="ModificationTime" ColumnName="ModificationTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -27,6 +27,8 @@ namespace DISOpenDataCloud
 
             StorageConfig.SetSQLServerDatabaseManagementOptions();
             StorageConfig.SetDISDBCreationScript(Server.MapPath);
+
+            BusinessConfig.SetStoreConnectionName();
         }
     }
 }

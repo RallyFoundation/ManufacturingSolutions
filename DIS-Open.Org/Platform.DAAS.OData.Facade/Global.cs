@@ -53,6 +53,11 @@ namespace Platform.DAAS.OData.Facade
             Platform.DAAS.OData.Security.ModuleConfiguration.Regiser();
         }
 
+        public static void SetBusinessStoreConnectionName(string StoreConnectionName)
+        {
+            Platform.DAAS.OData.BusinessManagement.ModuleConfiguration.DefaultBusinessStoreConnectionName = StoreConnectionName;
+        }
+
         public static void SetAuthorizationStoreConnectionName(string StoreConnectionName)
         {
             Platform.DAAS.OData.Security.ModuleConfiguration.DefaultAuthorizationStoreConnectionName = StoreConnectionName;

@@ -23,6 +23,8 @@ namespace Platform.DAAS.OData.BusinessManagement
         public string Name { get; set; }
         public int TypeId { get; set; }
         public string ReferenceId { get; set; }
+        public System.DateTime CreationTime { get; set; }
+        public System.DateTime ModificationTime { get; set; }
     
         public virtual ICollection<Configuration> Configuration { get; set; }
     }

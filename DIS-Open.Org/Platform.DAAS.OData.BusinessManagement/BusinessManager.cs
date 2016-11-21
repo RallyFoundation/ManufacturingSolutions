@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Platform.DAAS.OData.Core;
 using Platform.DAAS.OData.Core.BusinessManagement;
 using Platform.DAAS.OData.Core.DomainModel;
 
@@ -50,12 +52,16 @@ namespace Platform.DAAS.OData.BusinessManagement
                 throw new InvalidConnectionStringException("Connection string is invalid! Make sure each field of the connection string has its value assigned, and also make sure loopback address is not used.");
             }
 
+            DateTime creationTime = DateTime.Now;
+
             using (DataModelContainer container = new DataModelContainer())
             {
                 Business biz = new Business()
                 {
                     Id = Business.ID,
-                    Name = Business.Name
+                    Name = Business.Name,
+                    CreationTime = creationTime,
+                    ModificationTime = creationTime
                 };
 
                 //if (String.IsNullOrEmpty(Customer.ReferenceID))
@@ -90,7 +96,9 @@ namespace Platform.DAAS.OData.BusinessManagement
                             Id = conf.ID,
                             BusinessId = biz.Id,
                             DbConnectionString = conf.DbConnectionString,
-                            TypeId = (int)(conf.ConfigurationType)
+                            TypeId = (int)(conf.ConfigurationType),
+                            CreationTime = creationTime,
+                            ModificationTime = creationTime
                         };
 
                         container.Configurations.Add(configuration);
@@ -145,11 +153,14 @@ namespace Platform.DAAS.OData.BusinessManagement
 
             int returnValue = -9;
 
+            DateTime modificationTime = DateTime.Now;
+
             using (DataModelContainer container = new DataModelContainer())
             {
                 Business biz = container.Businesses.First((o) => (o.Id.ToLower() == Business.ID.ToLower()));
 
                 biz.Name = Business.Name;
+                biz.ModificationTime = modificationTime;
 
                 //cust.ReferenceId = Customer.ReferenceID;
 
@@ -182,6 +193,7 @@ namespace Platform.DAAS.OData.BusinessManagement
                             {
                                 confs[i].DbConnectionString = bizConfList[j].DbConnectionString;
                                 confs[i].TypeId = ((int)(bizConfList[j].ConfigurationType));
+                                confs[i].ModificationTime = modificationTime;
 
                                 bizConfList.RemoveAt(j);
                                 j--;
@@ -202,7 +214,9 @@ namespace Platform.DAAS.OData.BusinessManagement
                                 Id = conf.ID,
                                 BusinessId = biz.Id,
                                 DbConnectionString = conf.DbConnectionString,
-                                TypeId = (int)(conf.ConfigurationType)
+                                TypeId = (int)(conf.ConfigurationType),
+                                CreationTime = modificationTime,
+                                ModificationTime = modificationTime
                             };
 
                             container.Configurations.Add(configuration);
@@ -295,6 +309,76 @@ namespace Platform.DAAS.OData.BusinessManagement
                 Core.DomainModel.Business business = null;
 
                 foreach (var biz in container.Businesses)
+                {
+                    business = new Core.DomainModel.Business()
+                    {
+                        ID = biz.Id,
+                        Name = biz.Name,
+                        //ReferenceID = cust.ReferenceId
+                    };
+
+                    if (!String.IsNullOrEmpty(biz.ReferenceId))
+                    {
+                        business.ReferenceID = biz.ReferenceId.Split(new string[] { "," }, StringSplitOptions.None);
+                    }
+
+                    var confs = container.Configurations.Where((o) => (o.BusinessId.ToLower() == biz.Id.ToLower())).ToArray();
+
+                    if ((confs != null) && (confs.Length > 0))
+                    {
+                        configurations = new List<Core.DomainModel.Configuration>();
+
+                        foreach (var conf in confs)
+                        {
+                            configurations.Add(new Core.DomainModel.Configuration()
+                            {
+                                ID = conf.Id,
+                                ConfigurationType = ((ConfigurationType)(conf.TypeId)),
+                                DbConnectionString = conf.DbConnectionString
+                            });
+                        }
+
+                        business.Configurations = configurations.ToArray();
+                    }
+
+                    businesses.Add(business);
+                }
+            }
+
+            return businesses.ToArray();
+        }
+
+        public Core.DomainModel.Business[] SearchBusiness(Func<IList<SearchingArgument>, object> QueryExpressionFunction, IList<SearchingArgument> SearchingArguments, PagingArgument PagingArgument)
+        {
+            List<Core.DomainModel.Business> businesses = new List<Core.DomainModel.Business>();
+            List<Core.DomainModel.Configuration> configurations = null;
+
+            using (DataModelContainer container = new DataModelContainer())
+            {
+                Core.DomainModel.Business business = null;
+
+                var bizArray = container.Businesses.ToArray();
+
+                if (PagingArgument != null)
+                {
+                    PagingArgument.Reset(bizArray.Length);
+
+                   var bizQueryResult = container.Businesses.OrderByDescending(b => b.CreationTime).Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
+
+                    if (QueryExpressionFunction != null && SearchingArguments != null)
+                    {
+                        var filterExpression = QueryExpressionFunction(SearchingArguments);
+
+                        if (filterExpression != null && filterExpression is Expression<Func<Business, bool>>)
+                        {
+                            bizQueryResult = bizQueryResult.Where((filterExpression as Expression<Func<Business, bool>>));
+                        }
+                    }
+
+                    bizArray = bizQueryResult.ToArray();
+                }
+
+                foreach (var biz in bizArray)//foreach (var biz in container.Businesses)
                 {
                     business = new Core.DomainModel.Business()
                     {

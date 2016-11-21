@@ -18,6 +18,8 @@ namespace Platform.DAAS.OData.BusinessManagement
         public string BusinessId { get; set; }
         public int TypeId { get; set; }
         public string DbConnectionString { get; set; }
+        public System.DateTime CreationTime { get; set; }
+        public System.DateTime ModificationTime { get; set; }
     
         public virtual Business Business { get; set; }
     }

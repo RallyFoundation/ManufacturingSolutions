@@ -45,6 +45,8 @@
     <Compile Include="HTTP\Authentication.cs" />
     <Compile Include="HTTP\AuthenticationType.cs" />
     <Compile Include="HTTP\IResourceRouter.cs" />
+    <Compile Include="PagingArgument.cs" />
+    <Compile Include="SearchingArgument.cs" />
     <Compile Include="Security\AuthItem.cs" />
     <Compile Include="Security\IAuthorizable.cs" />
     <Compile Include="Security\ISecurityManager.cs" />

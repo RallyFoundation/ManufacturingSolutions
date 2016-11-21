@@ -54,6 +54,7 @@
     <Compile Include="Business.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessDataModelContainer.cs" />
     <Compile Include="BusinessManager.cs" />
     <Compile Include="BusinessRule.cs" />
     <Compile Include="Comparers.cs" />
@@ -76,6 +77,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Exceptions.cs" />
+    <Compile Include="ModuleConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
