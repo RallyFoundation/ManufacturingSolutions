@@ -357,26 +357,47 @@ namespace Platform.DAAS.OData.BusinessManagement
             {
                 Core.DomainModel.Business business = null;
 
-                var bizArray = container.Businesses.ToArray();
+                //var bizArray = new Business[] { };//container.Businesses.ToArray();
+
+                //if (PagingArgument != null)
+                //{
+                //    PagingArgument.Reset(bizArray.Length);
+
+                //    var bizQueryResult = container.Businesses.OrderByDescending(b => b.CreationTime).Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
+
+                //    if (QueryExpressionFunction != null && SearchingArguments != null)
+                //    {
+                //        var filterExpression = QueryExpressionFunction(SearchingArguments);
+
+                //        if (filterExpression != null && filterExpression is Expression<Func<Business, bool>>)
+                //        {
+                //            bizQueryResult = bizQueryResult.Where((filterExpression as Expression<Func<Business, bool>>));
+                //        }
+                //    }
+
+                //    bizArray = bizQueryResult.ToArray();
+                //}
+
+                var bizQueryResult = container.Businesses.OrderByDescending(b => b.CreationTime).AsQueryable();
+
+                if (QueryExpressionFunction != null && SearchingArguments != null)
+                {
+                    var filterExpression = QueryExpressionFunction(SearchingArguments);
+
+                    if (filterExpression != null && filterExpression is Expression<Func<Business, bool>>)
+                    {
+                        bizQueryResult = bizQueryResult.Where((filterExpression as Expression<Func<Business, bool>>));
+                    }
+                }
 
                 if (PagingArgument != null)
                 {
-                    PagingArgument.Reset(bizArray.Length);
+                    PagingArgument.Reset(bizQueryResult.Count(b=>true));
 
-                   var bizQueryResult = container.Businesses.OrderByDescending(b => b.CreationTime).Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
-
-                    if (QueryExpressionFunction != null && SearchingArguments != null)
-                    {
-                        var filterExpression = QueryExpressionFunction(SearchingArguments);
-
-                        if (filterExpression != null && filterExpression is Expression<Func<Business, bool>>)
-                        {
-                            bizQueryResult = bizQueryResult.Where((filterExpression as Expression<Func<Business, bool>>));
-                        }
-                    }
-
-                    bizArray = bizQueryResult.ToArray();
+                    bizQueryResult = bizQueryResult.Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
                 }
+
+                var bizArray = bizQueryResult.ToArray();
 
                 foreach (var biz in bizArray)//foreach (var biz in container.Businesses)
                 {
@@ -468,6 +489,86 @@ namespace Platform.DAAS.OData.BusinessManagement
             }
 
             return businesses.ToArray();
+        }
+
+        public object CreateBusinessQueryExpression(IList<SearchingArgument> SearchingArguments)
+        {
+            Expression<Func<Business, bool>> expression = b=> (true);
+
+            if (SearchingArguments != null && SearchingArguments.Count > 0)
+            {
+                ParameterExpression parameter = Expression.Parameter(typeof(Business), "b");
+
+                MemberExpression member;
+
+                ConstantExpression value = Expression.Constant(1);
+
+                Expression body = BinaryExpression.Equal(value, value);
+
+                Expression predicate = body;
+
+                foreach (var arg in SearchingArguments)
+                {
+                    member = Expression.Property(parameter, arg.FieldName);
+                    value = Expression.Constant(arg.FieldValue);
+
+                    switch (arg.Operator)
+                    {
+                        case OperatorEnum.EqualTo:
+                            body = BinaryExpression.Equal(member, value);
+                            break;
+                        case OperatorEnum.NotEqualTo:
+                            body = BinaryExpression.NotEqual(member, value);
+                            break;
+                        case OperatorEnum.GreaterThan:
+                            body = BinaryExpression.GreaterThan(member, value);
+                            break;
+                        case OperatorEnum.GreaterThanOrEqualTo:
+                            body = BinaryExpression.GreaterThanOrEqual(member, value);
+                            break;
+                        case OperatorEnum.In:
+                            break;
+                        case OperatorEnum.NotIn:
+                            break;
+                        case OperatorEnum.Is:
+                            break;
+                        case OperatorEnum.IsNot:
+                            break;
+                        case OperatorEnum.LessThan:
+                            body = BinaryExpression.LessThan(member, value);
+                            break;
+                        case OperatorEnum.LessThanOrEqualTo:
+                            body = BinaryExpression.LessThanOrEqual(member, value);
+                            break;
+                        case OperatorEnum.StartsWith:
+                            body = Expression.Call(member, typeof(string).GetMethod("StartsWith", new Type[] {typeof(string)}), value);
+                            break;
+                        case OperatorEnum.NotStartWith:
+                            body = BinaryExpression.Not(Expression.Call(member, typeof(string).GetMethod("StartsWith", new Type[] {typeof(string)}), value));
+                            break;
+                        case OperatorEnum.EndsWith:
+                            body = Expression.Call(member, typeof(string).GetMethod("EndsWith", new Type[] {typeof(string)}), value);
+                            break;
+                        case OperatorEnum.NotEndWith:
+                            body = BinaryExpression.Not(Expression.Call(member, typeof(string).GetMethod("EndsWith", new Type[] {typeof(string)}), value));
+                            break;
+                        case OperatorEnum.Includes:
+                            body = Expression.Call(member, typeof(string).GetMethod("Contains"), value);
+                            break;
+                        case OperatorEnum.NotInclude:
+                            body = BinaryExpression.Not(Expression.Call(member, typeof(string).GetMethod("Contains"), value));
+                            break;
+                        default:
+                            break;
+                    }
+
+                    predicate = arg.LogicalOperator == LogicalOperatorEnum.And ? BinaryExpression.And(predicate, body) : BinaryExpression.Or(predicate, body);
+                }
+
+                expression = Expression.Lambda<Func<Business, bool>>(predicate, parameter);
+            }
+
+            return expression;
         }
     }
 }

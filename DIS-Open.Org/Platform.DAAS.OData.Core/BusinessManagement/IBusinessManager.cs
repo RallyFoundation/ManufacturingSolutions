@@ -23,5 +23,7 @@ namespace Platform.DAAS.OData.Core.BusinessManagement
         Configuration GetConfiguration(string BusinessID, ConfigurationType ConfigurationType);
 
         Configuration GetConfiguration(string ConfigurationID);
+
+        object CreateBusinessQueryExpression(IList<SearchingArgument> SearchingArguments);
     }
 }
