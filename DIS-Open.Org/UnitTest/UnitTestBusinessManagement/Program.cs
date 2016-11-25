@@ -15,6 +15,22 @@ namespace UnitTestBusinessManagement
         {
             TestBusinessSearchPaging();
 
+            //var methods = args.GetType().GetMethods();
+
+            //foreach (var method in methods)
+            //{
+            //    Console.WriteLine(method.Name);
+            //}
+
+            //var interfaces = args.GetType().GetInterfaces();
+
+            //foreach (var interf in interfaces)
+            //{
+            //    Console.WriteLine(interf.Name);
+            //}
+
+            //var interf = args.GetType().GetInterface()
+
             Console.Read();
         }
 
@@ -55,6 +71,13 @@ namespace UnitTestBusinessManagement
                 FieldValue = DateTime.Now,
                 LogicalOperator = LogicalOperatorEnum.And,
                 Operator = OperatorEnum.LessThan
+            },
+            new SearchingArgument
+            {
+                FieldName = "Name",
+                FieldValue = new string[] { "New", "-", "Business", "00"},
+                LogicalOperator = LogicalOperatorEnum.Or,
+                Operator = OperatorEnum.In //OperatorEnum.NotInclude //OperatorEnum.Includes
             }};
 
             //var bizArray = bizManager.SearchBusiness(null, null, pagingArg);

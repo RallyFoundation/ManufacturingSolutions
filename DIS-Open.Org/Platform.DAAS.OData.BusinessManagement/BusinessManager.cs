@@ -527,8 +527,10 @@ namespace Platform.DAAS.OData.BusinessManagement
                             body = BinaryExpression.GreaterThanOrEqual(member, value);
                             break;
                         case OperatorEnum.In:
+                            body = Expression.Call(value, value.Type.GetInterface("ICollection`1").GetMethod("Contains"), member);
                             break;
                         case OperatorEnum.NotIn:
+                            body = BinaryExpression.Not(Expression.Call(value, value.Type.GetInterface("ICollection`1").GetMethod("Contains"), member));
                             break;
                         case OperatorEnum.Is:
                             break;
@@ -553,10 +555,10 @@ namespace Platform.DAAS.OData.BusinessManagement
                             body = BinaryExpression.Not(Expression.Call(member, typeof(string).GetMethod("EndsWith", new Type[] {typeof(string)}), value));
                             break;
                         case OperatorEnum.Includes:
-                            body = Expression.Call(member, typeof(string).GetMethod("Contains"), value);
+                            body = Expression.Call(member, member.Type.GetMethod("Contains"), value);
                             break;
                         case OperatorEnum.NotInclude:
-                            body = BinaryExpression.Not(Expression.Call(member, typeof(string).GetMethod("Contains"), value));
+                            body = BinaryExpression.Not(Expression.Call(member, member.Type.GetMethod("Contains"), value));
                             break;
                         default:
                             break;
