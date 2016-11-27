@@ -16,13 +16,15 @@ namespace Platform.DAAS.OData.Core.BusinessManagement
 
         Business[] ListBusiness(bool IsIncludingConfigurations);
 
-        Business[] SearchBusiness(Func<IList<SearchingArgument>, object> QueryExpressionFunction, IList<SearchingArgument> SearchingArguments, PagingArgument PagingArgument);
+        Business[] SearchBusiness(Func<IList<SearchingArgument>, object> QueryExpressionFunction, IList<SearchingArgument> SearchingArguments, PagingArgument PagingArgument, bool IsIncludingConfigurations);
 
         Business GetBusiness(string BusinessID);
 
         Configuration GetConfiguration(string BusinessID, ConfigurationType ConfigurationType);
 
         Configuration GetConfiguration(string ConfigurationID);
+
+        Configuration[] GetConfigurations(string BusinessID);
 
         object CreateBusinessQueryExpression(IList<SearchingArgument> SearchingArguments);
     }

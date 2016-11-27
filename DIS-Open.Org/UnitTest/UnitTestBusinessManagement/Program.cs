@@ -82,7 +82,7 @@ namespace UnitTestBusinessManagement
 
             //var bizArray = bizManager.SearchBusiness(null, null, pagingArg);
 
-            var bizArray = bizManager.SearchBusiness(bizManager.CreateBusinessQueryExpression, searchingArgs, pagingArg);
+            var bizArray = bizManager.SearchBusiness(bizManager.CreateBusinessQueryExpression, searchingArgs, pagingArg, false);
 
             if (bizArray != null && bizArray.Length > 0)
             {

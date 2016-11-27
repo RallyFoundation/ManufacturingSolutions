@@ -299,6 +299,28 @@ namespace Platform.DAAS.OData.BusinessManagement
             return configuration;
         }
 
+        public Core.DomainModel.Configuration[] GetConfigurations(string BusinessID)
+        {
+            List<Core.DomainModel.Configuration> configurations = new List<Core.DomainModel.Configuration>();
+
+            using (DataModelContainer container = new DataModelContainer())
+            {
+                var confs = container.Configurations.Where((o) => (o.BusinessId.ToLower() == BusinessID.ToLower()));
+
+                foreach (var conf in confs)
+                {
+                    configurations.Add(new Core.DomainModel.Configuration()
+                    {
+                        ID = conf.Id,
+                        ConfigurationType = ((ConfigurationType)(conf.TypeId)),
+                        DbConnectionString = conf.DbConnectionString
+                    });
+                } 
+            }
+
+            return configurations.ToArray();
+        }
+
         Core.DomainModel.Business[] IBusinessManager.ListBusiness()
         {
             List<Core.DomainModel.Business> businesses = new List<Core.DomainModel.Business>();
@@ -348,7 +370,59 @@ namespace Platform.DAAS.OData.BusinessManagement
             return businesses.ToArray();
         }
 
-        public Core.DomainModel.Business[] SearchBusiness(Func<IList<SearchingArgument>, object> QueryExpressionFunction, IList<SearchingArgument> SearchingArguments, PagingArgument PagingArgument)
+        Core.DomainModel.Business[] IBusinessManager.ListBusiness(bool IsIncludingConfigurations)
+        {
+            List<Core.DomainModel.Business> businesses = new List<Core.DomainModel.Business>();
+            List<Core.DomainModel.Configuration> configurations = null;
+
+            using (DataModelContainer container = new DataModelContainer())
+            {
+                Core.DomainModel.Business business = null;
+
+                foreach (var biz in container.Businesses)
+                {
+                    business = new Core.DomainModel.Business()
+                    {
+                        ID = biz.Id,
+                        Name = biz.Name,
+                        //ReferenceID = cust.ReferenceId
+                    };
+
+                    if (!String.IsNullOrEmpty(biz.ReferenceId))
+                    {
+                        business.ReferenceID = biz.ReferenceId.Split(new string[] { "," }, StringSplitOptions.None);
+                    }
+
+                    if (IsIncludingConfigurations)
+                    {
+                        var confs = container.Configurations.Where((o) => (o.BusinessId.ToLower() == biz.Id.ToLower())).ToArray();
+
+                        if ((confs != null) && (confs.Length > 0))
+                        {
+                            configurations = new List<Core.DomainModel.Configuration>();
+
+                            foreach (var conf in confs)
+                            {
+                                configurations.Add(new Core.DomainModel.Configuration()
+                                {
+                                    ID = conf.Id,
+                                    ConfigurationType = ((ConfigurationType)(conf.TypeId)),
+                                    DbConnectionString = conf.DbConnectionString
+                                });
+                            }
+
+                            business.Configurations = configurations.ToArray();
+                        }
+                    }
+
+                    businesses.Add(business);
+                }
+            }
+
+            return businesses.ToArray();
+        }
+
+        public Core.DomainModel.Business[] SearchBusiness(Func<IList<SearchingArgument>, object> QueryExpressionFunction, IList<SearchingArgument> SearchingArguments, PagingArgument PagingArgument, bool IsIncludingConfigurations)
         {
             List<Core.DomainModel.Business> businesses = new List<Core.DomainModel.Business>();
             List<Core.DomainModel.Configuration> configurations = null;
@@ -392,7 +466,7 @@ namespace Platform.DAAS.OData.BusinessManagement
 
                 if (PagingArgument != null)
                 {
-                    PagingArgument.Reset(bizQueryResult.Count(b=>true));
+                    PagingArgument.Reset(bizQueryResult.Count(b => true));
 
                     bizQueryResult = bizQueryResult.Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
                 }
@@ -400,55 +474,6 @@ namespace Platform.DAAS.OData.BusinessManagement
                 var bizArray = bizQueryResult.ToArray();
 
                 foreach (var biz in bizArray)//foreach (var biz in container.Businesses)
-                {
-                    business = new Core.DomainModel.Business()
-                    {
-                        ID = biz.Id,
-                        Name = biz.Name,
-                        //ReferenceID = cust.ReferenceId
-                    };
-
-                    if (!String.IsNullOrEmpty(biz.ReferenceId))
-                    {
-                        business.ReferenceID = biz.ReferenceId.Split(new string[] { "," }, StringSplitOptions.None);
-                    }
-
-                    var confs = container.Configurations.Where((o) => (o.BusinessId.ToLower() == biz.Id.ToLower())).ToArray();
-
-                    if ((confs != null) && (confs.Length > 0))
-                    {
-                        configurations = new List<Core.DomainModel.Configuration>();
-
-                        foreach (var conf in confs)
-                        {
-                            configurations.Add(new Core.DomainModel.Configuration()
-                            {
-                                ID = conf.Id,
-                                ConfigurationType = ((ConfigurationType)(conf.TypeId)),
-                                DbConnectionString = conf.DbConnectionString
-                            });
-                        }
-
-                        business.Configurations = configurations.ToArray();
-                    }
-
-                    businesses.Add(business);
-                }
-            }
-
-            return businesses.ToArray();
-        }
-
-        Core.DomainModel.Business[] IBusinessManager.ListBusiness(bool IsIncludingConfigurations)
-        {
-            List<Core.DomainModel.Business> businesses = new List<Core.DomainModel.Business>();
-            List<Core.DomainModel.Configuration> configurations = null;
-
-            using (DataModelContainer container = new DataModelContainer())
-            {
-                Core.DomainModel.Business business = null;
-
-                foreach (var biz in container.Businesses)
                 {
                     business = new Core.DomainModel.Business()
                     {

@@ -61,6 +61,34 @@ namespace DISOpenDataCloud.Controllers
             return null;
         }
 
+        [Route("Query")]
+        [HttpPost]
+        public BusinessListModel QueryBusiness(BusinessListModel businessQuery)
+        {
+            var bizManager = Provider.BusinessManager();
+
+            var bizList = bizManager.SearchBusiness(bizManager.CreateBusinessQueryExpression, businessQuery.SearchingArguments, businessQuery.PagingArgument, false);
+
+            if (bizList != null && bizList.Length > 0)
+            {
+                List<BusinessModel> bizModels = new List<BusinessModel>();
+
+                foreach (var biz in bizList)
+                {
+                    bizModels.Add(new BusinessModel()
+                    {
+                         ID = biz.ID,
+                         Name = biz.Name,
+                         Type =  biz.BusinessType.ToString()
+                    });
+
+                    businessQuery.BusinessList = bizModels.ToArray();
+                }
+            }
+
+            return businessQuery;
+        }
+
         [Route("")]
         [HttpPost]
         public string CreateBusiness(BusinessModel business)
