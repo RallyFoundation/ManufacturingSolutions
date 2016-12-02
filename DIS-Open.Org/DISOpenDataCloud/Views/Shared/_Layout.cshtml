@@ -156,11 +156,11 @@
                         }
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-BACKUP"))
                         {
-                            <li><a href="/Database/Backup/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Backup Database</a></li>
+                            <li><a href="/Database/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Backup Database</a></li>
                         }
                         @if (securityManager.IsSupperUser(User.Identity) || securityManager.IsAuthorized(User.Identity.GetUserName(), "OP-DB-RESTORE"))
                         {
-                            <li><a href="/Database/Restore/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Restore Database</a></li>
+                            <li><a href="/Database/"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Restore Database</a></li>
                         }
                     </ul>
                 </li>

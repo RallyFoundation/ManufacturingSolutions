@@ -61,6 +61,39 @@ namespace DISOpenDataCloud.Controllers
             return null;
         }
 
+        [Route("{id}/Configurations")]
+        [HttpGet]
+        public ConfigurationModel[] GetBusinessConfigurations(string id)
+        {
+            List<ConfigurationModel> configurations = null;
+
+            var confs = Provider.BusinessManager().GetConfigurations(id);
+
+            if (confs != null && confs.Length > 0)
+            {
+                configurations = new List<ConfigurationModel>();
+
+                string host = "", username = "", password = "", dbname = "";
+
+                foreach (var conf in confs)
+                {
+                    DBUtility.ParseConnectionString(conf.DbConnectionString, out host, out dbname, out username, out password);
+
+                    configurations.Add(new ConfigurationModel()
+                    {
+                        ID = conf.ID,
+                        Type = conf.ConfigurationType.ToString(),
+                        DatabaseName = dbname,
+                        Password = password,
+                        ServerAddress = host,
+                        UserName = username
+                    });
+                }
+            }
+
+            return configurations != null ? configurations.ToArray() : null;
+        }
+
         [Route("Query")]
         [HttpPost]
         public BusinessListModel QueryBusiness(BusinessListModel businessQuery)
