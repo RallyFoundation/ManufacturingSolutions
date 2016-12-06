@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using EntityFramework.Extensions;
 using Platform.DAAS.OData.Core;
 using Platform.DAAS.OData.Core.BusinessManagement;
 using Platform.DAAS.OData.Core.DomainModel;
@@ -466,9 +467,15 @@ namespace Platform.DAAS.OData.BusinessManagement
 
                 if (PagingArgument != null)
                 {
-                    PagingArgument.Reset(bizQueryResult.Count(b => true));
+                    //PagingArgument.Reset(bizQueryResult.Count(b => true));
 
-                    bizQueryResult = bizQueryResult.Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
+                    //bizQueryResult = bizQueryResult.Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize);
+
+                    var futureCount = bizQueryResult.FutureCount();
+                    var futureResult = bizQueryResult.Skip(PagingArgument.CurrentPageIndex * PagingArgument.EachPageSize).Take(PagingArgument.EachPageSize).Future();
+
+                    PagingArgument.Reset(futureCount.Value);
+                    bizQueryResult = futureResult.AsQueryable();
                 }
 
                 var bizArray = bizQueryResult.ToArray();
