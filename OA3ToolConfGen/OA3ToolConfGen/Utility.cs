@@ -17,46 +17,6 @@ namespace OA3ToolConfGen
     class Utility
     {
         /// <summary>
-        /// aes encryption.
-        /// </summary>
-        /// <param name="encryptString">Encryption string.</param>
-        /// <param name="salt">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
-        /// <param name="password">To generate HMACSHA1 password.</param>
-        /// <returns>Encrypted byte array.</returns>
-        public static byte[] EncryptString(string encryptString, string salt, string password = "")
-        {
-            byte[] data = Encoding.UTF8.GetBytes(encryptString);
-            byte[] saltBytes = UTF8Encoding.UTF8.GetBytes(salt);
-
-            //Provide a AES algorithm implementation 
-            AesManaged aes = new AesManaged();
-
-            //Generate a random number based on System.Security.Cryptography.HMACSHA1,Implement password-based key derivation function(PBKDF2)
-            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltBytes);
-
-            aes.BlockSize = aes.LegalBlockSizes[0].MaxSize;
-            aes.KeySize = aes.LegalKeySizes[0].MaxSize;
-            aes.Key = rfc.GetBytes(aes.KeySize / 8);
-            aes.IV = rfc.GetBytes(aes.BlockSize / 8);
-
-            //Initialization vector (IV) for the symmetric algorithm.
-            ICryptoTransform encryptTransform = aes.CreateEncryptor();
-
-            //Encrypted output stream.
-            MemoryStream encryptStream = new MemoryStream();
-
-            //Connect the target stream(decryptStream) with decryptTransform.
-            CryptoStream encryptor = new CryptoStream
-                (encryptStream, encryptTransform, CryptoStreamMode.Write);
-
-            //write byte to CryptoStream (decryption process).
-            encryptor.Write(data, 0, data.Length);
-            encryptor.Close();
-
-            return encryptStream.ToArray();
-        }
-
-        /// <summary>
         /// aes decryption.
         /// </summary>
         /// <param name="decryptString">decryption string.</param>
@@ -94,25 +54,6 @@ namespace OA3ToolConfGen
             //Convert the decrypted stream to a byte array.
             return decryptStream.ToArray();
 
-        }
-
-
-        /// <summary>
-        /// aes encryption.
-        /// </summary>
-        /// <param name="encryptString">Encryption string.</param>
-        /// <param name="key">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
-        /// <returns>Encrypted byte array.</returns>
-        public static string Encrypt(string encryptString, string key)
-        {
-            try
-            {
-                return Convert.ToBase64String(EncryptString(encryptString, key));
-            }
-            catch
-            {
-                return encryptString;
-            }
         }
 
         /// <summary>

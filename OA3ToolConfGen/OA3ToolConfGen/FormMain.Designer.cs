@@ -465,7 +465,7 @@
             this.tabPageCloud.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageCloud.Size = new System.Drawing.Size(616, 344);
             this.tabPageCloud.TabIndex = 4;
-            this.tabPageCloud.Text = "DIS Configuration Cloud";
+            this.tabPageCloud.Text = "Configurations from Server";
             this.tabPageCloud.UseVisualStyleBackColor = true;
             // 
             // webBrowserCloud
@@ -497,7 +497,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator";
+            this.Text = "OA3Tool Configuration Generator - CSI DIS 3.0  & MDOS Special Edition";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
