@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
+using System.Data.SqlClient;
 using DISConfigurationCloud.Client;
 using DISConfigurationCloud.Contract;
 
@@ -39,29 +41,81 @@ namespace OA3ToolConfGen
         public static string OA3ToolConfigurationValue_ProtocolSequence = "ncacn_ip_tcp";
         public static string OA3ToolConfigurationValue_Options = "";
 
+        public static string Configuration_Database_Name = "DISConfigurationDB";
+        public static string SQL_GetConfigurationsAll = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
+        public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
+
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {
             Customer[] returnValue = null;
 
-            string url = ServicePoint;
-            string authHeader = String.Format("{0}:{1}", UserName, Password);
+            //string url = ServicePoint;
+            //string authHeader = String.Format("{0}:{1}", UserName, Password);
 
-            if (url.EndsWith("/"))
+            //if (url.EndsWith("/"))
+            //{
+            //    url = url.Substring(0, (url.Length - 1));
+            //}
+
+            //url += "/Services/DISConfigurationCloud.svc";
+
+            //DISConfigurationCloud.Client.ModuleConfiguration.ServicePoint = url;
+            //DISConfigurationCloud.Client.ModuleConfiguration.AuthorizationHeaderValue = authHeader;
+            //DISConfigurationCloud.Client.ModuleConfiguration.CachingPolicy = CachingPolicy.RemoteOnly;
+
+            //Manager manager = new Manager(false, null);
+
+            //returnValue = manager.GetCustomers();
+
+            //returnValue = (returnValue != null) ? (returnValue.Where((o) => (o.Configurations.FirstOrDefault((c) => (c.ConfigurationType == ConfigurationType.FactoryFloor)) != null)).ToArray()) : null;
+
+            string dbConnectionString = Utility.BuildConnectionString(ServicePoint, Configuration_Database_Name, UserName, Password);
+
+            string selectCmdText = SQL_GetConfigurationsAll;
+
+            List<Customer> customers = new List<Customer>();
+
+            using (SqlConnection connection = new SqlConnection(dbConnectionString))
             {
-                url = url.Substring(0, (url.Length - 1));
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = selectCmdText;
+                command.CommandType = CommandType.Text;
+
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    string bizID, bizName, server, database, userName, password;
+
+                    while (reader.Read())
+                    {
+                        bizID = (string)reader["BusinessID"];
+                        bizName = (string)reader["BusinessName"];
+                        server = (string)reader["HostName"];
+                        database = (string)reader["DatabaseName"];
+                        userName = (string)reader["UserName"];
+                        password = (string)reader["Password"];
+                        password = Utility.Decrypt(password, bizID);
+
+                        customers.Add(new Customer()
+                        {
+                            ID = bizID,
+                            Name = bizName,
+                            Configurations = new Configuration[] { new Configuration()
+                            {
+                                ConfigurationType = ConfigurationType.FactoryFloor,
+                                ID = bizID,
+                                DbConnectionString = Utility.BuildConnectionString(server, database, userName, password)
+                            }}
+                         });
+                     }
+                }
             }
 
-            url += "/Services/DISConfigurationCloud.svc";
-
-            DISConfigurationCloud.Client.ModuleConfiguration.ServicePoint = url;
-            DISConfigurationCloud.Client.ModuleConfiguration.AuthorizationHeaderValue = authHeader;
-            DISConfigurationCloud.Client.ModuleConfiguration.CachingPolicy = CachingPolicy.RemoteOnly;
-
-            Manager manager = new Manager(false, null);
-
-            returnValue = manager.GetCustomers();
-
-            returnValue = (returnValue != null) ? (returnValue.Where((o) => (o.Configurations.FirstOrDefault((c) => (c.ConfigurationType == ConfigurationType.FactoryFloor)) != null)).ToArray()) : null;
+            returnValue = customers.ToArray();
 
             return returnValue;
         }
@@ -95,23 +149,64 @@ namespace OA3ToolConfGen
         {
             string returnValue = "";
 
-            string url = ServicePoint;
-            string authHeader = String.Format("{0}:{1}", UserName, Password);
+            //string url = ServicePoint;
+            //string authHeader = String.Format("{0}:{1}", UserName, Password);
 
-            if (url.EndsWith("/"))
+            //if (url.EndsWith("/"))
+            //{
+            //    url = url.Substring(0, (url.Length - 1));
+            //}
+
+            //url += "/Services/DISConfigurationCloud.svc";
+
+            //DISConfigurationCloud.Client.ModuleConfiguration.ServicePoint = url;
+            //DISConfigurationCloud.Client.ModuleConfiguration.AuthorizationHeaderValue = authHeader;
+            //DISConfigurationCloud.Client.ModuleConfiguration.CachingPolicy = CachingPolicy.RemoteOnly;
+
+            //Manager manager = new Manager(false, null);
+
+            //returnValue = manager.GetDBConnectionString(ConfigurationID);
+
+            string dbConnectionString = Utility.BuildConnectionString(ServicePoint, Configuration_Database_Name, UserName, Password);
+
+            string selectCmdText = SQL_GetConfigurationByID;
+
+            using (SqlConnection connection = new SqlConnection(dbConnectionString))
             {
-                url = url.Substring(0, (url.Length - 1));
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = selectCmdText;
+                command.CommandType = CommandType.Text;
+                command.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@BusinessID",
+                    Value = ConfigurationID,
+                    Direction = ParameterDirection.Input,
+                    DbType = DbType.String
+                });
+
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    string bizID, bizName, server, database, userName, password;
+
+                    while (reader.Read())
+                    {
+                        bizID = (string)reader["BusinessID"];
+                        bizName = (string)reader["BusinessName"];
+                        server = (string)reader["HostName"];
+                        database = (string)reader["DatabaseName"];
+                        userName = (string)reader["UserName"];
+                        password = (string)reader["Password"];
+                        password = Utility.Decrypt(password, bizID);
+
+                        returnValue = Utility.BuildConnectionString(server, database, userName, password);
+                    }
+                }
             }
-
-            url += "/Services/DISConfigurationCloud.svc";
-
-            DISConfigurationCloud.Client.ModuleConfiguration.ServicePoint = url;
-            DISConfigurationCloud.Client.ModuleConfiguration.AuthorizationHeaderValue = authHeader;
-            DISConfigurationCloud.Client.ModuleConfiguration.CachingPolicy = CachingPolicy.RemoteOnly;
-
-            Manager manager = new Manager(false, null);
-
-            returnValue = manager.GetDBConnectionString(ConfigurationID);
 
             return returnValue;
 

@@ -10,11 +10,235 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
 using System.Xml.Schema;
+using System.Security.Cryptography;
 
 namespace OA3ToolConfGen
 {
     class Utility
     {
+        /// <summary>
+        /// aes encryption.
+        /// </summary>
+        /// <param name="encryptString">Encryption string.</param>
+        /// <param name="salt">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
+        /// <param name="password">To generate HMACSHA1 password.</param>
+        /// <returns>Encrypted byte array.</returns>
+        public static byte[] EncryptString(string encryptString, string salt, string password = "")
+        {
+            byte[] data = Encoding.UTF8.GetBytes(encryptString);
+            byte[] saltBytes = UTF8Encoding.UTF8.GetBytes(salt);
+
+            //Provide a AES algorithm implementation 
+            AesManaged aes = new AesManaged();
+
+            //Generate a random number based on System.Security.Cryptography.HMACSHA1,Implement password-based key derivation function(PBKDF2)
+            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltBytes);
+
+            aes.BlockSize = aes.LegalBlockSizes[0].MaxSize;
+            aes.KeySize = aes.LegalKeySizes[0].MaxSize;
+            aes.Key = rfc.GetBytes(aes.KeySize / 8);
+            aes.IV = rfc.GetBytes(aes.BlockSize / 8);
+
+            //Initialization vector (IV) for the symmetric algorithm.
+            ICryptoTransform encryptTransform = aes.CreateEncryptor();
+
+            //Encrypted output stream.
+            MemoryStream encryptStream = new MemoryStream();
+
+            //Connect the target stream(decryptStream) with decryptTransform.
+            CryptoStream encryptor = new CryptoStream
+                (encryptStream, encryptTransform, CryptoStreamMode.Write);
+
+            //write byte to CryptoStream (decryption process).
+            encryptor.Write(data, 0, data.Length);
+            encryptor.Close();
+
+            return encryptStream.ToArray();
+        }
+
+        /// <summary>
+        /// aes decryption.
+        /// </summary>
+        /// <param name="decryptString">decryption string.</param>
+        /// <param name="salt">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
+        /// <param name="password">To generate HMACSHA1 password.</param>
+        /// <returns>Decrypted byte array.</returns>
+        public static byte[] DecryptString(string decryptString, string salt, string password = "")
+        {
+            byte[] encryptBytes = Convert.FromBase64String(decryptString);
+            byte[] saltBytes = Encoding.UTF8.GetBytes(salt);
+            //Provide a AES algorithm implementation 
+            AesManaged aes = new AesManaged();
+            //Generate a random number based on System.Security.Cryptography.HMACSHA1,Implement password-based key derivation function(PBKDF2)
+            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltBytes);
+            //The block size of the encryption operation (in bits).
+            aes.BlockSize = aes.LegalBlockSizes[0].MaxSize;
+            //The key size for symmetric algorithms (in bits).
+            aes.KeySize = aes.LegalKeySizes[0].MaxSize;
+            //Keys for symmetric algorithms.
+            aes.Key = rfc.GetBytes(aes.KeySize / 8);
+            //Initialization vector (IV) for the symmetric algorithm.
+            aes.IV = rfc.GetBytes(aes.BlockSize / 8);
+
+            //Creates a symmetric decryptor object with the current Key property and initialization vector.
+            ICryptoTransform decryptTransform = aes.CreateDecryptor();
+            //Decrypted output stream.
+            MemoryStream decryptStream = new MemoryStream();
+            //Connect the target stream(decryptStream) with decryptTransform.
+            CryptoStream decryptor = new CryptoStream(
+                decryptStream, decryptTransform, CryptoStreamMode.Write);
+            //write byte to CryptoStream (decryption process).
+            decryptor.Write(encryptBytes, 0, encryptBytes.Length);
+            decryptor.Close();
+
+            //Convert the decrypted stream to a byte array.
+            return decryptStream.ToArray();
+
+        }
+
+
+        /// <summary>
+        /// aes encryption.
+        /// </summary>
+        /// <param name="encryptString">Encryption string.</param>
+        /// <param name="key">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
+        /// <returns>Encrypted byte array.</returns>
+        public static string Encrypt(string encryptString, string key)
+        {
+            try
+            {
+                return Convert.ToBase64String(EncryptString(encryptString, key));
+            }
+            catch
+            {
+                return encryptString;
+            }
+        }
+
+        /// <summary>
+        /// aes decryption.
+        /// </summary>
+        /// <param name="decryptString">decryption string.</param>
+        /// <param name="key">The specified salt size is not smaller than 8 bytes or the iteration count can't less than 1.</param>
+        /// <returns>Decrypted byte array.</returns>
+        public static string Decrypt(string encryptString, string key)
+        {
+            try
+            {
+                return Encoding.UTF8.GetString(DecryptString(encryptString, key));
+            }
+            catch
+            {
+                return encryptString;
+            }
+        }
+
+        public static void ParseConnectionString(string ConnectionString, out string ServerName, out string DatabaseName, out string UserName, out string Password)
+        {
+            string[] fields = ConnectionString.Split(new string[] { ";" }, StringSplitOptions.None);
+
+            ServerName = null;
+            DatabaseName = null;
+            UserName = null;
+            Password = null;
+
+            if ((fields != null) && (fields.Length == 4))
+            {
+                string[] pair = null;
+
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    pair = fields[i].Split(new string[] { "=" }, StringSplitOptions.None);
+
+                    switch (i)
+                    {
+                        case 0:
+                            {
+                                ServerName = pair[1];
+                                break;
+                            }
+                        case 1:
+                            {
+                                DatabaseName = pair[1];
+                                break;
+                            }
+                        case 2:
+                            {
+                                UserName = pair[1];
+                                break;
+                            }
+                        case 3:
+                            {
+                                Password = pair[1];
+                                break;
+                            }
+                    }
+                }
+            }
+        }
+
+        public static string BuildConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
+        {
+            return String.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", ServerName, DatabaseName, UserName, Password);
+        }
+
+        public static void ParseConnectionString(string ConnectionString, out string ServerName, out string PortNumber, out string DatabaseName, out string UserName, out string Password)
+        {
+            string[] fields = ConnectionString.Split(new string[] { ";" }, StringSplitOptions.None);
+
+            ServerName = null;
+            PortNumber = null;
+            DatabaseName = null;
+            UserName = null;
+            Password = null;
+
+            if ((fields != null) && (fields.Length > 0))
+            {
+                string[] pair = null;
+
+                for (int i = 0; i < fields.Length; i++)
+                {
+                    pair = fields[i].Split(new string[] { "=" }, StringSplitOptions.None);
+
+                    if ((pair != null) && (pair.Length >= 2))
+                    {
+                        switch (pair[0].ToLower())
+                        {
+                            case "data source":
+                                {
+                                    ServerName = pair[1];
+                                    break;
+                                }
+                            case "initial catalog":
+                                {
+                                    DatabaseName = pair[1];
+                                    break;
+                                }
+                            case "user id":
+                                {
+                                    UserName = pair[1];
+                                    break;
+                                }
+                            case "password":
+                                {
+                                    Password = pair[1];
+                                    break;
+                                }
+                            case "port":
+                                {
+                                    PortNumber = pair[1];
+                                    break;
+                                }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static string BuildConnectionString(string ServerName, string PortNumber, string DatabaseName, string UserName, string Password)
+        {
+            return String.Format("Data Source={0};Port={1};Initial Catalog={2};User ID={3};Password={4}", ServerName, PortNumber, DatabaseName, UserName, Password);
+        }
         public static byte[] BinarySerialize(object objectToSerialize)
         {
             byte[] returnValue = null;

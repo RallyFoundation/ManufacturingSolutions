@@ -69,7 +69,7 @@
             this.labelDISConfiguraitonCloudUrl.Name = "labelDISConfiguraitonCloudUrl";
             this.labelDISConfiguraitonCloudUrl.Size = new System.Drawing.Size(139, 23);
             this.labelDISConfiguraitonCloudUrl.TabIndex = 2;
-            this.labelDISConfiguraitonCloudUrl.Text = "DIS Configuration Cloud Url:";
+            this.labelDISConfiguraitonCloudUrl.Text = "Configuration Server:";
             this.labelDISConfiguraitonCloudUrl.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBoxDISConfiguraitonCloudUrl
@@ -177,7 +177,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormCloudConfigDialog";
-            this.Text = "DIS Configuration Cloud Settings";
+            this.Text = "Configuration Server Settings";
             this.ResumeLayout(false);
             this.PerformLayout();
 

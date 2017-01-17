@@ -96,19 +96,19 @@ namespace OA3ToolConfGen
         {
             if (String.IsNullOrEmpty(this.textBoxDISConfiguraitonCloudUrl.Text))
             {
-                MessageBox.Show("Url for DIS Configuration Cloud is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Host address for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (String.IsNullOrEmpty(this.textBoxUserName.Text))
             {
-                MessageBox.Show("User Name for DIS Configuration Cloud is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("User Name for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (String.IsNullOrEmpty(this.textBoxPassword.Text))
             {
-                MessageBox.Show("Password for DIS Configuration Cloud is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
