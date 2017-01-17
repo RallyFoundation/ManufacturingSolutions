@@ -497,7 +497,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator - CSI DIS 3.0  & MDOS Special Edition";
+            this.Text = "OA3Tool Configuration Generator - CSI DIS 3.0 Special Edition";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
