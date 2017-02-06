@@ -372,6 +372,7 @@
             // 
             // ucParameterSN
             // 
+            this.ucParameterSN.ConfigurationID = null;
             this.ucParameterSN.DBConnectionString = null;
             this.ucParameterSN.Location = new System.Drawing.Point(111, 176);
             this.ucParameterSN.Name = "ucParameterSN";
@@ -381,6 +382,7 @@
             // 
             // ucParameterOPON
             // 
+            this.ucParameterOPON.ConfigurationID = null;
             this.ucParameterOPON.DBConnectionString = null;
             this.ucParameterOPON.Location = new System.Drawing.Point(111, 142);
             this.ucParameterOPON.Name = "ucParameterOPON";
@@ -390,6 +392,7 @@
             // 
             // ucParameterOPN
             // 
+            this.ucParameterOPN.ConfigurationID = null;
             this.ucParameterOPN.DBConnectionString = null;
             this.ucParameterOPN.Location = new System.Drawing.Point(111, 107);
             this.ucParameterOPN.Name = "ucParameterOPN";
@@ -399,6 +402,7 @@
             // 
             // ucParameterLPN
             // 
+            this.ucParameterLPN.ConfigurationID = null;
             this.ucParameterLPN.DBConnectionString = null;
             this.ucParameterLPN.Location = new System.Drawing.Point(111, 73);
             this.ucParameterLPN.Name = "ucParameterLPN";
@@ -497,7 +501,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client Special Edition";
+            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client (v1.1) Special Edition";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);

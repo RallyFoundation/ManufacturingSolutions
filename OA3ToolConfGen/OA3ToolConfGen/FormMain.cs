@@ -352,6 +352,8 @@ namespace OA3ToolConfGen
 
         private void buttonMore_Click(object sender, EventArgs e)
         {
+            this.setOA3ToolConfiguration();
+
             FormCloudConfigDialog formCloudConfig = new FormCloudConfigDialog(this.Settings);
 
             if (formCloudConfig.ShowDialog(this) == DialogResult.OK)
