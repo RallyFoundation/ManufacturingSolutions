@@ -17,6 +17,8 @@ namespace OA3ToolConfGen
         public FormCloudConfigDialog()
         {
             InitializeComponent();
+
+            this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
         }
 
         private Dictionary<string, object> Settings;
@@ -41,6 +43,13 @@ namespace OA3ToolConfGen
             {
                 this.comboBoxBusiness.SelectedItem = ModuleConfiguration.GetConfigurationSetByConfigurationID(this.currentCustomers, this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID].ToString());
             }
+
+            if (this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName] != null)
+            {
+                ModuleConfiguration.Configuration_Database_Name = this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName].ToString();
+            }
+
+            this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -80,6 +89,7 @@ namespace OA3ToolConfGen
             this.Settings[ModuleConfiguration.AppStateKey_CloudUserName] = this.textBoxUserName.Text;
             this.Settings[ModuleConfiguration.AppStateKey_CloudPassword] = this.textBoxPassword.Text;
             this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationSets] = this.currentCustomers;
+            this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName] = this.textBoxDatabaseName.Text;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
 
@@ -96,24 +106,32 @@ namespace OA3ToolConfGen
         {
             if (String.IsNullOrEmpty(this.textBoxDISConfiguraitonCloudUrl.Text))
             {
-                MessageBox.Show("Host address for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Host address for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (String.IsNullOrEmpty(this.textBoxDatabaseName.Text))
+            {
+                MessageBox.Show("Database name for MDOS Client is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (String.IsNullOrEmpty(this.textBoxUserName.Text))
             {
-                MessageBox.Show("User Name for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("User Name for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (String.IsNullOrEmpty(this.textBoxPassword.Text))
             {
-                MessageBox.Show("Password for DIS Configuration Server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
+                ModuleConfiguration.Configuration_Database_Name = this.textBoxDatabaseName.Text;
+
                 this.currentCustomers = ModuleConfiguration.GetFactoryFloorConfigurationSets(this.textBoxDISConfiguraitonCloudUrl.Text, this.textBoxUserName.Text, this.textBoxPassword.Text);
 
                 this.comboBoxBusiness.DataSource = this.currentCustomers;

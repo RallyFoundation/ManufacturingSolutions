@@ -33,10 +33,11 @@ namespace OA3ToolConfGen
             {ModuleConfiguration.AppStateKey_DBConnectionString, ""},
             {ModuleConfiguration.AppStateKey_CloudConfigurationID, ""},
             {ModuleConfiguration.AppStateKey_CloudServicePoint, ""},
-            {ModuleConfiguration.AppStateKey_CloudUserName, "DIS"},
+            {ModuleConfiguration.AppStateKey_CloudUserName, "MDOS"},
             {ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
             {ModuleConfiguration.AppStateKey_OA3ToolConfiguration, null},
-            {ModuleConfiguration.AppStateKey_CloudConfigurationSets, null}
+            {ModuleConfiguration.AppStateKey_CloudConfigurationSets, null},
+            {ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"}
         };
 
         private void saveAppState()
@@ -262,7 +263,14 @@ namespace OA3ToolConfGen
                     //    this.textBoxCloudConfigurationID.Text = (this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] != null) ? this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID].ToString() : "";
                     //}
 
-                    this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] = this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID;
+                    string configurationID = this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID;
+
+                    this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] = configurationID;
+
+                    this.ucParameterLPN.ConfigurationID = configurationID;
+                    this.ucParameterOPN.ConfigurationID = configurationID;
+                    this.ucParameterOPON.ConfigurationID = configurationID;
+                    this.ucParameterSN.ConfigurationID = configurationID;
 
                     if (this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo != null)
                     {

@@ -319,7 +319,7 @@
             this.labelCloudConfigurationID.Name = "labelCloudConfigurationID";
             this.labelCloudConfigurationID.Size = new System.Drawing.Size(167, 23);
             this.labelCloudConfigurationID.TabIndex = 4;
-            this.labelCloudConfigurationID.Text = "Configuration ID:";
+            this.labelCloudConfigurationID.Text = "Business ID:";
             this.labelCloudConfigurationID.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBoxKeyProviderServicePortNumber
@@ -497,7 +497,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator - CSI DIS 3.0  & MDOS Special Edition";
+            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client Special Edition";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);

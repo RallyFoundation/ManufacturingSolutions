@@ -24,12 +24,14 @@ namespace OA3ToolConfGen
 
         public string DBConnectionString { get; set; }
 
+        public string ConfigurationID { get; set; }
+
         public bool IsSelected { get { return this.checkBoxSelection.Checked; } }
 
         public string ParameterName { get { return this.ParameterType.ToString(); } }
         public string ParameterValue { get { return this.comboBoxParameterValue.Text; } }
 
-        const string SQLCommandText = "SELECT DISTINCT {0} FROM ProductKeyInfo";
+        const string SQLCommandText = "SELECT DISTINCT {0} FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = '{1}')";
 
         protected override void OnLoad(EventArgs e)
         {
@@ -102,7 +104,7 @@ namespace OA3ToolConfGen
 
             try
             {
-                string commandText = String.Format(SQLCommandText, columName);
+                string commandText = String.Format(SQLCommandText, columName, ConfigurationID);
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

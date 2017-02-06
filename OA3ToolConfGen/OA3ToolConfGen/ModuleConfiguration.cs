@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Xml;
 using DISConfigurationCloud.Client;
 using DISConfigurationCloud.Contract;
 
@@ -18,6 +19,7 @@ namespace OA3ToolConfGen
         public const string AppStateKey_CloudPassword = "CloudPassword";
         public const string AppStateKey_OA3ToolConfiguration = "OA3ToolConfiguration";
         public const string AppStateKey_CloudConfigurationSets = "CloudConfigurationSets";
+        public const string AppStateKey_CloudClientDBName = "CloudClientDBName";
 
         public static string OHRKey_ZPC_MODEL_SKU = "ZPC_MODEL_SKU";
         public static string OHRKey_ZFRM_FACTOR_CL1 = "ZFRM_FACTOR_CL1";
@@ -41,9 +43,9 @@ namespace OA3ToolConfGen
         public static string OA3ToolConfigurationValue_ProtocolSequence = "ncacn_ip_tcp";
         public static string OA3ToolConfigurationValue_Options = "";
 
-        public static string Configuration_Database_Name = "DISConfigurationDB";
-        public static string SQL_GetConfigurationsAll = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
-        public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
+        public static string Configuration_Database_Name = "MDOSKeyStore_CloudOA";
+        public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
+        //public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
 
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {
@@ -75,6 +77,8 @@ namespace OA3ToolConfGen
 
             List<Customer> customers = new List<Customer>();
 
+            string configXmlValue = "", bizID, bizName, server = ServicePoint, database = Configuration_Database_Name, userName = UserName, password = Password;
+
             using (SqlConnection connection = new SqlConnection(dbConnectionString))
             {
                 SqlCommand command = connection.CreateCommand();
@@ -88,30 +92,58 @@ namespace OA3ToolConfGen
 
                 using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                 {
-                    string bizID, bizName, server, database, userName, password;
+                    //string bizID, bizName, server, database, userName, password;
 
                     while (reader.Read())
                     {
-                        bizID = (string)reader["BusinessID"];
-                        bizName = (string)reader["BusinessName"];
-                        server = (string)reader["HostName"];
-                        database = (string)reader["DatabaseName"];
-                        userName = (string)reader["UserName"];
-                        password = (string)reader["Password"];
-                        password = Utility.Decrypt(password, bizID);
+                        //bizID = (string)reader["BusinessID"];
+                        //bizName = (string)reader["BusinessName"];
+                        //server = (string)reader["HostName"];
+                        //database = (string)reader["DatabaseName"];
+                        //userName = (string)reader["UserName"];
+                        //password = (string)reader["Password"];
+                        //password = Utility.Decrypt(password, bizID);
 
-                        customers.Add(new Customer()
-                        {
-                            ID = bizID,
-                            Name = bizName,
-                            Configurations = new Configuration[] { new Configuration()
-                            {
-                                ConfigurationType = ConfigurationType.FactoryFloor,
-                                ID = bizID,
-                                DbConnectionString = Utility.BuildConnectionString(server, database, userName, password)
-                            }}
-                         });
+                        //customers.Add(new Customer()
+                        //{
+                        //    ID = bizID,
+                        //    Name = bizName,
+                        //    Configurations = new Configuration[] { new Configuration()
+                        //    {
+                        //        ConfigurationType = ConfigurationType.FactoryFloor,
+                        //        ID = bizID,
+                        //        DbConnectionString = Utility.BuildConnectionString(server, database, userName, password)
+                        //    }}
+                        // });
+
+                        configXmlValue = (string)reader["BusinessSettings"];
                      }
+                }
+            }
+
+            if (!String.IsNullOrEmpty(configXmlValue))
+            {
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(configXmlValue);
+
+                XmlNodeList nodes = document.DocumentElement.SelectNodes("//CloudOABusinessSetting[./IsActive='true']");
+
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                   bizID = nodes[i].SelectSingleNode("BusinessId").InnerText;
+                   bizName = nodes[i].SelectSingleNode("BusinessName").InnerText;
+
+                    customers.Add(new Customer()
+                    {
+                        ID = bizID,
+                        Name = bizName,
+                        Configurations = new Configuration[] { new Configuration()
+                        {
+                            ConfigurationType = ConfigurationType.FactoryFloor,
+                            ID = bizID,
+                            DbConnectionString = Utility.BuildConnectionString(server, database, userName, password)
+                        }}
+                    });
                 }
             }
 
@@ -169,44 +201,46 @@ namespace OA3ToolConfGen
 
             string dbConnectionString = Utility.BuildConnectionString(ServicePoint, Configuration_Database_Name, UserName, Password);
 
-            string selectCmdText = SQL_GetConfigurationByID;
+            //string selectCmdText = SQL_GetConfigurationByID;
 
-            using (SqlConnection connection = new SqlConnection(dbConnectionString))
-            {
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = selectCmdText;
-                command.CommandType = CommandType.Text;
-                command.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@BusinessID",
-                    Value = ConfigurationID,
-                    Direction = ParameterDirection.Input,
-                    DbType = DbType.String
-                });
+            //using (SqlConnection connection = new SqlConnection(dbConnectionString))
+            //{
+            //    SqlCommand command = connection.CreateCommand();
+            //    command.CommandText = selectCmdText;
+            //    command.CommandType = CommandType.Text;
+            //    command.Parameters.Add(new SqlParameter()
+            //    {
+            //        ParameterName = "@BusinessID",
+            //        Value = ConfigurationID,
+            //        Direction = ParameterDirection.Input,
+            //        DbType = DbType.String
+            //    });
 
-                if (connection.State != ConnectionState.Open)
-                {
-                    connection.Open();
-                }
+            //    if (connection.State != ConnectionState.Open)
+            //    {
+            //        connection.Open();
+            //    }
 
-                using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
-                {
-                    string bizID, bizName, server, database, userName, password;
+            //    using (SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+            //    {
+            //        string bizID, bizName, server, database, userName, password;
 
-                    while (reader.Read())
-                    {
-                        bizID = (string)reader["BusinessID"];
-                        bizName = (string)reader["BusinessName"];
-                        server = (string)reader["HostName"];
-                        database = (string)reader["DatabaseName"];
-                        userName = (string)reader["UserName"];
-                        password = (string)reader["Password"];
-                        password = Utility.Decrypt(password, bizID);
+            //        while (reader.Read())
+            //        {
+            //            bizID = (string)reader["BusinessID"];
+            //            bizName = (string)reader["BusinessName"];
+            //            server = (string)reader["HostName"];
+            //            database = (string)reader["DatabaseName"];
+            //            userName = (string)reader["UserName"];
+            //            password = (string)reader["Password"];
+            //            password = Utility.Decrypt(password, bizID);
 
-                        returnValue = Utility.BuildConnectionString(server, database, userName, password);
-                    }
-                }
-            }
+            //            returnValue = Utility.BuildConnectionString(server, database, userName, password);
+            //        }
+            //    }
+            //}
+
+            returnValue = dbConnectionString;
 
             return returnValue;
 
