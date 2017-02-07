@@ -86,7 +86,7 @@
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(373, 17);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "OA3Tool Configuraion Generator";
+            this.labelProductName.Text = "OA3Tool Configuration Generator";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion
