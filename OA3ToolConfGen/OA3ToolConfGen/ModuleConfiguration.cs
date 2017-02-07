@@ -44,7 +44,7 @@ namespace OA3ToolConfGen
         public static string OA3ToolConfigurationValue_Options = "";
 
         public static string Configuration_Database_Name = "MDOSKeyStore_CloudOA";
-        public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
+        public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
         //public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
 
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
@@ -126,7 +126,7 @@ namespace OA3ToolConfGen
                 XmlDocument document = new XmlDocument();
                 document.LoadXml(configXmlValue);
 
-                XmlNodeList nodes = document.DocumentElement.SelectNodes("//CloudOABusinessSetting[./IsActive='true']");
+                XmlNodeList nodes = document.DocumentElement.SelectNodes("//CloudOABusinessSetting");
 
                 for (int i = 0; i < nodes.Count; i++)
                 {

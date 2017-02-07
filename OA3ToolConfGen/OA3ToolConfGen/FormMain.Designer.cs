@@ -253,7 +253,7 @@
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(467, 108);
+            this.buttonTest.Location = new System.Drawing.Point(467, 142);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(75, 23);
             this.buttonTest.TabIndex = 11;
@@ -297,7 +297,7 @@
             // 
             // buttonMore
             // 
-            this.buttonMore.Location = new System.Drawing.Point(467, 139);
+            this.buttonMore.Location = new System.Drawing.Point(467, 82);
             this.buttonMore.Name = "buttonMore";
             this.buttonMore.Size = new System.Drawing.Size(75, 23);
             this.buttonMore.TabIndex = 6;
@@ -307,7 +307,7 @@
             // 
             // textBoxCloudConfigurationID
             // 
-            this.textBoxCloudConfigurationID.Location = new System.Drawing.Point(268, 141);
+            this.textBoxCloudConfigurationID.Location = new System.Drawing.Point(268, 84);
             this.textBoxCloudConfigurationID.MaxLength = 50;
             this.textBoxCloudConfigurationID.Name = "textBoxCloudConfigurationID";
             this.textBoxCloudConfigurationID.Size = new System.Drawing.Size(193, 20);
@@ -315,16 +315,16 @@
             // 
             // labelCloudConfigurationID
             // 
-            this.labelCloudConfigurationID.Location = new System.Drawing.Point(95, 144);
+            this.labelCloudConfigurationID.Location = new System.Drawing.Point(95, 87);
             this.labelCloudConfigurationID.Name = "labelCloudConfigurationID";
             this.labelCloudConfigurationID.Size = new System.Drawing.Size(167, 23);
             this.labelCloudConfigurationID.TabIndex = 4;
-            this.labelCloudConfigurationID.Text = "Business ID:";
+            this.labelCloudConfigurationID.Text = "MDOS Business ID:";
             this.labelCloudConfigurationID.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBoxKeyProviderServicePortNumber
             // 
-            this.textBoxKeyProviderServicePortNumber.Location = new System.Drawing.Point(268, 110);
+            this.textBoxKeyProviderServicePortNumber.Location = new System.Drawing.Point(268, 144);
             this.textBoxKeyProviderServicePortNumber.MaxLength = 6;
             this.textBoxKeyProviderServicePortNumber.Name = "textBoxKeyProviderServicePortNumber";
             this.textBoxKeyProviderServicePortNumber.Size = new System.Drawing.Size(193, 20);
@@ -332,7 +332,7 @@
             // 
             // labelKPSPortNumber
             // 
-            this.labelKPSPortNumber.Location = new System.Drawing.Point(81, 113);
+            this.labelKPSPortNumber.Location = new System.Drawing.Point(81, 147);
             this.labelKPSPortNumber.Name = "labelKPSPortNumber";
             this.labelKPSPortNumber.Size = new System.Drawing.Size(181, 13);
             this.labelKPSPortNumber.TabIndex = 2;
@@ -341,7 +341,7 @@
             // 
             // textBoxKPSAddress
             // 
-            this.textBoxKPSAddress.Location = new System.Drawing.Point(268, 80);
+            this.textBoxKPSAddress.Location = new System.Drawing.Point(268, 114);
             this.textBoxKPSAddress.MaxLength = 150;
             this.textBoxKPSAddress.Name = "textBoxKPSAddress";
             this.textBoxKPSAddress.Size = new System.Drawing.Size(193, 20);
@@ -349,7 +349,7 @@
             // 
             // labelKPSAddress
             // 
-            this.labelKPSAddress.Location = new System.Drawing.Point(92, 83);
+            this.labelKPSAddress.Location = new System.Drawing.Point(92, 117);
             this.labelKPSAddress.Name = "labelKPSAddress";
             this.labelKPSAddress.Size = new System.Drawing.Size(170, 13);
             this.labelKPSAddress.TabIndex = 0;
