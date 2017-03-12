@@ -37,6 +37,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -67,13 +68,15 @@
             this.tabPageOHR = new System.Windows.Forms.TabPage();
             this.checkBoxOHRRequired = new System.Windows.Forms.CheckBox();
             this.ucohrOHRData = new OA3ToolConfGen.UCOHR();
+            this.tabPagePromoCode = new System.Windows.Forms.TabPage();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.tabPageCloud = new System.Windows.Forms.TabPage();
             this.webBrowserCloud = new System.Windows.Forms.WebBrowser();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
-            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucpgmeligPromoCode = new OA3ToolConfGen.UCPGMELIG();
+            this.checkBoxPromoCodeRequired = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -81,6 +84,7 @@
             this.tabPageBasic.SuspendLayout();
             this.tabPageParameters.SuspendLayout();
             this.tabPageOHR.SuspendLayout();
+            this.tabPagePromoCode.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             this.tabPageCloud.SuspendLayout();
             this.SuspendLayout();
@@ -148,6 +152,13 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.aboutToolStripMenuItem1.Text = "About...";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // toolStripMain
             // 
@@ -222,6 +233,7 @@
             this.tabControlMain.Controls.Add(this.tabPageBasic);
             this.tabControlMain.Controls.Add(this.tabPageParameters);
             this.tabControlMain.Controls.Add(this.tabPageOHR);
+            this.tabControlMain.Controls.Add(this.tabPagePromoCode);
             this.tabControlMain.Controls.Add(this.tabPagePreview);
             this.tabControlMain.Controls.Add(this.tabPageCloud);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -444,6 +456,18 @@
             this.ucohrOHRData.Size = new System.Drawing.Size(324, 201);
             this.ucohrOHRData.TabIndex = 0;
             // 
+            // tabPagePromoCode
+            // 
+            this.tabPagePromoCode.Controls.Add(this.checkBoxPromoCodeRequired);
+            this.tabPagePromoCode.Controls.Add(this.ucpgmeligPromoCode);
+            this.tabPagePromoCode.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePromoCode.Name = "tabPagePromoCode";
+            this.tabPagePromoCode.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePromoCode.Size = new System.Drawing.Size(616, 344);
+            this.tabPagePromoCode.TabIndex = 5;
+            this.tabPagePromoCode.Text = "Promo Code";
+            this.tabPagePromoCode.UseVisualStyleBackColor = true;
+            // 
             // tabPagePreview
             // 
             this.tabPagePreview.Controls.Add(this.webBrowserPreview);
@@ -492,12 +516,26 @@
             // 
             this.openFileDialogOpen.Filter = "CFG Files|*.CFG|XML Files|*.xml";
             // 
-            // aboutToolStripMenuItem1
+            // ucpgmeligPromoCode
             // 
-            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem1.Text = "About...";
-            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            this.ucpgmeligPromoCode.AutoSize = true;
+            this.ucpgmeligPromoCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ucpgmeligPromoCode.Enabled = false;
+            this.ucpgmeligPromoCode.Location = new System.Drawing.Point(108, 59);
+            this.ucpgmeligPromoCode.Name = "ucpgmeligPromoCode";
+            this.ucpgmeligPromoCode.Size = new System.Drawing.Size(161, 36);
+            this.ucpgmeligPromoCode.TabIndex = 0;
+            // 
+            // checkBoxPromoCodeRequired
+            // 
+            this.checkBoxPromoCodeRequired.AutoSize = true;
+            this.checkBoxPromoCodeRequired.Location = new System.Drawing.Point(114, 32);
+            this.checkBoxPromoCodeRequired.Name = "checkBoxPromoCodeRequired";
+            this.checkBoxPromoCodeRequired.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxPromoCodeRequired.TabIndex = 2;
+            this.checkBoxPromoCodeRequired.Text = "Promo Code Required";
+            this.checkBoxPromoCodeRequired.UseVisualStyleBackColor = true;
+            this.checkBoxPromoCodeRequired.CheckedChanged += new System.EventHandler(this.checkBoxPromoCodeRequired_CheckedChanged);
             // 
             // FormMain
             // 
@@ -527,6 +565,8 @@
             this.tabPageParameters.ResumeLayout(false);
             this.tabPageOHR.ResumeLayout(false);
             this.tabPageOHR.PerformLayout();
+            this.tabPagePromoCode.ResumeLayout(false);
+            this.tabPagePromoCode.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
             this.tabPageCloud.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -581,6 +621,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSaveAs;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.TabPage tabPagePromoCode;
+        private UCPGMELIG ucpgmeligPromoCode;
+        private System.Windows.Forms.CheckBox checkBoxPromoCodeRequired;
     }
 }
 

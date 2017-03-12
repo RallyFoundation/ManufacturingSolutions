@@ -103,7 +103,8 @@ namespace OA3ToolConfGen
                     },
                     Parameters = new OA3ServerBasedParameters()
                     {
-                        CloudConfigurationID = this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] != null ? this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID].ToString() : "", 
+                        //CloudConfigurationID = this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] != null ? this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID].ToString() : "", 
+                        CloudConfigurationID = !String.IsNullOrEmpty((string)this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID]) ? this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID].ToString() : this.textBoxCloudConfigurationID.Text,
                     }
                 },
 
@@ -151,6 +152,28 @@ namespace OA3ToolConfGen
                         Name = ohrValues.Keys.ToArray()[i],
                         Value = ohrValues.Values.ToArray()[i]
                     };
+                }
+            }
+
+            if (this.checkBoxPromoCodeRequired.Checked)
+            {
+                string promoCodes = this.ucpgmeligPromoCode.GetPromoCodes();
+
+                OA3ServerBasedParametersOEMOptionalInfoField oemOptionalInfoZPGMELIG = new OA3ServerBasedParametersOEMOptionalInfoField()
+                {
+                    Name = ModuleConfiguration.OEMOptionalInfoKey_ZPGM_ELIG_VAL,
+                    Value = promoCodes
+                };
+
+                if (this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo == null || this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo.Length <= 0)
+                {
+                    this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo = new OA3ServerBasedParametersOEMOptionalInfoField[]{oemOptionalInfoZPGMELIG};
+                }
+                else
+                {
+                    List<OA3ServerBasedParametersOEMOptionalInfoField> oemOptionalInfoes = new List<OA3ServerBasedParametersOEMOptionalInfoField>(this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo);
+                    oemOptionalInfoes.Add(oemOptionalInfoZPGMELIG);
+                    this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo = oemOptionalInfoes.ToArray();
                 }
             }
         }
@@ -274,16 +297,31 @@ namespace OA3ToolConfGen
 
                     if (this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo != null)
                     {
-                        this.checkBoxOHRRequired.Checked = true;
-
-                        Dictionary<string, string> ohrData = new Dictionary<string, string>();
-
-                        foreach (var item in this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo)
+                        if (this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo.Length >= 5 && this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo.FirstOrDefault(o => o.Name == ModuleConfiguration.OHRKey_ZPC_MODEL_SKU) != null)
                         {
-                            ohrData.Add(item.Name, item.Value);
+                            this.checkBoxOHRRequired.Checked = true;
+
+                            Dictionary<string, string> ohrData = new Dictionary<string, string>();
+
+                            foreach (var item in this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo)
+                            {
+                                if (item.Name != ModuleConfiguration.OEMOptionalInfoKey_ZPGM_ELIG_VAL)
+                                {
+                                    ohrData.Add(item.Name, item.Value);
+                                }   
+                            }
+
+                            this.ucohrOHRData.SetOHR(ohrData);
                         }
 
-                        this.ucohrOHRData.SetOHR(ohrData);
+                        OA3ServerBasedParametersOEMOptionalInfoField oemOptionalInfoZPGMELIG = this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo.FirstOrDefault(o => o.Name == ModuleConfiguration.OEMOptionalInfoKey_ZPGM_ELIG_VAL);
+
+                        if (oemOptionalInfoZPGMELIG != null)
+                        {
+                            this.checkBoxPromoCodeRequired.Checked = true;
+
+                            this.ucpgmeligPromoCode.SetPromoCodes(oemOptionalInfoZPGMELIG.Value);
+                        }
                     }
 
                     if ((this.OA3ToolConfiguration.ServerBased.Parameters.Parameter != null) && (this.OA3ToolConfiguration.ServerBased.Parameters.Parameter.Length > 0))
@@ -535,6 +573,11 @@ namespace OA3ToolConfGen
         {
             About about = new About();
             about.ShowDialog(this);
+        }
+
+        private void checkBoxPromoCodeRequired_CheckedChanged(object sender, EventArgs e)
+        {
+            this.ucpgmeligPromoCode.Enabled = this.checkBoxPromoCodeRequired.Checked;
         }
     }
 }

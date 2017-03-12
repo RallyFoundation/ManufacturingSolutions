@@ -78,6 +78,9 @@
     <Compile Include="OA3ToolConfiguration.cs" />
     <Compile Include="ParameterType.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="PromoCodeTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UCOHR.cs">
       <SubType>UserControl</SubType>
@@ -90,6 +93,12 @@
     </Compile>
     <Compile Include="UCParameter.Designer.cs">
       <DependentUpon>UCParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCPGMELIG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCPGMELIG.Designer.cs">
+      <DependentUpon>UCPGMELIG.cs</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
     <EmbeddedResource Include="About.resx">
@@ -115,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UCParameter.resx">
       <DependentUpon>UCParameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCPGMELIG.resx">
+      <DependentUpon>UCPGMELIG.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

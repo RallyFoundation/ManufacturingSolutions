@@ -47,6 +47,11 @@ namespace OA3ToolConfGen
         public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
         //public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
 
+        public static string OEMOptionalInfoKey_ZPGM_ELIG_VAL = "ZPGM_ELIG_VAL";
+        public static int OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueMaxCount = 11;
+        public static int OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueMaxLength = 4;
+        public static string OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueSeparator = "|";
+
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {
             Customer[] returnValue = null;
