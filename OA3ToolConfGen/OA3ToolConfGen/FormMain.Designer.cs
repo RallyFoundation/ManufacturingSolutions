@@ -69,14 +69,15 @@
             this.checkBoxOHRRequired = new System.Windows.Forms.CheckBox();
             this.ucohrOHRData = new OA3ToolConfGen.UCOHR();
             this.tabPagePromoCode = new System.Windows.Forms.TabPage();
+            this.checkBoxPromoCodeRequired = new System.Windows.Forms.CheckBox();
+            this.ucpgmeligPromoCode = new OA3ToolConfGen.UCPGMELIG();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.tabPageCloud = new System.Windows.Forms.TabPage();
             this.webBrowserCloud = new System.Windows.Forms.WebBrowser();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
-            this.ucpgmeligPromoCode = new OA3ToolConfGen.UCPGMELIG();
-            this.checkBoxPromoCodeRequired = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnable4KHardwareHash = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.checkBoxEnable4KHardwareHash);
             this.tabPageBasic.Controls.Add(this.buttonTest);
             this.tabPageBasic.Controls.Add(this.textBoxXMLResultFileOutputPath);
             this.tabPageBasic.Controls.Add(this.labelXMLResultFileOutputPath);
@@ -468,6 +470,27 @@
             this.tabPagePromoCode.Text = "Promo Code";
             this.tabPagePromoCode.UseVisualStyleBackColor = true;
             // 
+            // checkBoxPromoCodeRequired
+            // 
+            this.checkBoxPromoCodeRequired.AutoSize = true;
+            this.checkBoxPromoCodeRequired.Location = new System.Drawing.Point(114, 32);
+            this.checkBoxPromoCodeRequired.Name = "checkBoxPromoCodeRequired";
+            this.checkBoxPromoCodeRequired.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxPromoCodeRequired.TabIndex = 2;
+            this.checkBoxPromoCodeRequired.Text = "Promo Code Required";
+            this.checkBoxPromoCodeRequired.UseVisualStyleBackColor = true;
+            this.checkBoxPromoCodeRequired.CheckedChanged += new System.EventHandler(this.checkBoxPromoCodeRequired_CheckedChanged);
+            // 
+            // ucpgmeligPromoCode
+            // 
+            this.ucpgmeligPromoCode.AutoSize = true;
+            this.ucpgmeligPromoCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ucpgmeligPromoCode.Enabled = false;
+            this.ucpgmeligPromoCode.Location = new System.Drawing.Point(108, 59);
+            this.ucpgmeligPromoCode.Name = "ucpgmeligPromoCode";
+            this.ucpgmeligPromoCode.Size = new System.Drawing.Size(161, 36);
+            this.ucpgmeligPromoCode.TabIndex = 0;
+            // 
             // tabPagePreview
             // 
             this.tabPagePreview.Controls.Add(this.webBrowserPreview);
@@ -516,26 +539,17 @@
             // 
             this.openFileDialogOpen.Filter = "CFG Files|*.CFG|XML Files|*.xml";
             // 
-            // ucpgmeligPromoCode
+            // checkBoxEnable4KHardwareHash
             // 
-            this.ucpgmeligPromoCode.AutoSize = true;
-            this.ucpgmeligPromoCode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ucpgmeligPromoCode.Enabled = false;
-            this.ucpgmeligPromoCode.Location = new System.Drawing.Point(108, 59);
-            this.ucpgmeligPromoCode.Name = "ucpgmeligPromoCode";
-            this.ucpgmeligPromoCode.Size = new System.Drawing.Size(161, 36);
-            this.ucpgmeligPromoCode.TabIndex = 0;
-            // 
-            // checkBoxPromoCodeRequired
-            // 
-            this.checkBoxPromoCodeRequired.AutoSize = true;
-            this.checkBoxPromoCodeRequired.Location = new System.Drawing.Point(114, 32);
-            this.checkBoxPromoCodeRequired.Name = "checkBoxPromoCodeRequired";
-            this.checkBoxPromoCodeRequired.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxPromoCodeRequired.TabIndex = 2;
-            this.checkBoxPromoCodeRequired.Text = "Promo Code Required";
-            this.checkBoxPromoCodeRequired.UseVisualStyleBackColor = true;
-            this.checkBoxPromoCodeRequired.CheckedChanged += new System.EventHandler(this.checkBoxPromoCodeRequired_CheckedChanged);
+            this.checkBoxEnable4KHardwareHash.AutoSize = true;
+            this.checkBoxEnable4KHardwareHash.Checked = true;
+            this.checkBoxEnable4KHardwareHash.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnable4KHardwareHash.Location = new System.Drawing.Point(269, 242);
+            this.checkBoxEnable4KHardwareHash.Name = "checkBoxEnable4KHardwareHash";
+            this.checkBoxEnable4KHardwareHash.Size = new System.Drawing.Size(152, 17);
+            this.checkBoxEnable4KHardwareHash.TabIndex = 13;
+            this.checkBoxEnable4KHardwareHash.Text = "Enable 4K Hardware Hash";
+            this.checkBoxEnable4KHardwareHash.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -624,6 +638,7 @@
         private System.Windows.Forms.TabPage tabPagePromoCode;
         private UCPGMELIG ucpgmeligPromoCode;
         private System.Windows.Forms.CheckBox checkBoxPromoCodeRequired;
+        private System.Windows.Forms.CheckBox checkBoxEnable4KHardwareHash;
     }
 }
 

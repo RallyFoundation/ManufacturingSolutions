@@ -99,7 +99,11 @@ namespace OA3ToolConfGen
                         IPAddress = this.textBoxKPSAddress.Text,
                         EndPoint = this.textBoxKeyProviderServicePortNumber.Text,
                         ProtocolSequence = ModuleConfiguration.OA3ToolConfigurationValue_ProtocolSequence,
-                        Options = ModuleConfiguration.OA3ToolConfigurationValue_Options
+                        Options = this.checkBoxEnable4KHardwareHash.Checked ? new OA3ServerBasedOptions()
+                        {
+                            HardwareHashVersion = ModuleConfiguration.OA3ToolConfigurationValue_Options_HardwareHashVersion,
+                            HardwareHashPadding = ModuleConfiguration.OA3ToolConfigurationValue_Options_HardwareHashPadding
+                        } : null
                     },
                     Parameters = new OA3ServerBasedParameters()
                     {
@@ -273,6 +277,8 @@ namespace OA3ToolConfGen
                 {
                     this.textBoxKPSAddress.Text = this.OA3ToolConfiguration.ServerBased.KeyProviderServerLocation.IPAddress;
                     this.textBoxKeyProviderServicePortNumber.Text = this.OA3ToolConfiguration.ServerBased.KeyProviderServerLocation.EndPoint;
+
+                    this.checkBoxEnable4KHardwareHash.Checked = (this.OA3ToolConfiguration.ServerBased.KeyProviderServerLocation.Options != null);
                 }
 
                 if (this.OA3ToolConfiguration.ServerBased.Parameters != null)

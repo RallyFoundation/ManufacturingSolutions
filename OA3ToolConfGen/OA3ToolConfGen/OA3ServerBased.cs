@@ -74,7 +74,7 @@ namespace DISAdapter
 
         private string endPointField;
 
-        private string optionsField;
+        private OA3ServerBasedOptions optionsField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -120,7 +120,7 @@ namespace DISAdapter
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true)]
-        public string Options
+        public OA3ServerBasedOptions Options
         {
             get
             {

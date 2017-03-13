@@ -75,6 +75,7 @@
     <Compile Include="ModuleConfiguration.cs" />
     <Compile Include="OA3FileBased.cs" />
     <Compile Include="OA3ServerBased.cs" />
+    <Compile Include="OA3ServerBasedOptions.cs" />
     <Compile Include="OA3ToolConfiguration.cs" />
     <Compile Include="ParameterType.cs" />
     <Compile Include="Program.cs" />

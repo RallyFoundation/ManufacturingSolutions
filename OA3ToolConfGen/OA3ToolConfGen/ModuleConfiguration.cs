@@ -41,7 +41,8 @@ namespace OA3ToolConfGen
         public static string OHRValue_ZTOUCH_SCREEN_Nontouch = "Non-touch";
 
         public static string OA3ToolConfigurationValue_ProtocolSequence = "ncacn_ip_tcp";
-        public static string OA3ToolConfigurationValue_Options = "";
+        public static string OA3ToolConfigurationValue_Options_HardwareHashVersion = "1";
+        public static int OA3ToolConfigurationValue_Options_HardwareHashPadding = 4000;
 
         public static string Configuration_Database_Name = "MDOSKeyStore_CloudOA";
         public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
