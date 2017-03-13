@@ -48,6 +48,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.checkBoxEnable4KHardwareHash = new System.Windows.Forms.CheckBox();
             this.buttonTest = new System.Windows.Forms.Button();
             this.textBoxXMLResultFileOutputPath = new System.Windows.Forms.TextBox();
             this.labelXMLResultFileOutputPath = new System.Windows.Forms.Label();
@@ -77,7 +78,6 @@
             this.webBrowserCloud = new System.Windows.Forms.WebBrowser();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
-            this.checkBoxEnable4KHardwareHash = new System.Windows.Forms.CheckBox();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -267,6 +267,18 @@
             this.tabPageBasic.TabIndex = 0;
             this.tabPageBasic.Text = "Basic";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnable4KHardwareHash
+            // 
+            this.checkBoxEnable4KHardwareHash.AutoSize = true;
+            this.checkBoxEnable4KHardwareHash.Checked = true;
+            this.checkBoxEnable4KHardwareHash.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnable4KHardwareHash.Location = new System.Drawing.Point(269, 242);
+            this.checkBoxEnable4KHardwareHash.Name = "checkBoxEnable4KHardwareHash";
+            this.checkBoxEnable4KHardwareHash.Size = new System.Drawing.Size(152, 17);
+            this.checkBoxEnable4KHardwareHash.TabIndex = 13;
+            this.checkBoxEnable4KHardwareHash.Text = "Enable 4K Hardware Hash";
+            this.checkBoxEnable4KHardwareHash.UseVisualStyleBackColor = true;
             // 
             // buttonTest
             // 
@@ -539,18 +551,6 @@
             // 
             this.openFileDialogOpen.Filter = "CFG Files|*.CFG|XML Files|*.xml";
             // 
-            // checkBoxEnable4KHardwareHash
-            // 
-            this.checkBoxEnable4KHardwareHash.AutoSize = true;
-            this.checkBoxEnable4KHardwareHash.Checked = true;
-            this.checkBoxEnable4KHardwareHash.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxEnable4KHardwareHash.Location = new System.Drawing.Point(269, 242);
-            this.checkBoxEnable4KHardwareHash.Name = "checkBoxEnable4KHardwareHash";
-            this.checkBoxEnable4KHardwareHash.Size = new System.Drawing.Size(152, 17);
-            this.checkBoxEnable4KHardwareHash.TabIndex = 13;
-            this.checkBoxEnable4KHardwareHash.Text = "Enable 4K Hardware Hash";
-            this.checkBoxEnable4KHardwareHash.UseVisualStyleBackColor = true;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -563,7 +563,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client (v1.1) Special Edition";
+            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client (v1.1+) Special Edition";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
