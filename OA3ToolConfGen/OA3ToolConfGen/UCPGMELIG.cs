@@ -49,7 +49,9 @@ namespace OA3ToolConfGen
                 {
                     this.flowLayoutPanelPromoCodes.Controls.Clear();
 
-                    for (int i = 0; i < promoCodes.Length; i++)
+                    int codeCount = promoCodes.Length <= ModuleConfiguration.OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueMaxCount ? promoCodes.Length : ModuleConfiguration.OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueMaxCount;
+
+                    for (int i = 0; i < codeCount; i++)
                     {
                         this.flowLayoutPanelPromoCodes.Controls.Add(new PromoCodeTextBox()
                         {
@@ -58,7 +60,9 @@ namespace OA3ToolConfGen
                             Text = promoCodes[i]
                         });
                     }
-                }
+
+                    this.setControls();
+                }    
             }
         }
 
