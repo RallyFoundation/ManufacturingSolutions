@@ -22,15 +22,18 @@ namespace OA3Xpress
         }
 
         private string OA3StartScriptPath;
+        private string OA3ValidateScriptPath;
         private string OA3ToolConfGenPath;
         private string OA3ToolConfPath;
         private string OA3ToolPath;
         private string InjectionToolPath;
         private string InjectionToolEraseCommand;
 
+
         private void loadAppConfigs()
         {
             this.OA3StartScriptPath = ConfigurationManager.AppSettings.Get("OA3StartScriptPath");
+            this.OA3ValidateScriptPath = ConfigurationManager.AppSettings.Get("OA3ValidateScriptPath");
             this.OA3ToolConfGenPath = ConfigurationManager.AppSettings.Get("OA3ToolConfGenPath");
             this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
             this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
@@ -107,11 +110,17 @@ namespace OA3Xpress
 
         private void metroTileValidate_Click(object sender, EventArgs e)
         {
-            string oa3ToolFullPath = this.getFullPath(this.OA3ToolPath);
+            //string oa3ToolFullPath = this.getFullPath(this.OA3ToolPath);
 
-            string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} /Validate\"";
+            //string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} /Validate\"";
 
-            string args = String.Format(argsTemp, oa3ToolFullPath);
+            //string args = String.Format(argsTemp, oa3ToolFullPath);
+
+            string validateScriptFullPath = this.getFullPath(this.OA3ValidateScriptPath);
+
+            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
+
+            string args = String.Format(argsTemp, validateScriptFullPath, this.metroRadioButtonSysArchX86.Checked ? "x86" : "amd64");
 
             Utility.StartProcess("PowerShell", args, true, true);
         }
