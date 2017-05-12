@@ -28,6 +28,7 @@ namespace OA3Xpress
         private string OA3ToolPath;
         private string InjectionToolPath;
         private string InjectionToolEraseCommand;
+        private string EraseScriptPath;
 
 
         private void loadAppConfigs()
@@ -39,6 +40,7 @@ namespace OA3Xpress
             this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
             this.InjectionToolPath = ConfigurationManager.AppSettings.Get("InjectionToolPath");
             this.InjectionToolEraseCommand = ConfigurationManager.AppSettings.Get("InjectionToolEraseCommand");
+            this.EraseScriptPath = ConfigurationManager.AppSettings.Get("EraseScriptPath");
         }
 
         private void loadAppConfigByAchitecture(string architecture)
@@ -127,11 +129,17 @@ namespace OA3Xpress
 
         private void metroTileErase_Click(object sender, EventArgs e)
         {
-            string injectionToolFullPath = this.getFullPath(this.InjectionToolPath);
+            //string injectionToolFullPath = this.getFullPath(this.InjectionToolPath);
 
-            string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} {1}\"";
+            //string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} {1}\"";
 
-            string args = String.Format(argsTemp, injectionToolFullPath, this.InjectionToolEraseCommand);
+            //string args = String.Format(argsTemp, injectionToolFullPath, this.InjectionToolEraseCommand);
+
+            string eraseScriptFullPath = this.getFullPath(this.EraseScriptPath);
+
+            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
+
+            string args = String.Format(argsTemp, eraseScriptFullPath, this.metroRadioButtonSysArchX86.Checked ? "x86" : "amd64");
 
             Utility.StartProcess("PowerShell", args, true, true);
         }
