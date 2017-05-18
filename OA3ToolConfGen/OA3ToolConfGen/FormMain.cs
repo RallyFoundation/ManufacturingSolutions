@@ -37,7 +37,8 @@ namespace OA3ToolConfGen
             {ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
             {ModuleConfiguration.AppStateKey_OA3ToolConfiguration, null},
             {ModuleConfiguration.AppStateKey_CloudConfigurationSets, null},
-            {ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"}
+            {ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"},
+            {ModuleConfiguration.AppStateKey_KeyTypeID, ModuleConfiguration.KeyTypeID}
         };
 
         private void saveAppState()
@@ -55,6 +56,7 @@ namespace OA3ToolConfGen
 
             this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] = this.OA3ToolConfiguration;
             this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationSets] = null;
+            this.Settings[ModuleConfiguration.AppStateKey_KeyTypeID] = ModuleConfiguration.KeyTypeID;
 
             byte[] bytes = Utility.BinarySerialize(this.Settings);
 
@@ -84,6 +86,11 @@ namespace OA3ToolConfGen
                 if (this.Settings != null)
                 {
                     this.OA3ToolConfiguration = this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] as OA3ToolConfiguration;
+
+                    if (this.Settings.ContainsKey(ModuleConfiguration.AppStateKey_KeyTypeID))
+                    {
+                        ModuleConfiguration.KeyTypeID = (int)(this.Settings[ModuleConfiguration.AppStateKey_KeyTypeID]);
+                    }  
                 }
             }
         }
@@ -369,6 +376,22 @@ namespace OA3ToolConfGen
             {
                 this.textBoxBinFileOutputPath.Text = this.OA3ToolConfiguration.OutputData.AssembledBinaryFile;
                 this.textBoxXMLResultFileOutputPath.Text = this.OA3ToolConfiguration.OutputData.ReportedXMLFile;
+            }
+
+            switch (ModuleConfiguration.KeyTypeID)
+            {
+                case 1:
+                    this.radioButtonStandard.Checked = true;
+                    break;
+                case 2:
+                    this.radioButtonMBR.Checked = true;
+                    break;
+                case 4:
+                    this.radioButtonMAT.Checked = true;
+                    break;
+                default:
+                    this.radioButtonStandard.Checked = true;
+                    break;
             }
         }
 

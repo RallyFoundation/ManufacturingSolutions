@@ -20,6 +20,7 @@ namespace OA3ToolConfGen
         public const string AppStateKey_OA3ToolConfiguration = "OA3ToolConfiguration";
         public const string AppStateKey_CloudConfigurationSets = "CloudConfigurationSets";
         public const string AppStateKey_CloudClientDBName = "CloudClientDBName";
+        public const string AppStateKey_KeyTypeID = "KeyTypeID";
 
         public static string OHRKey_ZPC_MODEL_SKU = "ZPC_MODEL_SKU";
         public static string OHRKey_ZFRM_FACTOR_CL1 = "ZFRM_FACTOR_CL1";
