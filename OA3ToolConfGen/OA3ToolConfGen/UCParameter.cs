@@ -31,7 +31,7 @@ namespace OA3ToolConfGen
         public string ParameterName { get { return this.ParameterType.ToString(); } }
         public string ParameterValue { get { return this.comboBoxParameterValue.Text; } }
 
-        const string SQLCommandText = "SELECT DISTINCT {0} FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = '{1}')";
+        const string SQLCommandText = "SELECT DISTINCT {0} FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = '{1}' AND KeyType = {2})";
 
         protected override void OnLoad(EventArgs e)
         {
@@ -73,8 +73,17 @@ namespace OA3ToolConfGen
 
         private void checkBoxSelection_CheckedChanged(object sender, EventArgs e)
         {
-            this.comboBoxParameterValue.Enabled = (sender as CheckBox).Checked;
-            this.buttonGet.Enabled = (sender as CheckBox).Checked && !String.IsNullOrEmpty(this.DBConnectionString);
+            bool isChecked = (sender as CheckBox).Checked;
+
+            this.comboBoxParameterValue.Enabled = isChecked;
+            this.buttonGet.Enabled = isChecked && !String.IsNullOrEmpty(this.DBConnectionString);
+
+            if (!isChecked)
+            {
+                this.comboBoxParameterValue.DataSource = null;
+                this.comboBoxParameterValue.Items.Clear();
+                this.comboBoxParameterValue.Text = "";
+            }
         }
 
         private void setLabelText() 
@@ -104,7 +113,7 @@ namespace OA3ToolConfGen
 
             try
             {
-                string commandText = String.Format(SQLCommandText, columName, ConfigurationID);
+                string commandText = String.Format(SQLCommandText, columName, ConfigurationID, ModuleConfiguration.KeyTypeID);
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

@@ -39,11 +39,10 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControlMain = new System.Windows.Forms.TabControl();
@@ -62,6 +61,10 @@
             this.textBoxKPSAddress = new System.Windows.Forms.TextBox();
             this.labelKPSAddress = new System.Windows.Forms.Label();
             this.tabPageParameters = new System.Windows.Forms.TabPage();
+            this.radioButtonMAT = new System.Windows.Forms.RadioButton();
+            this.radioButtonMBR = new System.Windows.Forms.RadioButton();
+            this.radioButtonStandard = new System.Windows.Forms.RadioButton();
+            this.labelWorkFlow = new System.Windows.Forms.Label();
             this.ucParameterSN = new OA3ToolConfGen.UCParameter();
             this.ucParameterOPON = new OA3ToolConfGen.UCParameter();
             this.ucParameterOPN = new OA3ToolConfGen.UCParameter();
@@ -78,6 +81,8 @@
             this.webBrowserCloud = new System.Windows.Forms.WebBrowser();
             this.saveFileDialogSave = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogOpen = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripButtonExit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStripMain.SuspendLayout();
             this.toolStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
@@ -163,27 +168,26 @@
             // 
             // toolStripMain
             // 
+            this.toolStripMain.ImageScalingSize = new System.Drawing.Size(70, 70);
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripButton,
+            this.toolStripSeparator3,
             this.saveToolStripButton,
             this.toolStripSeparator,
-            this.helpToolStripButton,
-            this.toolStripSeparator3});
+            this.openToolStripButton,
+            this.toolStripSeparator1,
+            this.toolStripButtonExit});
             this.toolStripMain.Location = new System.Drawing.Point(0, 24);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(624, 25);
+            this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStripMain.Size = new System.Drawing.Size(624, 77);
+            this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 1;
             this.toolStripMain.Text = "toolStrip1";
             // 
-            // openToolStripButton
+            // toolStripSeparator3
             // 
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolStripButton.Text = "&Open";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 77);
             // 
             // saveToolStripButton
             // 
@@ -191,28 +195,24 @@
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.saveToolStripButton.Size = new System.Drawing.Size(74, 74);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 77);
             // 
-            // helpToolStripButton
+            // openToolStripButton
             // 
-            this.helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.helpToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("helpToolStripButton.Image")));
-            this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.helpToolStripButton.Name = "helpToolStripButton";
-            this.helpToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.helpToolStripButton.Text = "He&lp";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(74, 74);
+            this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // statusStripMain
             // 
@@ -238,10 +238,11 @@
             this.tabControlMain.Controls.Add(this.tabPagePreview);
             this.tabControlMain.Controls.Add(this.tabPageCloud);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlMain.Location = new System.Drawing.Point(0, 49);
+            this.tabControlMain.ItemSize = new System.Drawing.Size(56, 40);
+            this.tabControlMain.Location = new System.Drawing.Point(0, 101);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(624, 370);
+            this.tabControlMain.Size = new System.Drawing.Size(624, 318);
             this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
@@ -260,10 +261,10 @@
             this.tabPageBasic.Controls.Add(this.labelKPSPortNumber);
             this.tabPageBasic.Controls.Add(this.textBoxKPSAddress);
             this.tabPageBasic.Controls.Add(this.labelKPSAddress);
-            this.tabPageBasic.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBasic.Location = new System.Drawing.Point(4, 44);
             this.tabPageBasic.Name = "tabPageBasic";
             this.tabPageBasic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBasic.Size = new System.Drawing.Size(616, 344);
+            this.tabPageBasic.Size = new System.Drawing.Size(616, 270);
             this.tabPageBasic.TabIndex = 0;
             this.tabPageBasic.Text = "Basic";
             this.tabPageBasic.UseVisualStyleBackColor = true;
@@ -387,23 +388,72 @@
             // 
             // tabPageParameters
             // 
+            this.tabPageParameters.Controls.Add(this.radioButtonMAT);
+            this.tabPageParameters.Controls.Add(this.radioButtonMBR);
+            this.tabPageParameters.Controls.Add(this.radioButtonStandard);
+            this.tabPageParameters.Controls.Add(this.labelWorkFlow);
             this.tabPageParameters.Controls.Add(this.ucParameterSN);
             this.tabPageParameters.Controls.Add(this.ucParameterOPON);
             this.tabPageParameters.Controls.Add(this.ucParameterOPN);
             this.tabPageParameters.Controls.Add(this.ucParameterLPN);
-            this.tabPageParameters.Location = new System.Drawing.Point(4, 22);
+            this.tabPageParameters.Location = new System.Drawing.Point(4, 44);
             this.tabPageParameters.Name = "tabPageParameters";
             this.tabPageParameters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageParameters.Size = new System.Drawing.Size(616, 344);
+            this.tabPageParameters.Size = new System.Drawing.Size(616, 270);
             this.tabPageParameters.TabIndex = 1;
             this.tabPageParameters.Text = "Parameters";
             this.tabPageParameters.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMAT
+            // 
+            this.radioButtonMAT.AutoSize = true;
+            this.radioButtonMAT.Location = new System.Drawing.Point(378, 36);
+            this.radioButtonMAT.Name = "radioButtonMAT";
+            this.radioButtonMAT.Size = new System.Drawing.Size(110, 17);
+            this.radioButtonMAT.TabIndex = 11;
+            this.radioButtonMAT.TabStop = true;
+            this.radioButtonMAT.Text = "Image Test (MAT)";
+            this.radioButtonMAT.UseVisualStyleBackColor = true;
+            this.radioButtonMAT.CheckedChanged += new System.EventHandler(this.radioButtonMAT_CheckedChanged);
+            // 
+            // radioButtonMBR
+            // 
+            this.radioButtonMBR.AutoSize = true;
+            this.radioButtonMBR.Location = new System.Drawing.Point(198, 36);
+            this.radioButtonMBR.Name = "radioButtonMBR";
+            this.radioButtonMBR.Size = new System.Drawing.Size(161, 17);
+            this.radioButtonMBR.TabIndex = 10;
+            this.radioButtonMBR.Text = "Replace Motherboard (MBR)";
+            this.radioButtonMBR.UseVisualStyleBackColor = true;
+            this.radioButtonMBR.CheckedChanged += new System.EventHandler(this.radioButtonMBR_CheckedChanged);
+            // 
+            // radioButtonStandard
+            // 
+            this.radioButtonStandard.AutoSize = true;
+            this.radioButtonStandard.Checked = true;
+            this.radioButtonStandard.Location = new System.Drawing.Point(114, 36);
+            this.radioButtonStandard.Name = "radioButtonStandard";
+            this.radioButtonStandard.Size = new System.Drawing.Size(68, 17);
+            this.radioButtonStandard.TabIndex = 9;
+            this.radioButtonStandard.TabStop = true;
+            this.radioButtonStandard.Text = "Standard";
+            this.radioButtonStandard.UseVisualStyleBackColor = true;
+            this.radioButtonStandard.CheckedChanged += new System.EventHandler(this.radioButtonStandard_CheckedChanged);
+            // 
+            // labelWorkFlow
+            // 
+            this.labelWorkFlow.AutoSize = true;
+            this.labelWorkFlow.Location = new System.Drawing.Point(38, 38);
+            this.labelWorkFlow.Name = "labelWorkFlow";
+            this.labelWorkFlow.Size = new System.Drawing.Size(61, 13);
+            this.labelWorkFlow.TabIndex = 8;
+            this.labelWorkFlow.Text = "Work Flow:";
             // 
             // ucParameterSN
             // 
             this.ucParameterSN.ConfigurationID = null;
             this.ucParameterSN.DBConnectionString = null;
-            this.ucParameterSN.Location = new System.Drawing.Point(111, 176);
+            this.ucParameterSN.Location = new System.Drawing.Point(5, 187);
             this.ucParameterSN.Name = "ucParameterSN";
             this.ucParameterSN.ParameterType = OA3ToolConfGen.ParameterType.SerialNumber;
             this.ucParameterSN.Size = new System.Drawing.Size(360, 31);
@@ -413,7 +463,7 @@
             // 
             this.ucParameterOPON.ConfigurationID = null;
             this.ucParameterOPON.DBConnectionString = null;
-            this.ucParameterOPON.Location = new System.Drawing.Point(111, 142);
+            this.ucParameterOPON.Location = new System.Drawing.Point(5, 153);
             this.ucParameterOPON.Name = "ucParameterOPON";
             this.ucParameterOPON.ParameterType = OA3ToolConfGen.ParameterType.OEMPONumber;
             this.ucParameterOPON.Size = new System.Drawing.Size(360, 31);
@@ -423,7 +473,7 @@
             // 
             this.ucParameterOPN.ConfigurationID = null;
             this.ucParameterOPN.DBConnectionString = null;
-            this.ucParameterOPN.Location = new System.Drawing.Point(111, 107);
+            this.ucParameterOPN.Location = new System.Drawing.Point(5, 118);
             this.ucParameterOPN.Name = "ucParameterOPN";
             this.ucParameterOPN.ParameterType = OA3ToolConfGen.ParameterType.OEMPartNumber;
             this.ucParameterOPN.Size = new System.Drawing.Size(360, 31);
@@ -433,7 +483,7 @@
             // 
             this.ucParameterLPN.ConfigurationID = null;
             this.ucParameterLPN.DBConnectionString = null;
-            this.ucParameterLPN.Location = new System.Drawing.Point(111, 73);
+            this.ucParameterLPN.Location = new System.Drawing.Point(5, 84);
             this.ucParameterLPN.Name = "ucParameterLPN";
             this.ucParameterLPN.ParameterType = OA3ToolConfGen.ParameterType.LicensablePartNumber;
             this.ucParameterLPN.Size = new System.Drawing.Size(360, 31);
@@ -443,10 +493,10 @@
             // 
             this.tabPageOHR.Controls.Add(this.checkBoxOHRRequired);
             this.tabPageOHR.Controls.Add(this.ucohrOHRData);
-            this.tabPageOHR.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOHR.Location = new System.Drawing.Point(4, 44);
             this.tabPageOHR.Name = "tabPageOHR";
             this.tabPageOHR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOHR.Size = new System.Drawing.Size(616, 344);
+            this.tabPageOHR.Size = new System.Drawing.Size(616, 270);
             this.tabPageOHR.TabIndex = 2;
             this.tabPageOHR.Text = "OHR";
             this.tabPageOHR.UseVisualStyleBackColor = true;
@@ -474,10 +524,10 @@
             // 
             this.tabPagePromoCode.Controls.Add(this.checkBoxPromoCodeRequired);
             this.tabPagePromoCode.Controls.Add(this.ucpgmeligPromoCode);
-            this.tabPagePromoCode.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePromoCode.Location = new System.Drawing.Point(4, 44);
             this.tabPagePromoCode.Name = "tabPagePromoCode";
             this.tabPagePromoCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePromoCode.Size = new System.Drawing.Size(616, 344);
+            this.tabPagePromoCode.Size = new System.Drawing.Size(616, 270);
             this.tabPagePromoCode.TabIndex = 5;
             this.tabPagePromoCode.Text = "Promo Code";
             this.tabPagePromoCode.UseVisualStyleBackColor = true;
@@ -506,10 +556,10 @@
             // tabPagePreview
             // 
             this.tabPagePreview.Controls.Add(this.webBrowserPreview);
-            this.tabPagePreview.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePreview.Location = new System.Drawing.Point(4, 44);
             this.tabPagePreview.Name = "tabPagePreview";
             this.tabPagePreview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePreview.Size = new System.Drawing.Size(616, 344);
+            this.tabPagePreview.Size = new System.Drawing.Size(616, 270);
             this.tabPagePreview.TabIndex = 3;
             this.tabPagePreview.Text = "Preview";
             this.tabPagePreview.UseVisualStyleBackColor = true;
@@ -520,16 +570,16 @@
             this.webBrowserPreview.Location = new System.Drawing.Point(3, 3);
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserPreview.Name = "webBrowserPreview";
-            this.webBrowserPreview.Size = new System.Drawing.Size(610, 338);
+            this.webBrowserPreview.Size = new System.Drawing.Size(610, 264);
             this.webBrowserPreview.TabIndex = 0;
             // 
             // tabPageCloud
             // 
             this.tabPageCloud.Controls.Add(this.webBrowserCloud);
-            this.tabPageCloud.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCloud.Location = new System.Drawing.Point(4, 44);
             this.tabPageCloud.Name = "tabPageCloud";
             this.tabPageCloud.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCloud.Size = new System.Drawing.Size(616, 344);
+            this.tabPageCloud.Size = new System.Drawing.Size(616, 270);
             this.tabPageCloud.TabIndex = 4;
             this.tabPageCloud.Text = "Configurations from Server";
             this.tabPageCloud.UseVisualStyleBackColor = true;
@@ -540,7 +590,7 @@
             this.webBrowserCloud.Location = new System.Drawing.Point(3, 3);
             this.webBrowserCloud.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserCloud.Name = "webBrowserCloud";
-            this.webBrowserCloud.Size = new System.Drawing.Size(610, 338);
+            this.webBrowserCloud.Size = new System.Drawing.Size(610, 264);
             this.webBrowserCloud.TabIndex = 0;
             // 
             // saveFileDialogSave
@@ -550,6 +600,22 @@
             // openFileDialogOpen
             // 
             this.openFileDialogOpen.Filter = "CFG Files|*.CFG|XML Files|*.xml";
+            // 
+            // toolStripButtonExit
+            // 
+            this.toolStripButtonExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExit.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonExit.Image")));
+            this.toolStripButtonExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExit.Name = "toolStripButtonExit";
+            this.toolStripButtonExit.Size = new System.Drawing.Size(74, 74);
+            this.toolStripButtonExit.Text = "Exit";
+            this.toolStripButtonExit.ToolTipText = "Exit";
+            this.toolStripButtonExit.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 77);
             // 
             // FormMain
             // 
@@ -577,6 +643,7 @@
             this.tabPageBasic.ResumeLayout(false);
             this.tabPageBasic.PerformLayout();
             this.tabPageParameters.ResumeLayout(false);
+            this.tabPageParameters.PerformLayout();
             this.tabPageOHR.ResumeLayout(false);
             this.tabPageOHR.PerformLayout();
             this.tabPagePromoCode.ResumeLayout(false);
@@ -624,7 +691,6 @@
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSave;
         private System.Windows.Forms.OpenFileDialog openFileDialogOpen;
@@ -639,6 +705,12 @@
         private UCPGMELIG ucpgmeligPromoCode;
         private System.Windows.Forms.CheckBox checkBoxPromoCodeRequired;
         private System.Windows.Forms.CheckBox checkBoxEnable4KHardwareHash;
+        private System.Windows.Forms.Label labelWorkFlow;
+        private System.Windows.Forms.RadioButton radioButtonStandard;
+        private System.Windows.Forms.RadioButton radioButtonMBR;
+        private System.Windows.Forms.RadioButton radioButtonMAT;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonExit;
     }
 }
 

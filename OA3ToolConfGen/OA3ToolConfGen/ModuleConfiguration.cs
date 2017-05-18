@@ -53,6 +53,8 @@ namespace OA3ToolConfGen
         public static int OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueMaxLength = 4;
         public static string OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueSeparator = "|";
 
+        public static int KeyTypeID = 1;
+
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {
             Customer[] returnValue = null;

@@ -520,6 +520,16 @@ namespace OA3ToolConfGen
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(this.currentFilePath))
+            {
+                string message = String.Format("Save the OA3Tool configuration settings to \"{0}\" ?", this.currentFilePath);
+
+                if (MessageBox.Show(message, "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    this.saveToolStripMenuItem_Click(sender, e);
+                }
+            }
+
             this.Close();
         }
 
@@ -584,6 +594,30 @@ namespace OA3ToolConfGen
         private void checkBoxPromoCodeRequired_CheckedChanged(object sender, EventArgs e)
         {
             this.ucpgmeligPromoCode.Enabled = this.checkBoxPromoCodeRequired.Checked;
+        }
+
+        private void radioButtonStandard_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                ModuleConfiguration.KeyTypeID = 1;
+            }
+        }
+
+        private void radioButtonMBR_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                ModuleConfiguration.KeyTypeID = 2;
+            }
+        }
+
+        private void radioButtonMAT_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+            {
+                ModuleConfiguration.KeyTypeID = 4;
+            }
         }
     }
 }
