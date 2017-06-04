@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DISOpenDataCloud.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "User Management";
+    //Layout = null;
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToCreate = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-CREATE");
+    bool isAuthorizedToEdit = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-UPDATE");
+    bool isAuthorizedToDelete = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-DELETE");
+    bool isAuthorizedToResetPwd = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-PWD-RESET");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User Management</title>
+</head>
+<body>
+    <h2>User Management</h2>
+
+    @if (isAuthorizedToCreate || isSupperUser)
+    {
+        <p>
+            @*@Html.ActionLink("Create New", "Create")*@
+            @Html.ActionLink("Create New", "../Account/Register")
+        </p>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>*@
+
+            @*<th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RememberMe)
+            </th>*@
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.UserName)*@
+                @Html.ActionLink(item.UserName, "Details", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>*@
+            <td>
+                @if (isAuthorizedToEdit || isSupperUser)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                }
+
+                @if ((isAuthorizedToEdit && isAuthorizedToResetPwd) || (isSupperUser))
+                {
+                    <span>|</span>
+                }
+
+                @if (isAuthorizedToResetPwd || isSupperUser)
+                {
+                    @Html.ActionLink("Reset Password", "ResetPassword", new { id = item.ID })
+                }
+
+               @if ((isAuthorizedToDelete && isAuthorizedToResetPwd) || (isSupperUser))
+                {
+                    <span>|</span>
+                }
+
+                @if (isAuthorizedToDelete || isSupperUser)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                }               
+            </td>
+        </tr>
+    }
+    </table>
+</body>
+</html>

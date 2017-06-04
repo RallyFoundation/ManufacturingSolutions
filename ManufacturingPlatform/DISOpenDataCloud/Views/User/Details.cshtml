@@ -1,0 +1,177 @@
+﻿@model DISOpenDataCloud.Models.UserViewModel
+
+@{
+    ViewBag.Title = "User Management";
+    //Layout = null;
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToEdit = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-UPDATE");
+    bool isAuthorizedToAssignRole = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-DISPATCH-ROLE");
+}
+
+<div>
+    <h4>View user -- @Html.DisplayFor(model => model.UserName)</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NickName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @*@Html.DisplayFor(model => model.Gender)*@
+            @switch (Model.Gender)
+            {
+                case 0:
+                    <span>Female</span>
+                    break;
+                case 1:
+                    <span>Male</span>
+                    break;
+                default:
+                    <span>Confidential</span>
+                    break;
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Headline)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Headline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+    
+    </dl>
+</div>
+<hr />
+<h5>The role(s) that user "@Html.DisplayFor(model => model.UserName)" belongs to:</h5>
+@if (Model.Roles != null && Model.Roles.Count > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles[0].Description)
+            </th>
+            @*<th></th>*@
+        </tr>
+
+        @foreach (var item in Model.Roles)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Name)*@
+                    @Html.ActionLink(item.Name, "../Role/Details", new { id = item.ID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                @*<td>*@
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |*@
+                    @*@Html.ActionLink("View, "../Role/Details", new { id = item.ID })*@ @*|*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                @*</td>*@
+            </tr>
+        }
+
+    </table>
+}
+<p>
+    @if (isAuthorizedToEdit || isSupperUser)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+    }
+
+    @if ((isAuthorizedToEdit && isAuthorizedToAssignRole) || isSupperUser)
+    {
+        <span>|</span>
+    }
+       
+
+    @if (isAuthorizedToAssignRole || isSupperUser)
+    {
+        @Html.ActionLink("Assign Roles", "UserRoles", new { id = Model.ID })
+        <span>|</span>
+    }
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

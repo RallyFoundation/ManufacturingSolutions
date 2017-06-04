@@ -1,0 +1,101 @@
+﻿@model Platform.DAAS.OData.Core.DomainModel.Business
+
+@{
+    ViewBag.Title = "Business Management";
+    //Layout = null;
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToEdit = securityManager.IsAuthorized(User.Identity.Name, "OP-BIZ-UPDATE");
+}
+
+<div>
+    <h2>Business Management</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+<h4>References: </h4>
+
+@if (Model.ReferenceID != null && Model.ReferenceID.Length > 0)
+{
+    <table class="table">
+
+        @foreach (var item in Model.ReferenceID)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<hr />
+
+<h4>Configurations: </h4>
+
+@if (Model.Configurations != null && Model.Configurations.Length > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Configurations[0].ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Configurations[0].ConfigurationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Configurations[0].DbConnectionString)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Configurations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfigurationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DbConnectionString)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<p>
+    @if (isAuthorizedToEdit || isSupperUser)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })    
+        <span>|</span>
+    }
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

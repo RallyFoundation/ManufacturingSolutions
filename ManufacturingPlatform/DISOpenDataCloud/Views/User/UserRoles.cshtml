@@ -1,0 +1,63 @@
+﻿@model DISOpenDataCloud.Models.UserRoleViewModel
+
+@{
+    ViewBag.Title = "User Management";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User Management</title>
+</head>
+<body>
+   @using (Html.BeginForm("UserRoles", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+   {
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <h4>Assign role(s) for user "@Html.DisplayFor(model => model.UserName)" (ID: @Html.DisplayFor(model => model.ID)): </h4>
+        @Html.HiddenFor((model => model.ID))
+        @if (Model.Roles != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Roles[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Roles[0].Description)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Roles)
+                    {
+                    <tr>
+                        <td>
+                            @Html.CheckBox(item.ID, ((Model.UserRoles != null) && (Model.UserRoles.FirstOrDefault(or => or.ID.ToLower() == item.ID.ToLower()) != null)))
+                            @Html.ActionLink(item.Name, "../Role/Details", new { id = item.ID })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Submit" />
+            </div>
+        </div>
+   }
+    <p>
+        @Html.ActionLink("Back to Detail", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

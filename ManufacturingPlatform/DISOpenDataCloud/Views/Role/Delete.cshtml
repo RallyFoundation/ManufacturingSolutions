@@ -1,0 +1,58 @@
+﻿@model DISOpenDataCloud.Models.RoleViewModel
+
+@{
+    ViewBag.Title = "Role Management";
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure to delete role "@Html.DisplayFor(model => model.Name)"? (Once deleted, data cannot be recovered.)</h3>
+    <div>
+        <h4>Delete role "@Html.DisplayFor(model => model.Name)" </h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+            @*<dt>
+                @Html.DisplayNameFor(model => model.IsSelected)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IsSelected)
+            </dd>*@
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                @Html.HiddenFor(model => model.ID)
+                <input type="submit" value="Submit" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

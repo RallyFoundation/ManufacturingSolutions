@@ -1,0 +1,72 @@
+﻿@model DISOpenDataCloud.Models.RoleViewModel
+
+@{
+    ViewBag.Title = "Role Management";
+    //Layout = null;
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToEdit = securityManager.IsAuthorized(User.Identity.Name, "SYS-ROLE-UPDATE");
+    bool isAuthorizedToBindOp = securityManager.IsAuthorized(User.Identity.Name, "SYS-ROLE-DISPATCH-OP");
+    bool isAuthorizedToAssignRole = securityManager.IsAuthorized(User.Identity.Name, "SYS-USR-DISPATCH-ROLE");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View role -- @Html.DisplayFor(model => model.Name)</title>
+</head>
+<body>
+    <div>
+        <h4>View role -- @Html.DisplayFor(model => model.Name)</h4 >
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @if (isAuthorizedToEdit || isSupperUser)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+            <span>|</span>
+        }
+
+        @if (isAuthorizedToBindOp || isSupperUser)
+        {
+            @Html.ActionLink("Bind Operations", "RoleOperations", new { id = Model.ID })
+            <span>|</span>
+        }
+
+        @if (isAuthorizedToAssignRole || isSupperUser)
+        {
+            @Html.ActionLink("Add Users", "RoleUsers", new { id = Model.ID })
+            <span>|</span>
+        }
+
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

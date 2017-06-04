@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Database Management";
+}
+
+<h2>Database Management</h2>
+<hr />
+
+<div ng-controller="BizDBListController" ng-init="onInit()">
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Business Name</th>
+            <th>Business ID</th>
+        </tr>
+        <tbody ng-repeat="biz in businesses">
+            <tr>
+                <td><img ng-src="{{biz.icon}}" width="18" height="18" ng-click="expand($index)" /></td>
+                <td>{{biz.name}}</td>
+                <td>{{biz.id}}</td>
+            </tr>
+            <tr class="{{biz.css}}" ng-class="{{biz.css}}" ng-show="{{biz.showdetails}}">
+                <td colspan="3">
+                    <div class="{{biz.cssprogress}}" ng-class="{{biz.cssprogress}}" style="text-align:center; vertical-align:middle" ng-hide="{{biz.confloaded}}">
+                        <img src="~/Content/progress_red.gif" height="35" width="35" />
+                    </div>
+                    <table class="table" frame="void" rules="all" border="0">
+                        <tr>
+                            <th>Configuration Type</th>
+                            <th>Database Name</th>
+                            <th>Server Address</th>
+                        </tr>
+                        <tr ng-repeat="conf in biz.configurations">
+                            <td>{{conf.type}}</td>
+                            <td>{{conf.databasename}}</td>
+                            <td>{{conf.serveraddress}}</td>              
+                        </tr>
+                    </table>              
+                </td>
+            </tr>
+        </tbody>    
+    </table>
+    @*<details ng-repeat="biz in businesses">
+        <summary>
+            <p>{{biz.Name}}</p>
+        </summary>
+        <p>{{biz.ID}}</p>
+    </details>*@
+    
+    <a href="#" ng-click="(pagingOption.CurrentPageIndex = 0);navigate();" ng-show="(pagingOption.CurrentPageIndex > 0 && pagingOption.TotalPageCount > 1)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;First</a>
+    <a href="#" ng-click="(pagingOption.CurrentPageIndex = (pagingOption.CurrentPageIndex - 1));navigate();" ng-show="(pagingOption.CurrentPageIndex > 0 && pagingOption.TotalPageCount > 1)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Previous</a>
+    <select style="width:48px" ng-model="pagingOption.CurrentPageIndex" ng-change="navigate();" ng-show="(pagingOption.TotalPageCount > 1)">
+        <option ng-repeat="pageNumber in pageNumbers" value="{{pageNumber}}">{{pageNumber + 1}}</option>
+    </select>
+    <a href="#" ng-click="(pagingOption.CurrentPageIndex = (PagingOption.CurrentPageIndex + 1));navigate();" ng-show="(pagingOption.CurrentPageIndex < (pagingOption.TotalPageCount - 1) && pagingOption.TotalPageCount > 1)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Next</a>
+    <a href="#" ng-click="(pagingOption.CurrentPageIndex = (pagingOption.TotalPageCount - 1));navigate();" ng-show="(pagingOption.CurrentPageIndex < (pagingOption.TotalPageCount - 1) && pagingOption.TotalPageCount > 1)"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Last</a>   
+    &nbsp;&nbsp;
+    <label>Business Name: </label>&nbsp;&nbsp;
+    <input type="search" style="width:80px" ng-model="queryOptions[0].FieldValue" maxlength="10" />&nbsp;&nbsp;
+    <label>Page Size: </label>&nbsp;&nbsp;
+    <output>{{pagingOption.EachPageSize}}</output>&nbsp;&nbsp;
+    <input type="range" min="2" max="30" step="1" ng-model="pagingOption.EachPageSize" />&nbsp;
+    <a href="#" ng-click="navigate();"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Search</a>  
+</div>
+
+<script type="text/javascript">
+    var appModule = angular.module("DISOpenDataCloud", ["ngDialog"]).controller("BizDBListController",
+
+    function ($scope, $location, $http, ngDialog)
+    {
+        $scope.pagingOption = {CurrentPageIndex: 0, EachPageSize: 10, TotalPageCount: -1};
+        $scope.queryOptions = [{
+            FieldName: "Name",
+            FieldValue: "",
+            Operator: "Includes",
+            LogicalOperator: "And"
+        }];
+
+        $scope.businesses = [];
+        $scope.totalRecords = -1;
+        $scope.pageNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        $scope.currentDialog = null;
+
+        $scope.showProgress = function () {
+            $scope.currentDialog = ngDialog.open({
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                template: '/Content/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                width: 100,
+                preCloseCallback: function (value) {
+                    return true;
+                }
+            });
+        };
+
+        $scope.hideProgress = function () {
+            ngDialog.closeAll();
+        };
+
+        $scope.expand = function (index)
+        {
+            var currbiz = $scope.businesses[index];
+
+            if (currbiz.showdetails == false) {
+                currbiz.showdetails = true;
+                currbiz.icon = "/Content/collapse.png";
+                currbiz.css = "";
+            }
+            else {
+                currbiz.showdetails = false;
+                currbiz.icon = "/Content/expand.png";
+                currbiz.css = "ng-hide";
+            }
+
+            if (currbiz.confloaded == false) {
+
+                var protocol = $location.protocol();
+                var host = $location.host();
+                var port = $location.port();
+
+                var url = protocol + "://" + host + ":" + port + "/";
+
+                var servicePoint = "api/Business/" + currbiz.id + "/Configurations/";
+
+                $http.get((url + servicePoint)).success(function (data, status, headers, config)
+                {
+                    currbiz.confloaded = true;
+                    currbiz.cssprogress = "ng-hide";
+
+                    currbiz.configurations.splice(0);
+
+                    for (var i = 0; i < data.length; i++) {
+                        currbiz.configurations.push({
+                            id: data[i].ID,
+                            name: data[i].Name,
+                            type: data[i].Type,
+                            serveraddress: data[i].ServerAddress,
+                            databasename: data[i].DatabaseName,
+                            username: data[i].UserName,
+                            password: data[i].Password
+                        });
+                    }
+
+                }).error(function (data, status, headers, config)
+                {
+                    for (var key in data) {
+                        alert(key + ": " + data[key]);
+                    }
+                });
+            }
+        }
+
+        $scope.onInit = function ()
+        {
+            //alert("Hello!");
+
+            $scope.showProgress();
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Business/Query/";
+
+            var query = { PagingArgument: $scope.pagingOption, SearchingArguments: $scope.queryOptions };
+
+            $http.post((url + servicePoint), query).success(function (data, status, headers, config) {
+                $scope.hideProgress();
+
+                if (data != null) {
+                    $scope.businesses.splice(0);
+
+                    for (var i = 0; i < data.BusinessList.length; i++) {
+                        $scope.businesses.push({ id: data.BusinessList[i].ID, name: data.BusinessList[i].Name, configurations: [], showdetails: false, icon: "/Content/expand.png", css: "ng-hide", confloaded: false, cssprogress: "" });
+                    }
+
+                    $scope.pagingOption.TotalPageCount = data.PagingArgument.TotalPageCount;
+
+                    $scope.totalRecords = data.TotalRecords;
+
+                    $scope.pageNumbers.splice(0);
+
+                    for (var i = 0; i < $scope.pagingOption.TotalPageCount; i++) {
+                        $scope.pageNumbers.push(i);
+                    }
+                }
+
+            }).error(function (data, status, headers, config) {
+                $scope.hideProgress();
+
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+            });
+        };
+
+        $scope.navigate = function () {
+            $scope.showProgress();
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Business/Query/";
+
+            var query = { PagingArgument: $scope.pagingOption, SearchingArguments: $scope.queryOptions };
+
+            $http.post((url + servicePoint), query).success(function (data, status, headers, config) {
+                $scope.hideProgress();
+
+                if (data != null) {
+                    $scope.businesses.splice(0);
+
+                    for (var i = 0; i < data.BusinessList.length; i++) {
+                        $scope.businesses.push({ id: data.BusinessList[i].ID, name: data.BusinessList[i].Name, configurations: [], showdetails: false, icon: "/Content/expand.png", css: "ng-hide", confloaded: false, cssprogress: "" });
+                    }
+
+                    $scope.pagingOption.TotalPageCount = data.PagingArgument.TotalPageCount;
+
+                    $scope.totalRecords = data.TotalRecords;
+
+                    $scope.pageNumbers.splice(0);
+
+                    for (var i = 0; i < $scope.pagingOption.TotalPageCount; i++) {
+                        $scope.pageNumbers.push(i);
+                    }
+                }
+
+            }).error(function (data, status, headers, config) {
+                $scope.hideProgress();
+
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+            });
+        };
+    });
+</script>

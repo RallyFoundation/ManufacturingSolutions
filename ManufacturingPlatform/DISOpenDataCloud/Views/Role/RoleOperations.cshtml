@@ -1,0 +1,77 @@
+﻿@model DISOpenDataCloud.Models.RoleOperationViewModel
+
+@{
+    //Layout = null;
+    ViewBag.Title = "Role Management";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bind operation(s) to role "@Html.DisplayFor(model => model.Name)"</title>
+</head>
+<body>
+
+@using (Html.BeginForm("RoleOperations", "Role", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group"> 
+        <h4>Bind operation(s) to role "@Html.DisplayFor(model => model.Name)"</h4>
+
+        @Html.HiddenFor((model => model.ID))
+
+        @if ((Model.Operations != null) && (Model.Operations.DataTypes != null))
+        {
+            foreach (var dataType in Model.Operations.DataTypes)
+            {
+                <hr />
+                <b>
+                    Data Type: 
+                    @Html.DisplayFor(modelItem => dataType)
+                </b>
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Operations[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Operations[0].ID)
+                        </th>
+                    </tr>
+
+
+                    @foreach (var operation in Model.Operations.Where(o => o.DataType.ToLower() == dataType.ToLower()).ToArray())
+                    {
+                        <tr>
+                            <td>
+                                @Html.CheckBox(operation.ID, ((Model.RoleOperations != null) && (Model.RoleOperations.FirstOrDefault(ro => ro.ID.ToLower() == operation.ID.ToLower()) != null)))
+                                @Html.ActionLink(operation.Name, "../Operation/Details", new { id = operation.ID })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => operation.ID)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                @*<hr />*@
+            }
+        }
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Submit" />
+        </div>
+    </div>
+}
+    <p>
+        @Html.ActionLink("Back to Detail", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

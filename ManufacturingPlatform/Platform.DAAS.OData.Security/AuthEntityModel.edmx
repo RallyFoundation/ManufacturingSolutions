@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AuthEntityModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AuthEntityModelStoreContainer">
+    <EntitySet Name="Operations" EntityType="AuthEntityModel.Store.Operations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DataScopes" EntityType="AuthEntityModel.Store.DataScopes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ObjectOperationAuthItems" EntityType="AuthEntityModel.Store.ObjectOperationAuthItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleOperations" EntityType="AuthEntityModel.Store.RoleOperations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleDataScopes" EntityType="AuthEntityModel.Store.RoleDataScopes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OperationObjectOperationAuthItem" Association="AuthEntityModel.Store.OperationObjectOperationAuthItem">
+      <End Role="Operation" EntitySet="Operations" />
+      <End Role="ObjectOperationAuthItem" EntitySet="ObjectOperationAuthItems" />
+    </AssociationSet>
+    <AssociationSet Name="DataScopeRoleDataScope" Association="AuthEntityModel.Store.DataScopeRoleDataScope">
+      <End Role="DataScope" EntitySet="DataScopes" />
+      <End Role="RoleDataScope" EntitySet="RoleDataScopes" />
+    </AssociationSet>
+    <AssociationSet Name="OperationRoleOperation" Association="AuthEntityModel.Store.OperationRoleOperation">
+      <End Role="Operation" EntitySet="Operations" />
+      <End Role="RoleOperation" EntitySet="RoleOperations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Operations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" StoreGeneratedPattern="Identity" Nullable="false" MaxLength="250" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="DataType" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="DataScopes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ScopeName" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ScopeType" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="DataType" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="DataIdentifier" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="ObjectOperationAuthItems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ObjectId" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ActorId" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="OperationId" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="RoleOperations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="RoleId" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="OperationId" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="RoleDataScopes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="RoleId" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="DataScopeId" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="ScopeValue" Type="nvarchar" Nullable="false" MaxLength="250" />
+  </EntityType>
+  <Association Name="OperationObjectOperationAuthItem">
+    <End Role="Operation" Type="AuthEntityModel.Store.Operations" Multiplicity="1" />
+    <End Role="ObjectOperationAuthItem" Type="AuthEntityModel.Store.ObjectOperationAuthItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ObjectOperationAuthItem">
+        <PropertyRef Name="OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DataScopeRoleDataScope">
+    <End Role="DataScope" Type="AuthEntityModel.Store.DataScopes" Multiplicity="1" />
+    <End Role="RoleDataScope" Type="AuthEntityModel.Store.RoleDataScopes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DataScope">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleDataScope">
+        <PropertyRef Name="DataScopeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OperationRoleOperation">
+    <End Role="Operation" Type="AuthEntityModel.Store.Operations" Multiplicity="1" />
+    <End Role="RoleOperation" Type="AuthEntityModel.Store.RoleOperations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleOperation">
+        <PropertyRef Name="OperationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AuthEntityModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="AuthEntityModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Operations" EntityType="AuthEntityModel.Operation" />
+          <EntitySet Name="DataScopes" EntityType="AuthEntityModel.DataScope" />
+          <EntitySet Name="ObjectOperationAuthItems" EntityType="AuthEntityModel.ObjectOperationAuthItem" />
+          <EntitySet Name="RoleOperations" EntityType="AuthEntityModel.RoleOperation" />
+          <EntitySet Name="RoleDataScopes" EntityType="AuthEntityModel.RoleDataScope" />
+          <AssociationSet Name="OperationObjectOperationAuthItem" Association="AuthEntityModel.OperationObjectOperationAuthItem">
+            <End Role="Operation" EntitySet="Operations" />
+            <End Role="ObjectOperationAuthItem" EntitySet="ObjectOperationAuthItems" />
+          </AssociationSet>
+          <AssociationSet Name="DataScopeRoleDataScope" Association="AuthEntityModel.DataScopeRoleDataScope">
+            <End Role="DataScope" EntitySet="DataScopes" />
+            <End Role="RoleDataScope" EntitySet="RoleDataScopes" />
+          </AssociationSet>
+          <AssociationSet Name="OperationRoleOperation" Association="AuthEntityModel.OperationRoleOperation">
+            <End Role="Operation" EntitySet="Operations" />
+            <End Role="RoleOperation" EntitySet="RoleOperations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" MaxLength="250" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="DataType" Type="String" Nullable="false" MaxLength="250" />
+          <NavigationProperty Name="ObjectOperationAuthItems" Relationship="AuthEntityModel.OperationObjectOperationAuthItem" FromRole="Operation" ToRole="ObjectOperationAuthItem" />
+          <NavigationProperty Name="RoleOperations" Relationship="AuthEntityModel.OperationRoleOperation" FromRole="Operation" ToRole="RoleOperation" />
+        </EntityType>
+        <EntityType Name="DataScope">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="250" />
+          <Property Name="ScopeName" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="ScopeType" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="DataType" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="DataIdentifier" Type="String" Nullable="false" MaxLength="250" />
+          <NavigationProperty Name="RoleDataScopes" Relationship="AuthEntityModel.DataScopeRoleDataScope" FromRole="DataScope" ToRole="RoleDataScope" />
+        </EntityType>
+        <EntityType Name="ObjectOperationAuthItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="250" />
+          <Property Name="ObjectId" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="ActorId" Type="String" Nullable="false" MaxLength="250" />
+          <NavigationProperty Name="Operation" Relationship="AuthEntityModel.OperationObjectOperationAuthItem" FromRole="ObjectOperationAuthItem" ToRole="Operation" />
+          <Property Name="OperationId" Type="String" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RoleOperation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="250" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="250" />
+          <NavigationProperty Name="Operation" Relationship="AuthEntityModel.OperationRoleOperation" FromRole="RoleOperation" ToRole="Operation" />
+          <Property Name="OperationId" Type="String" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RoleDataScope">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="250" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="250" />
+          <NavigationProperty Name="DataScope" Relationship="AuthEntityModel.DataScopeRoleDataScope" FromRole="RoleDataScope" ToRole="DataScope" />
+          <Property Name="DataScopeId" Type="String" Nullable="false" MaxLength="250" />
+          <Property Name="ScopeValue" Type="String" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <Association Name="OperationObjectOperationAuthItem">
+          <End Type="AuthEntityModel.Operation" Role="Operation" Multiplicity="1" />
+          <End Type="AuthEntityModel.ObjectOperationAuthItem" Role="ObjectOperationAuthItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ObjectOperationAuthItem">
+              <PropertyRef Name="OperationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DataScopeRoleDataScope">
+          <End Type="AuthEntityModel.DataScope" Role="DataScope" Multiplicity="1" />
+          <End Type="AuthEntityModel.RoleDataScope" Role="RoleDataScope" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataScope">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoleDataScope">
+              <PropertyRef Name="DataScopeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OperationRoleOperation">
+          <End Type="AuthEntityModel.Operation" Role="Operation" Multiplicity="1" />
+          <End Type="AuthEntityModel.RoleOperation" Role="RoleOperation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RoleOperation">
+              <PropertyRef Name="OperationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AuthEntityModelStoreContainer" CdmEntityContainer="AuthEntityModelContainer">
+    <EntitySetMapping Name="Operations">
+      <EntityTypeMapping TypeName="IsTypeOf(AuthEntityModel.Operation)">
+        <MappingFragment StoreEntitySet="Operations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DataType" ColumnName="DataType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DataScopes">
+      <EntityTypeMapping TypeName="IsTypeOf(AuthEntityModel.DataScope)">
+        <MappingFragment StoreEntitySet="DataScopes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ScopeName" ColumnName="ScopeName" />
+          <ScalarProperty Name="ScopeType" ColumnName="ScopeType" />
+          <ScalarProperty Name="DataType" ColumnName="DataType" />
+          <ScalarProperty Name="DataIdentifier" ColumnName="DataIdentifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ObjectOperationAuthItems">
+      <EntityTypeMapping TypeName="IsTypeOf(AuthEntityModel.ObjectOperationAuthItem)">
+        <MappingFragment StoreEntitySet="ObjectOperationAuthItems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+          <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleOperations">
+      <EntityTypeMapping TypeName="IsTypeOf(AuthEntityModel.RoleOperation)">
+        <MappingFragment StoreEntitySet="RoleOperations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="OperationId" ColumnName="OperationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleDataScopes">
+      <EntityTypeMapping TypeName="IsTypeOf(AuthEntityModel.RoleDataScope)">
+        <MappingFragment StoreEntitySet="RoleDataScopes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="DataScopeId" ColumnName="DataScopeId" />
+          <ScalarProperty Name="ScopeValue" ColumnName="ScopeValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToSQL10.tt" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

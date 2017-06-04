@@ -1,0 +1,71 @@
+﻿
+@model IEnumerable<Platform.DAAS.OData.Core.DomainModel.Business>
+
+@{
+    ViewBag.Title = "Business Management";
+}
+
+@using Platform.DAAS.OData.Core.Security;
+@using Platform.DAAS.OData.Facade;
+
+@{
+    ISecurityManager securityManager = Provider.SecurityManager();
+
+    bool isSupperUser = securityManager.IsSupperUser(User.Identity);
+    bool isAuthorizedToCreate = securityManager.IsAuthorized(User.Identity.Name, "SYS-BIZ-CREATE");
+    bool isAuthorizedToEdit = securityManager.IsAuthorized(User.Identity.Name, "SYS-BIZ-UPDATE");
+    bool isAuthorizedToDelete = securityManager.IsAuthorized(User.Identity.Name, "SYS-BIZ-DELETE");
+}
+
+<h2>Business Management</h2>
+
+@if (isAuthorizedToCreate || isSupperUser)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Name)*@
+                @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+
+                @if (isAuthorizedToEdit || isSupperUser)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                }
+
+                @if ((isAuthorizedToEdit && isAuthorizedToDelete) || isSupperUser)
+                {
+                    <span>|</span>
+                }
+
+                @if (isAuthorizedToDelete || isSupperUser)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

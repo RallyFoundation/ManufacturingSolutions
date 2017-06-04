@@ -1,0 +1,70 @@
+﻿
+@{
+    <link rel="stylesheet" href="/Scripts/bower_components/datatables/media/css/jquery.dataTables.min.css" />
+    <style>
+        .col-1 {
+            width: 20px;
+        }
+
+        .accordion {
+            font-size: 32px;
+            cursor: pointer;
+            font-weight: bold;
+            color: orangered;
+            border: 1px solid orangered;
+            border-radius: 15px;
+            height: 26px;
+            width: 26px;
+            display: inline-block;
+            text-align: center;
+            line-height: 0.7;
+        }
+
+        .innerDiv {
+            border: 1px solid #ccc;
+        }
+
+            .innerDiv .accordion {
+                position: relative;
+                top: 10px;
+            }
+
+        .heading {
+            text-align: center;
+            text-decoration: underline;
+            margin-bottom: 20px;
+            font-weight: normal;
+            color: darksalmon;
+        }
+
+        table.dataTable tbody th, table.dataTable tbody td {
+            text-align: center;
+            text-transform: capitalize;
+            color: navy;
+        }
+
+        table.dataTable thead th, table.dataTable thead td {
+            color: limegreen;
+        }
+
+        .innerDiv table.dataTable thead th, table.dataTable thead td {
+            color: deepskyblue;
+        }
+    </style>
+    <script type="text/javascript" src="~/Scripts/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Test/ng-nested-datatable.js"></script>
+    <script type="text/javascript" src="~/Scripts/app.js"></script>
+}
+
+<div> <h1 class="heading">Hello!</h1> </div>
+
+<div style="width: 75%; margin: 0 auto;" ng-app="myApp" ng-controller="MyController">
+    <!--Nested table container-->
+    <ng-nested-datatable data="tableData"
+                            outer-table-config="outerDefaults"
+                            inner-table-config="innerDefaults">
+    </ng-nested-datatable>
+</div>
+

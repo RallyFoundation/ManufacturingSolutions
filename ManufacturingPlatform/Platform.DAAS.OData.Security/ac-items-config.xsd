@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="resources">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="resource">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="key" type="xs:string" nillable="false" maxOccurs="1" minOccurs="1"/>
+              <xs:element name="subjects">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="subject">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="id" type="xs:string" />
+                          <xs:element name="name" type="xs:string" />
+                          <xs:element name="description" type="xs:string" />
+                        </xs:sequence>
+                        <xs:attribute name="type" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="scopes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="scope">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="id" type="xs:string" />
+                          <xs:element name="name" type="xs:string" />
+                          <xs:element name="type" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="actions">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="action">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="id" type="xs:string" />
+                          <xs:element name="name" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

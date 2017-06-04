@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Database Management";
+}
+
+<h2>Database Management</h2>
+
+<hr />
+
+<div ng-controller="DBCreationController">
+    <form ng-submit="doSubmit()" name="formDBCreation">
+        <dl class="dl-horizontal">
+            <dt>Server: </dt>
+            <dd>
+                <input name="serverAddr" ng-model="configuration.serveraddress" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.serverAddr.$error.required" class="warning">*</span>
+            </dd>
+            <dt>User Name: </dt>
+            <dd>
+                <input name="usrName" ng-model="configuration.username" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.usrName.$error.required" class="warning">*</span>
+            </dd>
+            <dt>Password: </dt>
+            <dd>
+                <input name="pwd" type="password" ng-model="configuration.password" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.Password, this)" onmouseout="purgeValue(valuePolicy.Password, this)"/>
+                <span ng-show="formDBCreation.pwd.$error.required" class="warning">*</span>
+            </dd>
+            <dt>
+                Database:
+            </dt>
+            <dd>
+                @*<select ng-model="configuration.databasename" class="form-control">
+                        <option ng-repeat="dbname in dbnames">{{dbname}}</option>
+                    </select>*@
+                <input name="dbName" ng-model="configuration.databasename" required class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)"/>
+                <span ng-show="formDBCreation.dbName.$error.required" class="warning">*</span>
+            </dd>
+        </dl>
+        <p>
+            <a href="#" ng-click="doCheck()"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;Check</a>
+        </p>
+
+        <hr />
+
+        <input type="submit" value="Submit" class="btn btn-default" ng-disabled="formDBCreation.$invalid" />
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    var valuePolicy = {
+        AlphaNum: "alpha_num",
+        Int: "int",
+        Decimal: "decimal",
+        DateTime: "datetime",
+        Password: "password"
+    };
+
+    function purgeValue(policy, source) {
+        switch (policy) {
+            case valuePolicy.AlphaNum:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                    break;
+                }
+            case valuePolicy.Int:
+                {
+                    source.value = source.value.replace(/[^\d]/g, '');
+                    break;
+                }
+            case valuePolicy.Decimal:
+                {
+                    source.value = source.value.replace(/[^0-9\.]/g, '')
+                    break;
+                }
+            case valuePolicy.Password:
+                {
+                    break;
+                }
+            default:
+                {
+                    source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '')
+                    break;
+                }
+        }
+    }
+
+    var appModule = angular.module("DISOpenDataCloud", ['ngDialog']).controller("DBCreationController",
+
+    function ($scope, $location, $http, ngDialog)
+    {
+        //$scope.dbnames = [];
+
+        $scope.configuration = { id: "", serveraddress: "", databasename: "", username: "", password: "", type: "" };
+
+        $scope.currentDialog = null;
+
+        $scope.showProgress = function () {
+            $scope.currentDialog = ngDialog.open({
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                template: '/Content/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                width: 100,
+                preCloseCallback: function (value) {
+                    return true;
+                }
+            });
+        };
+
+        $scope.hideProgress = function () {
+            ngDialog.closeAll();
+        };
+
+        $scope.doCheck = function ()
+        {
+            $scope.showProgress();
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Database/SQLServer/Exists";
+
+            $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
+            {
+                $scope.hideProgress();
+
+                if (data == "1")
+                {
+                    alert("Sorry, Database \"" + $scope.configuration.databasename + "\" already exists! Pleae choose a different name.");
+                }
+                else
+                {
+                    alert("Congratulations! Database name \"" + $scope.configuration.databasename + "\" is not currently in use, you may take this name.");
+                }
+
+            }).error(function (data, status, headers, config)
+            {
+                $scope.hideProgress();
+
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
+            });
+        };
+
+        $scope.doSubmit = function ()
+        {
+            $scope.showProgress();
+
+            var protocol = $location.protocol();
+            var host = $location.host();
+            var port = $location.port();
+
+            var url = protocol + "://" + host + ":" + port + "/";
+
+            var servicePoint = "api/Database/SQLServer/Create";
+
+            $http.post(url + servicePoint, $scope.configuration).success(function (data, status, headers, config)
+            {
+                $scope.hideProgress();
+
+                var result = data;
+
+                alert(result);
+
+            }).error(function (data, status, headers, config)
+            {
+                $scope.hideProgress();
+
+                for (var key in data) {
+                    alert(key + ": " + data[key]);
+                }
+                //alert(data);
+            });
+        };
+    });
+
+</script>
