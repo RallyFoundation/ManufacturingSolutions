@@ -85,12 +85,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo OK!
-xcopy /r /y "$(ProJectDir)obj\Debug\ISS.HXB.Caching.dll" "$(SolutionDir)ISS.HXB.Web\obj\Debug\"
-xcopy /r /y "$(ProJectDir)obj\Debug\ISS.HXB.Caching.pdb" "$(SolutionDir)ISS.HXB.Web\obj\Debug\"
-xcopy /r /y "$(ProJectDir)obj\Debug\ISS.HXB.Caching.dll" "$(SolutionDir)ISS.HXB.Web\bin\"
-xcopy /r /y "$(ProJectDir)obj\Debug\ISS.HXB.Caching.pdb" "$(SolutionDir)ISS.HXB.Web\bin\"
-</PostBuildEvent>
+    <PostBuildEvent>echo OK!</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
