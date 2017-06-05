@@ -43,6 +43,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="OSImage.cs" />
     <Compile Include="PersistencyType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />

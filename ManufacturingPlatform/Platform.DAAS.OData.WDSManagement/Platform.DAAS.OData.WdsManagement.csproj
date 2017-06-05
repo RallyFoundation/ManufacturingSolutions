@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
+      <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
+      <Name>Platform.DAAS.OData.Core.DomainModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Core\Platform.DAAS.OData.Core.csproj">
       <Project>{d58be427-9335-4f33-97f3-89f37eeb6292}</Project>
       <Name>Platform.DAAS.OData.Core</Name>
