@@ -53,6 +53,10 @@
       <Project>{a18edb2d-7cd8-472b-9039-a371cc406ae5}</Project>
       <Name>Platform.DAAS.OData.BusinessManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.Caching\Platform.DAAS.OData.Caching.csproj">
+      <Project>{357950bb-3d6a-4f6c-871e-6ac594fd513f}</Project>
+      <Name>Platform.DAAS.OData.Caching</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj">
       <Project>{25da5666-0926-42d8-933d-7b0b4a63eb03}</Project>
       <Name>Platform.DAAS.OData.Core.DomainModel</Name>
