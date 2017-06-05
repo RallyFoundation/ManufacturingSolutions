@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataController", "DataContr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceIntegrator", "ResourceIntegrator\ResourceIntegrator.csproj", "{52401417-15AA-468B-88A1-5578AFC71E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManufacturingPlatform", "DISOpenDataCloud\ManufacturingPlatform.csproj", "{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.DAAS.OData.Security.Extension", "Platform.DAAS.OData.Security.Extension\Platform.DAAS.OData.Security.Extension.csproj", "{000E6B7A-1E24-4D10-B6BB-C43C0E749AEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.DAAS.OData.Core.DomainModel", "Platform.DAAS.OData.Core.DomainModel\Platform.DAAS.OData.Core.DomainModel.csproj", "{25DA5666-0926-42D8-933D-7B0B4A63EB03}"
@@ -60,6 +58,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.DAAS.OData.VamtManagement", "Platform.DAAS.OData.VamtManagement\Platform.DAAS.OData.VamtManagement.csproj", "{1082B857-BA58-4B8C-B81E-21713A9C133E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.DAAS.OData.WdsManagement", "Platform.DAAS.OData.WdsManagement\Platform.DAAS.OData.WdsManagement.csproj", "{F1F268B6-B5C2-41FF-8C63-89358FCD785C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManufacturingPlatform", "ManufacturingPlatform\ManufacturingPlatform.csproj", "{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -213,14 +213,6 @@ Global
 		{52401417-15AA-468B-88A1-5578AFC71E69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52401417-15AA-468B-88A1-5578AFC71E69}.Release|x86.ActiveCfg = Release|Any CPU
 		{52401417-15AA-468B-88A1-5578AFC71E69}.Release|x86.Build.0 = Release|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|x86.Build.0 = Debug|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.ActiveCfg = Release|Any CPU
-		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.Build.0 = Release|Any CPU
 		{000E6B7A-1E24-4D10-B6BB-C43C0E749AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{000E6B7A-1E24-4D10-B6BB-C43C0E749AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{000E6B7A-1E24-4D10-B6BB-C43C0E749AEB}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -293,6 +285,14 @@ Global
 		{F1F268B6-B5C2-41FF-8C63-89358FCD785C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F1F268B6-B5C2-41FF-8C63-89358FCD785C}.Release|x86.ActiveCfg = Release|Any CPU
 		{F1F268B6-B5C2-41FF-8C63-89358FCD785C}.Release|x86.Build.0 = Release|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
