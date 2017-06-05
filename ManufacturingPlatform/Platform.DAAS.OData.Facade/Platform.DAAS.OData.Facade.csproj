@@ -85,6 +85,14 @@
       <Project>{0cea159a-f4e8-4f4e-93dc-1973ef490949}</Project>
       <Name>Platform.DAAS.OData.StorageManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.VamtManagement\Platform.DAAS.OData.VamtManagement.csproj">
+      <Project>{1082b857-ba58-4b8c-b81e-21713a9c133e}</Project>
+      <Name>Platform.DAAS.OData.VamtManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Platform.DAAS.OData.WdsManagement\Platform.DAAS.OData.WdsManagement.csproj">
+      <Project>{f1f268b6-b5c2-41ff-8c63-89358fcd785c}</Project>
+      <Name>Platform.DAAS.OData.WdsManagement</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

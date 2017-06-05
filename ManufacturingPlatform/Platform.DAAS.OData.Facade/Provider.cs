@@ -12,6 +12,8 @@ using Platform.DAAS.OData.Core.ServiceManagement;
 using Platform.DAAS.OData.Core.BusinessManagement;
 using Platform.DAAS.OData.Core.StorageManagement;
 using Platform.DAAS.OData.Core.Caching;
+using Platform.DAAS.OData.Core.VamtManagement;
+using Platform.DAAS.OData.Core.WdsManagement;
 using Platform.DAAS.OData.Authentication;
 using Platform.DAAS.OData.HTTP;
 using Platform.DAAS.OData.Logging;
@@ -21,6 +23,8 @@ using Platform.DAAS.OData.ServiceManager;
 using Platform.DAAS.OData.BusinessManagement;
 using Platform.DAAS.OData.StorageManagement;
 using Platform.DAAS.OData.Caching;
+using Platform.DAAS.OData.VamtManagement;
+using Platform.DAAS.OData.WdsManagement;
 
 namespace Platform.DAAS.OData.Facade
 {
@@ -166,6 +170,16 @@ namespace Platform.DAAS.OData.Facade
         public static IDatabaseManager SQLServerDatabaseManager()
         {
             return new SQLServerDatabaseManager();
+        }
+
+        public static IWdsManager WdsManager()
+        {
+            return new WdsManager();
+        }
+
+        public static IVamtManager VamtManager()
+        {
+            return new VamtManager(ConfigurationManager.AppSettings.Get("VamtPSModulePath"));
         }
     }
 }
