@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/da51ad71f4eca463bb4562f658f908a8981c4911/node-powershell/index.d.ts",
+    "raw": "registry:dt/node-powershell#3.1.1+20170308221459",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/da51ad71f4eca463bb4562f658f908a8981c4911/node-powershell/index.d.ts"
+  }
+}

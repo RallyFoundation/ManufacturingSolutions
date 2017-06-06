@@ -1,0 +1,21 @@
+{
+  "name": "oa3-agent",
+  "version": "0.0.0",
+  "description": "OA3Agent",
+  "main": "app.js",
+  "author": {
+    "name": "v-rawang"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "child_process2": "^2.0.1",
+    "express": "^4.15.3",
+    "jade": "*",
+    "mongodb": "^2.2.28",
+    "node-odata": "^0.7.16",
+    "node-powershell": "^3.1.1",
+    "redis": "^2.7.1",
+    "socket.io": "^2.0.2",
+    "stylus": "*"
+  }
+}
