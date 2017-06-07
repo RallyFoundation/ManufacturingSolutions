@@ -37,6 +37,7 @@
     <Compile Include="server-odata.js" />
     <Compile Include="server.js" />
     <Compile Include="redis-rest.js" />
+    <Compile Include="wds-api.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="public\javascripts\bootstrap.js" />
