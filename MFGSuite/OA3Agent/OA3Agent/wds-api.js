@@ -68,7 +68,7 @@ app.post('/wds/lookup/', function (req, res) {
             res.end(err);
         }
         else {
-            redisClient.set(data.key, data.value, function (err, result) {
+            redisClient.set(data.Key, data.Value, function (err, result) {
                 if (err) {
                     console.log(err);
                     res.end(err);
@@ -102,7 +102,7 @@ app.get('/wds/image/boot/:name', function (req, res)
         .then(output => {
             console.log(output);
             //res.end(output);
-            if (imageName != '') {
+            if (imageName != '' && imageName.toLowerCase() != 'all') {
                 ps.addCommand('Get-WdsBootImage', ['Name "' + imageName + '"']);
             } else {
                 ps.addCommand('Get-WdsBootImage');
@@ -114,12 +114,14 @@ app.get('/wds/image/boot/:name', function (req, res)
                 })
                 .catch(err => {
                     console.log(err);
-                    ps.dispose();
+                    //ps.dispose();
+                    res.end(err);
                 });
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 });
 
@@ -140,7 +142,7 @@ app.get('/wds/image/install/:name', function (req, res) {
         .then(output => {
             console.log(output);
             //res.end(output);
-            if (imageName != '') {
+            if (imageName != '' && imageName.toLowerCase() != 'all') {
                 ps.addCommand('Get-WdsInstallImage', ['Name "' + imageName + '"']);
             } else {
                 ps.addCommand('Get-WdsInstallImage');
@@ -152,12 +154,14 @@ app.get('/wds/image/install/:name', function (req, res) {
                 })
                 .catch(err => {
                     console.log(err);
-                    ps.dispose();
+                    //ps.dispose();
+                    res.end(err);
                 });
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 });
 
@@ -178,7 +182,7 @@ app.get('/wds/imagegroup/install/:name', function (req, res) {
         .then(output => {
             console.log(output);
             //res.end(output);
-            if (imageGroupName != '') {
+            if (imageGroupName != '' && imageGroupName.toLowerCase() != 'all') {
                 ps.addCommand('Get-WdsInstallImageGroup', ['Name "' + imageGroupName + '"']);
             } else {
                 ps.addCommand('Get-WdsInstallImageGroup');
@@ -190,12 +194,14 @@ app.get('/wds/imagegroup/install/:name', function (req, res) {
                 })
                 .catch(err => {
                     console.log(err);
-                    ps.dispose();
+                    //ps.dispose();
+                    res.end(err);
                 });
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 });
 
@@ -215,7 +221,8 @@ app.post('/wds/image/content/', function (req, res) {
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 })
 
@@ -240,12 +247,14 @@ app.post('/wds/imagegroup/install/', function (req, res) {
                 })
                 .catch(err => {
                     console.log(err);
-                    ps.dispose();
+                    //ps.dispose();
+                    res.end(err);
                 });
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 })
 
@@ -278,11 +287,13 @@ app.post('/wds/image/install/', function (req, res)
                 })
                 .catch(err => {
                     console.log(err);
-                    ps.dispose();
+                    //ps.dispose();
+                    res.end(err);
                 });
         })
         .catch(err => {
             console.log(err);
-            ps.dispose();
+            //ps.dispose();
+            res.end(err);
         });
 })

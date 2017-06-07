@@ -5,6 +5,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>OA3Agent</Name>
     <RootNamespace>OA3Agent</RootNamespace>
+    <NameOfLastUsedPublishProfile>wds-nodejs-pub</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -12,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>redis-rest.js</StartupFile>
+    <StartupFile>wds-api.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -69,6 +70,7 @@
     <Content Include="views\about.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
+    <None Include="wds-nodejs-pub.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\" />
