@@ -1,8 +1,11 @@
 ﻿var app = require('express')();
+var bodyParser = require('body-parser');
 //var http = require('http').Server(app);
 //var io = require('socket.io')(http);
 var redis = require("redis");
-var redisClient = null;
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var redisAddress = "127.0.0.1";
 var redisPort = 6379;
@@ -33,26 +36,50 @@ app.get('/redis/:key', function (req, res)
     var redisClient = getRedisClient();
     var key = req.params.key;
 
-    redisClient.select(redisDbIndex, function (err)
-    {
-        if (err){
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
             console.log(err);
             res.end(err);
         }
-        else
-        {
-            redisClient.get(key, function (err, result)
-            {
+        else {
+            redisClient.get(key, function (err, result) {
                 if (err) {
                     console.log(err);
                     res.end(err);
                 }
-                else
-                {
+                else {
                     console.log(result);
+                    redisClient.end(true);
                     res.end(result);
                 }
             });
         }
-    })
+    });
+});
+
+app.post('/redis/:key', function (req, res)
+{
+    var redisClient = getRedisClient();
+    var key = req.params.key;
+    var data = req.body;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.set(key, data.value, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(result);
+                    redisClient.end(true);
+                    res.end(result);
+                }
+            });
+        }
+    });
 });
