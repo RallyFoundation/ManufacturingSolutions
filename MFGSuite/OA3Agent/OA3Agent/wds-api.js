@@ -103,14 +103,24 @@ app.get('/wds/image/boot/:name', function (req, res)
             console.log(output);
             //res.end(output);
             if (imageName != '' && imageName.toLowerCase() != 'all') {
-                ps.addCommand('Get-WdsBootImage', ['Name "' + imageName + '"']);
+                ps.addCommand('$image = Get-WdsBootImage', ['Name "' + imageName + '"']);
             } else {
-                ps.addCommand('Get-WdsBootImage');
+                ps.addCommand('$image = Get-WdsBootImage');
             }
             ps.invoke()
                 .then(output => {
                     console.log(output);
-                    res.end(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
                 })
                 .catch(err => {
                     console.log(err);
@@ -143,14 +153,24 @@ app.get('/wds/image/install/:name', function (req, res) {
             console.log(output);
             //res.end(output);
             if (imageName != '' && imageName.toLowerCase() != 'all') {
-                ps.addCommand('Get-WdsInstallImage', ['Name "' + imageName + '"']);
+                ps.addCommand('$image = Get-WdsInstallImage', ['Name "' + imageName + '"']);
             } else {
-                ps.addCommand('Get-WdsInstallImage');
+                ps.addCommand('$image = Get-WdsInstallImage');
             }
             ps.invoke()
                 .then(output => {
                     console.log(output);
-                    res.end(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
                 })
                 .catch(err => {
                     console.log(err);
@@ -183,14 +203,24 @@ app.get('/wds/imagegroup/install/:name', function (req, res) {
             console.log(output);
             //res.end(output);
             if (imageGroupName != '' && imageGroupName.toLowerCase() != 'all') {
-                ps.addCommand('Get-WdsInstallImageGroup', ['Name "' + imageGroupName + '"']);
+                ps.addCommand('$group = Get-WdsInstallImageGroup', ['Name "' + imageGroupName + '"']);
             } else {
-                ps.addCommand('Get-WdsInstallImageGroup');
+                ps.addCommand('$group = Get-WdsInstallImageGroup');
             }
             ps.invoke()
                 .then(output => {
                     console.log(output);
-                    res.end(output);
+                    //res.end(output);
+                    ps.addCommand('$group | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
                 })
                 .catch(err => {
                     console.log(err);
@@ -213,11 +243,21 @@ app.post('/wds/image/content/', function (req, res) {
         noProfile: true
     });
 
-    ps.addCommand('Get-WindowsImage', ['ImagePath "' + data.Path + '"']);
+    ps.addCommand('$image = Get-WindowsImage', ['ImagePath "' + data.Path + '"']);
     ps.invoke()
         .then(output => {
             console.log(output);
-            res.end(output);
+            //res.end(output);
+            ps.addCommand('$image | ConvertTo-Json')
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    res.end(output);
+                })
+                .catch(err => {
+                    console.log(err);
+                    ps.dispose();
+                });
         })
         .catch(err => {
             console.log(err);
@@ -239,11 +279,21 @@ app.post('/wds/imagegroup/install/', function (req, res) {
         .then(output => {
             console.log(output);
             //res.end(output);
-            ps.addCommand('New-WdsInstallImageGroup', ['Name "' + data.Name + '"']);
+            ps.addCommand('$group = New-WdsInstallImageGroup', ['Name "' + data.Name + '"']);
             ps.invoke()
                 .then(output => {
                     console.log(output);
-                    res.end(output);
+                    //res.end(output);
+                    ps.addCommand('$group | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
                 })
                 .catch(err => {
                     console.log(err);
@@ -274,16 +324,26 @@ app.post('/wds/image/install/', function (req, res)
             //res.end(output);
             if (data.EnableMulticastTransmission)
             {
-                ps.addCommand('Import-WdsInstallImage', ['ImageGroup "' + data.ImageGroupName + '"', 'Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'ImageName "' + data.RawImageNameInFile + '"', 'Multicast', 'TransmissionName "' + data.MulticastTransmissionName + '"']);
+                ps.addCommand('$image = Import-WdsInstallImage', ['ImageGroup "' + data.ImageGroupName + '"', 'Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'ImageName "' + data.RawImageNameInFile + '"', 'Multicast', 'TransmissionName "' + data.MulticastTransmissionName + '"']);
             }
             else
             {
-                ps.addCommand('Import-WdsInstallImage', ['ImageGroup "' + data.ImageGroupName + '"', 'Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'ImageName "' + data.RawImageNameInFile + '"']);
+                ps.addCommand('$image = Import-WdsInstallImage', ['ImageGroup "' + data.ImageGroupName + '"', 'Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'ImageName "' + data.RawImageNameInFile + '"']);
             }
             ps.invoke()
                 .then(output => {
                     console.log(output);
-                    res.end(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
                 })
                 .catch(err => {
                     console.log(err);

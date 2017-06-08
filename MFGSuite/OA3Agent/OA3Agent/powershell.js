@@ -16,12 +16,23 @@ app.get("/services", function (req, res) {
         noProfile: true
     });
 
-    ps.addCommand('get-service')
+    ps.addCommand('$services = get-service')
     ps.invoke()
         .then(output => {
             console.log(output);
             //res.end(JSON.stringify(output));
-            res.end(output);
+            //res.end(output);
+            ps.addCommand('$services | convertto-json')
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(JSON.stringify(output));
+                    res.end(output);
+                })
+                .catch(err => {
+                    console.log(err);
+                    ps.dispose();
+                });
         })
         .catch(err => {
             console.log(err);
@@ -52,8 +63,20 @@ app.get("/value/:key", function (req, res)
             ps.addCommand('Connect-RedisServer', ['RedisServer 127.0.0.1', 'Database 0'])
             ps.invoke().then(output => {
                 console.log(output);
-                ps.addCommand('Get-RedisKey', ['Key "' + key + '"']);
-                ps.invoke().then(output => { console.log(output); res.end(output); }).catch(err => {
+                ps.addCommand('$key = Get-RedisKey', ['Key "' + key + '"']);
+                ps.invoke().then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$key | ConvertTo-Json');
+                    ps.invoke().then(output =>
+                    {
+                        console.log(output);
+                        res.end(output);
+                    }).catch(err => {
+                        console.log(err);
+                        ps.dispose();
+                    });
+                }).catch(err => {
                     console.log(err);
                     ps.dispose();
                 });
