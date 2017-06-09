@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="ProductKeyIDSerialNumberPairs" EntityType="DataModel.Store.ProductKeyIDSerialNumberPairs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Models" EntityType="DataModel.Store.Models" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkPackages" EntityType="DataModel.Store.WorkPackages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Transactions" EntityType="DataModel.Store.Transactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OriginalFiles" EntityType="DataModel.Store.OriginalFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="DataModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DataModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ModelWorkPackage" Association="DataModel.Store.ModelWorkPackage">
+      <End Role="Model" EntitySet="Models" />
+      <End Role="WorkPackage" EntitySet="WorkPackages" />
+    </AssociationSet>
+    <AssociationSet Name="WorkPackageTransaction" Association="DataModel.Store.WorkPackageTransaction">
+      <End Role="WorkPackage" EntitySet="WorkPackages" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="TransactionOriginalFile" Association="DataModel.Store.TransactionOriginalFile">
+      <End Role="Transaction" EntitySet="Transactions" />
+      <End Role="OriginalFile" EntitySet="OriginalFiles" />
+    </AssociationSet>
+    <AssociationSet Name="WorkPackageUser" Association="DataModel.Store.WorkPackageUser">
+      <End Role="WorkPackage" EntitySet="WorkPackages" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UserRole" Association="DataModel.Store.UserRole">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ProductKeyIDSerialNumberPairs">
+    <Key>
+      <PropertyRef Name="PairID" />
+    </Key>
+    <Property Name="PairID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductKeyID" Type="bigint" Nullable="true" />
+    <Property Name="SerialNumber" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="CreationTime" Type="datetime" Nullable="true" />
+    <Property Name="TransactionID" Type="nvarchar" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Models">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="BusinessID" Type="nvarchar" Nullable="true" MaxLength="150" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="WorkPackages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="ModelID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="User_ID" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="WorkPackageID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="ReferenceID" Type="nvarchar" Nullable="true" MaxLength="200" />
+    <Property Name="ProductKeyID" Type="bigint" Nullable="false" />
+    <Property Name="SerialNumber" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="CreationTime" Type="datetime" Nullable="false" />
+    <Property Name="SynchronizationTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OriginalFiles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Content" Type="varbinary(max)" Nullable="true" />
+    <Property Name="TransactionID" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="LoginName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="PasswordHash" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="500" />
+    <Property Name="State" Type="int" Nullable="false" />
+    <Property Name="Role_ID" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="ModelWorkPackage">
+    <End Role="Model" Type="DataModel.Store.Models" Multiplicity="1" />
+    <End Role="WorkPackage" Type="DataModel.Store.WorkPackages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Model">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WorkPackage">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkPackageTransaction">
+    <End Role="WorkPackage" Type="DataModel.Store.WorkPackages" Multiplicity="1" />
+    <End Role="Transaction" Type="DataModel.Store.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkPackage">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="WorkPackageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TransactionOriginalFile">
+    <End Role="Transaction" Type="DataModel.Store.Transactions" Multiplicity="1" />
+    <End Role="OriginalFile" Type="DataModel.Store.OriginalFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OriginalFile">
+        <PropertyRef Name="TransactionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkPackageUser">
+    <End Role="WorkPackage" Type="DataModel.Store.WorkPackages" Multiplicity="*" />
+    <End Role="User" Type="DataModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WorkPackage">
+        <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserRole">
+    <End Role="User" Type="DataModel.Store.Users" Multiplicity="*" />
+    <End Role="Role" Type="DataModel.Store.Roles" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ProductKeyIDSerialNumberPairs" EntityType="DataModel.ProductKeyIDSerialNumberPairs" />
+          <EntitySet Name="Models" EntityType="DataModel.Model" />
+          <EntitySet Name="WorkPackages" EntityType="DataModel.WorkPackage" />
+          <AssociationSet Name="ModelWorkPackage" Association="DataModel.ModelWorkPackage">
+            <End Role="Model" EntitySet="Models" />
+            <End Role="WorkPackage" EntitySet="WorkPackages" />
+          </AssociationSet>
+          <EntitySet Name="Transactions" EntityType="DataModel.Transaction" />
+          <AssociationSet Name="WorkPackageTransaction" Association="DataModel.WorkPackageTransaction">
+            <End Role="WorkPackage" EntitySet="WorkPackages" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <EntitySet Name="OriginalFiles" EntityType="DataModel.OriginalFile" />
+          <AssociationSet Name="TransactionOriginalFile" Association="DataModel.TransactionOriginalFile">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="OriginalFile" EntitySet="OriginalFiles" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="DataModel.Role" />
+          <EntitySet Name="Users" EntityType="DataModel.User" />
+          <AssociationSet Name="WorkPackageUser" Association="DataModel.WorkPackageUser">
+            <End Role="WorkPackage" EntitySet="WorkPackages" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="DataModel.UserRole">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ProductKeyIDSerialNumberPairs">
+          <Key>
+            <PropertyRef Name="PairID" />
+          </Key>
+          <Property Name="PairID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ProductKeyID" Type="Int64" Nullable="true" />
+          <Property Name="SerialNumber" Type="String" Nullable="false" MaxLength="200" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="true" />
+          <Property Name="TransactionID" Type="String" Nullable="true" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="BusinessID" Type="String" Nullable="true" MaxLength="150" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="500" />
+          <NavigationProperty Name="WorkPackages" Relationship="DataModel.ModelWorkPackage" FromRole="Model" ToRole="WorkPackage" />
+        </EntityType>
+        <EntityType Name="WorkPackage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <NavigationProperty Name="Model" Relationship="DataModel.ModelWorkPackage" FromRole="WorkPackage" ToRole="Model" />
+          <Property Name="ModelID" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" />
+          <NavigationProperty Name="Transactions" Relationship="DataModel.WorkPackageTransaction" FromRole="WorkPackage" ToRole="Transaction" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DataModel.WorkPackageUser" FromRole="WorkPackage" ToRole="User" />
+        </EntityType>
+        <Association Name="ModelWorkPackage">
+          <End Type="DataModel.Model" Role="Model" Multiplicity="1" />
+          <End Type="DataModel.WorkPackage" Role="WorkPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Model">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WorkPackage">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <NavigationProperty Name="WorkPackage" Relationship="DataModel.WorkPackageTransaction" FromRole="Transaction" ToRole="WorkPackage" />
+          <Property Name="WorkPackageID" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="ReferenceID" Type="String" Nullable="true" MaxLength="200" />
+          <Property Name="ProductKeyID" Type="Int64" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" Nullable="false" MaxLength="200" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+          <Property Name="SynchronizationTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="OriginalFiles" Relationship="DataModel.TransactionOriginalFile" FromRole="Transaction" ToRole="OriginalFile" />
+        </EntityType>
+        <Association Name="WorkPackageTransaction">
+          <End Type="DataModel.WorkPackage" Role="WorkPackage" Multiplicity="1" />
+          <End Type="DataModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkPackage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="WorkPackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OriginalFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Content" Type="Binary" Nullable="true" />
+          <NavigationProperty Name="Transaction" Relationship="DataModel.TransactionOriginalFile" FromRole="OriginalFile" ToRole="Transaction" />
+          <Property Name="TransactionID" Type="String" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <Association Name="TransactionOriginalFile">
+          <End Type="DataModel.Transaction" Role="Transaction" Multiplicity="1" />
+          <End Type="DataModel.OriginalFile" Role="OriginalFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OriginalFile">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="500" />
+          <NavigationProperty Name="User" Relationship="DataModel.UserRole" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="150" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="150" />
+          <Property Name="Description" Type="String" Nullable="true" MaxLength="500" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkPackage" Relationship="DataModel.WorkPackageUser" FromRole="User" ToRole="WorkPackage" />
+          <NavigationProperty Name="Role" Relationship="DataModel.UserRole" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="WorkPackageUser">
+          <End Type="DataModel.WorkPackage" Role="WorkPackage" Multiplicity="1" />
+          <End Type="DataModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="UserRole">
+          <End Type="DataModel.User" Role="User" Multiplicity="1" />
+          <End Type="DataModel.Role" Role="Role" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="ProductKeyIDSerialNumberPairs">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.ProductKeyIDSerialNumberPairs)">
+        <MappingFragment StoreEntitySet="ProductKeyIDSerialNumberPairs">
+          <ScalarProperty Name="PairID" ColumnName="PairID" />
+          <ScalarProperty Name="ProductKeyID" ColumnName="ProductKeyID" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Models">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Model)">
+        <MappingFragment StoreEntitySet="Models">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkPackages">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.WorkPackage)">
+        <MappingFragment StoreEntitySet="WorkPackages">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Transaction)">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="WorkPackageID" ColumnName="WorkPackageID" />
+          <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+          <ScalarProperty Name="ProductKeyID" ColumnName="ProductKeyID" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+          <ScalarProperty Name="SynchronizationTime" ColumnName="SynchronizationTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OriginalFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.OriginalFile)">
+        <MappingFragment StoreEntitySet="OriginalFiles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="WorkPackageUser" TypeName="DataModel.WorkPackageUser" StoreEntitySet="WorkPackages">
+      <EndProperty Name="User">
+        <ScalarProperty Name="ID" ColumnName="User_ID" />
+      </EndProperty>
+      <EndProperty Name="WorkPackage">
+        <ScalarProperty Name="ID" ColumnName="ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserRole" TypeName="DataModel.UserRole" StoreEntitySet="Users">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="ID" ColumnName="Role_ID" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="ID" ColumnName="ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
