@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.DAAS.OData.WdsMana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManufacturingPlatform", "ManufacturingPlatform\ManufacturingPlatform.csproj", "{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellDataProcessing", "PowerShellDataProcessing\PowerShellDataProcessing.csproj", "{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -293,6 +295,14 @@ Global
 		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.ActiveCfg = Release|Any CPU
 		{3C81849F-5365-4CFE-BF55-159A2B7DFFEE}.Release|x86.Build.0 = Release|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Debug|x86.Build.0 = Debug|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Release|x86.ActiveCfg = Release|Any CPU
+		{0ECDB898-0BF8-4FC2-8495-5A2EEF87002D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

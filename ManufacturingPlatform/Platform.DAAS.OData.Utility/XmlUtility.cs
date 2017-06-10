@@ -178,6 +178,94 @@ namespace Platform.DAAS.OData.Utility
             return returnValue;
         }
 
+        /// <summary>
+        /// Transforms an XML document content to an XML document content in another format by specifying an XSLT path
+        /// </summary>
+        /// <param name="xmlString">Original XML document content</param>
+        /// <param name="xsltFilePath">XSLT path</param>
+        /// <param name="parameters">A generic dictionary containing the XSLT parameters for XSLT transformation(optional)</param>
+        /// <param name="extensionObjects">A generic dictionary containing the XSLT extended objects for XSLT transformation(optional)</param>
+        /// <param name="outputEncodingName">The encoding name indicating the encoding of the output content. A table listing all available encoding names and their relative code page numbers can be found at :  http://msdn.microsoft.com/en-us/library/system.text.encoding.aspx </param>
+        /// <returns>Transformed XML document content</returns>
+        public static string GetTransformedXmlStringByXsltDocument(string xmlString, string xsltFilePath, IDictionary<string, object> parameters, IDictionary<string, object> extensionObjects, string outputEncodingName)
+        {
+            string returnValue = xmlString;
+
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(xmlString);
+
+            XslCompiledTransform transform = new XslCompiledTransform();
+            transform.Load(xsltFilePath);
+
+            //StringWriter stringWriter = new StringWriter();
+
+            XsltArgumentList xsltArgumentList = null;
+
+            if (parameters != null)
+            {
+                if (parameters.Count > 0)
+                {
+                    if (xsltArgumentList == null)
+                    {
+                        xsltArgumentList = new XsltArgumentList();
+                    }
+
+                    foreach (string key in parameters.Keys)
+                    {
+                        xsltArgumentList.AddParam(key, String.Empty, parameters[key]);
+                    }
+                }
+            }
+
+            if (extensionObjects != null)
+            {
+                if (extensionObjects.Count > 0)
+                {
+                    if (xsltArgumentList == null)
+                    {
+                        xsltArgumentList = new XsltArgumentList();
+                    }
+
+                    foreach (string key in extensionObjects.Keys)
+                    {
+                        xsltArgumentList.AddExtensionObject(key, extensionObjects[key]);
+                    }
+                }
+            }
+
+            //transform.Transform(document, xsltArgumentList, stringWriter);
+
+            //stringWriter.Flush();
+            //stringWriter.Close();
+
+            //returnValue = stringWriter.ToString();
+
+            MemoryStream stream = new MemoryStream();
+
+            transform.Transform(document, xsltArgumentList, stream);
+
+            stream.Flush();
+
+            //byte[] outputBytes = stream.GetBuffer();
+
+            //Encoding outputEncoding = String.IsNullOrEmpty(outputEncodingName) ? Encoding.Default : Encoding.GetEncoding(outputEncodingName);
+
+            //returnValue = outputEncoding.GetString(outputBytes);
+
+            byte[] bytes = new byte[stream.Length];
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Read(bytes, 0, bytes.Length);
+
+            Encoding outputEncoding = String.IsNullOrEmpty(outputEncodingName) ? Encoding.Default : Encoding.GetEncoding(outputEncodingName);
+
+            returnValue = outputEncoding.GetString(bytes);
+
+            stream.Close();
+
+            return returnValue;
+        }
+
+
         public static object XmlDeserialize(string xml, Type type, Type[] extraTypes, string inputEncodingName)
         {
             object returnValue = null;
