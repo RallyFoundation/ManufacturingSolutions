@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Management.Automation;
 using Platform.DAAS.OData.Utility;
 
 namespace PowerShellDataProcessing
 {
-    [Cmdlet("Do", "XsltTransformation")]
-    public class DoXsltTransformationCommand : Cmdlet
+    [Cmdlet(VerbsCommon.Get, "TransformedXml")]
+    public class GetTransformedXmlCommand : Cmdlet
     {
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The content of the xml document to be transformed.")]
-        public string XmlString { get; set; }
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The xml document to be transformed.")]
+        public XmlDocument XmlDocument { get; set; }
 
         [Parameter(Position = 1, Mandatory = true, HelpMessage = "The path of the xslt file to transform the xml document.")]
         public string XsltPath { get; set; }
@@ -24,8 +25,14 @@ namespace PowerShellDataProcessing
             //base.ProcessRecord();
 
             //string outputEncoding = String.IsNullOrEmpty(OutputEncoding) ? System.Text.Encoding.Default.EncodingName : OutputEncoding;
+            string xmlString = XmlDocument.InnerXml;
 
-            string result = XmlUtility.XmlTransform(XmlString, XsltPath, OutputEncoding);
+            string result = XmlUtility.GetTransformedXmlStringByXsltDocument(xmlString, XsltPath, null, null, OutputEncoding);
+
+            //XmlDocument resultDoc = new XmlDocument();
+            //resultDoc.LoadXml(result);
+
+            //this.WriteObject(resultDoc);
 
             this.WriteObject(result);
         }
