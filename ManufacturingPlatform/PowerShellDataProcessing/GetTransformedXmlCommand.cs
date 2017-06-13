@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Xml;
+using System.Xml.Xsl;
 using System.Management.Automation;
 using Platform.DAAS.OData.Utility;
 
@@ -25,16 +27,57 @@ namespace PowerShellDataProcessing
             //base.ProcessRecord();
 
             //string outputEncoding = String.IsNullOrEmpty(OutputEncoding) ? System.Text.Encoding.Default.EncodingName : OutputEncoding;
-            string xmlString = XmlDocument.InnerXml;
+            //string xmlString = XmlDocument.InnerXml;
 
-            string result = XmlUtility.GetTransformedXmlStringByXsltDocument(xmlString, XsltPath, null, null, OutputEncoding);
+            //string result = XmlUtility.GetTransformedXmlStringByXsltDocument(xmlString, XsltPath, null, null, OutputEncoding);
 
             //XmlDocument resultDoc = new XmlDocument();
             //resultDoc.LoadXml(result);
 
             //this.WriteObject(resultDoc);
 
-            this.WriteObject(result);
+            //this.WriteObject(result);
+
+            XslCompiledTransform transform = new XslCompiledTransform();
+
+            //transform.OutputSettings.Encoding = OutputEncoding;
+            //transform.OutputSettings.CloseOutput = true;
+            //transform.OutputSettings.WriteEndDocumentOnClose = true;
+
+            transform.Load(XsltPath);
+
+            MemoryStream stream = new MemoryStream();
+
+            transform.Transform(XmlDocument, null, stream);
+
+            byte[] bytes = new byte[stream.Length];
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Read(bytes, 0, bytes.Length);
+
+            //XmlReader reader = XmlReader.Create(stream, new XmlReaderSettings() { CloseInput = true });
+
+            //XmlDocument resultXmlDoc = new XmlDocument();
+
+            //resultXmlDoc.Load(reader);
+
+            //this.WriteObject(resultXmlDoc);
+
+            Encoding outputEncoding = String.IsNullOrEmpty(OutputEncoding) ? System.Text.Encoding.Default : System.Text.Encoding.GetEncoding(OutputEncoding);
+
+            string result = outputEncoding.GetString(bytes);
+
+            stream.Close();
+
+            //this.WriteObject(result);
+
+            result = result.Substring(result.IndexOf("<"));
+            result = result.Substring(0, result.LastIndexOf(">") + 1);
+
+            XmlDocument resultXmlDoc = new XmlDocument();
+
+            resultXmlDoc.LoadXml(result);
+
+            this.WriteObject(resultXmlDoc);
         }
     }
 }
