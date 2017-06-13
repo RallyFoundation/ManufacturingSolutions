@@ -22,6 +22,12 @@ namespace PowerShellDataProcessing
 
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "The encoding for the transformed xml document.")]
         public string OutputEncoding { get; set; }
+
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = "The argument(s) to be passed to the xslt to use for the transformation.")]
+        public Dictionary<string, object> XsltArguments {get; set;}
+
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = "The extension object(s) to be passed to the xslt to use for the transformation.")]
+        public Dictionary<string, object> XsltExtendedObjects { get; set; }
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
@@ -48,7 +54,35 @@ namespace PowerShellDataProcessing
 
             MemoryStream stream = new MemoryStream();
 
-            transform.Transform(XmlDocument, null, stream);
+            XsltArgumentList arguments = null;
+
+            if (XsltArguments != null && XsltArguments.Count > 0)
+            {
+                if (arguments == null)
+                {
+                    arguments = new XsltArgumentList();
+                }
+
+                foreach (string key in XsltArguments.Keys)
+                {
+                    arguments.AddParam(key, String.Empty, XsltArguments[key]);
+                }
+            }
+
+            if (XsltExtendedObjects != null)
+            {
+                if (arguments == null)
+                {
+                    arguments = new XsltArgumentList();
+                }
+
+                foreach (string key in XsltExtendedObjects.Keys)
+                {
+                    arguments.AddExtensionObject(key, XsltExtendedObjects[key]);
+                }
+            }
+
+            transform.Transform(XmlDocument, arguments, stream);
 
             byte[] bytes = new byte[stream.Length];
             stream.Seek(0, SeekOrigin.Begin);
