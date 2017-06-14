@@ -19,13 +19,19 @@ namespace PowerShellDataProcessing
 
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "The encoding for the transformed xml document.")]
         public string OutputEncoding { get; set; }
+
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = "The argument(s) to be passed to the xslt to use for the transformation.")]
+        public Dictionary<string, object> XsltArguments { get; set; }
+
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = "The extension object(s) to be passed to the xslt to use for the transformation.")]
+        public Dictionary<string, object> XsltExtendedObjects { get; set; }
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
 
             //string outputEncoding = String.IsNullOrEmpty(OutputEncoding) ? System.Text.Encoding.Default.EncodingName : OutputEncoding;
 
-            string result = XmlUtility.XmlTransform(XmlString, XsltPath, OutputEncoding);
+            string result = XmlUtility.GetTransformedXmlStringByXsltDocument(XmlString, XsltPath, XsltArguments, XsltExtendedObjects, OutputEncoding);
 
             this.WriteObject(result);
         }
