@@ -3,7 +3,7 @@ var io = require('socket.io-client');
 
 var url = "mongodb://localhost:27017/mfgcloud";
 var resourceName = "engineering";
-var resourceModel = {uid: String, type: String, value: Number, time: Number };
+var resourceModel = { uid: String, transactionId: String, type: String, value: Number, time: Number, systemInfo: Object, smbInfo: Object, monitorInfo: Object, oa3Report: Object, oa3ReportTrace: Object, oa3HwDecode: Object, validationResult: Object };
 var servicePortNumber = 3001;
 
 var socketHost = "127.0.0.1";
