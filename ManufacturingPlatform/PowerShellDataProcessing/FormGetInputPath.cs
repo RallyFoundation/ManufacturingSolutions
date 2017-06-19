@@ -18,7 +18,7 @@ namespace PowerShellDataProcessing
             InitializeComponent();
         }
 
-        public FormGetInputPath(string Title, string Message)
+        public FormGetInputPath(string Title, string Message, string PopupMessage)
         {
             InitializeComponent();
 
@@ -31,7 +31,14 @@ namespace PowerShellDataProcessing
             {
                 this.metroLabelMessage.Text = Message;
             }
+
+            if (!String.IsNullOrEmpty(PopupMessage))
+            {
+                this.popupMessage = PopupMessage;
+            }
         }
+
+        private string popupMessage = "Please specify input path!";
 
         public string InputPath { get { return this.metroTextBoxInputPath.Text; } }
 
@@ -39,7 +46,7 @@ namespace PowerShellDataProcessing
         {
             if (String.IsNullOrEmpty(this.metroTextBoxInputPath.Text))
             {
-                MessageBox.Show(this, "Please specify input path!", "Please specify input path!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, "Error!", popupMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Cancel;
                 return;
             }

@@ -16,11 +16,14 @@ namespace PowerShellDataProcessing
         [Parameter(Position = 1, Mandatory = false, HelpMessage = "The message text to be displayed in the message area of the dialog.")]
         public string Message { get; set; }
 
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = "The message text to be displayed when error encountered.")]
+        public string ErrorMessage { get; set; }
+
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
 
-            FormGetInputPath formInputPath = new FormGetInputPath(Title, Message);
+            FormGetInputPath formInputPath = new FormGetInputPath(Title, Message, ErrorMessage);
 
             if (formInputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             { 
