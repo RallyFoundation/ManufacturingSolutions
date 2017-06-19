@@ -37,8 +37,10 @@
             // 
             // metroTextBoxInputPath
             // 
+            this.metroTextBoxInputPath.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.metroTextBoxInputPath.Location = new System.Drawing.Point(11, 106);
             this.metroTextBoxInputPath.Name = "metroTextBoxInputPath";
+            this.metroTextBoxInputPath.ReadOnly = true;
             this.metroTextBoxInputPath.Size = new System.Drawing.Size(480, 64);
             this.metroTextBoxInputPath.TabIndex = 0;
             // 
@@ -46,7 +48,7 @@
             // 
             this.metroButtonBrowse.Location = new System.Drawing.Point(500, 106);
             this.metroButtonBrowse.Name = "metroButtonBrowse";
-            this.metroButtonBrowse.Size = new System.Drawing.Size(125, 64);
+            this.metroButtonBrowse.Size = new System.Drawing.Size(129, 64);
             this.metroButtonBrowse.TabIndex = 1;
             this.metroButtonBrowse.Text = "Browse..";
             this.metroButtonBrowse.Click += new System.EventHandler(this.metroButtonBrowse_Click);
