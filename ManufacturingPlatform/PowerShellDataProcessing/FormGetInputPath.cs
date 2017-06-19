@@ -46,7 +46,7 @@ namespace PowerShellDataProcessing
         {
             if (String.IsNullOrEmpty(this.metroTextBoxInputPath.Text))
             {
-                MessageBox.Show(this, "Error!", popupMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, popupMessage, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.Cancel;
                 return;
             }
