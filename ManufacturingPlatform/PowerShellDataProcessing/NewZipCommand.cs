@@ -17,11 +17,14 @@ namespace PowerShellDataProcessing
         [Parameter(Position = 1, Mandatory = true, HelpMessage = "The path to the file as the zip destination.")]
         public string ZippedFilePath { get; set; }
 
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = "The virtual path in the zip file.")]
+        public string VirtualPathInZip { get; set; }
+
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
 
-            CommonUtility.CreateZip(FilesToZip, ZippedFilePath);
+            CommonUtility.CreateZip(FilesToZip, ZippedFilePath, VirtualPathInZip);
 
             this.WriteObject("Done.");
         }

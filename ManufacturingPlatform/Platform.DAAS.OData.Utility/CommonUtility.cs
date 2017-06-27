@@ -185,7 +185,7 @@ namespace Platform.DAAS.OData.Utility
             return returnValue;
         }
 
-        public static void CreateZip(string[] filesToZip, string zippedFilePath)
+        public static void CreateZip(string[] filesToZip, string zippedFilePath, string pathInZip)
         {
             using (ZipFile zip = new ZipFile())
             {
@@ -193,7 +193,7 @@ namespace Platform.DAAS.OData.Utility
                 {
                     if (File.Exists(file))
                     {
-                        zip.AddFile(file);
+                        zip.AddFile(file, pathInZip);
                     }
                 }
 
@@ -205,7 +205,7 @@ namespace Platform.DAAS.OData.Utility
         {
             using (ZipFile zip = ZipFile.Read(zipFilePath))
             {
-                zip.ExtractAll(extractionPath);
+                zip.ExtractAll(extractionPath, ExtractExistingFileAction.InvokeExtractProgressEvent);
             }
         }
     }
