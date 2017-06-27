@@ -77,7 +77,7 @@ namespace SuperRunPlus
                     arguments = String.Format("{0} {1}", arguments, scriptArgs);
                 }
 
-               Utility.StartProcess("PowerShell", arguments, true, true);
+               Utility.StartProcess("PowerShell", arguments, true, true, false);
             }
         }
     }

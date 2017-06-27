@@ -156,5 +156,36 @@ namespace SuperRunPlus
 
             return result;
         }
+
+        public static string StartProcess(string AppPath, string AppParams, bool IsCreatingNewWindow, bool IsUsingShellExecute, bool ShouldWait)
+        {
+            string result = "";
+
+            Process process = new Process();
+
+            process.StartInfo.FileName = AppPath;
+            process.StartInfo.Arguments = AppParams;
+            process.StartInfo.UseShellExecute = IsUsingShellExecute;
+            process.StartInfo.RedirectStandardError = !IsUsingShellExecute;
+            process.StartInfo.RedirectStandardOutput = !IsUsingShellExecute;
+            process.StartInfo.CreateNoWindow = !IsCreatingNewWindow;
+
+            process.Start();
+
+            if (ShouldWait)
+            {
+                process.WaitForExit();
+
+                if (!IsUsingShellExecute)
+                {
+                    using (process.StandardOutput)
+                    {
+                        result = process.StandardOutput.ReadToEnd();
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
