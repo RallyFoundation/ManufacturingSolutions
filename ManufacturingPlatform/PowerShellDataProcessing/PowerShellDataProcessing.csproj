@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewZipCommand.cs" />
     <Compile Include="DoXsltTransformationCommand.cs" />
     <Compile Include="FormGetInputPath.cs">
       <SubType>Form</SubType>
@@ -73,6 +74,7 @@
     <Compile Include="GetJsonFromXmlCommand.cs" />
     <Compile Include="NewObjectFromJsonCommand.cs" />
     <Compile Include="GetTransformedXmlCommand.cs" />
+    <Compile Include="OpenZipCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

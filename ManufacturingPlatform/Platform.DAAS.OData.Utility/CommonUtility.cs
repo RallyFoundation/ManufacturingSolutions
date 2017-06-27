@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.Remoting;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Ionic.Zip;
 
 namespace Platform.DAAS.OData.Utility
 {
@@ -182,6 +183,30 @@ namespace Platform.DAAS.OData.Utility
             }
 
             return returnValue;
+        }
+
+        public static void CreateZip(string[] filesToZip, string zippedFilePath)
+        {
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach (string file in filesToZip)
+                {
+                    if (File.Exists(file))
+                    {
+                        zip.AddFile(file);
+                    }
+                }
+
+                zip.Save(zippedFilePath);
+            }
+        }
+
+        public static void ExtractZip(string zipFilePath, string extractionPath)
+        {
+            using (ZipFile zip = ZipFile.Read(zipFilePath))
+            {
+                zip.ExtractAll(extractionPath);
+            }
         }
     }
 }
