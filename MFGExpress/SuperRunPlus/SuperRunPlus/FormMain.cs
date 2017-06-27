@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Configuration;
 using MetroFramework.Forms;
 
 namespace SuperRunPlus
@@ -26,7 +27,13 @@ namespace SuperRunPlus
                 this.metroComboBoxOptions.DisplayMember = "Name";
                 this.metroComboBoxOptions.SelectedIndex = 0;
             }
+
+            string shouldWait = ConfigurationManager.AppSettings.Get("ShouldWait");
+
+            this.shouldWaitChild = (shouldWait == "true" || shouldWait == "1");
         }
+
+        private bool shouldWaitChild = false;
 
         private CommandItems getCommandItems()
         {
@@ -77,7 +84,7 @@ namespace SuperRunPlus
                     arguments = String.Format("{0} {1}", arguments, scriptArgs);
                 }
 
-               Utility.StartProcess("PowerShell", arguments, true, true, false);
+               Utility.StartProcess("PowerShell", arguments, true, true, this.shouldWaitChild);
             }
         }
     }
