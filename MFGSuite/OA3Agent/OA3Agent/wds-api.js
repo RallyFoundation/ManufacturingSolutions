@@ -357,3 +357,155 @@ app.post('/wds/image/install/', function (req, res)
             res.end(err);
         });
 })
+
+
+app.post('/wds/image/boot/', function (req, res) {
+    var data = req.body;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+            if (data.EnableMulticastTransmission) {
+                ps.addCommand('$image = Import-WdsBootImage', ['Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'DisplayOrder ' + data.DisplayOrder, 'Multicast', 'TransmissionName "' + data.MulticastTransmissionName + '"']);
+            }
+            else {
+                ps.addCommand('$image = Import-WdsBootImage', ['Path "' + data.ImageFilePath + '"', 'NewImageName "' + data.NewImageName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewFileName "' + data.NewFileName + '"', 'DisplayOrder ' + data.DisplayOrder]);
+            }
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+})
+
+
+app.patch('/wds/image/boot/', function (req, res) {
+    var data = req.body;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+            if (data.EnableMulticastTransmission) {
+                ps.addCommand('$image = Set-WdsBootImage', ['Architecture ' + data.Architecture, 'ImageName "' + data.ImageName + '"', 'Multicast', 'DisplayOrder ' + data.DisplayOrder, 'FileName "' + data.FileName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewImageName "' + data.NewImageName + '"', 'TransmissionName "' + data.MulticastTransmissionName + '"']);
+            }
+            else {
+                ps.addCommand('$image = Set-WdsBootImage', ['Architecture ' + data.Architecture, 'ImageName "' + data.ImageName + '"', 'StopMulticastTransmission', 'Force', 'DisplayOrder ' + data.DisplayOrder, 'FileName "' + data.FileName + '"', 'NewDescription "' + data.NewDescription + '"', 'NewImageName "' + data.NewImageName + '"']);
+            }
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+})
+
+
+app.delete('/wds/image/boot/:arch/:name', function (req, res) {
+    //var data = req.body;
+
+    var imageName = req.params.name;
+    imageName = String(imageName).replace(/\$/g, " ");
+
+    var architecture = req.params.arch;
+
+    var fileName = req.query.fname != null ? String(req.query.fname).replace(/\$/g, " ") : null;
+    //fileName = String(fileName).replace(/\$/g, " ");
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+            if (fileName != null && fileName != '') {
+                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"', 'FileName "' + fileName + '"']);
+            } else
+            {
+                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"']);
+            }
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+})
