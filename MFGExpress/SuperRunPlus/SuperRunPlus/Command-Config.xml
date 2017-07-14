@@ -2,12 +2,12 @@
 <CommandItems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CommandItem Name="Online">
     <Command>Script\validate-online.ps1</Command>
-    <Arguments></Arguments>
+    <Arguments>-TransactionID {0}</Arguments>
     <Description></Description>
   </CommandItem>
   <CommandItem Name="Offline">
     <Command>Script\validate-offline.ps1</Command>
-    <Arguments></Arguments>
+    <Arguments>-TransactionID {0}</Arguments>
     <Description></Description>
   </CommandItem>
 </CommandItems>

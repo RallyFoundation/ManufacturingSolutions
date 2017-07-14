@@ -175,13 +175,13 @@ namespace SuperRunPlus
             if (ShouldWait)
             {
                 process.WaitForExit();
+            }
 
-                if (!IsUsingShellExecute)
+            if (!IsUsingShellExecute)
+            {
+                using (process.StandardOutput)
                 {
-                    using (process.StandardOutput)
-                    {
-                        result = process.StandardOutput.ReadToEnd();
-                    }
+                    result = process.StandardOutput.ReadToEnd();
                 }
             }
 
