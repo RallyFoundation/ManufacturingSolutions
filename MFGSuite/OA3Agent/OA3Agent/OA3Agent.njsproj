@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="file-api.js" />
     <Compile Include="forwarder.js" />
     <Compile Include="mongo-rest.js" />
     <Compile Include="powershell.js" />
