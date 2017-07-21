@@ -43,6 +43,7 @@
     <Compile Include="wds-api.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config\app.json" />
     <Content Include="public\javascripts\bootstrap.js" />
     <Content Include="public\javascripts\bootstrap.min.js" />
     <Content Include="public\javascripts\jquery-1.10.2.intellisense.js" />
@@ -75,6 +76,7 @@
     <None Include="wds-nodejs-pub.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="config\" />
     <Folder Include="public\" />
     <Folder Include="public\fonts\" />
     <Folder Include="public\images\" />

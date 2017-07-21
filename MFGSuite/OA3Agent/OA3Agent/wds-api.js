@@ -1,9 +1,11 @@
 ﻿var express = require('express');
 var bodyParser = require('body-parser');
-var fs = require("fs");
+//var fs = require("fs");
+var readDir = require("readdir");
 var shell = require('node-powershell');
 var redis = require("redis");
 var cors = require("cors");
+var config = require("nodejs-config")(__dirname);
 
 var app = express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -19,12 +21,15 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 //});
 app.use(cors());
 
-var httpServerPort = 8089;
+var httpServerPort = config.get("app.http-server-port"); //8089;
 
-var redisAddress = "127.0.0.1";
-var redisPort = 6379;
-var redisPassword = "P@ssword1";
-var redisDbIndex = 0;
+var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
+var redisPort = config.get("app.redis-port"); //6379;
+var redisPassword = config.get("app.redis-password"); //"P@ssword1";
+var redisDbIndex = config.get("app.redis-db-index"); //0;
+
+var installImageRepository = config.get("app.install-image-repository");
+var bootImageRepository = config.get("app.boot-image-repository");
 
 function getRedisClient() {
     var client = redis.createClient(redisPort, redisAddress);
@@ -244,6 +249,35 @@ app.get('/wds/imagegroup/install/:name', function (req, res) {
             //ps.dispose();
             res.end(err);
         });
+});
+
+app.get("/wds/imagefile/install", function (req, res) {
+
+    //fs.readdir(installImageRepository, function (err, files)
+    //{
+    //    if (err) { res.end(err.message); }
+    //    else {
+    //        res.end(JSON.stringify(files));
+    //    }
+    //});
+
+    readDir.read(installImageRepository, ["**.wim"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, files)
+    {
+        if (err) { res.end(err.message); }
+        else {
+            res.end(JSON.stringify(files));
+        }
+    });
+});
+
+app.get("/wds/imagefile/boot", function (req, res) {
+
+    readDir.read(bootImageRepository, ["**.wim"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, files) {
+        if (err) { res.end(err.message); }
+        else {
+            res.end(JSON.stringify(files));
+        }
+    });
 });
 
 app.post('/wds/image/content/', function (req, res) {
