@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Install Images</title>
+    <!--<link rel="stylesheet" type="text/css" href="../Content/premium.css">
+    <link rel="stylesheet" type="text/css" href="../Content/theme.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="../Content/Site.css">-->
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog-theme-default.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../Content/ng-table.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ng-table.min.css" />-->
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-mocks.js"></script>
+    <script src="../Scripts/angular-aria.js"></script>
+    <script src="../Scripts/angular-aria.min.js"></script>
+    <script src="../Scripts/angular-animate.js"></script>
+    <script src="../Scripts/angular-animate.min.js"></script>
+    <script src="../Scripts/angular-cookies.js"></script>
+    <script src="../Scripts/angular-cookies.min.js"></script>
+    <script src="../Scripts/angular-loader.js"></script>
+    <script src="../Scripts/angular-loader.min.js"></script>
+    <script src="../Scripts/angular-message-format.js"></script>
+    <script src="../Scripts/angular-message-format.min.js"></script>
+    <script src="../Scripts/angular-messages.js"></script>
+    <script src="../Scripts/angular-messages.min.js"></script>
+    <script src="../Scripts/angular-resource.js"></script>
+    <script src="../Scripts/angular-resource.min.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="../Scripts/angular-sanitize.js"></script>
+    <script src="../Scripts/angular-sanitize.min.js"></script>
+    <script src="../Scripts/angular-scenario.js"></script>
+    <script src="../Scripts/angular-touch.js"></script>
+    <script src="../Scripts/angular-touch.min.js"></script>
+    <script src="../Scripts/ngDialog.js"></script>
+    <script src="../Scripts/ngDialog.min.js"></script>
+    <!--<script src="../Scripts/ng-table.js"></script>
+    <script src="../Scripts/ng-table.min.js"></script>-->
+    <script src="../Scripts/app.js"></script>
+    <script src="../config.json"></script>
+</head>
+<body ng-app="WDSManager">
+    <div ng-controller="InstallImageController" ng-init="doConnect()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+        </p>
+        <br />
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Image Name</th>
+                <th>Image Group</th>
+                <th>File Name</th>
+                <th>Description</th>
+            </tr>
+            <tr ng-repeat="image in images">
+                <td>{{image.Name}}</td>
+                <td>{{image.ImageName}}</td>
+                <td>{{image.ImageGroup}}</td>
+                <td>{{image.FileName}}</td>
+                <td>{{image.Description}}</td>
+            </tr>
+        </table>
+        <!--<table ng-table="tableParams" class="table">
+            <tr>
+                <td>Name</td>
+                <td>Image Name</td>
+                <td>Image Group</td>
+                <td>File Name</td>
+                <td>Description</td>
+            </tr>
+            <tr ng-repeat="image in images">
+                <td>{{image.Name}}</td>
+                <td>{{image.ImageName}}</td>
+                <td>{{image.ImageGroup}}</td>
+                <td>{{image.FileName}}</td>
+                <td>{{image.Description}}</td>
+            </tr>
+        </table>-->
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WDSManager", ['ngDialog']).controller("InstallImageController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.images = [];
+
+            $scope.currentDialog = null;
+
+            $scope.newImage = null;
+
+            $scope.imageGroups = [];
+
+            $scope.imageFiles = [];
+
+            $scope.imageFileContents = [];
+
+            //var tableParams = new NgTableParams({}, { dataset: $scope.images });
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                //alert($scope.currentDialog);
+                //if ($scope.currentDialog != null) {
+                //$scope.currentDialog.close();
+                //}
+                ngDialog.closeAll();
+            };
+
+            //$scope.addImage - function () { };
+
+            $scope.doConnect = function (index) {
+
+                $scope.showProgress();
+
+                //var protocol = $location.protocol();
+                //var host = $location.host();
+                //var port = $location.port();
+
+                //var url = protocol + "://" + host + ":" + port + "/";
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/image/install/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    if (data != null && data.data != null) {
+                        $scope.images.splice(0, $scope.images.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.images.push(data.data[i]);
+                            }
+                        }
+                        else{
+                            $scope.images.push(data.data);
+                        }
+                    }
+                   
+                    $scope.hideProgress();
+                });
+            };
+
+            //$scope.shouldShowAddButton = function () {
+            //    return ($scope.images.length <= 0);
+            //};
+
+            //$scope.shouldShowRemoveButton = function () {
+            //    return ($scope.images.length >= 1);
+            //};
+
+            $scope.getImageGroups = function ()
+            {
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/imagegroup/install/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    if (data != null && data.data != null)
+                    {
+                        $scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageGroups.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.imageGroups.push(data.data);
+                        }   
+                    }
+                });
+            };
+
+            $scope.getImageFiles = function () {
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/imagefile/install";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    if (data != null && data.data != null)
+                    {
+                        $scope.imageFiles.splice(0, $scope.imageFiles.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageFiles.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.imageFiles.push(data.data);
+                        } 
+                    }
+                });
+            };
+
+            $scope.getImageContents = function (index) {
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/image/content/";
+
+                var message = { Path: $scope.imageFiles[index] };
+
+                $http.post((url + servicePoint), message).then(function (data)
+                {
+                    if (data != null && data.data != null)
+                    {
+                        $scope.imageFileContents.splice(0, $scope.imageFileContents.length);
+
+                        if (data.data.length > 0)
+                        {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageFileContents.push(data.data[i]);
+                            }
+
+                        } else {
+                            $scope.imageFileContents.push(data.data);
+                        }  
+                    }
+                });
+            };
+
+            $scope.addImage = function () {
+                $scope.newImage = {
+                    ImageGroupName: "",
+                    ImageFilePath: "",
+                    NewImageName: "New_Image_" + createGuid(),
+                    NewDescription: "New Image",
+                    NewFileName: "",
+                    RawImageNameInFile: "",
+                    EnableMulticastTransmission: true,
+                    MulticastTransmissionName: ""
+                };
+
+                $scope.getImageGroups();
+
+                $scope.getImageFiles();
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'new-install-image-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.doSubmit = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                //var protocol = $location.protocol();
+                //var host = $location.host();
+                //var port = $location.port();
+
+                //var url = protocol + "://" + host + ":" + port + "/";
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/image/install";
+
+                $scope.newImage.ImageFilePath = $scope.newImage.ImageFilePath.replace(/\//g, "\\");
+
+                if (String($scope.newImage.NewFileName).endsWith(".wim") == false) {
+                    $scope.newImage.NewFileName += ".wim";
+                }
+
+                if ($scope.newImage.EnableMulticastTransmission == true)
+                {
+                    $scope.newImage.MulticastTransmissionName = "MCT_" + $scope.newImage.NewImageName;
+                }
+
+                $http.post(url + servicePoint, $scope.newImage).then(function (data) {
+                    if (data != null && data.data != null)
+                    {
+                        if (data.data.length > 0)
+                        {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.images.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.images.push(data.data);
+                        }
+
+                        $scope.hideProgress();
+                    }
+                })
+            };
+        });
+    </script>
+</body>
+</html>

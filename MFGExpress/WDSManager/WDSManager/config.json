@@ -1,0 +1,6 @@
+﻿Settings = {
+   "Data" : {
+    "WdsApiUrl" : "http://minint-kuf9jnn:8089/",
+    "FileServiceUrl":  ""
+  }
+};
