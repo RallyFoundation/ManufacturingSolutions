@@ -11,6 +11,7 @@ using System.IO;
 using MetroFramework;
 using MetroFramework.Forms;
 using Gecko;
+using Newtonsoft.Json;
 
 namespace WDSManager
 {
@@ -55,6 +56,48 @@ namespace WDSManager
             this.geckoWebBrowser.Parent = this;
         }
 
+        private void writeFile(string fileInfoJson)
+        {
+            string jsonValue = fileInfoJson;
+
+            jsonValue = jsonValue.Substring(jsonValue.IndexOf("{"));
+            jsonValue = jsonValue.Substring(0, (jsonValue.LastIndexOf("}") + 1));
+
+            JsonSerializer serializer = new JsonSerializer();
+            JsonTextReader reader = new JsonTextReader(new StringReader(jsonValue));
+            ViewModels.FileViewModel fileInfo = serializer.Deserialize(reader, typeof(ViewModels.FileViewModel)) as ViewModels.FileViewModel;
+
+            if (String.IsNullOrEmpty(fileInfo.Path))
+            {
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileInfo.Path = fileDialog.FileName;
+                } 
+            }
+
+            if (!Path.IsPathRooted(fileInfo.Path))
+            {
+                if (!fileInfo.Path.StartsWith("\\"))
+                {
+                    fileInfo.Path = "\\" + fileInfo.Path;
+                }
+
+                fileInfo.Path = appRootDir + fileInfo.Path;
+            }
+
+            using (FileStream fileStream = new FileStream(fileInfo.Path, FileMode.Create, FileAccess.Write, FileShare.Write))
+            {
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    writer.Write(fileInfo.Content);
+                }
+            }
+
+            MessageBox.Show("Done!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void GeckoWebBrowser_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
             this.Text = e.Window.Document.Title;
@@ -67,6 +110,7 @@ namespace WDSManager
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageInfoBox", (string param) => MessageBox.Show(param, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information));
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageWarningBox", (string param) => MessageBox.Show(param, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning));
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
+            this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
             this.geckoWebBrowser.Navigate(this.url);
         }
 

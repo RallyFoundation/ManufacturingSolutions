@@ -200,28 +200,15 @@
             $scope.doRefresh = function () { };
 
             $scope.doSubmit = function () {
-                ngDialog.closeAll();
+                var fileInfo = { Path: "", Content: "" };
 
-                $scope.showProgress();
+                fileInfo.Path = "config.json";
+                fileInfo.Content = "Settings=" + JSON.stringify({Data: $scope.configSettings}) + ";";
 
-                var url = settings.WdsApiUrl;
+                var fileInfoJson = JSON.stringify(fileInfo);
 
-                var servicePoint = "/";
-
-                //$http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
-                //    if (data != null && data.data != null) {
-                //        if (data.data.length > 0) {
-                //            for (var i = 0; i < data.data.length; i++) {
-                //                $scope.imageGroups.push(data.data[i]);
-                //            }
-                //        }
-                //        else {
-                //            $scope.imageGroups.push(data.data);
-                //        }
-
-                //        $scope.hideProgress();
-                //    }
-                //});
+                event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson});
+                document.dispatchEvent(event);
             };
         });
     </script>
