@@ -32,9 +32,11 @@
             this.metroTileInstallImages = new MetroFramework.Controls.MetroTile();
             this.metroTileBootImages = new MetroFramework.Controls.MetroTile();
             this.metroTileImageGroups = new MetroFramework.Controls.MetroTile();
-            this.metroTileFFU = new MetroFramework.Controls.MetroTile();
+            this.metroTileFFUImages = new MetroFramework.Controls.MetroTile();
             this.metroTileNetwork = new MetroFramework.Controls.MetroTile();
             this.metroTileSettings = new MetroFramework.Controls.MetroTile();
+            this.metroTileCreateBootWindowsPE = new MetroFramework.Controls.MetroTile();
+            this.metroTileImageLookups = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroTileInstallImages
@@ -76,17 +78,18 @@
             this.metroTileImageGroups.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTileImageGroups.Click += new System.EventHandler(this.metroTileImageGroups_Click);
             // 
-            // metroTileFFU
+            // metroTileFFUImages
             // 
-            this.metroTileFFU.BackColor = System.Drawing.Color.White;
-            this.metroTileFFU.Location = new System.Drawing.Point(401, 76);
-            this.metroTileFFU.Name = "metroTileFFU";
-            this.metroTileFFU.Size = new System.Drawing.Size(120, 120);
-            this.metroTileFFU.Style = MetroFramework.MetroColorStyle.Lime;
-            this.metroTileFFU.TabIndex = 3;
-            this.metroTileFFU.Text = "FFU";
-            this.metroTileFFU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroTileFFU.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileFFUImages.BackColor = System.Drawing.Color.White;
+            this.metroTileFFUImages.Location = new System.Drawing.Point(401, 76);
+            this.metroTileFFUImages.Name = "metroTileFFUImages";
+            this.metroTileFFUImages.Size = new System.Drawing.Size(120, 120);
+            this.metroTileFFUImages.Style = MetroFramework.MetroColorStyle.Teal;
+            this.metroTileFFUImages.TabIndex = 3;
+            this.metroTileFFUImages.Text = "Full Flash Update\r\n (FFU) \r\nImages";
+            this.metroTileFFUImages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileFFUImages.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileFFUImages.Click += new System.EventHandler(this.metroTileFFUImages_Click);
             // 
             // metroTileNetwork
             // 
@@ -113,14 +116,42 @@
             this.metroTileSettings.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTileSettings.Click += new System.EventHandler(this.metroTileSettings_Click);
             // 
+            // metroTileCreateBootWindowsPE
+            // 
+            this.metroTileCreateBootWindowsPE.BackColor = System.Drawing.Color.White;
+            this.metroTileCreateBootWindowsPE.Location = new System.Drawing.Point(527, 76);
+            this.metroTileCreateBootWindowsPE.Name = "metroTileCreateBootWindowsPE";
+            this.metroTileCreateBootWindowsPE.Size = new System.Drawing.Size(120, 120);
+            this.metroTileCreateBootWindowsPE.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTileCreateBootWindowsPE.TabIndex = 6;
+            this.metroTileCreateBootWindowsPE.Text = "Create \r\nBoot\r\nWindows PE ";
+            this.metroTileCreateBootWindowsPE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileCreateBootWindowsPE.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileCreateBootWindowsPE.Click += new System.EventHandler(this.metroTileCreateBootWindowsPE_Click);
+            // 
+            // metroTileImageLookups
+            // 
+            this.metroTileImageLookups.BackColor = System.Drawing.Color.White;
+            this.metroTileImageLookups.Location = new System.Drawing.Point(653, 76);
+            this.metroTileImageLookups.Name = "metroTileImageLookups";
+            this.metroTileImageLookups.Size = new System.Drawing.Size(120, 120);
+            this.metroTileImageLookups.Style = MetroFramework.MetroColorStyle.Purple;
+            this.metroTileImageLookups.TabIndex = 7;
+            this.metroTileImageLookups.Text = "Image Lookups";
+            this.metroTileImageLookups.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileImageLookups.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileImageLookups.Click += new System.EventHandler(this.metroTileImageLookups_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.metroTileImageLookups);
+            this.Controls.Add(this.metroTileCreateBootWindowsPE);
             this.Controls.Add(this.metroTileSettings);
             this.Controls.Add(this.metroTileNetwork);
-            this.Controls.Add(this.metroTileFFU);
+            this.Controls.Add(this.metroTileFFUImages);
             this.Controls.Add(this.metroTileImageGroups);
             this.Controls.Add(this.metroTileBootImages);
             this.Controls.Add(this.metroTileInstallImages);
@@ -139,9 +170,11 @@
         private MetroFramework.Controls.MetroTile metroTileInstallImages;
         private MetroFramework.Controls.MetroTile metroTileBootImages;
         private MetroFramework.Controls.MetroTile metroTileImageGroups;
-        private MetroFramework.Controls.MetroTile metroTileFFU;
+        private MetroFramework.Controls.MetroTile metroTileFFUImages;
         private MetroFramework.Controls.MetroTile metroTileNetwork;
         private MetroFramework.Controls.MetroTile metroTileSettings;
+        private MetroFramework.Controls.MetroTile metroTileCreateBootWindowsPE;
+        private MetroFramework.Controls.MetroTile metroTileImageLookups;
     }
 }
 

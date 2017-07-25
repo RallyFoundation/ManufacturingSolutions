@@ -42,6 +42,21 @@ namespace WindowsManufacturingStudio
             this.Visible = false;
         }
 
+        private void metroTileFFUImages_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroTileImageLookups_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroTileCreateBootWindowsPE_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void metroTileBootImages_Click(object sender, EventArgs e)
         {
             if (this.formWebView == null)
