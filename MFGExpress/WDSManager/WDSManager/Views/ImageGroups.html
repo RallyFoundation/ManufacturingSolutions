@@ -322,10 +322,8 @@
                 var servicePoint = "wds/imagegroup/install";
 
                 $http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
-                    if (data != null && data.data != null)
-                    {
-                        if (data.data.length > 0)
-                        {
+                    if (data != null && data.data != null) {
+                        if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
                                 $scope.imageGroups.push(data.data[i]);
                             }
@@ -336,7 +334,7 @@
 
                         $scope.hideProgress();
                     }
-                })
+                });
             };
         });
     </script>

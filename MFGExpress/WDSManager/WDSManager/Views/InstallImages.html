@@ -56,10 +56,13 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Lookup</a>
         </p>
         <br />
         <table class="table">
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Image Name</th>
                 <th>Image Group</th>
@@ -67,6 +70,9 @@
                 <th>Description</th>
             </tr>
             <tr ng-repeat="image in images">
+                <td>
+                <input type="radio" class="radio" name="currentImage" ng-click="setCurrentImageIndex($index)" />
+                </td>
                 <td>{{image.Name}}</td>
                 <td>{{image.ImageName}}</td>
                 <td>{{image.ImageGroup}}</td>
@@ -161,6 +167,10 @@
             $scope.imageFiles = [];
 
             $scope.imageFileContents = [];
+
+            $scope.newImageLookup = { Key: "", Value: "" };
+
+            $scope.currentImageIndex = -1;
 
             //var tableParams = new NgTableParams({}, { dataset: $scope.images });
 
@@ -340,6 +350,54 @@
                 });
             };
 
+            $scope.setCurrentImageIndex = function (index) {
+                $scope.currentImageIndex = index;
+            };
+
+            $scope.showImageLookupDialog = function () {
+                if ($scope.currentImageIndex >= 0) {
+                    var image = $scope.images[$scope.currentImageIndex];
+
+                    var cacheValue = "WDS:/" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
+
+                    $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
+                    $scope.newImageLookup.Value = cacheValue;
+
+                    $scope.currentDialog = ngDialog.open({
+                        scope: $scope,
+                        className: 'ngdialog-theme-default',
+                        template: 'new-image-lookup-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                        //plain: true,
+                        showClose: true,
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        width: 500,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    });
+                }
+            };
+
+            $scope.setImageLookup = function ()
+            {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/";
+
+                $http.post(url + servicePoint, $scope.newImageLookup).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data == "OK") {
+                            $scope.hideProgress();
+                        }
+                    }
+                });
+            };
+
             $scope.doSubmit = function () {
                 ngDialog.closeAll();
 
@@ -367,21 +425,21 @@
                 }
 
                 $http.post(url + servicePoint, $scope.newImage).then(function (data) {
-                    if (data != null && data.data != null)
-                    {
-                        if (data.data.length > 0)
-                        {
+                    if (data != null && data.data != null) {
+                        if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
                                 $scope.images.push(data.data[i]);
+                                //$scope.setImageCache(data[i]);
                             }
                         }
                         else {
                             $scope.images.push(data.data);
+                            //$scope.setImageCache(data);
                         }
 
                         $scope.hideProgress();
                     }
-                })
+                });
             };
         });
     </script>
