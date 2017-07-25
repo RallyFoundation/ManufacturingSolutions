@@ -197,7 +197,9 @@
                 });
             };
 
-            $scope.doRefresh = function () { };
+            $scope.doRefresh = function () {
+                window.location.reload();
+            };
 
             $scope.doSubmit = function () {
                 var fileInfo = { Path: "", Content: "" };
