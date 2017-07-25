@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WDSManager", "WDSManager\WDSManager.csproj", "{AE7344BA-0B51-4089-B14D-406B397BA130}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsManufacturingStudio", "WDSManager\WindowsManufacturingStudio.csproj", "{AE7344BA-0B51-4089-B14D-406B397BA130}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C27F349E-890D-45AA-ACE8-2705B853341B}"
 EndProject

@@ -44,7 +44,7 @@
     <script src="../Scripts/app.js"></script>
     <script src="../config.json"></script>
 </head>
-<body ng-app="WDSManager">
+<body ng-app="WindowsManufacturingStudio">
     <div ng-controller="ImageGroupController" ng-init="getImageGroups()">
         <p>
             &nbsp;&nbsp;
@@ -121,21 +121,15 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WDSManager", ['ngDialog']).controller("ImageGroupController",
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ImageGroupController",
 
         function ($scope, $location, $http, ngDialog) {
-
-            //$scope.images = [];
 
             $scope.currentDialog = null;
 
             $scope.newImageGroup = null;
 
             $scope.imageGroups = [];
-
-            //$scope.imageFiles = [];
-
-            //$scope.imageFileContents = [];
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
@@ -161,49 +155,6 @@
             $scope.hideProgress = function () {
                 ngDialog.closeAll();
             };
-
-            //$scope.addImage - function () { };
-
-            //$scope.doConnect = function (index) {
-
-            //    $scope.showProgress();
-
-            //    //var protocol = $location.protocol();
-            //    //var host = $location.host();
-            //    //var port = $location.port();
-
-            //    //var url = protocol + "://" + host + ":" + port + "/";
-
-            //    var url = settings.WdsApiUrl;
-
-            //    var servicePoint = "wds/image/boot/all";
-
-            //    $http.get(url + servicePoint).then(function (data) {
-
-            //        if (data != null && data.data != null) {
-            //            $scope.images.splice(0, $scope.images.length);
-
-            //            if (data.data.length > 0) {
-            //                for (var i = 0; i < data.data.length; i++) {
-            //                    $scope.images.push(data.data[i]);
-            //                }
-            //            }
-            //            else{
-            //                $scope.images.push(data.data);
-            //            }
-            //        }
-
-            //        $scope.hideProgress();
-            //    });
-            //};
-
-            //$scope.shouldShowAddButton = function () {
-            //    return ($scope.images.length <= 0);
-            //};
-
-            //$scope.shouldShowRemoveButton = function () {
-            //    return ($scope.images.length >= 1);
-            //};
 
             $scope.getImageGroups = function ()
             {
@@ -233,63 +184,10 @@
                 });
             };
 
-            //$scope.getImageFiles = function () {
-            //    var url = settings.WdsApiUrl;
-
-            //    var servicePoint = "wds/imagefile/boot";
-
-            //    $http.get(url + servicePoint).then(function (data) {
-
-            //        if (data != null && data.data != null)
-            //        {
-            //            $scope.imageFiles.splice(0, $scope.imageFiles.length);
-
-            //            if (data.data.length > 0) {
-            //                for (var i = 0; i < data.data.length; i++) {
-            //                    $scope.imageFiles.push(data.data[i]);
-            //                }
-            //            }
-            //            else {
-            //                $scope.imageFiles.push(data.data);
-            //            }
-            //        }
-            //    });
-            //};
-
-            //$scope.getImageContents = function (index) {
-            //    var url = settings.WdsApiUrl;
-
-            //    var servicePoint = "wds/image/content/";
-
-            //    var message = { Path: $scope.imageFiles[index] };
-
-            //    $http.post((url + servicePoint), message).then(function (data)
-            //    {
-            //        if (data != null && data.data != null)
-            //        {
-            //            $scope.imageFileContents.splice(0, $scope.imageFileContents.length);
-
-            //            if (data.data.length > 0)
-            //            {
-            //                for (var i = 0; i < data.data.length; i++) {
-            //                    $scope.imageFileContents.push(data.data[i]);
-            //                }
-
-            //            } else {
-            //                $scope.imageFileContents.push(data.data);
-            //            }
-            //        }
-            //    });
-            //};
-
             $scope.addImageGroup = function () {
                 $scope.newImageGroup = {
                     Name: "New_ImageGroup_" + createGuid(),
                 };
-
-                //$scope.getImageGroups();
-
-                //$scope.getImageFiles();
 
                 $scope.currentDialog = ngDialog.open({
                     scope: $scope,

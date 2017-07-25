@@ -47,7 +47,7 @@
     <script src="../Scripts/app.js"></script>
     <script src="../config.json"></script>
 </head>
-<body ng-app="WDSManager">
+<body ng-app="WindowsManufacturingStudio">
     <div ng-controller="InstallImageController" ng-init="doConnect()">
         <p>
             &nbsp;&nbsp;
@@ -152,7 +152,7 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WDSManager", ['ngDialog']).controller("InstallImageController",
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("InstallImageController",
 
         function ($scope, $location, $http, ngDialog) {
 
@@ -203,8 +203,6 @@
                 ngDialog.closeAll();
             };
 
-            //$scope.addImage - function () { };
-
             $scope.doConnect = function (index) {
 
                 $scope.showProgress();
@@ -237,14 +235,6 @@
                     $scope.hideProgress();
                 });
             };
-
-            //$scope.shouldShowAddButton = function () {
-            //    return ($scope.images.length <= 0);
-            //};
-
-            //$scope.shouldShowRemoveButton = function () {
-            //    return ($scope.images.length >= 1);
-            //};
 
             $scope.getImageGroups = function ()
             {
@@ -429,12 +419,10 @@
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
                                 $scope.images.push(data.data[i]);
-                                //$scope.setImageCache(data[i]);
                             }
                         }
                         else {
                             $scope.images.push(data.data);
-                            //$scope.setImageCache(data);
                         }
 
                         $scope.hideProgress();

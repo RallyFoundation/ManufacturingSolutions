@@ -1,4 +1,4 @@
-﻿namespace WDSManager
+﻿namespace WindowsManufacturingStudio
 {
     partial class FormWebView
     {

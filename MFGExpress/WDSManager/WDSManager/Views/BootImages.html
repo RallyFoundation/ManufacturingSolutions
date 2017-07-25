@@ -46,7 +46,7 @@
     <script src="../Scripts/app.js"></script>
     <script src="../config.json"></script>
 </head>
-<body ng-app="WDSManager">
+<body ng-app="WindowsManufacturingStudio">
     <div ng-controller="BootImageController" ng-init="doConnect()">
         <p>
             &nbsp;&nbsp;
@@ -127,7 +127,7 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WDSManager", ['ngDialog']).controller("BootImageController",
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("BootImageController",
 
         function ($scope, $location, $http, ngDialog) {
 
@@ -209,30 +209,6 @@
 
             //$scope.shouldShowRemoveButton = function () {
             //    return ($scope.images.length >= 1);
-            //};
-
-            //$scope.getImageGroups = function ()
-            //{
-            //    var url = settings.WdsApiUrl;
-
-            //    var servicePoint = "wds/imagegroup/boot/all";
-
-            //    $http.get(url + servicePoint).then(function (data) {
-
-            //        if (data != null && data.data != null)
-            //        {
-            //            $scope.imageGroups.splice(0, $scope.imageGroups.length);
-
-            //            if (data.data.length > 0) {
-            //                for (var i = 0; i < data.data.length; i++) {
-            //                    $scope.imageGroups.push(data.data[i]);
-            //                }
-            //            }
-            //            else {
-            //                $scope.imageGroups.push(data.data);
-            //            }
-            //        }
-            //    });
             //};
 
             $scope.getImageFiles = function () {

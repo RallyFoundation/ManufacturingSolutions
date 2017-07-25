@@ -7,8 +7,8 @@
     <ProjectGuid>{AE7344BA-0B51-4089-B14D-406B397BA130}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WDSManager</RootNamespace>
-    <AssemblyName>WDSManager</AssemblyName>
+    <RootNamespace>WindowsManufacturingStudio</RootNamespace>
+    <AssemblyName>WindowsManufacturingStudio</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -105,6 +105,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

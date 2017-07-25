@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WDSManager.ViewModels
+namespace WindowsManufacturingStudio.ViewModels
 {
     public class FileViewModel
     {

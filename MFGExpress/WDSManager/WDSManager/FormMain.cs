@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using Gecko;
 
-namespace WDSManager
+namespace WindowsManufacturingStudio
 {
     public partial class FormMain : MetroForm
     {

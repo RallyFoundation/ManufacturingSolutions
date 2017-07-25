@@ -44,7 +44,7 @@
     <script src="../Scripts/app.js"></script>
     <script src="../config.json"></script>
 </head>
-<body ng-app="WDSManager">
+<body ng-app="WindowsManufacturingStudio">
     <div ng-controller="ImageGroupController" ng-init="getImageGroups()">
         <p>
             &nbsp;&nbsp;
@@ -122,7 +122,7 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WDSManager", ['ngDialog']).controller("ImageGroupController",
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ImageGroupController",
 
         function ($scope, $location, $http, ngDialog) {
 

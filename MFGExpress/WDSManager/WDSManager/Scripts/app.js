@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module("WDSManager", ['ngCookies', 'ngSanitize', 'ngDialog'])
+    var app = angular.module("WindowsManufacturingStudio", ['ngCookies', 'ngSanitize', 'ngDialog'])
         .config(['$httpProvider', function ($httpProvider) {
             $httpProvider.defaults.headers.patch['Content-Type'] = 'application/json;charset=utf-8';
         }])

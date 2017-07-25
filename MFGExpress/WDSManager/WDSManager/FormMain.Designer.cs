@@ -1,4 +1,4 @@
-﻿namespace WDSManager
+﻿namespace WindowsManufacturingStudio
 {
     partial class FormMain
     {
@@ -129,6 +129,7 @@
             this.Name = "FormMain";
             this.Resizable = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Text = "Windows Manufacturing Studio";
             this.ResumeLayout(false);
 
         }

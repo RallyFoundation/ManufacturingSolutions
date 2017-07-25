@@ -13,7 +13,7 @@ using MetroFramework.Forms;
 using Gecko;
 using Newtonsoft.Json;
 
-namespace WDSManager
+namespace WindowsManufacturingStudio
 {
     public partial class FormWebView : MetroForm
     {
