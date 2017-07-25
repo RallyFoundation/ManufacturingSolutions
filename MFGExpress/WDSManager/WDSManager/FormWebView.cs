@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MetroFramework;
 using MetroFramework.Forms;
 using Gecko;
 
@@ -63,6 +64,9 @@ namespace WDSManager
         private void FormWebView_Load(object sender, EventArgs e)
         {
             this.geckoWebBrowser.AddMessageEventListener("CloseWindow", (string param) => this.Close());
+            this.geckoWebBrowser.AddMessageEventListener("ShowMessageInfoBox", (string param) => MessageBox.Show(param, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information));
+            this.geckoWebBrowser.AddMessageEventListener("ShowMessageWarningBox", (string param) => MessageBox.Show(param, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning));
+            this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             this.geckoWebBrowser.Navigate(this.url);
         }
 

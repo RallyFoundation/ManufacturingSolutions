@@ -23,19 +23,34 @@ namespace WDSManager
             this.loadConfigs();
         }
 
-        private string appRootDir, urlInstallImage, urlBootImage, urlImageGroups;
+        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlConfigurations;
 
         private FormWebView formWebView;
+
+        private void metroTileSettings_Click(object sender, EventArgs e)
+        {
+            if (this.formWebView == null)
+            {
+                this.formWebView = new FormWebView(this, this.urlConfigurations);
+            }
+            else if (this.formWebView.Url != this.urlConfigurations)
+            {
+                this.formWebView.Navigate(this.urlConfigurations);
+            }
+
+            this.formWebView.Show();
+            this.Visible = false;
+        }
 
         private void metroTileBootImages_Click(object sender, EventArgs e)
         {
             if (this.formWebView == null)
             {
-                this.formWebView = new FormWebView(this, this.urlBootImage);
+                this.formWebView = new FormWebView(this, this.urlBootImages);
             }
-            else if(this.formWebView.Url != this.urlBootImage)
+            else if(this.formWebView.Url != this.urlBootImages)
             {
-                this.formWebView.Navigate(this.urlBootImage);
+                this.formWebView.Navigate(this.urlBootImages);
             }
 
             this.formWebView.Show();
@@ -61,11 +76,11 @@ namespace WDSManager
         {
             if (this.formWebView == null)
             {
-                this.formWebView = new FormWebView(this, this.urlInstallImage);
+                this.formWebView = new FormWebView(this, this.urlInstallImages);
             }
-            else if (this.formWebView.Url != this.urlInstallImage)
+            else if (this.formWebView.Url != this.urlInstallImages)
             {
-                this.formWebView.Navigate(this.urlInstallImage);
+                this.formWebView.Navigate(this.urlInstallImages);
             }
 
             this.formWebView.Show();
@@ -75,9 +90,10 @@ namespace WDSManager
         private void loadConfigs()
         {
             this.appRootDir = Path.GetDirectoryName(Application.ExecutablePath);
-            this.urlInstallImage = String.Format(ConfigurationManager.AppSettings.Get("UrlInstallImages"), appRootDir);
-            this.urlBootImage = String.Format(ConfigurationManager.AppSettings.Get("UrlBootImages"), appRootDir);
+            this.urlInstallImages = String.Format(ConfigurationManager.AppSettings.Get("UrlInstallImages"), appRootDir);
+            this.urlBootImages = String.Format(ConfigurationManager.AppSettings.Get("UrlBootImages"), appRootDir);
             this.urlImageGroups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageGroups"), appRootDir);
+            this.urlConfigurations = String.Format(ConfigurationManager.AppSettings.Get("UrlConfigurations"), appRootDir);
         }
     }
 }

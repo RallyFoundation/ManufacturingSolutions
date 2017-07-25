@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Application Configurations</title>
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../Content/ng-table.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ng-table.min.css" />-->
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-mocks.js"></script>
+    <script src="../Scripts/angular-aria.js"></script>
+    <script src="../Scripts/angular-aria.min.js"></script>
+    <script src="../Scripts/angular-animate.js"></script>
+    <script src="../Scripts/angular-animate.min.js"></script>
+    <script src="../Scripts/angular-cookies.js"></script>
+    <script src="../Scripts/angular-cookies.min.js"></script>
+    <script src="../Scripts/angular-loader.js"></script>
+    <script src="../Scripts/angular-loader.min.js"></script>
+    <script src="../Scripts/angular-message-format.js"></script>
+    <script src="../Scripts/angular-message-format.min.js"></script>
+    <script src="../Scripts/angular-messages.js"></script>
+    <script src="../Scripts/angular-messages.min.js"></script>
+    <script src="../Scripts/angular-resource.js"></script>
+    <script src="../Scripts/angular-resource.min.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="../Scripts/angular-sanitize.js"></script>
+    <script src="../Scripts/angular-sanitize.min.js"></script>
+    <script src="../Scripts/angular-scenario.js"></script>
+    <script src="../Scripts/angular-touch.js"></script>
+    <script src="../Scripts/angular-touch.min.js"></script>
+    <script src="../Scripts/ngDialog.js"></script>
+    <script src="../Scripts/ngDialog.min.js"></script>
+    <!--<script src="../Scripts/ng-table.js"></script>
+    <script src="../Scripts/ng-table.min.js"></script>-->
+    <script src="../Scripts/app.js"></script>
+    <script src="../config.json"></script>
+</head>
+<body ng-app="WDSManager">
+    <div ng-controller="ImageGroupController" ng-init="getImageGroups()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="doRefresh()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Test</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="doSubmit()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Save</a>
+        </p>
+        <!--<br />-->
+        <hr/>
+        <div class="container">
+            <dl class="dl-horizontal">
+                <dt>WDS API URL: </dt>
+                <dd>
+                    <input type="text" ng-model="configSettings.WdsApiUrl" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WDSManager", ['ngDialog']).controller("ImageGroupController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.configSettings = settings;
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showMessageInfoBox = function (message)
+            {
+                event = new MessageEvent("ShowMessageInfoBox", { "view": window, "bubbles": false, "cancelable": true, 'data': message });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showMessageWarningBox = function (message) {
+                event = new MessageEvent("ShowMessageWarningBox", { "view": window, "bubbles": false, "cancelable": true, 'data': message });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showMessageErrorBox = function (message) {
+                event = new MessageEvent("ShowMessageErrorBox", { "view": window, "bubbles": false, "cancelable": true, 'data': message });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.doConnect = function ()
+            {
+                $scope.showProgress();
+
+                var url = $scope.configSettings.WdsApiUrl;
+
+                $http.get(url).then(function (data) {
+
+                    if (data != null && data.data != null)
+                    {
+                        //alert(JSON.stringify(data));
+                        $scope.hideProgress();
+                        if (data.data == "Welcome to WDS!" && data.status == 200) {
+
+                            //alert("Success!");
+                            $scope.showMessageInfoBox(data.data);
+                        }
+                        else
+                        {
+                            //alert("Failure!");
+                            $scope.showMessageWarningBox(data.data);
+                        }
+                    }        
+                });
+            };
+
+            $scope.doRefresh = function () { };
+
+            $scope.doSubmit = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "/";
+
+                //$http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
+                //    if (data != null && data.data != null) {
+                //        if (data.data.length > 0) {
+                //            for (var i = 0; i < data.data.length; i++) {
+                //                $scope.imageGroups.push(data.data[i]);
+                //            }
+                //        }
+                //        else {
+                //            $scope.imageGroups.push(data.data);
+                //        }
+
+                //        $scope.hideProgress();
+                //    }
+                //});
+            };
+        });
+    </script>
+</body>
+</html>

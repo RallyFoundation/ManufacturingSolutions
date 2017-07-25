@@ -111,6 +111,7 @@
             this.metroTileSettings.Text = "Settings";
             this.metroTileSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileSettings.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileSettings.Click += new System.EventHandler(this.metroTileSettings_Click);
             // 
             // FormMain
             // 
