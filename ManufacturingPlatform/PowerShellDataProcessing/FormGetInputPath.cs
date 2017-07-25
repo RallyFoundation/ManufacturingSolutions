@@ -42,6 +42,8 @@ namespace PowerShellDataProcessing
 
         public string InputPath { get { return this.metroTextBoxInputPath.Text; } }
 
+        public bool AbortOnCancel { get; set; }
+
         private void metroButtonOK_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(this.metroTextBoxInputPath.Text))
@@ -62,6 +64,20 @@ namespace PowerShellDataProcessing
             {
                 this.metroTextBoxInputPath.Text = this.openFileDialogInputPath.FileName;
             }
+        }
+
+        private void metroButtonCancelExit_Click(object sender, EventArgs e)
+        {
+            if (this.AbortOnCancel)
+            {
+                this.DialogResult = DialogResult.Abort;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
+
+            this.Close();
         }
     }
 }

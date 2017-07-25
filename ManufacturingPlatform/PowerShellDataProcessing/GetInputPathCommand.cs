@@ -19,17 +19,32 @@ namespace PowerShellDataProcessing
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "The message text to be displayed when error encountered.")]
         public string ErrorMessage { get; set; }
 
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = "The option to specify if the dialog result should be Abort on closing.")]
+        public bool AbortOnCancel { get; set; }
+
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
 
             FormGetInputPath formInputPath = new FormGetInputPath(Title, Message, ErrorMessage);
 
-            if (formInputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            formInputPath.AbortOnCancel = AbortOnCancel;
+
+            System.Windows.Forms.DialogResult dialogResult = formInputPath.ShowDialog();
+
+            if (dialogResult == System.Windows.Forms.DialogResult.OK)
             { 
                 string inputPath = formInputPath.InputPath;
 
                 this.WriteObject(inputPath);
+            }
+            else if(dialogResult == System.Windows.Forms.DialogResult.Abort)
+            {
+                this.WriteObject("Cancel_Abort");
+            }
+            else
+            {
+                this.WriteObject(String.Empty);
             }
         }
     }

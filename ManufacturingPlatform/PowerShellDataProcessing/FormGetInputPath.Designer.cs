@@ -33,6 +33,7 @@
             this.metroButtonOK = new MetroFramework.Controls.MetroButton();
             this.metroLabelMessage = new MetroFramework.Controls.MetroLabel();
             this.openFileDialogInputPath = new System.Windows.Forms.OpenFileDialog();
+            this.metroButtonCancelExit = new MetroFramework.Controls.MetroButton();
             this.SuspendLayout();
             // 
             // metroTextBoxInputPath
@@ -55,7 +56,7 @@
             // 
             // metroButtonOK
             // 
-            this.metroButtonOK.Location = new System.Drawing.Point(232, 186);
+            this.metroButtonOK.Location = new System.Drawing.Point(311, 186);
             this.metroButtonOK.Name = "metroButtonOK";
             this.metroButtonOK.Size = new System.Drawing.Size(180, 64);
             this.metroButtonOK.TabIndex = 2;
@@ -76,12 +77,22 @@
             this.openFileDialogInputPath.FileName = "openFileDialogInputPath";
             this.openFileDialogInputPath.Filter = "XML files(*.xml)|*.xml|All files(*.*)|*.*";
             // 
+            // metroButtonCancelExit
+            // 
+            this.metroButtonCancelExit.Location = new System.Drawing.Point(114, 186);
+            this.metroButtonCancelExit.Name = "metroButtonCancelExit";
+            this.metroButtonCancelExit.Size = new System.Drawing.Size(180, 64);
+            this.metroButtonCancelExit.TabIndex = 4;
+            this.metroButtonCancelExit.Text = "Cancel";
+            this.metroButtonCancelExit.Click += new System.EventHandler(this.metroButtonCancelExit_Click);
+            // 
             // FormGetInputPath
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(640, 260);
+            this.Controls.Add(this.metroButtonCancelExit);
             this.Controls.Add(this.metroLabelMessage);
             this.Controls.Add(this.metroButtonOK);
             this.Controls.Add(this.metroButtonBrowse);
@@ -104,5 +115,6 @@
         private MetroFramework.Controls.MetroButton metroButtonOK;
         private MetroFramework.Controls.MetroLabel metroLabelMessage;
         private System.Windows.Forms.OpenFileDialog openFileDialogInputPath;
+        private MetroFramework.Controls.MetroButton metroButtonCancelExit;
     }
 }
