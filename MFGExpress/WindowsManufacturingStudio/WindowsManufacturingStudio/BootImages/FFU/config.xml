@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configurationItems>
+  <imageServerAddress>minint-et2evvt</imageServerAddress>
+  <imageServerUserName>Administrator</imageServerUserName>
+  <imageServerPassword>W@lcome!</imageServerPassword>
+  <wdsApiServicePoint>http://minint-et2evvt:8089</wdsApiServicePoint>
+</configurationItems>

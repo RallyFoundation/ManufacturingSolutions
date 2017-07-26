@@ -26,6 +26,7 @@ namespace WindowsManufacturingStudio
         private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlConfigurations;
 
         private FormWebView formWebView;
+        private FormCreateBootWinPE formCreateBootWinPE;
 
         private void metroTileSettings_Click(object sender, EventArgs e)
         {
@@ -54,7 +55,13 @@ namespace WindowsManufacturingStudio
 
         private void metroTileCreateBootWindowsPE_Click(object sender, EventArgs e)
         {
+            if (this.formCreateBootWinPE == null)
+            {
+                this.formCreateBootWinPE = new FormCreateBootWinPE(this, appRootDir);
+            }
 
+            this.formCreateBootWinPE.Show();
+            this.Visible = false;
         }
 
         private void metroTileBootImages_Click(object sender, EventArgs e)

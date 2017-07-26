@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationIcon>Network.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Geckofx-Core, Version=45.0.32.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86">
       <HintPath>..\packages\Geckofx45.45.0.32\lib\net45\Geckofx-Core.dll</HintPath>
@@ -76,6 +79,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormCreateBootWinPE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateBootWinPE.Designer.cs">
+      <DependentUpon>FormCreateBootWinPE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\FileViewModel.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -91,6 +102,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCreateBootWinPE.resx">
+      <DependentUpon>FormCreateBootWinPE.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +121,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.manifest" />
+    <None Include="BootImages\MakePEImage.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BootImages\Multicast\run.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BootImages\Multicast\startnet.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -187,9 +211,8 @@
     <None Include="Scripts\angular.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\jquery-1.9.1.min.map">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\jquery-3.1.1.slim.min.map" />
     <None Include="Scripts\ng-table.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -202,6 +225,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="black-white-metro-server-icon.ico" />
+    <Content Include="BootImages\FFU\config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BootImages\Multicast\config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BootImages\Multicast\diskpartcmd.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="circuit.ico" />
     <Content Include="Content\bootstrap-theme.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -298,6 +330,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Network.ico" />
+    <None Include="Resources\MB__back.png" />
     <Content Include="Scripts\angular-animate.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2587,15 +2620,11 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\jquery-1.9.1.intellisense.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\jquery-1.9.1.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\jquery-1.9.1.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\ng-table.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2652,6 +2681,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Geckofx45.64.45.0.32\build\Geckofx45.64.targets" Condition="Exists('..\packages\Geckofx45.64.45.0.32\build\Geckofx45.64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

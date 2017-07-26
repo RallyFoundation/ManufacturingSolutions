@@ -1,6 +1,13 @@
 ﻿Settings = {
    "Data" : {
-    "WdsApiUrl" : "http://minint-kuf9jnn:8089/",
-    "FileServiceUrl":  ""
+    "WdsApiUrl": "http://minint-et2evvt:8089/",
+    "WdsApiUserName": "",
+    "WdsApiPassword": "",
+    "FileServiceUrl": "",
+    "FileServiceUserName": "",
+    "FileServicePassword": "",
+    "InstallImageRepository": "",
+    "BootImageRepository": "",
+    "FFUImageRepository": ""
   }
 };
