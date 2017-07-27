@@ -348,7 +348,7 @@
                 if ($scope.currentImageIndex >= 0) {
                     var image = $scope.images[$scope.currentImageIndex];
 
-                    var cacheValue = "WDS:/" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
+                    var cacheValue = "WDS:" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
 
                     $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
                     $scope.newImageLookup.Value = cacheValue;

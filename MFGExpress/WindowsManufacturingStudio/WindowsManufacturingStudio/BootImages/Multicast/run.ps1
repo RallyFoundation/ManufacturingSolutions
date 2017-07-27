@@ -5,32 +5,46 @@ if($RootDir.EndsWith("\") -eq $true)
    $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
 }
 
-$ConfigXml = Get-Content -Path ($RootDir + "\config.xml") -Encoding UTF8;
+[xml]$ConfigXml = Get-Content -Path ($RootDir + "\config.xml") -Encoding UTF8;
 
-$ImageServerAddress = $ConfigXml.imageServerAddress; #"minint-et2evvt";
-$ImageServerUserName= $ConfigXml.imageServerUserName; #"Administrator";
-$ImageServerPassword = $ConfigXml.imageServerPassword; #"W@lcome!";
+$ConfigXml.InnerXml;
 
-[System.String]$WDSApiServicePoint = $ConfigXml.wdsApiServicePoint; #"http://minint-et2evvt:8089";
+$ImageServerAddress = $ConfigXml.configurationItems.imageServerAddress; #"minint-et2evvt";
+$ImageServerUserName= $ConfigXml.configurationItems.imageServerUserName; #"Administrator";
+$ImageServerPassword = $ConfigXml.configurationItems.imageServerPassword; #"W@lcome!";
+
+[System.String]$WDSApiServicePoint = $ConfigXml.configurationItems.wdsApiServicePoint; #"http://minint-et2evvt:8089";
 
 if($WDSApiServicePoint.EndsWith("/") -eq $false)
 {
    $WDSApiServicePoint += "/";
 }
 
-[System.Stirng]$Url = "wds/lookup/";
+$ImageServerAddress;
+$ImageServerUserName;
+$WDSApiServicePoint;
+
+[System.String]$Url = "wds/lookup/";
 
 $SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
 $SKU = $SystemInfo.SystemSKUNumber;
 
+$SKU;
+
 $Uri = $WDSApiServicePoint + $Url + $SKU;
 
+$Uri;
+
 $ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+
+$ImageUrl;
 
 $WDSImageNameSpace = $ImageUrl;
 
 $WDSImageSource = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
-$WDSImageSource = $WDSImageSource.Substring(0, $WDSImageSource.LastIndexOf("/")); 
+$WDSImageSource = $WDSImageSource.Substring(0, $WDSImageSource.LastIndexOf("/"));
+
+$WDSImageSource; 
 
 
 #%WINDIR%\System32\Wdsmcast\wdsmcast.exe /progress /verbose /trace:wds_trace.etl /Transfer-File /Server:192.168.0.215 /Namespace:WDS:Group-Windows8/Win8-Windows.wim/1 /Username:WIN-Server-02\Administrator /Password:P@ssword! /SourceFile:Win8-Windows.wim /DestinationFile:R:\install.wim
