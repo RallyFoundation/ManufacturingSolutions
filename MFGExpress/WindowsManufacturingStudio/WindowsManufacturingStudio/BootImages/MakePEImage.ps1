@@ -24,6 +24,18 @@ if($PEScriptDir.EndsWith("\") -eq $true)
 
 #.\copype.cmd $Architecture $OutputDir;
 
+cd $PEScriptDir;
+
+if($Architecture -eq "x86")
+{
+   Copy-Item ..\WindowsPE\x86\* -Destination $OutputDir -Recurse -Force;
+}
+
+if($Architecture -eq "amd64")
+{
+   Copy-Item ..\WindowsPE\amd64\* -Destination $OutputDir -Recurse -Force;
+}
+
 cd $OutputDir;
 
 $MountDir =  ".\mount";
@@ -56,4 +68,4 @@ Add-WindowsPackage -PackagePath ($PakageDir + 'WinPE-WDS-Tools.cab') -Path $Moun
 
 Dismount-WindowsImage -Path $MountDir -Save;
 
-Dismount-WindowsImage -Path $MountDir -Discard;
+#Dismount-WindowsImage -Path $MountDir -Discard;
