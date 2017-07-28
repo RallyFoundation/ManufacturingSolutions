@@ -42,7 +42,7 @@
     <!--<script src="../Scripts/ng-table.js"></script>
     <script src="../Scripts/ng-table.min.js"></script>-->
     <script src="../Scripts/app.js"></script>
-    <script src="../config.json"></script>
+    <script src="../Configs/config.json"></script>
 </head>
 <body ng-app="WindowsManufacturingStudio">
     <div ng-controller="ImageGroupController" ng-init="getImageGroups()">
@@ -204,7 +204,7 @@
             $scope.doSubmit = function () {
                 var fileInfo = { Path: "", Content: "" };
 
-                fileInfo.Path = "config.json";
+                fileInfo.Path = "Configs\\config.json";
                 fileInfo.Content = "Settings=" + JSON.stringify({Data: $scope.configSettings}) + ";";
 
                 var fileInfoJson = JSON.stringify(fileInfo);

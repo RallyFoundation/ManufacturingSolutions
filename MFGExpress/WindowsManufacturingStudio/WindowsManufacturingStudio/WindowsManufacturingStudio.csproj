@@ -131,7 +131,7 @@
     <None Include="BootImages\Multicast\startnet.cmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="config.json">
+    <None Include="Configs\config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\bootstrap-theme.css.map">
