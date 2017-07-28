@@ -11,14 +11,15 @@ namespace SuperRun
 {
     class Program
     {
+        static string ExePath = ConfigurationManager.AppSettings.Get("ExePath");
+        static bool RequireTransactionID = ConfigurationManager.AppSettings.Get("RequireTransactionID") == "true";
         static string ScriptPath = ConfigurationManager.AppSettings.Get("ScriptPath");
         static string ScriptArgs = ConfigurationManager.AppSettings.Get("ScriptArgs");
+        static string ArgsTemp = ConfigurationManager.AppSettings.Get("ArgumentTemplate");
+
         static void Main(string[] args)
         {
-            if ((args != null) && (args.Length > 0))
-            {
-                ScriptPath = args[0];
-            }
+            string transactionID = Guid.NewGuid().ToString();
 
             if (String.IsNullOrEmpty(ScriptPath))
             {
@@ -32,16 +33,40 @@ namespace SuperRun
             {
                 string scriptFullPath = GetFullPath(ScriptPath);
 
-                string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
+                string argsTemp = ArgsTemp; //"-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
 
                 string arguments = String.Format(argsTemp, scriptFullPath);
+
+                if (RequireTransactionID)
+                {
+                    arguments += " ";
+                    arguments += transactionID;
+                }
+
+                if ((args != null) && (args.Length > 0))
+                {
+                    if (!String.IsNullOrEmpty(arguments))
+                    {
+                        arguments += " ";
+                    }
+
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        arguments += args[i];
+
+                        if (i != (args.Length - 1))
+                        {
+                            arguments += " ";
+                        }
+                    }
+                }
 
                 if (!String.IsNullOrEmpty(ScriptArgs))
                 {
                     arguments = String.Format("{0} {1}", arguments, ScriptArgs);
                 }
 
-                StartProcess("PowerShell", arguments, true, true);
+                StartProcess(ExePath, arguments, true, true);
             }
 
             Console.WriteLine("Press any key to exit...");
