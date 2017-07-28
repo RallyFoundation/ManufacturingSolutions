@@ -332,6 +332,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Logs\Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Network.ico" />
     <None Include="Resources\MB__back.png" />
     <Content Include="Scripts\angular-animate.js">
