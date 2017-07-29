@@ -13,6 +13,7 @@ namespace SuperRun
     {
         static string ExePath = ConfigurationManager.AppSettings.Get("ExePath");
         static bool RequireTransactionID = ConfigurationManager.AppSettings.Get("RequireTransactionID") == "true";
+        static bool RequireAppRootPath = ConfigurationManager.AppSettings.Get("RequireAppRootPath") == "true";
         static string ScriptPath = ConfigurationManager.AppSettings.Get("ScriptPath");
         static string ScriptArgs = ConfigurationManager.AppSettings.Get("ScriptArgs");
         static string ArgsTemp = ConfigurationManager.AppSettings.Get("ArgumentTemplate");
@@ -21,18 +22,21 @@ namespace SuperRun
         {
             string transactionID = Guid.NewGuid().ToString();
 
-            if (String.IsNullOrEmpty(ScriptPath))
+            string scriptFullPath = GetFullPath(ScriptPath);
+
+            string appRootPath = GetFullPath("\\");
+            appRootPath = appRootPath.Substring(0, (appRootPath.Length - 1));
+
+            if (String.IsNullOrEmpty(scriptFullPath))
             {
                 Console.WriteLine("Script file name should not be null!");
             }
-            else if (!File.Exists(ScriptPath))
+            else if (!File.Exists(scriptFullPath))
             {
                 Console.WriteLine("Script file \"{0}\" dose not exist!", ScriptPath);
             }
             else
             {
-                string scriptFullPath = GetFullPath(ScriptPath);
-
                 string argsTemp = ArgsTemp; //"-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
 
                 string arguments = String.Format(argsTemp, scriptFullPath);
@@ -41,6 +45,20 @@ namespace SuperRun
                 {
                     arguments += " ";
                     arguments += transactionID;
+                }
+                else
+                {
+                    arguments += " TRANS_ID_NULL";
+                }
+
+                if (RequireAppRootPath)
+                {
+                    arguments += " ";
+                    arguments += appRootPath;
+                }
+                else
+                {
+                    arguments += " APP_ROOT_NULL";
                 }
 
                 if ((args != null) && (args.Length > 0))
