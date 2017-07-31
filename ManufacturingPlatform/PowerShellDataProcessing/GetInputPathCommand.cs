@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using Platform.DAAS.OData.Utility;
 
 namespace PowerShellDataProcessing
 {
@@ -22,6 +23,9 @@ namespace PowerShellDataProcessing
         [Parameter(Position = 3, Mandatory = false, HelpMessage = "The option to specify if the dialog result should be Abort on closing.")]
         public bool AbortOnCancel { get; set; }
 
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = "The option to specify if the path specified should be transformed to short path.")]
+        public bool UseShortPath { get; set; }
+
         protected override void ProcessRecord()
         {
             //base.ProcessRecord();
@@ -35,6 +39,11 @@ namespace PowerShellDataProcessing
             if (dialogResult == System.Windows.Forms.DialogResult.OK)
             { 
                 string inputPath = formInputPath.InputPath;
+
+                if (UseShortPath)
+                {
+                    inputPath = CommonUtility.GetShortPath(inputPath);
+                }
 
                 this.WriteObject(inputPath);
             }

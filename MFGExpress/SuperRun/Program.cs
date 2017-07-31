@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Configuration;
+using System.Runtime.InteropServices;
 
 namespace SuperRun
 {
@@ -14,6 +15,7 @@ namespace SuperRun
         static string ExePath = ConfigurationManager.AppSettings.Get("ExePath");
         static bool RequireTransactionID = ConfigurationManager.AppSettings.Get("RequireTransactionID") == "true";
         static bool RequireAppRootPath = ConfigurationManager.AppSettings.Get("RequireAppRootPath") == "true";
+        static bool ShouldUseShortPath = ConfigurationManager.AppSettings.Get("ShouldUseShortPath") == "true";
         static string ScriptPath = ConfigurationManager.AppSettings.Get("ScriptPath");
         static string ScriptArgs = ConfigurationManager.AppSettings.Get("ScriptArgs");
         static string ArgsTemp = ConfigurationManager.AppSettings.Get("ArgumentTemplate");
@@ -26,6 +28,11 @@ namespace SuperRun
 
             string appRootPath = GetFullPath("\\");
             appRootPath = appRootPath.Substring(0, (appRootPath.Length - 1));
+
+            if (ShouldUseShortPath)
+            {
+                appRootPath = GetShortPath(appRootPath);
+            }
 
             if (String.IsNullOrEmpty(scriptFullPath))
             {
@@ -90,6 +97,20 @@ namespace SuperRun
             Console.WriteLine("Press any key to exit...");
 
             Console.Read();
+        }
+
+        [DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
+        static extern int GetShortPathName(string lpszLongPath, StringBuilder lpszShortPath, int cchBuffer);
+
+        static string GetShortPath(string longPath)
+        {
+            string shortPath = longPath;
+
+            StringBuilder sPath = new StringBuilder(longPath.Length);
+            GetShortPathName(longPath, sPath, longPath.Length);
+            shortPath = sPath.ToString();
+
+            return shortPath;
         }
 
         static string GetFullPath(string relativePath)

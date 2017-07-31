@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.Remoting;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
 using Ionic.Zip;
 
 namespace Platform.DAAS.OData.Utility
@@ -207,6 +208,20 @@ namespace Platform.DAAS.OData.Utility
             {
                 zip.ExtractAll(extractionPath, ExtractExistingFileAction.InvokeExtractProgressEvent);
             }
+        }
+
+        [DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
+        static extern int GetShortPathName(string lpszLongPath, StringBuilder lpszShortPath, int cchBuffer);
+
+        public static string GetShortPath(string longPath)
+        {
+            string shortPath = longPath;
+
+            StringBuilder sPath = new StringBuilder(longPath.Length);
+            GetShortPathName(longPath, sPath, longPath.Length);
+            shortPath = sPath.ToString();
+
+            return shortPath;
         }
     }
 }
