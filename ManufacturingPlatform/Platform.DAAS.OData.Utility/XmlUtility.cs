@@ -117,6 +117,69 @@ namespace Platform.DAAS.OData.Utility
             return returnValue;
         }
 
+        public static string ValidateXML(string xml, string schema, string outputFormat)
+        {
+            string returnValue = String.Empty;
+
+            if ((!String.IsNullOrEmpty(xml)) && (!String.IsNullOrEmpty(schema)))
+            {
+                StringReader stringReader = new StringReader(schema);
+
+                XmlReader xmlSchemaReader = XmlReader.Create(stringReader);
+
+                if (xmlSchemaReader != null)
+                {
+                    XmlReaderSettings settings = new XmlReaderSettings();
+                    settings.ValidationType = ValidationType.Schema;
+                    settings.ConformanceLevel = ConformanceLevel.Auto;
+                    settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
+                    settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessIdentityConstraints;
+
+                    SchemaValidationListener listener = new SchemaValidationListener();
+
+                    settings.ValidationEventHandler += listener.OnSchemaValidating;
+
+                    XmlSchemaSet xmlSchemaSet = new XmlSchemaSet();
+
+                    xmlSchemaSet.Add(null, xmlSchemaReader);
+
+                    xmlSchemaSet.Compile();
+
+                    settings.Schemas = xmlSchemaSet;
+
+                    StringReader xmlDocumentStringReader = new StringReader(xml);
+
+                    XmlReader xmlDocumentReader = XmlReader.Create(xmlDocumentStringReader, settings);
+
+                    while (xmlDocumentReader.Read())
+                    {
+                    }
+
+                    string outputFormatTemplate = "Error count:{0};\r\n Error messages:\r\n{1}";
+
+                    switch (outputFormat)
+                    {
+                        case "xml":
+                            outputFormatTemplate = "<validationResult><errorCount>{0}</errorCount><errorMessage>{1}</errorMessage></validationResult>";
+                            break;
+                        case "json":
+                            outputFormatTemplate = "{\"errorCount\":\"{0}\", \"errorMessage\":\"{1}\"}";
+                            break;
+                        case "text":
+                            outputFormatTemplate = "Error count:{0};\r\n Error messages:\r\n{1}";
+                            break;
+                        default:
+                            outputFormatTemplate = "<validationResult><errorCount>{0}</errorCount><errorMessage>{1}</errorMessage></validationResult>";
+                            break;
+                    }
+
+                    returnValue = String.Format(outputFormatTemplate, listener.ErrorCount, listener.ErrorMessage);
+                }
+            }
+
+            return returnValue;
+        }
+
         public static string XmlSerialize(object objectToSerialize, Type[] extraTypes, string outputEncodingName)
         {
             string returnValue = String.Empty;
