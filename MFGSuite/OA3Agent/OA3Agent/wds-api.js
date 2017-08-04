@@ -6,8 +6,10 @@ var shell = require('node-powershell');
 var redis = require("redis");
 var cors = require("cors");
 var config = require("nodejs-config")(__dirname);
+//var bearerToken = require('express-bearer-token');
 
 var app = express();
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -19,7 +21,31 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 //    res.header("Content-Type", "application/json;charset=utf-8");
 //    next();
 //});
+
 app.use(cors());
+
+//app.use(bearerToken());
+//app.use(function (req, res) {
+//    res.send('Token ' + req.token);
+//});
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on("connection", function (socket) {
+    console.log("A new device connected!");
+
+    socket.on("msg:newdata", function (data) {
+        persistData(data);
+        //io.emit("msg:msgrly", data);
+        //io.emit("msg:resp", "OK! " + Date.now().toString());
+    });
+
+    socket.on("msg:newmsg", function (data) {
+        //persistData(data);
+        io.emit("msg:msgrly", data);
+    });
+});
 
 var httpServerPort = config.get("app.http-server-port"); //8089;
 
@@ -36,6 +62,10 @@ function getRedisClient() {
     client.auth(redisPassword);
 
     return client;
+}
+
+function persistData(data)
+{
 }
 
 var server = app.listen(httpServerPort, function () {

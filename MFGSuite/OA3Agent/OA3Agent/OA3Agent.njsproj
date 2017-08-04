@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>mongo-rest.js</StartupFile>
+    <StartupFile>wds-client.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -41,6 +41,7 @@
     <Compile Include="server.js" />
     <Compile Include="redis-rest.js" />
     <Compile Include="wds-api.js" />
+    <Compile Include="wds-client.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\app.json" />
