@@ -4,6 +4,7 @@
   "redis-port": 6379,
   "redis-password": "",
   "redis-db-index": 0,
+  "redis-db-index-client-status": 1,
   "install-image-repository": "D:\\WDS-Images\\Install",
   "boot-image-repository": "D:\\WDS-Images\\Boot"
 }

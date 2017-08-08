@@ -45,6 +45,14 @@ io.on("connection", function (socket) {
         //persistData(data);
         io.emit("msg:msgrly", data);
     });
+
+    socket.on("msg:cltstat", function (data) {
+
+        var ipAddress = socket.handshake.address;
+        var clientStatus = { ip: ipAddress, status: data };
+
+        updateClientStatus(status);
+    });
 });
 
 var httpServerPort = config.get("app.http-server-port"); //8089;
@@ -53,6 +61,8 @@ var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
 var redisPort = config.get("app.redis-port"); //6379;
 var redisPassword = config.get("app.redis-password"); //"P@ssword1";
 var redisDbIndex = config.get("app.redis-db-index"); //0;
+
+var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
 
 var installImageRepository = config.get("app.install-image-repository");
 var bootImageRepository = config.get("app.boot-image-repository");
@@ -68,10 +78,35 @@ function persistData(data)
 {
 }
 
+function updateClientStatus(data)
+{
+    var redisClient = getRedisClient();
+
+    redisClient.select(redisDbIndexClientStatus, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else
+        {
+            redisClient.set(data.ip, data.status, function (err, result)
+            {
+                if (err) {
+                    console.log(err);
+                }
+                else
+                {
+                    console.log(result);
+                    redisClient.end(true);
+                }
+            });
+        }
+    });
+}
+
 var server = app.listen(httpServerPort, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("WDS RESTful API service listening at http://%s:%s", host, port)
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("WDS RESTful API service listening at http://%s:%s", host, port);
 })
 
 app.get('/', function (req, res) {

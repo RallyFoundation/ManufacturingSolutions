@@ -1,0 +1,16 @@
+﻿{
+  "http-server-port": 8089,
+  "redis-address": "minint-et2evvt",
+  "redis-port": 6379,
+  "redis-password": "",
+  "redis-db-index": 0,
+  "redis-db-index-client-status": 1,
+  "install-image-repository": "D:\\WDS-Images\\Install",
+  "boot-image-repository": "D:\\WDS-Images\\Boot",
+  "image-server-host": "minint-et2evvt",
+  "image-server-port": 8089,
+  "image-server-username": "Administrator",
+  "image-server-password": "W@lcome!",
+  "web-socket-server-host": "minint-et2evvt",
+  "web-socket-server-port": 3000
+}

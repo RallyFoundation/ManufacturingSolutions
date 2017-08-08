@@ -4,6 +4,7 @@
     "jade": "registry:dt/jade#0.0.0+20160316155526",
     "node": "registry:dt/node#7.0.0+20170322231424",
     "node-powershell": "registry:dt/node-powershell#3.1.1+20170308221459",
-    "socket.io": "registry:dt/socket.io#1.4.4+20170313110830"
+    "socket.io": "registry:dt/socket.io#1.4.4+20170313110830",
+    "socket.io-client": "registry:dt/socket.io-client#1.4.4+20161116080703"
   }
 }

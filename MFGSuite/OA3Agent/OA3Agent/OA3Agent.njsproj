@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\app.json" />
+    <Content Include="config\client.json" />
     <Content Include="public\javascripts\bootstrap.js" />
     <Content Include="public\javascripts\bootstrap.min.js" />
     <Content Include="public\javascripts\jquery-1.10.2.intellisense.js" />
@@ -90,6 +91,7 @@
     <Folder Include="typings\globals\jade\" />
     <Folder Include="typings\globals\node-powershell\" />
     <Folder Include="typings\globals\node\" />
+    <Folder Include="typings\globals\socket.io-client\" />
     <Folder Include="typings\globals\socket.io\" />
     <Folder Include="views\" />
   </ItemGroup>
@@ -98,6 +100,7 @@
     <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node-powershell\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\socket.io-client\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\socket.io\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>

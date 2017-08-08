@@ -15,21 +15,27 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var httpclient = require("http");
+var ioclient = require('socket.io-client');
+
+var socketclient = null;
 
 const execFile = require('child_process').execFile;
 
-var httpServerPort = config.get("app.http-server-port"); //8089;
-var httpServerAddress = config.get("app.image-server-address");
+var httpServerPort = config.get("client.http-server-port"); //8089;
+var httpServerAddress = config.get("client.http-server-address");
 
-var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
-var redisPort = config.get("app.redis-port"); //6379;
-var redisPassword = config.get("app.redis-password"); //"P@ssword1";
-var redisDbIndex = config.get("app.redis-db-index"); //0;
+var redisAddress = config.get("client.redis-address"); //"127.0.0.1";
+var redisPort = config.get("client.redis-port"); //6379;
+var redisPassword = config.get("client.redis-password"); //"P@ssword1";
+var redisDbIndex = config.get("client.redis-db-index"); //0;
 
-var imageServerHost = "minint-et2evvt";
-var imageServrePort = 8089;
-var imageServerUserName = "Administrator";
-var imageServerPassword = "W@lcome!";
+var imageServerHost = config.get("client.image-server-host");//"minint-et2evvt";
+var imageServrePort = config.get("client.image-server-port");//8089;
+var imageServerUserName = config.get("client.image-server-username"); //"Administrator";
+var imageServerPassword = config.get("client.image-server-passsword");//"W@lcome!";
+
+var webSocketServerPort = config.get("client.web-socket-server-port");
+var webSocketServerHost = config.get("client.web-socket-server-host");
 
 var biosData = { SystemSKUNumber: "", Model: "" };
 
@@ -104,7 +110,7 @@ function downloadImageWithWDSClient(imageNamespace)
     wdsImageSource = wdsImageSource.Substring(0, wdsImageSource.LastIndexOf("/"));
 
     var path = "wdsmcast.exe";
-    var params = ["/progress", "/verbose", "/trace:wds_trace.etl", "/Apply-Image", ("/Server:" + imageServerHost), ("/Namespace:" + imageNamespace), ("/Username:" + imageServerHost + "\\" + imageServerUserName), (" / Password:" + imageServerPassword), ("/SourceFile:" + wdsImageSource), "/Index:1", "/DestinationPath:W:\\"];
+    var params = ["/progress", "/verbose", "/trace:wds_trace.etl", "/Apply-Image", ("/Server:" + imageServerHost), ("/Namespace:" + imageNamespace), ("/Username:" + imageServerHost + "\\" + imageServerUserName), ("/Password:" + imageServerPassword), ("/SourceFile:" + wdsImageSource), "/Index:1", "/DestinationPath:W:\\"];
 
     execFile(path, params, (error, stdout, stderr) => {
         if (error) {
@@ -114,9 +120,14 @@ function downloadImageWithWDSClient(imageNamespace)
     });
 }
 
-var server = app.listen(httpServerPort, function () {
+var server = app.listen(httpServerPort, function ()
+{
     var host = server.address().address;
     var port = server.address().port;
+
+    socketclient = ioclient("ws://" + webSocketServerHost + ":" + webSocketServerPort.toString());
+
+    socketclient.emit("msg:cltstat","Reading BIOS Data");
 
     readBIOSData(biosData);
 
@@ -141,5 +152,11 @@ io.on("connection", function (socket) {
     socket.on("msg:newmsg", function (data) {
         //persistData(data);
         io.emit("msg:msgrly", data);
+    });
+
+    soket.on("msg:progress", function (data) {
+    });
+
+    soket.on("msg:heartbeat", function (data) {
     });
 });
