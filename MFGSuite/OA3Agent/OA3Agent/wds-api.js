@@ -47,13 +47,13 @@ io.on("connection", function (socket) {
         io.emit("msg:msgrly", data);
     });
 
-    socket.on("msg:cltstat", function (data) {
+    //socket.on("msg:cltstat", function (data) {
 
-        var ipAddress = socket.handshake.address;
-        var clientStatus = { ip: ipAddress, status: data };
+    //    var ipAddress = socket.handshake.address;
+    //    var clientStatus = { ip: ipAddress, status: data };
 
-        updateClientStatus(status);
-    });
+    //    updateClientStatus(status);
+    //});
 });
 
 var httpServerPort = config.get("app.http-server-port"); //8089;
@@ -79,30 +79,30 @@ function persistData(data)
 {
 }
 
-function updateClientStatus(data)
-{
-    var redisClient = getRedisClient();
+//function updateClientStatus(data)
+//{
+//    var redisClient = getRedisClient();
 
-    redisClient.select(redisDbIndexClientStatus, function (err) {
-        if (err) {
-            console.log(err);
-        }
-        else
-        {
-            redisClient.set(data.ip, data.status, function (err, result)
-            {
-                if (err) {
-                    console.log(err);
-                }
-                else
-                {
-                    console.log(result);
-                    redisClient.end(true);
-                }
-            });
-        }
-    });
-}
+//    redisClient.select(redisDbIndexClientStatus, function (err) {
+//        if (err) {
+//            console.log(err);
+//        }
+//        else
+//        {
+//            redisClient.set(data.ip, data.status, function (err, result)
+//            {
+//                if (err) {
+//                    console.log(err);
+//                }
+//                else
+//                {
+//                    console.log(result);
+//                    redisClient.end(true);
+//                }
+//            });
+//        }
+//    });
+//}
 
 var server = app.listen(httpServerPort, function () {
     var host = server.address().address;
@@ -155,43 +155,6 @@ app.get('/wds/lookup/keys/all', function (req, res) {
                 }
                 else
                 {
-                    //var lookups = [];
-                    //async.map(keys, function (key, callback) {
-                    //    redisClient.get(key, function (err, value) {
-                    //        if (err)
-                    //        {
-                    //            callback(err);
-                    //        }
-                    //        else {
-                    //            var lookupItem = { key: "", value: "" };
-                    //            lookupItem.key = key;
-                    //            lookupItem.value = value;
-                    //            callback(null, lookupItem);
-
-                    //            console.log(JSON.stringify(lookups));
-                    //            redisClient.end(true);
-                    //            res.end(JSON.stringify(lookups));
-                    //        }
-                    //    });
-                    //},
-                    //function (err, result) {
-                    //    if (err) {
-                    //        console.log(err);
-                    //        res.end(err);
-                    //    }
-                    //    else {
-                    //        console.log(result);
-                    //        //res.json({ data: results });
-                    //        //res.send(result);
-
-                    //        lookups.push(result);
-                    //    }
-                    //});
-
-                    //console.log(lookups);
-                    //redisClient.end(true);
-                    //res.end(JSON.stringify(lookups));
-
                     console.log(JSON.stringify(keys));
                     redisClient.end(true);
                     res.end(JSON.stringify(keys));
@@ -221,6 +184,35 @@ app.post('/wds/lookup/', function (req, res) {
                     console.log(result);
                     redisClient.end(true);
                     res.end(result);
+                }
+            });
+        }
+    });
+});
+
+app.post('/wds/terminal/status/', function (req, res) {
+    var redisClient = getRedisClient();
+    //var key = req.params.key;
+    var data = req.body;
+
+    redisClient.select(redisDbIndexClientStatus, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            //data.key = req.ip.toString();
+            redisClient.set(data.key, data.Value, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(result);
+                    redisClient.end(true);
+                    res.end(result);
+
+                    io.emit("msg:clientStat", data);
                 }
             });
         }
