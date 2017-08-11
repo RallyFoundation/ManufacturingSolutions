@@ -7,6 +7,7 @@ var redis = require("redis");
 var cors = require("cors");
 var config = require("nodejs-config")(__dirname);
 //var bearerToken = require('express-bearer-token');
+//var async = require("async");
 
 var app = express();
 
@@ -132,6 +133,68 @@ app.get('/wds/lookup/:key', function (req, res) {
                     console.log(result);
                     redisClient.end(true);
                     res.end(result);
+                }
+            });
+        }
+    });
+});
+
+app.get('/wds/lookup/keys/all', function (req, res) {
+    var redisClient = getRedisClient();
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.keys('*', function (err, keys) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else
+                {
+                    //var lookups = [];
+                    //async.map(keys, function (key, callback) {
+                    //    redisClient.get(key, function (err, value) {
+                    //        if (err)
+                    //        {
+                    //            callback(err);
+                    //        }
+                    //        else {
+                    //            var lookupItem = { key: "", value: "" };
+                    //            lookupItem.key = key;
+                    //            lookupItem.value = value;
+                    //            callback(null, lookupItem);
+
+                    //            console.log(JSON.stringify(lookups));
+                    //            redisClient.end(true);
+                    //            res.end(JSON.stringify(lookups));
+                    //        }
+                    //    });
+                    //},
+                    //function (err, result) {
+                    //    if (err) {
+                    //        console.log(err);
+                    //        res.end(err);
+                    //    }
+                    //    else {
+                    //        console.log(result);
+                    //        //res.json({ data: results });
+                    //        //res.send(result);
+
+                    //        lookups.push(result);
+                    //    }
+                    //});
+
+                    //console.log(lookups);
+                    //redisClient.end(true);
+                    //res.end(JSON.stringify(lookups));
+
+                    console.log(JSON.stringify(keys));
+                    redisClient.end(true);
+                    res.end(JSON.stringify(keys));
                 }
             });
         }

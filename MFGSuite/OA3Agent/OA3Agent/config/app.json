@@ -1,6 +1,6 @@
 ﻿{
   "http-server-port": 8089,
-  "redis-address": "127.0.0.1",
+  "redis-address": "minint-et2evvt",
   "redis-port": 6379,
   "redis-password": "",
   "redis-db-index": 0,

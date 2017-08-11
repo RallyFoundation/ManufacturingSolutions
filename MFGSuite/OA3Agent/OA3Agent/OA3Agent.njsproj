@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>wds-client.js</StartupFile>
+    <StartupFile>wds-api.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -87,6 +87,7 @@
     <Folder Include="routes\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />
+    <Folder Include="typings\globals\async\" />
     <Folder Include="typings\globals\express\" />
     <Folder Include="typings\globals\jade\" />
     <Folder Include="typings\globals\node-powershell\" />
@@ -96,6 +97,7 @@
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="typings\globals\async\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node-powershell\index.d.ts" />
