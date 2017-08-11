@@ -4,22 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace WindowsManufacturingStudio.ViewModels
 {
     [XmlRoot(ElementName = "configurationItems")]
     public class ConfigurationViewModel
     {
+        [JsonProperty("image-server-host")]
         [XmlElement(ElementName = "imageServerAddress")]
         public string ImageServerAddress { get; set; }
 
+        [JsonProperty("image-server-port")]
+        [XmlElement(ElementName = "imageServerPort")]
+        public int ImageServerPort { get; set; }
+
+        [JsonProperty("image-server-username")]
         [XmlElement(ElementName = "imageServerUserName")]
         public string ImageServerUserName { get; set; }
 
+        [JsonProperty("image-server-password")]
         [XmlElement(ElementName = "imageServerPassword")]
         public string ImageServerPassword { get; set; }
 
+        [JsonProperty("wds-api-service-point")]
         [XmlElement(ElementName = "wdsApiServicePoint")]
         public string WDSApiServicePoint { get; set; }
+
+        [JsonProperty("http-server-host")]
+        [XmlElement(ElementName = "httpServerAddress")]
+        public string HttpServerAddress { get; set; }
+
+        [JsonProperty("http-server-port")]
+        [XmlElement(ElementName = "httpServerPort")]
+        public int HttpServerPort { get; set; }
+
+        [JsonProperty("web-socket-server-host")]
+        [XmlElement(ElementName = "webSocketServerAddress")]
+        public string WebSocketServerAddress { get; set; }
+
+        [JsonProperty("web-socket-server-port")]
+        [XmlElement(ElementName = "webSocketServerPort")]
+        public int WebSocketServerPort { get; set; }
     }
 }
