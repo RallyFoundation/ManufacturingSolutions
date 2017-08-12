@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Image Lookups</title>
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../Content/ng-table.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ng-table.min.css" />-->
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-mocks.js"></script>
+    <script src="../Scripts/angular-aria.js"></script>
+    <script src="../Scripts/angular-aria.min.js"></script>
+    <script src="../Scripts/angular-animate.js"></script>
+    <script src="../Scripts/angular-animate.min.js"></script>
+    <script src="../Scripts/angular-cookies.js"></script>
+    <script src="../Scripts/angular-cookies.min.js"></script>
+    <script src="../Scripts/angular-loader.js"></script>
+    <script src="../Scripts/angular-loader.min.js"></script>
+    <script src="../Scripts/angular-message-format.js"></script>
+    <script src="../Scripts/angular-message-format.min.js"></script>
+    <script src="../Scripts/angular-messages.js"></script>
+    <script src="../Scripts/angular-messages.min.js"></script>
+    <script src="../Scripts/angular-resource.js"></script>
+    <script src="../Scripts/angular-resource.min.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="../Scripts/angular-sanitize.js"></script>
+    <script src="../Scripts/angular-sanitize.min.js"></script>
+    <script src="../Scripts/angular-scenario.js"></script>
+    <script src="../Scripts/angular-touch.js"></script>
+    <script src="../Scripts/angular-touch.min.js"></script>
+    <script src="../Scripts/ngDialog.js"></script>
+    <script src="../Scripts/ngDialog.min.js"></script>
+    <!--<script src="../Scripts/ng-table.js"></script>
+    <script src="../Scripts/ng-table.min.js"></script>-->
+    <script src="../Scripts/app.js"></script>
+    <script src="../Configs/config.json"></script>
+</head>
+<body ng-app="WindowsManufacturingStudio">
+    <div ng-controller="ImageLookupController" ng-init="getImageLookups()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="getImageLookups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+        </p>
+        <br />
+        <table class="table">
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            <tr ng-repeat="imageLookup in imageLookups">
+                <td>{{imageLookup.Key}}</td>
+                <td>{{imageLookup.Value}}</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ImageLookupController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.newImageLookup = { Key: "", Value: "" };
+
+            $scope.imageLookups = [];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getImageLookups = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/keys/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    if (data != null && data.data != null)
+                    {
+                        $scope.imageLookups.splice(0, $scope.imageLookups.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                //$scope.imageLookups.push(data.data[i]);
+                                $scope.imageLookups.push({Key:data.data[i], Value:""});
+                            }
+                        }
+                        else {
+                            $scope.imageLookups.push({Key:data.data, Value: ""});
+                        }
+                    }
+
+                    $scope.hideProgress();
+                });
+            };
+
+            $scope.showImageLookupDialog = function () {
+                //if ($scope.currentImageIndex >= 0) {
+                    //var image = $scope.images[$scope.currentImageIndex];
+
+                    //var cacheValue = "WDS:" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
+
+                    $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
+                    $scope.newImageLookup.Value = "";//cacheValue;
+
+                    $scope.currentDialog = ngDialog.open({
+                        scope: $scope,
+                        className: 'ngdialog-theme-default',
+                        template: 'new-image-lookup-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                        //plain: true,
+                        showClose: true,
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        width: 500,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    });
+                //}
+            };
+
+            $scope.setImageLookup = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/";
+
+                $http.post(url + servicePoint, $scope.newImageLookup).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data == "OK") {
+                            $scope.imageLookups.push($scope.newImageLookup);
+                            $scope.hideProgress();
+                        }
+                    }
+                });
+            };
+
+            //$scope.doSubmit = function () {
+            //    ngDialog.closeAll();
+
+            //    $scope.showProgress();
+
+            //    //var protocol = $location.protocol();
+            //    //var host = $location.host();
+            //    //var port = $location.port();
+
+            //    //var url = protocol + "://" + host + ":" + port + "/";
+
+            //    var url = settings.WdsApiUrl;
+
+            //    var servicePoint = "wds/imagegroup/install";
+
+            //    $http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
+            //        if (data != null && data.data != null) {
+            //            if (data.data.length > 0) {
+            //                for (var i = 0; i < data.data.length; i++) {
+            //                    $scope.imageGroups.push(data.data[i]);
+            //                }
+            //            }
+            //            else {
+            //                $scope.imageGroups.push(data.data);
+            //            }
+
+            //            $scope.hideProgress();
+            //        }
+            //    });
+            //};
+        });
+    </script>
+</body>
+</html>

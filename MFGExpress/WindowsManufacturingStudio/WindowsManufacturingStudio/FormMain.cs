@@ -23,7 +23,7 @@ namespace WindowsManufacturingStudio
             this.loadConfigs();
         }
 
-        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlConfigurations;
+        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlImageLookups, urlConfigurations;
 
         private FormWebView formWebView;
         private FormCreateBootWinPE formCreateBootWinPE;
@@ -50,7 +50,17 @@ namespace WindowsManufacturingStudio
 
         private void metroTileImageLookups_Click(object sender, EventArgs e)
         {
+            if (this.formWebView == null)
+            {
+                this.formWebView = new FormWebView(this, this.urlImageLookups);
+            }
+            else if (this.formWebView.Url != this.urlImageLookups)
+            {
+                this.formWebView.Navigate(this.urlImageLookups);
+            }
 
+            this.formWebView.Show();
+            this.Visible = false;
         }
 
         private void metroTileCreateBootWindowsPE_Click(object sender, EventArgs e)
@@ -115,6 +125,7 @@ namespace WindowsManufacturingStudio
             this.urlInstallImages = String.Format(ConfigurationManager.AppSettings.Get("UrlInstallImages"), appRootDir);
             this.urlBootImages = String.Format(ConfigurationManager.AppSettings.Get("UrlBootImages"), appRootDir);
             this.urlImageGroups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageGroups"), appRootDir);
+            this.urlImageLookups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageLookups"), appRootDir);
             this.urlConfigurations = String.Format(ConfigurationManager.AppSettings.Get("UrlConfigurations"), appRootDir);
         }
     }
