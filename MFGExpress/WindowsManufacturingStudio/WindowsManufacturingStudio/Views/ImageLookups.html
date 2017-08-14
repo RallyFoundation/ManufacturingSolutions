@@ -52,10 +52,10 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="getImageLookups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="showNewImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
         </p>
         <br />
-        <table class="table">
+        <!--<table class="table">
             <tr>
                 <th>Key</th>
                 <th>Value</th>
@@ -64,7 +64,12 @@
                 <td>{{imageLookup.Key}}</td>
                 <td>{{imageLookup.Value}}</td>
             </tr>
-        </table>
+        </table>-->
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="imageLookup in imageLookups">
+                <a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a>  
+            </li>
+        </ul>
     </div>
     <script type="text/javascript">
         function createGuid() {
@@ -129,6 +134,8 @@
 
             $scope.newImageLookup = { Key: "", Value: "" };
 
+            $scope.selectedImageLookupIndex = -1;
+
             $scope.imageLookups = [];
 
             $scope.closeWindow = function () {
@@ -185,12 +192,7 @@
                 });
             };
 
-            $scope.showImageLookupDialog = function () {
-                //if ($scope.currentImageIndex >= 0) {
-                    //var image = $scope.images[$scope.currentImageIndex];
-
-                    //var cacheValue = "WDS:" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
-
+            $scope.showNewImageLookupDialog = function () {
                     $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
                     $scope.newImageLookup.Value = "";//cacheValue;
 
@@ -207,7 +209,40 @@
                             return true;
                         }
                     });
-                //}
+            };
+
+            $scope.showImageLookupDetailDialog = function (index) {
+
+                $scope.selectedImageLookupIndex = index;
+
+                if(!($scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet))
+                {
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/lookup/" + $scope.imageLookups[$scope.selectedImageLookupIndex].Key;
+
+                    $http.get(url + servicePoint).then(function (data) {
+
+                        if (data != null && data.data != null) {
+                            $scope.imageLookups[$scope.selectedImageLookupIndex].Value = data.data;
+                            $scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet = true;
+                        }
+                    });
+                }
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'image-lookup-detail-template.html',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
             };
 
             $scope.setImageLookup = function () {
@@ -223,6 +258,25 @@
                     if (data != null && data.data != null) {
                         if (data.data == "OK") {
                             $scope.imageLookups.push($scope.newImageLookup);
+                            $scope.hideProgress();
+                        }
+                    }
+                });
+            };
+
+            $scope.updateImageLookup = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/";
+
+                $http.post(url + servicePoint, $scope.imageLookups[$scope.selectedImageLookupIndex]).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data == "OK") {
+                            //$scope.imageLookups.push($scope.newImageLookup);
                             $scope.hideProgress();
                         }
                     }
