@@ -24,12 +24,19 @@ $ImageServerAddress;
 $ImageServerUserName;
 $WDSApiServicePoint;
 
+$ClientID = "";
+
 [System.String]$Url = "wds/lookup/";
+[System.String]$UrlProgress = "wds/terminal/status/";
+
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body ([System.String]::Format("{`"Key`":`"{0}`", `"Value`":`"{1}`"}", $ClientID, "GettingSKUFromBIOS")) -ContentType "application/json";
 
 $SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
 $SKU = $SystemInfo.SystemSKUNumber;
 
 $SKU;
+
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body ([System.String]::Format("{`"Key`":`"{0}`", `"Value`":`"{1}`"}", $ClientID, "GettingImageUrl")) -ContentType "application/json";
 
 $Uri = $WDSApiServicePoint + $Url + $SKU;
 
@@ -38,6 +45,8 @@ $Uri;
 $ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 
 $ImageUrl;
+
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body ([System.String]::Format("{`"Key`":`"{0}`", `"Value`":`"{1}`"}", $ClientID, "DownloadingImage")) -ContentType "application/json";
 
 $WDSImageNameSpace = $ImageUrl;
 
@@ -59,3 +68,5 @@ Start-Process -FilePath "wdsmcast.exe" -ArgumentList @("/progress", "/verbose", 
 #mkdir R:\TEMP;
 
 #Expand-WindowsImage -ImagePath "R:\install.wim" -ApplyPath "W:\" -Index 1 -ScratchDirectory "R:\TEMP";
+
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body ([System.String]::Format("{`"Key`":`"{0}`", `"Value`":`"{1}`"}", $ClientID, "ImageApplied")) -ContentType "application/json";
