@@ -30,11 +30,31 @@ app.use(cors());
 //    res.send('Token ' + req.token);
 //});
 
+var httpServerPort = config.get("app.http-server-port"); //8089;
+var webSocketServerPort = config.get("app.web-socket-server-port");
+var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
+var redisPort = config.get("app.redis-port"); //6379;
+var redisPassword = config.get("app.redis-password"); //"P@ssword1";
+var redisDbIndex = config.get("app.redis-db-index"); //0;
+var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
+var installImageRepository = config.get("app.install-image-repository");
+var bootImageRepository = config.get("app.boot-image-repository");
+
+var server = app.listen(httpServerPort, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("WDS RESTful API service listening at http://%s:%s", host, port);
+})
+
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+http.listen(webSocketServerPort, function () {
+    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+});
+
 io.on("connection", function (socket) {
-    //console.log("A new device connected!");
+    console.log("A new app connected!");
 
     socket.on("msg:newdata", function (data) {
         persistData(data);
@@ -56,17 +76,6 @@ io.on("connection", function (socket) {
     //});
 });
 
-var httpServerPort = config.get("app.http-server-port"); //8089;
-
-var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
-var redisPort = config.get("app.redis-port"); //6379;
-var redisPassword = config.get("app.redis-password"); //"P@ssword1";
-var redisDbIndex = config.get("app.redis-db-index"); //0;
-
-var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
-
-var installImageRepository = config.get("app.install-image-repository");
-var bootImageRepository = config.get("app.boot-image-repository");
 
 function getRedisClient() {
     var client = redis.createClient(redisPort, redisAddress);
@@ -104,11 +113,6 @@ function persistData(data)
 //    });
 //}
 
-var server = app.listen(httpServerPort, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("WDS RESTful API service listening at http://%s:%s", host, port);
-})
 
 app.get('/', function (req, res) {
     res.send('Welcome to WDS!');
