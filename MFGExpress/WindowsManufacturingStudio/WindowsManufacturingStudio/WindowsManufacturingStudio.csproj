@@ -2646,7 +2646,7 @@
     <Content Include="Views\BootImages.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\ClientStatus.html">
+    <Content Include="Views\ClientPulse.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Configurations.html">

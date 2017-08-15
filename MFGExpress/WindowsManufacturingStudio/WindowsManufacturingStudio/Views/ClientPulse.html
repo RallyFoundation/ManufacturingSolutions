@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Image Lookups</title>
+    <title>Client Pulse</title>
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="../Content/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../Content/bootstrap-theme.css" />
@@ -45,32 +45,28 @@
     <script src="../Configs/config.json"></script>
 </head>
 <body ng-app="WindowsManufacturingStudio">
-    <div ng-controller="ImageLookupController" ng-init="getImageLookups()">
+    <div ng-controller="ClientPulseController" ng-init="getWdsClients()">
         <p>
             &nbsp;&nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="getImageLookups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="getWdsClients()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="showNewImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            <a href="#" id="btn_RefreshMdl" ng-hide="true" ng-click="refreshModel()" />
         </p>
         <br />
-        <!--<table class="table">
+        <table class="table">
             <tr>
-                <th>Key</th>
-                <th>Value</th>
+                <th>Client ID</th>
+                <th>Staus</th>
             </tr>
-            <tr ng-repeat="imageLookup in imageLookups">
-                <td>{{imageLookup.Key}}</td>
-                <td>{{imageLookup.Value}}</td>
+            <tr ng-repeat="wdsClient in wdsClients">
+                <td>{{wdsClient.Key}}</td>
+                <td>{{wdsClient.Value}}</td>
             </tr>
-        </table>-->
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="imageLookup in imageLookups">
-                <a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a>  
-            </li>
-        </ul>
+        </table>
     </div>
+    <script id="socket-io-client-ref" src="http://minint-kuf9jnn:3000/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         function createGuid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -126,17 +122,15 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ImageLookupController",
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ClientPulseController",
 
         function ($scope, $location, $http, ngDialog) {
 
             $scope.currentDialog = null;
 
-            $scope.newImageLookup = { Key: "", Value: "" };
+            $scope.socket = io.connect(settings.WebSocketAddress);
 
-            $scope.selectedImageLookupIndex = -1;
-
-            $scope.imageLookups = [];
+            $scope.wdsClients = [];
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
@@ -163,28 +157,29 @@
                 ngDialog.closeAll();
             };
 
-            $scope.getImageLookups = function ()
+            $scope.getWdsClients = function ()
             {
                 $scope.showProgress();
 
                 var url = settings.WdsApiUrl;
 
-                var servicePoint = "wds/lookup/keys/all";
+                var servicePoint = "wds/terminal/status/all";
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null)
+                    alert(JSON.stringify(data));
+
+                    if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.imageLookups.splice(0, $scope.imageLookups.length);
+                        $scope.wdsClients.splice(0, $scope.wdsClients.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
-                                //$scope.imageLookups.push(data.data[i]);
-                                $scope.imageLookups.push({Key:data.data[i], Value:""});
+                                $scope.wdsClients.push({Key:data.data[i], Value:""});
                             }
                         }
                         else {
-                            $scope.imageLookups.push({Key:data.data, Value: ""});
+                            $scope.wdsClients.push({ Key: data.data, Value: "" });
                         }
                     }
 
@@ -192,96 +187,23 @@
                 });
             };
 
-            $scope.showNewImageLookupDialog = function () {
-                    $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
-                    $scope.newImageLookup.Value = "";//cacheValue;
+            $scope.refreshModel = function () { };
 
-                    $scope.currentDialog = ngDialog.open({
-                        scope: $scope,
-                        className: 'ngdialog-theme-default',
-                        template: 'new-image-lookup-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
-                        //plain: true,
-                        showClose: true,
-                        closeByDocument: false,
-                        closeByEscape: false,
-                        width: 500,
-                        preCloseCallback: function (value) {
-                            return true;
+            $scope.socket.on("msg:clientStat", function (obj) {
+
+                //$scope.wdsClients.push(obj);
+
+                if (obj) {
+                    for (var i = 0; i < $scope.wdsClients.length; i++) {
+                        if ($scope.wdsClients[i].Key == obj.Key) {
+                            $scope.wdsClients[i].Value = obj.Value;
+                            break;
                         }
-                    });
-            };
-
-            $scope.showImageLookupDetailDialog = function (index) {
-
-                $scope.selectedImageLookupIndex = index;
-
-                if(!($scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet))
-                {
-                    var url = settings.WdsApiUrl;
-
-                    var servicePoint = "wds/lookup/" + $scope.imageLookups[$scope.selectedImageLookupIndex].Key;
-
-                    $http.get(url + servicePoint).then(function (data) {
-
-                        if (data != null && data.data != null) {
-                            $scope.imageLookups[$scope.selectedImageLookupIndex].Value = data.data;
-                            $scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet = true;
-                        }
-                    });
+                    }
                 }
 
-                $scope.currentDialog = ngDialog.open({
-                    scope: $scope,
-                    className: 'ngdialog-theme-default',
-                    template: 'image-lookup-detail-template.html',
-                    //plain: true,
-                    showClose: true,
-                    closeByDocument: false,
-                    closeByEscape: false,
-                    width: 500,
-                    preCloseCallback: function (value) {
-                        return true;
-                    }
-                });
-            };
-
-            $scope.setImageLookup = function () {
-                ngDialog.closeAll();
-
-                $scope.showProgress();
-
-                var url = settings.WdsApiUrl;
-
-                var servicePoint = "wds/lookup/";
-
-                $http.post(url + servicePoint, $scope.newImageLookup).then(function (data) {
-                    if (data != null && data.data != null) {
-                        if (data.data == "OK") {
-                            $scope.imageLookups.push($scope.newImageLookup);
-                            $scope.hideProgress();
-                        }
-                    }
-                });
-            };
-
-            $scope.updateImageLookup = function () {
-                ngDialog.closeAll();
-
-                $scope.showProgress();
-
-                var url = settings.WdsApiUrl;
-
-                var servicePoint = "wds/lookup/";
-
-                $http.post(url + servicePoint, $scope.imageLookups[$scope.selectedImageLookupIndex]).then(function (data) {
-                    if (data != null && data.data != null) {
-                        if (data.data == "OK") {
-                            //$scope.imageLookups.push($scope.newImageLookup);
-                            $scope.hideProgress();
-                        }
-                    }
-                });
-            };
+                document.getElementById("btn_RefreshMdl").click();
+            });
         });
     </script>
 </body>

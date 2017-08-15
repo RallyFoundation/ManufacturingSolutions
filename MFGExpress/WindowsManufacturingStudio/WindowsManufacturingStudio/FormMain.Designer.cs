@@ -33,7 +33,7 @@
             this.metroTileBootImages = new MetroFramework.Controls.MetroTile();
             this.metroTileImageGroups = new MetroFramework.Controls.MetroTile();
             this.metroTileFFUImages = new MetroFramework.Controls.MetroTile();
-            this.metroTileNetwork = new MetroFramework.Controls.MetroTile();
+            this.metroTileClientPulse = new MetroFramework.Controls.MetroTile();
             this.metroTileSettings = new MetroFramework.Controls.MetroTile();
             this.metroTileCreateBootWindowsPE = new MetroFramework.Controls.MetroTile();
             this.metroTileImageLookups = new MetroFramework.Controls.MetroTile();
@@ -91,17 +91,18 @@
             this.metroTileFFUImages.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTileFFUImages.Click += new System.EventHandler(this.metroTileFFUImages_Click);
             // 
-            // metroTileNetwork
+            // metroTileClientPulse
             // 
-            this.metroTileNetwork.BackColor = System.Drawing.Color.White;
-            this.metroTileNetwork.Location = new System.Drawing.Point(23, 202);
-            this.metroTileNetwork.Name = "metroTileNetwork";
-            this.metroTileNetwork.Size = new System.Drawing.Size(120, 120);
-            this.metroTileNetwork.Style = MetroFramework.MetroColorStyle.Silver;
-            this.metroTileNetwork.TabIndex = 4;
-            this.metroTileNetwork.Text = "Network";
-            this.metroTileNetwork.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroTileNetwork.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileClientPulse.BackColor = System.Drawing.Color.White;
+            this.metroTileClientPulse.Location = new System.Drawing.Point(23, 202);
+            this.metroTileClientPulse.Name = "metroTileClientPulse";
+            this.metroTileClientPulse.Size = new System.Drawing.Size(120, 120);
+            this.metroTileClientPulse.Style = MetroFramework.MetroColorStyle.Silver;
+            this.metroTileClientPulse.TabIndex = 4;
+            this.metroTileClientPulse.Text = "Client Pulse";
+            this.metroTileClientPulse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileClientPulse.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileClientPulse.Click += new System.EventHandler(this.metroTileClientPulse_Click);
             // 
             // metroTileSettings
             // 
@@ -150,7 +151,7 @@
             this.Controls.Add(this.metroTileImageLookups);
             this.Controls.Add(this.metroTileCreateBootWindowsPE);
             this.Controls.Add(this.metroTileSettings);
-            this.Controls.Add(this.metroTileNetwork);
+            this.Controls.Add(this.metroTileClientPulse);
             this.Controls.Add(this.metroTileFFUImages);
             this.Controls.Add(this.metroTileImageGroups);
             this.Controls.Add(this.metroTileBootImages);
@@ -171,7 +172,7 @@
         private MetroFramework.Controls.MetroTile metroTileBootImages;
         private MetroFramework.Controls.MetroTile metroTileImageGroups;
         private MetroFramework.Controls.MetroTile metroTileFFUImages;
-        private MetroFramework.Controls.MetroTile metroTileNetwork;
+        private MetroFramework.Controls.MetroTile metroTileClientPulse;
         private MetroFramework.Controls.MetroTile metroTileSettings;
         private MetroFramework.Controls.MetroTile metroTileCreateBootWindowsPE;
         private MetroFramework.Controls.MetroTile metroTileImageLookups;
