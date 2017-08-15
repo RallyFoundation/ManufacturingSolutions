@@ -6,7 +6,10 @@
     "FileServiceUrl": "",
     "FileServiceUserName": "",
     "FileServicePassword": "",
-    "WebSocketAddress": "ws://minint-kuf9jnn:3000/",
+    "WebSocketAddress": "",
+    "WebSocketPort": "",
+    "WebSocketUrl": "ws://minint-kuf9jnn:3000/",
+    "SocketIOClientUrl": "http://minint-kuf9jnn:3000/socket.io/socket.io.js",
     "InstallImageRepository": "",
     "BootImageRepository": "",
     "FFUImageRepository": ""

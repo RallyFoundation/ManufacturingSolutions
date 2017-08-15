@@ -67,9 +67,16 @@
                 <content>
                     <br />
                 </content>
-                <dt>Web Socket URL: </dt>
+                <dt>Web Socket Address: </dt>
                 <dd>
-                    <input type="text" ng-model="configSettings.WebSocketAddress" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                    <input type="text" ng-model="configSettings.WebSocketAddress" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
+                <content>
+                    <br />
+                </content>
+                <dt>Web Socket Port: </dt>
+                <dd>
+                    <input type="text" ng-model="configSettings.WebSocketPort" class="form-control" maxlength="6" onkeyup="purgeValue(valuePolicy.Int, this)" onmouseout="purgeValue(valuePolicy.Int, this)" />
                 </dd>
             </dl>
         </div>
@@ -209,6 +216,10 @@
             };
 
             $scope.doSubmit = function () {
+
+                $scope.configSettings.WebSocketUrl = "ws://" + $scope.configSettings.WebSocketAddress + ":" + $scope.configSettings.WebSocketPort + "/";
+                $scope.configSettings.SocketIOClientUrl = "http://" + $scope.configSettings.WebSocketAddress + ":" + $scope.configSettings.WebSocketPort + "/socket.io/socket.io.js";
+
                 var fileInfo = { Path: "", Content: "" };
 
                 fileInfo.Path = "Configs\\config.json";
