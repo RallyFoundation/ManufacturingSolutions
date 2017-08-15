@@ -34,7 +34,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 io.on("connection", function (socket) {
-    console.log("A new device connected!");
+    //console.log("A new device connected!");
 
     socket.on("msg:newdata", function (data) {
         persistData(data);
@@ -190,6 +190,55 @@ app.post('/wds/lookup/', function (req, res) {
     });
 });
 
+app.get('/wds/terminal/status/:id', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.id;
+
+    redisClient.select(redisDbIndexClientStatus, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.get(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(result);
+                    redisClient.end(true);
+                    res.end(result);
+                }
+            });
+        }
+    });
+});
+
+app.get('/wds/terminal/status/all', function (req, res) {
+    var redisClient = getRedisClient();
+
+    redisClient.select(redisDbIndexClientStatus, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.keys('*', function (err, keys) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(JSON.stringify(keys));
+                    redisClient.end(true);
+                    res.end(JSON.stringify(keys));
+                }
+            });
+        }
+    });
+});
+
 app.post('/wds/terminal/status/', function (req, res) {
     var redisClient = getRedisClient();
     //var key = req.params.key;
@@ -201,8 +250,10 @@ app.post('/wds/terminal/status/', function (req, res) {
             res.end(err);
         }
         else {
-            //data.key = req.ip.toString();
-            redisClient.set(data.key, data.Value, function (err, result) {
+            if (!(data.Key)) {
+                data.Key = req.ip.toString();
+            }
+            redisClient.set(data.Key, data.Value, function (err, result) {
                 if (err) {
                     console.log(err);
                     res.end(err);
