@@ -219,7 +219,7 @@ app.get('/wds/terminal/status/:id', function (req, res) {
     });
 });
 
-app.get('/wds/terminal/status/all', function (req, res) {
+app.get('/wds/terminal/status/keys/all', function (req, res) {
     var redisClient = getRedisClient();
 
     redisClient.select(redisDbIndexClientStatus, function (err) {
