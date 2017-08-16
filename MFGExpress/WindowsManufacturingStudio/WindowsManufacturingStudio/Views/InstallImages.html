@@ -219,8 +219,10 @@
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null) {
-                        $scope.images.splice(0, $scope.images.length);
+                    $scope.images.splice(0, $scope.images.length);
+
+                    if (data != null && data.data != null && data.data != "") {
+                        //$scope.images.splice(0, $scope.images.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
@@ -244,9 +246,11 @@
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null)
+                    $scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                    if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.imageGroups.splice(0, $scope.imageGroups.length);
+                        //$scope.imageGroups.splice(0, $scope.imageGroups.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
@@ -267,9 +271,11 @@
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null)
+                    $scope.imageFiles.splice(0, $scope.imageFiles.length);
+
+                    if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.imageFiles.splice(0, $scope.imageFiles.length);
+                        //$scope.imageFiles.splice(0, $scope.imageFiles.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
@@ -292,9 +298,11 @@
 
                 $http.post((url + servicePoint), message).then(function (data)
                 {
-                    if (data != null && data.data != null)
+                    $scope.imageFileContents.splice(0, $scope.imageFileContents.length);
+
+                    if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.imageFileContents.splice(0, $scope.imageFileContents.length);
+                        //$scope.imageFileContents.splice(0, $scope.imageFileContents.length);
 
                         if (data.data.length > 0)
                         {

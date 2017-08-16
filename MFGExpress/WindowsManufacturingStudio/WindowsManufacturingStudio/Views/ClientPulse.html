@@ -169,9 +169,11 @@
 
                     //alert(JSON.stringify(data));
 
+                    $scope.wdsClients.splice(0, $scope.wdsClients.length);
+
                     if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.wdsClients.splice(0, $scope.wdsClients.length);
+                        //$scope.wdsClients.splice(0, $scope.wdsClients.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {

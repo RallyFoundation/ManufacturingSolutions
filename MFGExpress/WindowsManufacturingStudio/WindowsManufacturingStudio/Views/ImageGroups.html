@@ -166,9 +166,11 @@
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null)
+                    $scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                    if (data != null && data.data != null && data.data != "")
                     {
-                        $scope.imageGroups.splice(0, $scope.imageGroups.length);
+                        //$scope.imageGroups.splice(0, $scope.imageGroups.length);
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {

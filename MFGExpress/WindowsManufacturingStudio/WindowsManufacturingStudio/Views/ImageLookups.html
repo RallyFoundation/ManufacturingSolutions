@@ -173,10 +173,10 @@
 
                 $http.get(url + servicePoint).then(function (data) {
 
-                    if (data != null && data.data != null)
-                    {
-                        $scope.imageLookups.splice(0, $scope.imageLookups.length);
+                    $scope.imageLookups.splice(0, $scope.imageLookups.length);
 
+                    if (data != null && data.data != null && data.data != "")
+                    {
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
                                 //$scope.imageLookups.push(data.data[i]);
