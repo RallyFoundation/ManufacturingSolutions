@@ -163,7 +163,7 @@
 
                 var url = settings.WdsApiUrl;
 
-                var servicePoint = "wds/terminal/status/all";
+                var servicePoint = "wds/terminal/status/keys/all";
 
                 $http.get(url + servicePoint).then(function (data) {
 
@@ -199,7 +199,16 @@
                         $http.get(url + servicePoint + $scope.wdsClients[i].Key).then(function (data) {
                             if (data != null && data.data != null && data.data != "")
                             {
-                                $scope.wdsClients[i].Value = data.data;
+                                var key = data.config.url;
+                                key = key.substring((key.lastIndexOf("/") + 1));
+
+                                for (var i = 0; i < $scope.wdsClients.length; i++) {
+                                    if ($scope.wdsClients[i].Key == key)
+                                    {
+                                        $scope.wdsClients[i].Value = data.data;
+                                        break;
+                                    }
+                                }
                             }
                         });
                     }
@@ -213,11 +222,15 @@
                 //$scope.wdsClients.push(obj);
 
                 if (obj) {
-                    for (var i = 0; i < $scope.wdsClients.length; i++) {
-                        if ($scope.wdsClients[i].Key == obj.Key) {
-                            $scope.wdsClients[i].Value = obj.Value;
-                            break;
+                    if ($scope.wdsClients.length > 0) {
+                        for (var i = 0; i < $scope.wdsClients.length; i++) {
+                            if ($scope.wdsClients[i].Key == obj.Key) {
+                                $scope.wdsClients[i].Value = obj.Value;
+                                break;
+                            }
                         }
+                    } else {
+                        $scope.wdsClients.push(obj);
                     }
                 }
 
