@@ -23,8 +23,8 @@ namespace WindowsManufacturingStudio
 
             this.caller = Caller;
             this.url = Url;
-            this.initCeckoComponent();
-            this.initCeckoWebBrowser();
+            this.initGeckoComponent();
+            this.initGeckoWebBrowser();
         }
 
         public void Navigate(string Url)
@@ -41,13 +41,13 @@ namespace WindowsManufacturingStudio
 
         private MetroForm caller;
 
-        private void initCeckoComponent()
+        private void initGeckoComponent()
         {
             appRootDir = Path.GetDirectoryName(Application.ExecutablePath);
             Xpcom.Initialize(Path.Combine(appRootDir, "FireFox"));
         }
 
-        private void initCeckoWebBrowser()
+        private void initGeckoWebBrowser()
         {
             this.geckoWebBrowser = new GeckoWebBrowser();
             this.geckoWebBrowser.Dock = DockStyle.Fill;
@@ -95,7 +95,16 @@ namespace WindowsManufacturingStudio
                 }
             }
 
-            MessageBox.Show("Done!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(String.Format("Successfully write content to file \"{0}\"", fileInfo.Path), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void setDocumentElementAttribute(string argumentString)
+        {
+            string[] args = argumentString.Split(new string[] { "," }, StringSplitOptions.None);
+            string filePath = args[0], xPath = args[1], attributeName = args[2], attributeValue = args[3];
+            Utility.SetHtmlDocumentAttributeValue(filePath, xPath, attributeName, attributeValue);
+
+            MessageBox.Show(String.Format("Successfully write content to file \"{0}\"", filePath), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void GeckoWebBrowser_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
@@ -111,6 +120,7 @@ namespace WindowsManufacturingStudio
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageWarningBox", (string param) => MessageBox.Show(param, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning));
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
             this.geckoWebBrowser.Navigate(this.url);
         }
 

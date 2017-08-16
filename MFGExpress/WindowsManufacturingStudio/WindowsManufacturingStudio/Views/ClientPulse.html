@@ -47,11 +47,11 @@
 <body ng-app="WindowsManufacturingStudio">
     <div ng-controller="ClientPulseController" ng-init="getWdsClients()">
         <p>
-            &nbsp;&nbsp;
+            &#160;&#160; 
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
-            &nbsp;
+            &#160; 
             <a href="#" class="btn btn-info btn-lg" ng-click="getWdsClients()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
-            &nbsp;
+            &#160; 
             <a href="#" id="btn_RefreshMdl" ng-hide="true" ng-click="refreshModel()" />
         </p>
         <br />
@@ -66,7 +66,7 @@
             </tr>
         </table>
     </div>
-    <script id="socket-io-client-ref" src="http://minint-kuf9jnn:3000/socket.io/socket.io.js"></script>
+    <script id="socket-io-client-ref" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         function createGuid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -184,7 +184,26 @@
                     }
 
                     $scope.hideProgress();
+
+                    $scope.getWdsClientStatus();
                 });
+            };
+
+            $scope.getWdsClientStatus = function ()
+            {
+                if ($scope.wdsClients != null && $scope.wdsClients.length > 0) {
+                    var url = settings.WdsApiUrl;
+                    var servicePoint = "wds/terminal/status/";
+
+                    for (var i = 0; i < $scope.wdsClients.length; i++) {
+                        $http.get(url + servicePoint + $scope.wdsClients[i].Key).then(function (data) {
+                            if (data != null && data.data != null && data.data != "")
+                            {
+                                $scope.wdsClients[i].Value = data.data;
+                            }
+                        });
+                    }
+                }
             };
 
             $scope.refreshModel = function () { };

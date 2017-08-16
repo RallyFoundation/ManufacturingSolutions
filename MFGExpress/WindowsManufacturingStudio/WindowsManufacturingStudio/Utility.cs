@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
+using HtmlAgilityPack;
 
 namespace WindowsManufacturingStudio
 {
@@ -65,6 +67,28 @@ namespace WindowsManufacturingStudio
                     File.Copy(Element, Destination + Path.GetFileName(Element), true);
                 }
             }
+        }
+
+        public static void SetXmlDocumentAttributeValue(string filePath, string xPath, string value)
+        {
+            XmlDocument document = new XmlDocument();
+
+            document.Load(filePath);
+
+            document.SelectSingleNode(xPath).Value = value;
+
+            document.Save(filePath);
+        }
+
+        public static void SetHtmlDocumentAttributeValue(string filePath, string xPath, string attributeName, string attributeValue)
+        {
+            HtmlDocument document = new HtmlDocument();
+
+            document.Load(filePath);
+
+            document.DocumentNode.SelectSingleNode(xPath).SetAttributeValue(attributeName, attributeValue);
+
+            document.Save(filePath);
         }
 
         public static string XmlSerialize(object objectToSerialize, Type[] extraTypes, string outputEncodingName)

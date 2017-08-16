@@ -229,6 +229,11 @@
 
                 event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson});
                 document.dispatchEvent(event);
+
+                var arguments = "Views\\ClientPulse.html,/html/body/script[@id='socket-io-client-ref'],src," + $scope.configSettings.SocketIOClientUrl;
+
+                event = new MessageEvent("SetDocumentAttribute", { "view": window, "bubbles": false, "cancelable": true, 'data': arguments });
+                document.dispatchEvent(event);
             };
         });
     </script>
