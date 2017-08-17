@@ -12,6 +12,10 @@ $ConfigXml.InnerXml;
 $ImageServerAddress = $ConfigXml.configurationItems.imageServerAddress; #"minint-et2evvt";
 $ImageServerUserName= $ConfigXml.configurationItems.imageServerUserName; #"Administrator";
 $ImageServerPassword = $ConfigXml.configurationItems.imageServerPassword; #"W@lcome!";
+$NICName = $ConfigXml.configurationItems.nicName;
+[int]$ClientIdentifierType = $ConfigXml.configurationItems.clientIdentifierType;
+[int]$ImageIdentifierType = $ConfigXml.configurationItems.imageIdentifierType;
+ 
 
 [System.String]$WDSApiServicePoint = $ConfigXml.configurationItems.wdsApiServicePoint; #"http://minint-et2evvt:8089";
 
@@ -25,10 +29,21 @@ $ImageServerUserName;
 $WDSApiServicePoint;
 
 $ClientID = "";
+$ImageID = "";
 
-$ComputerBIOS = Get-CimInstance CIM_BIOSElement;
-$SerialNumber = $ComputerBIOS.SerialNumber;
-$ClientID = $SerialNumber;
+if($ClientIdentifierType -eq 0)
+{
+	$ComputerBIOS = Get-CimInstance CIM_BIOSElement;
+	$SerialNumber = $ComputerBIOS.SerialNumber;
+	$ClientID = $SerialNumber;
+}
+
+if($ClientIdentifierType -eq 1)
+{
+	$MacObject = Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.MacAddress -and $_.Name -eq $NICName} | Select-Object Name, MacAddress; 
+	$MacAddress = $MacObject.MacAddress;
+	$ClientID = $MacAddress;
+}
 
 $Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`"}";
 $Body.Key = $ClientID;
@@ -40,16 +55,27 @@ $Body.Value = "GettingSKUFromBIOS";
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-$SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
-$SKU = $SystemInfo.SystemSKUNumber;
+if($ImageIdentifierType -eq 0)
+{
+	$SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
+	$SKU = $SystemInfo.SystemSKUNumber;
+	$ImageID = $SKU;
+}
 
-$SKU;
+if($ImageIdentifierType -eq 1)
+{
+   $SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
+   $Model = $SystemInfo.Model;
+   $ImageID = $Model;
+}
+
+$ImageID;
 
 $Body.Value = "GettingImageUrl";
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-$Uri = $WDSApiServicePoint + $Url + $SKU;
+$Uri = $WDSApiServicePoint + $Url + $ImageID;
 
 $Uri;
 

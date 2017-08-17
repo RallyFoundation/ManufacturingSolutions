@@ -50,6 +50,12 @@
             this.metroToggleShowPassword = new MetroFramework.Controls.MetroToggle();
             this.metroTextBoxImageServerPassword = new MetroFramework.Controls.MetroTextBox();
             this.metroButtonTest = new MetroFramework.Controls.MetroButton();
+            this.metroComboBoxImageIdentifierType = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabelImageIdentifierType = new MetroFramework.Controls.MetroLabel();
+            this.metroComboBoxClientIdentifierType = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabelClientIdentifierType = new MetroFramework.Controls.MetroLabel();
+            this.metroTextBoxClientNICName = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabelClientNICName = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // metroLabelArchitecture
@@ -244,11 +250,78 @@
             this.metroButtonTest.Text = "Test";
             this.metroButtonTest.Click += new System.EventHandler(this.metroButtonTest_Click);
             // 
+            // metroComboBoxImageIdentifierType
+            // 
+            this.metroComboBoxImageIdentifierType.FormattingEnabled = true;
+            this.metroComboBoxImageIdentifierType.ItemHeight = 23;
+            this.metroComboBoxImageIdentifierType.Items.AddRange(new object[] {
+            "SKU Number",
+            "Model",
+            "Custom"});
+            this.metroComboBoxImageIdentifierType.Location = new System.Drawing.Point(175, 527);
+            this.metroComboBoxImageIdentifierType.Name = "metroComboBoxImageIdentifierType";
+            this.metroComboBoxImageIdentifierType.Size = new System.Drawing.Size(606, 29);
+            this.metroComboBoxImageIdentifierType.TabIndex = 23;
+            // 
+            // metroLabelImageIdentifierType
+            // 
+            this.metroLabelImageIdentifierType.AutoSize = true;
+            this.metroLabelImageIdentifierType.Location = new System.Drawing.Point(32, 531);
+            this.metroLabelImageIdentifierType.Name = "metroLabelImageIdentifierType";
+            this.metroLabelImageIdentifierType.Size = new System.Drawing.Size(135, 19);
+            this.metroLabelImageIdentifierType.TabIndex = 22;
+            this.metroLabelImageIdentifierType.Text = "Image Identifier Type:";
+            // 
+            // metroComboBoxClientIdentifierType
+            // 
+            this.metroComboBoxClientIdentifierType.FormattingEnabled = true;
+            this.metroComboBoxClientIdentifierType.ItemHeight = 23;
+            this.metroComboBoxClientIdentifierType.Items.AddRange(new object[] {
+            "Serial Number",
+            "MAC Address",
+            "Custom"});
+            this.metroComboBoxClientIdentifierType.Location = new System.Drawing.Point(175, 576);
+            this.metroComboBoxClientIdentifierType.Name = "metroComboBoxClientIdentifierType";
+            this.metroComboBoxClientIdentifierType.Size = new System.Drawing.Size(606, 29);
+            this.metroComboBoxClientIdentifierType.TabIndex = 25;
+            // 
+            // metroLabelClientIdentifierType
+            // 
+            this.metroLabelClientIdentifierType.AutoSize = true;
+            this.metroLabelClientIdentifierType.Location = new System.Drawing.Point(32, 580);
+            this.metroLabelClientIdentifierType.Name = "metroLabelClientIdentifierType";
+            this.metroLabelClientIdentifierType.Size = new System.Drawing.Size(131, 19);
+            this.metroLabelClientIdentifierType.TabIndex = 24;
+            this.metroLabelClientIdentifierType.Text = "Client Identifier Type:";
+            // 
+            // metroTextBoxClientNICName
+            // 
+            this.metroTextBoxClientNICName.Location = new System.Drawing.Point(176, 620);
+            this.metroTextBoxClientNICName.MaxLength = 100;
+            this.metroTextBoxClientNICName.Name = "metroTextBoxClientNICName";
+            this.metroTextBoxClientNICName.Size = new System.Drawing.Size(500, 32);
+            this.metroTextBoxClientNICName.TabIndex = 27;
+            // 
+            // metroLabelClientNICName
+            // 
+            this.metroLabelClientNICName.AutoSize = true;
+            this.metroLabelClientNICName.Location = new System.Drawing.Point(52, 626);
+            this.metroLabelClientNICName.Name = "metroLabelClientNICName";
+            this.metroLabelClientNICName.Size = new System.Drawing.Size(111, 19);
+            this.metroLabelClientNICName.TabIndex = 26;
+            this.metroLabelClientNICName.Text = "Client NIC Name:";
+            // 
             // FormCreateBootWinPE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(800, 780);
+            this.Controls.Add(this.metroTextBoxClientNICName);
+            this.Controls.Add(this.metroLabelClientNICName);
+            this.Controls.Add(this.metroComboBoxClientIdentifierType);
+            this.Controls.Add(this.metroLabelClientIdentifierType);
+            this.Controls.Add(this.metroComboBoxImageIdentifierType);
+            this.Controls.Add(this.metroLabelImageIdentifierType);
             this.Controls.Add(this.metroButtonTest);
             this.Controls.Add(this.metroToggleShowPassword);
             this.Controls.Add(this.metroTextBoxWDSAPIURL);
@@ -303,5 +376,11 @@
         private MetroFramework.Controls.MetroToggle metroToggleShowPassword;
         private MetroFramework.Controls.MetroTextBox metroTextBoxImageServerPassword;
         private MetroFramework.Controls.MetroButton metroButtonTest;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxImageIdentifierType;
+        private MetroFramework.Controls.MetroLabel metroLabelImageIdentifierType;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxClientIdentifierType;
+        private MetroFramework.Controls.MetroLabel metroLabelClientIdentifierType;
+        private MetroFramework.Controls.MetroTextBox metroTextBoxClientNICName;
+        private MetroFramework.Controls.MetroLabel metroLabelClientNICName;
     }
 }

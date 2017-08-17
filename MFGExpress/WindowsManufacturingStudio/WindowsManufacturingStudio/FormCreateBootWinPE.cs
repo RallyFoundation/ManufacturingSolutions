@@ -118,6 +118,9 @@ namespace WindowsManufacturingStudio
             this.metroTextBoxImageServerPassword.Text = config.ImageServerPassword;
             this.metroTextBoxImageServerUsername.Text = config.ImageServerUserName;
             this.metroTextBoxWDSAPIURL.Text = config.WDSApiServicePoint;
+            this.metroTextBoxClientNICName.Text = config.NICName;
+            this.metroComboBoxClientIdentifierType.SelectedIndex = config.ClientIdentifierType;
+            this.metroComboBoxImageIdentifierType.SelectedIndex = conf.ImageIdentifierType;
         }
 
         private void setConfValuesFromControl(ConfigurationViewModel config)
@@ -126,6 +129,9 @@ namespace WindowsManufacturingStudio
             config.ImageServerPassword = this.metroTextBoxImageServerPassword.Text;
             config.ImageServerUserName = this.metroTextBoxImageServerUsername.Text;
             config.WDSApiServicePoint = this.metroTextBoxWDSAPIURL.Text;
+            config.NICName = this.metroTextBoxClientNICName.Text;
+            config.ClientIdentifierType = this.metroComboBoxClientIdentifierType.SelectedIndex;
+            config.ImageIdentifierType = this.metroComboBoxImageIdentifierType.SelectedIndex;
         }
 
         private void metroTileBack_Click(object sender, EventArgs e)
@@ -150,6 +156,12 @@ namespace WindowsManufacturingStudio
             if (String.IsNullOrEmpty(this.metroTextBoxWDSAPIURL.Text))
             {
                 MessageBox.Show("WDS API URL is required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (this.metroComboBoxClientIdentifierType.SelectedIndex == 1 && String.IsNullOrEmpty(this.metroTextBoxClientNICName.Text))
+            {
+                MessageBox.Show("NIC Name is required for MAC Address Client Identifier Type!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

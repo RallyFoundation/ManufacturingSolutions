@@ -46,5 +46,17 @@ namespace WindowsManufacturingStudio.ViewModels
         [JsonProperty("web-socket-server-port")]
         [XmlElement(ElementName = "webSocketServerPort")]
         public int WebSocketServerPort { get; set; }
+
+        [JsonProperty("nic-name")]
+        [XmlElement(ElementName = "nicName")]
+        public string NICName { get; set; }
+
+        [JsonProperty("client-identifier-type")]
+        [XmlElement(ElementName = "clientIdentifierType")]
+        public int ClientIdentifierType { get; set; }
+
+        [JsonProperty("image-identifier-type")]
+        [XmlElement(ElementName = "imageIdentifierType")]
+        public int ImageIdentifierType { get; set; }
     }
 }
