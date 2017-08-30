@@ -225,11 +225,18 @@
 
                 if (obj) {
                     if ($scope.wdsClients.length > 0) {
+                        var isNewObj = true;
+
                         for (var i = 0; i < $scope.wdsClients.length; i++) {
                             if ($scope.wdsClients[i].Key == obj.Key) {
                                 $scope.wdsClients[i].Value = obj.Value;
+                                isNewObj = false;
                                 break;
                             }
+                        }
+
+                        if (isNewObj == true) {
+                            $scope.wdsClients.push(obj);
                         }
                     } else {
                         $scope.wdsClients.push(obj);
