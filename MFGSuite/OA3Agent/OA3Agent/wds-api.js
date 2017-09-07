@@ -39,6 +39,7 @@ var redisDbIndex = config.get("app.redis-db-index"); //0;
 var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
 var installImageRepository = config.get("app.install-image-repository");
 var bootImageRepository = config.get("app.boot-image-repository");
+var ffuImageRepository = config.get("app.ffu-image-repository");
 
 var server = app.listen(httpServerPort, function () {
     var host = server.address().address;
@@ -448,6 +449,16 @@ app.get("/wds/imagefile/install", function (req, res) {
 app.get("/wds/imagefile/boot", function (req, res) {
 
     readDir.read(bootImageRepository, ["**.wim"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, files) {
+        if (err) { res.end(err.message); }
+        else {
+            res.end(JSON.stringify(files));
+        }
+    });
+});
+
+app.get("/wds/imagefile/ffu", function (req, res) {
+
+    readDir.read(ffuImageRepository, ["**.ffu"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, files) {
         if (err) { res.end(err.message); }
         else {
             res.end(JSON.stringify(files));
