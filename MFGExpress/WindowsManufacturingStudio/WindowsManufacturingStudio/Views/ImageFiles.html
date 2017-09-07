@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Image Files</title>
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="../Content/ngDialog.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../Content/ng-table.css"/>
+    <link rel="stylesheet" type="text/css" href="../Content/ng-table.min.css" />-->
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-mocks.js"></script>
+    <script src="../Scripts/angular-aria.js"></script>
+    <script src="../Scripts/angular-aria.min.js"></script>
+    <script src="../Scripts/angular-animate.js"></script>
+    <script src="../Scripts/angular-animate.min.js"></script>
+    <script src="../Scripts/angular-cookies.js"></script>
+    <script src="../Scripts/angular-cookies.min.js"></script>
+    <script src="../Scripts/angular-loader.js"></script>
+    <script src="../Scripts/angular-loader.min.js"></script>
+    <script src="../Scripts/angular-message-format.js"></script>
+    <script src="../Scripts/angular-message-format.min.js"></script>
+    <script src="../Scripts/angular-messages.js"></script>
+    <script src="../Scripts/angular-messages.min.js"></script>
+    <script src="../Scripts/angular-resource.js"></script>
+    <script src="../Scripts/angular-resource.min.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="../Scripts/angular-sanitize.js"></script>
+    <script src="../Scripts/angular-sanitize.min.js"></script>
+    <script src="../Scripts/angular-scenario.js"></script>
+    <script src="../Scripts/angular-touch.js"></script>
+    <script src="../Scripts/angular-touch.min.js"></script>
+    <script src="../Scripts/ngDialog.js"></script>
+    <script src="../Scripts/ngDialog.min.js"></script>
+    <!--<script src="../Scripts/ng-table.js"></script>
+    <script src="../Scripts/ng-table.min.js"></script>-->
+    <!--<script src="../Scripts/angular-file-upload.js"></script>-->
+    <!--<script src="../Scripts/angular-file-upload.min.js"></script>-->
+    <!--<script src="../Scripts/ng-file-upload-all.js"></script>
+    <script src="../Scripts/ng-file-upload-shim.js"></script>
+    <script src="../Scripts/ng-file-upload.js"></script>-->
+    <script src="../Scripts/app.js"></script>
+    <script src="../Configs/config.json"></script>
+</head>
+<body ng-app="WindowsManufacturingStudio">
+    <div ng-controller="ImageFileController" ng-init="getImageFiles()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+            &nbsp;
+            <a href="#" id="link_refresh_data" class="btn btn-info btn-lg" ng-click="getImageFiles()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="addImageFile()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            &nbsp;&nbsp;
+            <select id="imageTypes" ng-model="currentImageType" ng-change="getImageFiles()">
+                <option ng-repeat="imageType in imageTypes" value="{{imageType.Name}}">{{imageType.Description}}</option>
+            </select>
+        </p>
+        <br/>
+        <table class="table">
+            <tr>
+                <th>File Name</th>
+            </tr>
+            <tr ng-repeat="imageFile in imageFiles">
+                <td>{{imageFile}}</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        //function RefreshData()
+        //{
+        //    document.getElementById("link_refresh_data").click();
+        //}
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WindowsManufacturingStudio", ['ngDialog']).controller("ImageFileController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.newImageFile = null;
+
+            $scope.imageFiles = [];
+
+            $scope.currentImageType = "Boot";
+
+            $scope.imageTypes = [{ Name: "Boot", Description: "WDS Boot Image" }, { Name: "Install", Description: "WDS Install Image" }, { Name: "FFU", Description: "Full Flash Update (FFU) Image" }];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getImageFiles = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl; //settings.FileServiceUrl;
+
+                //var servicePoint = $scope.currentImageType + "/?tpl=list&search=";
+
+                //var query = "*.wim";
+
+                //if ($scope.currentImageType == "FFU")
+                //{
+                //    query = "*.ffu";
+                //}
+
+                //$http.get((url + servicePoint + query), {Accept: "text/plain"}).then(function (data) {
+
+                //$http({ method: "GET", url: (url + servicePoint + query) }).success(function (data) {
+
+                var servicePoint = "wds/imagefile/" + $scope.currentImageType.toLowerCase();
+
+                $http.get((url + servicePoint)).then(function (data) {
+
+                    // alert(data);
+
+                    $scope.imageFiles.splice(0, $scope.imageFiles.length);
+
+                    if (data != null && data.data != null && data.data != "") {
+                        //$scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageFiles.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.imageFiles.push(data.data);
+                        }
+                    }
+
+                    $scope.hideProgress();
+                }).catch(function (err) {
+                    alert(JSON.stringify(err));
+                    $scope.hideProgress();
+                });
+            };
+
+            $scope.addImageFile = function () {
+                //$scope.newImageGroup = {
+                //    Name: "New_ImageGroup_" + createGuid(),
+                //};
+
+                //$scope.currentDialog = ngDialog.open({
+                //    scope: $scope,
+                //    className: 'ngdialog-theme-default',
+                //    template: 'new-image-group-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                //    //plain: true,
+                //    showClose: true,
+                //    closeByDocument: false,
+                //    closeByEscape: false,
+                //    width: 500,
+                //    preCloseCallback: function (value) {
+                //        return true;
+                //    }
+                //});
+
+                var fileInfo = { Url: "", Path: "", Content: "", UserName: "", Password: "", AuthenticationScheme: "Basic"};
+
+                fileInfo.Url = settings.FileServiceUrl + $scope.currentImageType;
+                fileInfo.UserName = settings.FileServiceUserName;
+                fileInfo.Password = settings.FileServicePassword;
+
+                var fileInfoJson = JSON.stringify(fileInfo);
+
+                event = new MessageEvent("UploadFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                document.dispatchEvent(event);
+            };
+
+            //$scope.doSubmit = function () {
+            //    ngDialog.closeAll();
+
+            //    $scope.showProgress();
+
+            //    //var protocol = $location.protocol();
+            //    //var host = $location.host();
+            //    //var port = $location.port();
+
+            //    //var url = protocol + "://" + host + ":" + port + "/";
+
+            //    var url = settings.WdsApiUrl;
+
+            //    var servicePoint = "wds/imagegroup/install";
+
+            //    $http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
+            //        if (data != null && data.data != null) {
+            //            if (data.data.length > 0) {
+            //                for (var i = 0; i < data.data.length; i++) {
+            //                    $scope.imageGroups.push(data.data[i]);
+            //                }
+            //            }
+            //            else {
+            //                $scope.imageGroups.push(data.data);
+            //            }
+
+            //            $scope.hideProgress();
+            //        }
+            //    });
+            //};
+        });
+    </script>
+</body>
+</html>

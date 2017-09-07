@@ -23,7 +23,7 @@ namespace WindowsManufacturingStudio
             this.loadConfigs();
         }
 
-        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlImageLookups, urlClientPulse, urlConfigurations;
+        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlImageFiles, urlImageLookups, urlClientPulse, urlConfigurations;
 
         private FormWebView formWebView;
         private FormCreateBootWinPE formCreateBootWinPE;
@@ -57,6 +57,21 @@ namespace WindowsManufacturingStudio
             else if (this.formWebView.Url != this.urlImageLookups)
             {
                 this.formWebView.Navigate(this.urlImageLookups);
+            }
+
+            this.formWebView.Show();
+            this.Visible = false;
+        }
+
+        private void metroTileImageFiles_Click(object sender, EventArgs e)
+        {
+            if (this.formWebView == null)
+            {
+                this.formWebView = new FormWebView(this, this.urlImageFiles);
+            }
+            else if (this.formWebView.Url != this.urlImageFiles)
+            {
+                this.formWebView.Navigate(this.urlImageFiles);
             }
 
             this.formWebView.Show();
@@ -140,6 +155,7 @@ namespace WindowsManufacturingStudio
             this.urlInstallImages = String.Format(ConfigurationManager.AppSettings.Get("UrlInstallImages"), appRootDir);
             this.urlBootImages = String.Format(ConfigurationManager.AppSettings.Get("UrlBootImages"), appRootDir);
             this.urlImageGroups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageGroups"), appRootDir);
+            this.urlImageFiles = String.Format(ConfigurationManager.AppSettings.Get("UrlImageFiles"), appRootDir);
             this.urlImageLookups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageLookups"), appRootDir);
             this.urlClientPulse = String.Format(ConfigurationManager.AppSettings.Get("UrlClientPulse"), appRootDir);
             this.urlConfigurations = String.Format(ConfigurationManager.AppSettings.Get("UrlConfigurations"), appRootDir);

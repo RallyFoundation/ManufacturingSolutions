@@ -37,6 +37,7 @@
             this.metroTileSettings = new MetroFramework.Controls.MetroTile();
             this.metroTileCreateBootWindowsPE = new MetroFramework.Controls.MetroTile();
             this.metroTileImageLookups = new MetroFramework.Controls.MetroTile();
+            this.metroTileImageFiles = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroTileInstallImages
@@ -94,7 +95,7 @@
             // metroTileClientPulse
             // 
             this.metroTileClientPulse.BackColor = System.Drawing.Color.White;
-            this.metroTileClientPulse.Location = new System.Drawing.Point(23, 202);
+            this.metroTileClientPulse.Location = new System.Drawing.Point(149, 202);
             this.metroTileClientPulse.Name = "metroTileClientPulse";
             this.metroTileClientPulse.Size = new System.Drawing.Size(120, 120);
             this.metroTileClientPulse.Style = MetroFramework.MetroColorStyle.Silver;
@@ -107,7 +108,7 @@
             // metroTileSettings
             // 
             this.metroTileSettings.BackColor = System.Drawing.Color.White;
-            this.metroTileSettings.Location = new System.Drawing.Point(149, 202);
+            this.metroTileSettings.Location = new System.Drawing.Point(275, 202);
             this.metroTileSettings.Name = "metroTileSettings";
             this.metroTileSettings.Size = new System.Drawing.Size(120, 120);
             this.metroTileSettings.Style = MetroFramework.MetroColorStyle.Red;
@@ -143,11 +144,25 @@
             this.metroTileImageLookups.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTileImageLookups.Click += new System.EventHandler(this.metroTileImageLookups_Click);
             // 
+            // metroTileImageFiles
+            // 
+            this.metroTileImageFiles.BackColor = System.Drawing.Color.White;
+            this.metroTileImageFiles.Location = new System.Drawing.Point(23, 202);
+            this.metroTileImageFiles.Name = "metroTileImageFiles";
+            this.metroTileImageFiles.Size = new System.Drawing.Size(120, 120);
+            this.metroTileImageFiles.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroTileImageFiles.TabIndex = 8;
+            this.metroTileImageFiles.Text = "Image Files";
+            this.metroTileImageFiles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileImageFiles.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileImageFiles.Click += new System.EventHandler(this.metroTileImageFiles_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.metroTileImageFiles);
             this.Controls.Add(this.metroTileImageLookups);
             this.Controls.Add(this.metroTileCreateBootWindowsPE);
             this.Controls.Add(this.metroTileSettings);
@@ -176,6 +191,7 @@
         private MetroFramework.Controls.MetroTile metroTileSettings;
         private MetroFramework.Controls.MetroTile metroTileCreateBootWindowsPE;
         private MetroFramework.Controls.MetroTile metroTileImageLookups;
+        private MetroFramework.Controls.MetroTile metroTileImageFiles;
     }
 }
 

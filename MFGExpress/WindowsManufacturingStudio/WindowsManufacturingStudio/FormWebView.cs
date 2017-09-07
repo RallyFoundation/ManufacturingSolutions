@@ -56,6 +56,47 @@ namespace WindowsManufacturingStudio
             this.geckoWebBrowser.Parent = this;
         }
 
+        private void uploadFile(string fileInfoJson)
+        {
+            string jsonValue = fileInfoJson;
+
+            jsonValue = jsonValue.Substring(jsonValue.IndexOf("{"));
+            jsonValue = jsonValue.Substring(0, (jsonValue.LastIndexOf("}") + 1));
+
+            JsonSerializer serializer = new JsonSerializer();
+            JsonTextReader reader = new JsonTextReader(new StringReader(jsonValue));
+            ViewModels.FileViewModel fileInfo = serializer.Deserialize(reader, typeof(ViewModels.FileViewModel)) as ViewModels.FileViewModel;
+
+            if (fileInfo.Url.EndsWith("/FFU"))
+            {
+                this.openFileDialogFile.Filter = "Full Flash Update (FFU) Image Files (*.ffu)|*.ffu|All Files (*.*)|*.*";
+            }
+            else
+            {
+                this.openFileDialogFile.Filter = "Windows Image Files (*.wim)|*.wim|All Files (*.*)|*.*";
+            }
+
+            if (this.openFileDialogFile.ShowDialog() == DialogResult.OK)
+            {
+                fileInfo.Path = this.openFileDialogFile.FileName;
+            }
+
+            FormFileUploadProgress formFileUpload = new FormFileUploadProgress(fileInfo);
+
+            if (formFileUpload.ShowDialog(this) == DialogResult.OK)
+            {
+                string message = String.Format("File \"{0}\" successfully uploaded to \"{1}\"!", fileInfo.Path, fileInfo.Url);
+
+                if (MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    //using (Gecko.AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
+                    //{
+                    //    context.EvaluateScript("RefreshData();", this.geckoWebBrowser.Window.DomWindow);
+                    //}
+                }
+            }
+        }
+
         private void writeFile(string fileInfoJson)
         {
             string jsonValue = fileInfoJson;
@@ -120,6 +161,7 @@ namespace WindowsManufacturingStudio
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageWarningBox", (string param) => MessageBox.Show(param, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning));
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
             this.geckoWebBrowser.Navigate(this.url);
         }

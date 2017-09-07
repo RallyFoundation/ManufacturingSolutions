@@ -29,7 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWebView));
+            this.openFileDialogFile = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
+            // 
+            // openFileDialogFile
+            // 
+            this.openFileDialogFile.Filter = "All Files (*.*)|*.*";
             // 
             // FormWebView
             // 
@@ -46,5 +51,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.OpenFileDialog openFileDialogFile;
     }
 }

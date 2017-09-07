@@ -3,15 +3,15 @@
     "WdsApiUrl": "http://minint-kuf9jnn:8089/",
     "WdsApiUserName": "",
     "WdsApiPassword": "",
-    "FileServiceUrl": "",
-    "FileServiceUserName": "",
-    "FileServicePassword": "",
+    "FileServiceUrl": "http://minint-kuf9jnn:8080/",
+    "FileServiceUserName": "WDS",
+    "FileServicePassword": "W@lcome!",
     "WebSocketAddress": "",
     "WebSocketPort": "",
     "WebSocketUrl": "ws://minint-kuf9jnn:3000/",
     "SocketIOClientUrl": "http://minint-kuf9jnn:3000/socket.io/socket.io.js",
-    "InstallImageRepository": "",
-    "BootImageRepository": "",
-    "FFUImageRepository": ""
+    "InstallImageRepository": "Install",
+    "BootImageRepository": "Boot",
+    "FFUImageRepository": "FFU"
   }
 };
