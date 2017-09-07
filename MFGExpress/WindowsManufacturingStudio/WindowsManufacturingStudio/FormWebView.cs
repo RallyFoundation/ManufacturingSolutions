@@ -79,20 +79,20 @@ namespace WindowsManufacturingStudio
             if (this.openFileDialogFile.ShowDialog() == DialogResult.OK)
             {
                 fileInfo.Path = this.openFileDialogFile.FileName;
-            }
 
-            FormFileUploadProgress formFileUpload = new FormFileUploadProgress(fileInfo);
+                FormFileUploadProgress formFileUpload = new FormFileUploadProgress(fileInfo);
 
-            if (formFileUpload.ShowDialog(this) == DialogResult.OK)
-            {
-                string message = String.Format("File \"{0}\" successfully uploaded to \"{1}\"!", fileInfo.Path, fileInfo.Url);
-
-                if (MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                if (formFileUpload.ShowDialog(this) == DialogResult.OK)
                 {
-                    //using (Gecko.AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
-                    //{
-                    //    context.EvaluateScript("RefreshData();", this.geckoWebBrowser.Window.DomWindow);
-                    //}
+                    string message = String.Format("File \"{0}\" successfully uploaded to \"{1}\"!", fileInfo.Path, fileInfo.Url);
+
+                    if (MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
+                        //using (Gecko.AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
+                        //{
+                        //    context.EvaluateScript("RefreshData();", this.geckoWebBrowser.Window.DomWindow);
+                        //}
+                    }
                 }
             }
         }

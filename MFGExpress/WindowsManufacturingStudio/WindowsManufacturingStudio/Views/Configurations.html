@@ -78,6 +78,27 @@
                 <dd>
                     <input type="text" ng-model="configSettings.WebSocketPort" class="form-control" maxlength="6" onkeyup="purgeValue(valuePolicy.Int, this)" onmouseout="purgeValue(valuePolicy.Int, this)" />
                 </dd>
+                <content>
+                    <br />
+                </content>
+                <dt>File Service Url: </dt>
+                <dd>
+                    <input type="text" ng-model="configSettings.FileServiceUrl" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
+                <content>
+                    <br />
+                </content>
+                <dt>File Service Username: </dt>
+                <dd>
+                    <input type="text" ng-model="configSettings.FileServiceUserName" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
+                <content>
+                    <br />
+                </content>
+                <dt>File Service Password: </dt>
+                <dd>
+                    <input type="password" ng-model="configSettings.FileServicePassword" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
             </dl>
         </div>
     </div>
