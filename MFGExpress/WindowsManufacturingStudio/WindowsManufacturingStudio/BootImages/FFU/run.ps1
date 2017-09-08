@@ -137,7 +137,7 @@ $Body.Value = "ApplyingImage";
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-Start-Process -FilePath ".\DISM\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
+Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
 
 $Body.Value = "ImageApplied";
 $BodyJson = ConvertTo-Json -InputObject $Body;
