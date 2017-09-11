@@ -112,7 +112,7 @@ $AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
 
 $ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
 
-$ImageFilePath = [System.String]::Format("{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
+$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
 
 [System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
 

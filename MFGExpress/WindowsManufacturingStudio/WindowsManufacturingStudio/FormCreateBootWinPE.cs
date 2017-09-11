@@ -120,7 +120,7 @@ namespace WindowsManufacturingStudio
             this.metroTextBoxWDSAPIURL.Text = config.WDSApiServicePoint;
             this.metroTextBoxClientNICName.Text = config.NICName;
             this.metroComboBoxClientIdentifierType.SelectedIndex = config.ClientIdentifierType;
-            this.metroComboBoxImageIdentifierType.SelectedIndex = conf.ImageIdentifierType;
+            this.metroComboBoxImageIdentifierType.SelectedIndex = config.ImageIdentifierType;
         }
 
         private void setConfValuesFromControl(ConfigurationViewModel config)
