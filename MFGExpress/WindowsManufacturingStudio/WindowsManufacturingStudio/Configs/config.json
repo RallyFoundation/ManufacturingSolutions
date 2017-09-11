@@ -3,7 +3,7 @@
     "WdsApiUrl": "http://minint-et2evvt:8089/",
     "WdsApiUserName": "",
     "WdsApiPassword": "",
-    "FileServiceUrl": "http://minint-et2evvt:8080/",
+    "FileServiceUrl": "http://minint-et2evvt:280/",
     "FileServiceUserName": "WDS",
     "FileServicePassword": "W@lcome!",
     "WebSocketAddress": "minint-et2evvt",
