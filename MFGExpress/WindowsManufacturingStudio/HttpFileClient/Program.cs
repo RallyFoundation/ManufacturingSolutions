@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Configuration;
 
 namespace HttpFileClient
 {
@@ -11,6 +12,9 @@ namespace HttpFileClient
     {
         static void Main(string[] args)
         {
+            shouldExitOnComplete = (ConfigurationManager.AppSettings.Get("ShouldExitOnComplete") == "true");
+            shouldOutputConnectionOptions = (ConfigurationManager.AppSettings.Get("ShouldOutputConnectionOptions") == "true");
+
             string fileUrl = (args!= null && args.Length > 0) ? args[0] : null;
             string filePath = (args != null && args.Length > 1) ? args[1] : null;
             string authScheme = (args != null && args.Length > 2) ? args[2] : null;
@@ -30,15 +34,21 @@ namespace HttpFileClient
                 filePath = Console.ReadLine();
             }
 
-            Console.WriteLine(fileUrl);
+            if (shouldOutputConnectionOptions)
+            {
+                Console.WriteLine(fileUrl);
 
-            Console.WriteLine(filePath);
+                Console.WriteLine(filePath);
 
-            Console.WriteLine(authHeader);
+                Console.WriteLine(authHeader);
+            }
 
             DownloadFile(fileUrl, filePath, authHeader);
 
-            Console.Read();
+            if (!shouldExitOnComplete)
+            {
+                Console.Read();
+            }    
         }
 
         static void DownloadFile(string Url, string FilePath, string AuthHeader)
@@ -62,6 +72,8 @@ namespace HttpFileClient
         }
 
         static int currentPercent = -1;
+        static bool shouldExitOnComplete = true;
+        static bool shouldOutputConnectionOptions = true;
 
         private static void WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {

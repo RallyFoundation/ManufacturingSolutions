@@ -114,11 +114,17 @@ $ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
 
 $ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
 
-#[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+$AuthHeaderValue;
 
-#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+$ImageFilePath;
 
-Start-Process -FilePath "HttpFileClient.exe" -ArgumentList @($ImageUrl, $ImageFilePath, "Basic", $authBase64) -Wait;
+[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+
+$WebClient.Headers.Add("Authorization", $AuthHeaderValue);
+
+$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+
+#Start-Process -FilePath "HttpFileClient.exe" -ArgumentList @($ImageUrl, $ImageFilePath, "Basic", $authBase64) -Wait;
 
 
 #%WINDIR%\System32\Wdsmcast\wdsmcast.exe /progress /verbose /trace:wds_trace.etl /Transfer-File /Server:192.168.0.215 /Namespace:WDS:Group-Windows8/Win8-Windows.wim/1 /Username:WIN-Server-02\Administrator /Password:P@ssword! /SourceFile:Win8-Windows.wim /DestinationFile:R:\install.wim
