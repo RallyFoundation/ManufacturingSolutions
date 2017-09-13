@@ -2,6 +2,7 @@
 var bodyParser = require('body-parser');
 var fs = require("fs");
 var readDir = require("readdir");
+var multer = require('multer');
 var shell = require('node-powershell');
 var redis = require("redis");
 var cors = require("cors");
@@ -40,6 +41,39 @@ var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); /
 var installImageRepository = config.get("app.install-image-repository");
 var bootImageRepository = config.get("app.boot-image-repository");
 var ffuImageRepository = config.get("app.ffu-image-repository");
+
+var installImageUploader = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, installImageRepository);
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now().toString() + "_" + file.originalname);
+        }
+    })
+}).any();
+
+var bootImageUploader = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, bootImageRepository);
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now().toString() + "_" + file.originalname);
+        }
+    })
+}).any();
+
+var ffuImageUploader = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, ffuImageRepository);
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now().toString() + "_" + file.originalname);
+        }
+    })
+}).any();
 
 var server = app.listen(httpServerPort, function () {
     var host = server.address().address;
@@ -529,6 +563,40 @@ app.get("/wds/imagefile/ffu/:fname", function (req, res) {
         });
     });
 }); 
+
+app.post("/wds/imagefile/install/", function (req, res) {
+
+    installImageUploader(req, res, function (err) {
+        if (err)
+        {
+            console.log(err);
+
+            res.end(err);
+        }
+    });
+});
+
+app.post("/wds/imagefile/boot/", function (req, res) {
+
+    bootImageUploader(req, res, function (err) {
+        if (err) {
+            console.log(err);
+
+            res.end(err);
+        }
+    });
+});
+
+app.post("/wds/imagefile/ffu/", function (req, res) {
+
+    ffuImageUploader(req, res, function (err) {
+        if (err) {
+            console.log(err);
+
+            res.end(err);
+        }
+    });
+});
 
 app.delete("/wds/imagefile/install/:fname", function (req, res) {
 

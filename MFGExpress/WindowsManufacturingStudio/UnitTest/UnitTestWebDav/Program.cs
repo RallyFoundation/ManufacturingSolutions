@@ -18,9 +18,13 @@ namespace UnitTestWebDav
 
             //testHfsUpload();
 
-            testHfsUpload2(@"D:\WDS\WDS+.pptx", "http://minint-kuf9jnn:8080/Test/", "WDS", "W@lcome!");
+            //testHfsUpload2(@"D:\WDS\WDS+.pptx", "http://minint-kuf9jnn:8080/Test/", "WDS", "W@lcome!");
 
             //testHfsUpload3(@"D:\WDS\WDS+-08211702.pptx", "http://minint-kuf9jnn:8080/Test/", "WDS", "W@lcome!");
+
+            //testHfsUpload3(@"D:\WDS\WDS+-08211702.pptx", "http://minint-kuf9jnn:8089/wds/imagefile/ffu/", "WDS", "W@lcome!");
+
+            testHfsUpload3(@"C:\install-cap1.ffu", "http://minint-kuf9jnn:8089/wds/imagefile/ffu/", "WDS", "W@lcome!");
 
             Console.Read();
         }
