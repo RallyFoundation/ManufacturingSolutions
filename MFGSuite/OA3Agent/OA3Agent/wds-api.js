@@ -1,6 +1,6 @@
 ﻿var express = require('express');
 var bodyParser = require('body-parser');
-//var fs = require("fs");
+var fs = require("fs");
 var readDir = require("readdir");
 var shell = require('node-powershell');
 var redis = require("redis");
@@ -429,14 +429,6 @@ app.get('/wds/imagegroup/install/:name', function (req, res) {
 
 app.get("/wds/imagefile/install", function (req, res) {
 
-    //fs.readdir(installImageRepository, function (err, files)
-    //{
-    //    if (err) { res.end(err.message); }
-    //    else {
-    //        res.end(JSON.stringify(files));
-    //    }
-    //});
-
     readDir.read(installImageRepository, ["**.wim"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, files)
     {
         if (err) { res.end(err.message); }
@@ -463,6 +455,234 @@ app.get("/wds/imagefile/ffu", function (req, res) {
         else {
             res.end(JSON.stringify(files));
         }
+    });
+});
+
+app.get("/wds/imagefile/install/:fname", function (req, res) {
+    var filePath = installImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        res.setHeader("Content-Length", stats.size);
+
+        var stream = fs.createReadStream(filePath, stream);
+
+        stream.pipe(res);
+
+        stream.on("error", function (err) {
+            res.statusCode = 500;
+            res.end(err);
+        });
+    });
+}); 
+
+app.get("/wds/imagefile/boot/:fname", function (req, res) {
+    var filePath = bootImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        res.setHeader("Content-Length", stats.size);
+
+        var stream = fs.createReadStream(filePath, stream);
+
+        stream.pipe(res);
+
+        stream.on("error", function (err) {
+            res.statusCode = 500;
+            res.end(err);
+        });
+    });
+}); 
+
+app.get("/wds/imagefile/ffu/:fname", function (req, res) {
+    var filePath = ffuImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        res.setHeader("Content-Length", stats.size);
+
+        var stream = fs.createReadStream(filePath, stream);
+
+        stream.pipe(res);
+
+        stream.on("error", function (err) {
+            res.statusCode = 500;
+            res.end(err);
+        });
+    });
+}); 
+
+app.delete("/wds/imagefile/install/:fname", function (req, res) {
+
+    var filePath = installImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message); 
+        }
+
+        fs.unlink(filePath, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePath + "\"deleted successfully");
+
+            res.end("OK");
+        });
+    });
+});
+
+app.delete("/wds/imagefile/boot/:fname", function (req, res) {
+
+    var filePath = bootImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        fs.unlink(filePath, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePath + "\"deleted successfully");
+
+            res.end("OK");
+        });
+    });
+});
+
+app.delete("/wds/imagefile/ffu/:fname", function (req, res) {
+
+    var filePath = ffuImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        fs.unlink(filePath, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePath + "\"deleted successfully");
+
+            res.end("OK");
+        });
+    });
+});
+
+app.patch("/wds/imagefile/install/rename/", function (req, res) {
+
+    var data = req.body;
+
+    var filePathOld = installImageRepository + "/" + data.OldName;
+
+    var filePathNew = installImageRepository + "/" + data.NewName;
+
+    fs.stat(filePathOld, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        fs.rename(filePathOld, filePathNew, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+            res.end("OK");
+        });
+    });
+});
+
+app.patch("/wds/imagefile/boot/rename/", function (req, res) {
+
+    var data = req.body;
+
+    var filePathOld = bootImageRepository + "/" + data.OldName;
+
+    var filePathNew = bootImageRepository + "/" + data.NewName;
+
+    fs.stat(filePathOld, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        fs.rename(filePathOld, filePathNew, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+            res.end("OK");
+        });
+    });
+});
+
+app.patch("/wds/imagefile/ffu/rename/", function (req, res) {
+
+    var data = req.body;
+
+    var filePathOld = ffuImageRepository + "/" + data.OldName;
+
+    var filePathNew = ffuImageRepository + "/" + data.NewName;
+
+    fs.stat(filePathOld, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            res.end(err.message);
+        }
+
+        fs.rename(filePathOld, filePathNew, function (err) {
+            if (err) {
+                res.end(err.message);
+            }
+
+            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+            res.end("OK");
+        });
     });
 });
 
