@@ -618,15 +618,37 @@ app.patch("/wds/imagefile/install/rename/", function (req, res) {
             res.end(err.message);
         }
 
-        fs.rename(filePathOld, filePathNew, function (err) {
-            if (err) {
-                res.end(err.message);
+        fs.stat(filePathNew, function (err, status)
+        {
+            if (stats)
+            {
+                console.log(JSON.stringify(stats));
             }
 
-            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+            if (err) {
+                console.log(err);
 
-            res.end("OK");
-        });
+                if ((err.errno == -4058) && (err.code == "ENOENT")) {
+                    fs.rename(filePathOld, filePathNew, function (err) {
+                        if (err) {
+                            res.end(err.message);
+                        }
+
+                        console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+                        res.end("OK");
+                    });
+                }
+                else
+                {
+                    res.end(err);
+                }
+            }
+            else
+            {
+                res.end("File \"" + filePathNew + "\" already exists!");
+            }     
+        });    
     });
 });
 
@@ -646,14 +668,32 @@ app.patch("/wds/imagefile/boot/rename/", function (req, res) {
             res.end(err.message);
         }
 
-        fs.rename(filePathOld, filePathNew, function (err) {
-            if (err) {
-                res.end(err.message);
+        fs.stat(filePathNew, function (err, status) {
+            if (stats) {
+                console.log(JSON.stringify(stats));
             }
 
-            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+            if (err) {
+                console.log(err);
 
-            res.end("OK");
+                if ((err.errno == -4058) && (err.code == "ENOENT")) {
+                    fs.rename(filePathOld, filePathNew, function (err) {
+                        if (err) {
+                            res.end(err.message);
+                        }
+
+                        console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+                        res.end("OK");
+                    });
+                }
+                else {
+                    res.end(err);
+                }
+            }
+            else {
+                res.end("File \"" + filePathNew + "\" already exists!");
+            }
         });
     });
 });
@@ -674,14 +714,32 @@ app.patch("/wds/imagefile/ffu/rename/", function (req, res) {
             res.end(err.message);
         }
 
-        fs.rename(filePathOld, filePathNew, function (err) {
-            if (err) {
-                res.end(err.message);
+        fs.stat(filePathNew, function (err, status) {
+            if (stats) {
+                console.log(JSON.stringify(stats));
             }
 
-            console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+            if (err) {
+                console.log(err);
 
-            res.end("OK");
+                if ((err.errno == -4058) && (err.code == "ENOENT")) {
+                    fs.rename(filePathOld, filePathNew, function (err) {
+                        if (err) {
+                            res.end(err.message);
+                        }
+
+                        console.log("File\"" + filePathOld + "\" successfully changed its name to \"" + filePathNew + "\".");
+
+                        res.end("OK");
+                    });
+                }
+                else {
+                    res.end(err);
+                }
+            }
+            else {
+                res.end("File \"" + filePathNew + "\" already exists!");
+            }
         });
     });
 });
