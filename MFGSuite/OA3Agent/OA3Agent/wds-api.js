@@ -505,7 +505,7 @@ app.get("/wds/imagefile/install/:fname", function (req, res) {
 
         res.setHeader("Content-Length", stats.size);
 
-        var stream = fs.createReadStream(filePath, stream);
+        var stream = fs.createReadStream(filePath);
 
         stream.pipe(res);
 
@@ -529,7 +529,7 @@ app.get("/wds/imagefile/boot/:fname", function (req, res) {
 
         res.setHeader("Content-Length", stats.size);
 
-        var stream = fs.createReadStream(filePath, stream);
+        var stream = fs.createReadStream(filePath);
 
         stream.pipe(res);
 
@@ -553,7 +553,7 @@ app.get("/wds/imagefile/ffu/:fname", function (req, res) {
 
         res.setHeader("Content-Length", stats.size);
 
-        var stream = fs.createReadStream(filePath, stream);
+        var stream = fs.createReadStream(filePath);
 
         stream.pipe(res);
 

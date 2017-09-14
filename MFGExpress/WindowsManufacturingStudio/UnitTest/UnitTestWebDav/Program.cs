@@ -24,6 +24,10 @@ namespace UnitTestWebDav
 
             //testHfsUpload3(@"D:\WDS\WDS+-08211702.pptx", "http://minint-kuf9jnn:8089/wds/imagefile/ffu/", "WDS", "W@lcome!");
 
+            //testHfsUpload3(@"D:\Imaging and Configuration Designer.zip", "http://minint-kuf9jnn:8089/wds/imagefile/ffu/", "WDS", "W@lcome!");
+
+            //testHfsUpload3(@"D:\WDS\Test\ImgFFU_01\media\sources\boot.wim", "http://minint-kuf9jnn:8089/wds/imagefile/boot/", "WDS", "W@lcome!");
+
             testHfsUpload3(@"C:\install-cap1.ffu", "http://minint-kuf9jnn:8089/wds/imagefile/ffu/", "WDS", "W@lcome!");
 
             Console.Read();
