@@ -58,6 +58,10 @@
             <a href="#" id="link_refresh_data" class="btn btn-info btn-lg" ng-click="getImageFiles()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addImageFile()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="deleteImageFile()" ng-show="(currentFileIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="renameImageFile()" ng-show="(currentFileIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Rename</a>
             &nbsp;&nbsp;
             <select id="imageTypes" ng-model="currentImageType" ng-change="getImageFiles()">
                 <option ng-repeat="imageType in imageTypes" value="{{imageType.Name}}">{{imageType.Description}}</option>
@@ -66,9 +70,13 @@
         <br/>
         <table class="table">
             <tr>
+                <th></th>
                 <th>File Name</th>
             </tr>
             <tr ng-repeat="imageFile in imageFiles">
+                <td>
+                    <input type="radio" class="radio" name="currentFile" ng-click="setCurrentFileIndex($index)" />
+                </td>
                 <td>{{imageFile}}</td>
             </tr>
         </table>
@@ -139,9 +147,11 @@
 
             $scope.currentDialog = null;
 
-            $scope.newImageFile = null;
+            $scope.newImageFile = { OldName: null, NewName: null };;
 
             $scope.imageFiles = [];
+
+            $scope.currentFileIndex = -1;
 
             $scope.currentImageType = "Boot";
 
@@ -170,6 +180,10 @@
 
             $scope.hideProgress = function () {
                 ngDialog.closeAll();
+            };
+
+            $scope.setCurrentFileIndex = function (index) {
+                $scope.currentFileIndex = index;
             };
 
             $scope.getImageFiles = function ()
@@ -250,36 +264,105 @@
                 document.dispatchEvent(event);
             };
 
-            //$scope.doSubmit = function () {
-            //    ngDialog.closeAll();
+            $scope.deleteImageFile = function ()
+            {
+                var fileName = String(this.imageFiles[this.currentFileIndex]);
 
-            //    $scope.showProgress();
+                if (fileName != null && confirm("Are you sure to permanently delete file \"" + fileName + "\"?"))
+                {
+                    $scope.showProgress();
 
-            //    //var protocol = $location.protocol();
-            //    //var host = $location.host();
-            //    //var port = $location.port();
+                    var url = settings.WdsApiUrl;
 
-            //    //var url = protocol + "://" + host + ":" + port + "/";
+                    var servicePoint = "wds/imagefile/" + $scope.currentImageType.toLowerCase();
 
-            //    var url = settings.WdsApiUrl;
+                    fileName = fileName.substring(fileName.lastIndexOf("/"));
 
-            //    var servicePoint = "wds/imagegroup/install";
 
-            //    $http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
-            //        if (data != null && data.data != null) {
-            //            if (data.data.length > 0) {
-            //                for (var i = 0; i < data.data.length; i++) {
-            //                    $scope.imageGroups.push(data.data[i]);
-            //                }
-            //            }
-            //            else {
-            //                $scope.imageGroups.push(data.data);
-            //            }
+                    $http.delete((url + servicePoint + fileName)).then(function (data)
+                    {
+                        $scope.hideProgress();
 
-            //            $scope.hideProgress();
-            //        }
-            //    });
-            //};
+                        if (data.data == "OK") {
+                            $scope.imageFiles.splice($scope.currentFileIndex, 1);
+                        }
+                        else
+                        {
+                            alert(data.data);
+                        }
+
+                        $scope.setCurrentFileIndex(-1);
+
+                    }).catch(function (err)
+                    {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentFileIndex(-1);
+                    });
+                }
+            };
+
+            $scope.renameImageFile = function ()
+            {
+                var fileName = String(this.imageFiles[this.currentFileIndex]);
+                fileName = fileName = fileName.substring((fileName.lastIndexOf("/") + 1));
+
+                $scope.newImageFile = { OldName: fileName, NewName: fileName };
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'rename-image-file-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.doSubmit = function () {
+                ngDialog.closeAll();
+
+                if ($scope.newImageFile.OldName != $scope.newImageFile.NewName && $scope.newImageFile.NewName != null)
+                {
+                    $scope.showProgress();
+
+                    //var protocol = $location.protocol();
+                    //var host = $location.host();
+                    //var port = $location.port();
+
+                    //var url = protocol + "://" + host + ":" + port + "/";
+
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/imagefile/" + this.currentImageType + "/rename/";
+
+                    $http.patch((url + servicePoint), $scope.newImageFile).then(function (data) {
+                        if (data != null && data.data != null) {
+                            if (data.data == "OK") {
+                                $scope.imageFiles[$scope.currentFileIndex] = $scope.newImageFile.NewName;
+                            }
+                            else {
+                                alert(data.data);
+                            }
+
+                            $scope.setCurrentFileIndex(-1);
+
+                            $scope.hideProgress();
+                        }
+                    }).catch(function (err) {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentFileIndex(-1);
+                    });
+                }
+            };
         });
     </script>
 </body>
