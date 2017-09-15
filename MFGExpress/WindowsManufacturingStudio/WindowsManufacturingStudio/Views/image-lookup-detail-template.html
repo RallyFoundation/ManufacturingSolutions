@@ -2,11 +2,11 @@
     <dl class="dl-horizontal">
         <dt>Key: </dt>
         <dd>
-            <input type="text" ng-model="imageLookups[selectedImageLookupIndex].Key" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+            <input type="text" ng-model="imageLookups[selectedImageLookupIndex].Key" class="form-control" maxlength="60" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
         </dd>
         <dt>Value: </dt>
         <dd>
-            <input type="text" ng-model="imageLookups[selectedImageLookupIndex].Value" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+            <input type="text" ng-model="imageLookups[selectedImageLookupIndex].Value" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
         </dd>
     </dl>
     <input type="submit" value="Save" class="btn btn-info btn-lg" ng-click="updateImageLookup()" />
