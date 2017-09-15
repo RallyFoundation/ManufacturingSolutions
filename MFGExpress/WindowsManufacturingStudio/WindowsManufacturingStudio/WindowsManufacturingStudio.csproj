@@ -136,9 +136,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.manifest" />
-    <None Include="BootImages\FFU\HttpFileClient.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="BootImages\FFU\run.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -260,12 +257,6 @@
     <Content Include="black-white-metro-server-icon.ico" />
     <Content Include="BootImages\FFU\config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BootImages\FFU\HttpFileClient.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BootImages\FFU\HttpFileClient.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="BootImages\Multicast\config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

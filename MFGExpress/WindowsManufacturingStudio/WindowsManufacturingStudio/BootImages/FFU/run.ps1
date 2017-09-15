@@ -120,9 +120,29 @@ $ImageFilePath;
 
 [System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
 
-$WebClient.Headers.Add("Authorization", $AuthHeaderValue);
+$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
 
-$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+
+Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
+
+Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
+
+$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
+
+While (-Not $isDownloaded) 
+{
+    $percent = $Global:Data.SourceArgs.ProgressPercentage;
+    $totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
+    $receivedBytes = $Global:Data.SourceArgs.BytesReceived;
+
+    If ($percent -ne $null) 
+	{
+        Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
+    }
+}
+
+Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
 
 #Start-Process -FilePath "HttpFileClient.exe" -ArgumentList @($ImageUrl, $ImageFilePath, "Basic", $authBase64) -Wait;
 
