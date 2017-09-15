@@ -45,6 +45,14 @@ var ffuImageRepository = config.get("app.ffu-image-repository");
 var installImageUploader = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
+
+            //fs.stat(installImageRepository, function (err, stat) {
+            //    if ((err) && (err.errno == -4058) && (err.code == "ENOENT"))
+            //    {
+            //        fs.mkdirSync(installImageRepository);
+            //    }
+            //});
+
             cb(null, installImageRepository);
         },
         filename: function (req, file, cb) {
@@ -567,12 +575,39 @@ app.get("/wds/imagefile/ffu/:fname", function (req, res) {
 app.post("/wds/imagefile/install/", function (req, res) {
 
     installImageUploader(req, res, function (err) {
-        if (err)
-        {
+        if (err){
             console.log(err);
-
             res.end(err);
         }
+
+        console.log(req.files[0].path);
+
+        //req.file = req.files[0];
+        //var tmp_path = req.file.path;
+        //console.log(tmp_path);
+
+        //var target_path = installImageRepository + "/" + Date.now().toString() + "_" + req.file.originalname;
+
+        //console.log(target_path);
+
+        //if (!fs.existsSync(installImageRepository)) {
+        //    fs.mkdirSync(installImageRepository);
+        //}
+
+        //var src = fs.createReadStream(tmp_path);
+        //var dest = fs.createWriteStream(target_path);
+
+        //src.pipe(dest);
+
+        //src.on('end', function () {
+        //    res.end();
+        //});
+
+        //src.on('error', function (err) {
+        //    res.end();
+        //    console.log(err);
+        //});
+
     });
 });
 
@@ -581,9 +616,36 @@ app.post("/wds/imagefile/boot/", function (req, res) {
     bootImageUploader(req, res, function (err) {
         if (err) {
             console.log(err);
-
             res.end(err);
         }
+
+        console.log(req.files[0].path);
+
+        //req.file = req.files[0];
+        //var tmp_path = req.file.path;
+        //console.log(tmp_path);
+
+        //var target_path = bootImageRepository + "/" + Date.now().toString() + "_" + req.file.originalname;
+
+        //console.log(target_path);
+
+        //if (!fs.existsSync(bootImageRepository)) {
+        //    fs.mkdirSync(bootImageRepository);
+        //}
+
+        //var src = fs.createReadStream(tmp_path);
+        //var dest = fs.createWriteStream(target_path);
+
+        //src.pipe(dest);
+
+        //src.on('end', function () {
+        //    res.end();
+        //});
+
+        //src.on('error', function (err) {
+        //    res.end();
+        //    console.log(err);
+        //});
     });
 });
 
@@ -592,9 +654,37 @@ app.post("/wds/imagefile/ffu/", function (req, res) {
     ffuImageUploader(req, res, function (err) {
         if (err) {
             console.log(err);
-
             res.end(err);
         }
+
+        console.log(req.files[0].path);
+
+        //req.file = req.files[0];
+        //var tmp_path = req.file.path;
+        //console.log(tmp_path);
+
+        //var target_path = ffuImageRepository + "/" + Date.now().toString() + "_" + req.file.originalname;
+
+        //console.log(target_path);
+
+        //if (!fs.existsSync(ffuImageRepository)) {
+        //    fs.mkdirSync(ffuImageRepository);
+        //}
+
+        //var src = fs.createReadStream(tmp_path);
+        //var dest = fs.createWriteStream(target_path);
+
+        //src.pipe(dest);
+
+        //src.on('end', function () {
+        //    res.end();
+        //});
+
+        //src.on('error', function (err) {
+        //    res.end();
+        //    console.log(err);
+        //});
+
     });
 });
 
