@@ -19,6 +19,7 @@ namespace SuperRun
         static string ScriptPath = ConfigurationManager.AppSettings.Get("ScriptPath");
         static string ScriptArgs = ConfigurationManager.AppSettings.Get("ScriptArgs");
         static string ArgsTemp = ConfigurationManager.AppSettings.Get("ArgumentTemplate");
+        static bool shouldExitOnComplete = (ConfigurationManager.AppSettings.Get("ShouldExitOnComplete") == "true");
 
         static void Main(string[] args)
         {
@@ -94,9 +95,13 @@ namespace SuperRun
                 StartProcess(ExePath, arguments, true, true);
             }
 
-            Console.WriteLine("Press any key to exit...");
+            
 
-            Console.Read();
+            if (!shouldExitOnComplete)
+            {
+                Console.WriteLine("Press any key to exit...");
+                Console.Read();
+            }
         }
 
         [DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
