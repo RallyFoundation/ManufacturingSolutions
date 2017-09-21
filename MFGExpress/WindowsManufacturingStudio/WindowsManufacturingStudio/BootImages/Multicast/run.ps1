@@ -28,6 +28,8 @@ $ImageServerAddress;
 $ImageServerUserName;
 $WDSApiServicePoint;
 
+$TransactionID = [System.Guid]::NewGuid().ToString();
+
 $ClientID = "";
 $ImageID = "";
 
@@ -45,13 +47,15 @@ if($ClientIdentifierType -eq 1)
 	$ClientID = $MacAddress;
 }
 
-$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`"}";
+$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"ID`":`"`", `"Time`":`"`"}";
+$Body.ID = $TransactionID;
 $Body.Key = $ClientID;
 
 [System.String]$Url = "wds/lookup/";
 [System.String]$UrlProgress = "wds/terminal/status/";
 
 $Body.Value = "GettingSKUFromBIOS";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -72,6 +76,7 @@ if($ImageIdentifierType -eq 1)
 $ImageID;
 
 $Body.Value = "GettingImageUrl";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -84,6 +89,7 @@ $ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 $ImageUrl;
 
 $Body.Value = "DownloadingImage";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -109,5 +115,8 @@ Start-Process -FilePath "wdsmcast.exe" -ArgumentList @("/progress", "/verbose", 
 #Expand-WindowsImage -ImagePath "R:\install.wim" -ApplyPath "W:\" -Index 1 -ScratchDirectory "R:\TEMP";
 
 $Body.Value = "ImageApplied";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+Copy-Item -Path X:\Windows\Logs\DISM\dism.log -Destination ("D:\dismlog_{0}_{1}.log" -f $ImageID, $TransactionID) -Force;

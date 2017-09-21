@@ -33,6 +33,8 @@ $ImageServerAddress;
 $ImageServerUserName;
 $WDSApiServicePoint;
 
+$TransactionID = [System.Guid]::NewGuid().ToString();
+
 $ClientID = "";
 $ImageID = "";
 
@@ -50,13 +52,15 @@ if($ClientIdentifierType -eq 1)
 	$ClientID = $MacAddress;
 }
 
-$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`"}";
+$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"ID`":`"`", `"Time`":`"`"}";
+$Body.ID = $TransactionID;
 $Body.Key = $ClientID;
 
 [System.String]$Url = "wds/lookup/";
 [System.String]$UrlProgress = "wds/terminal/status/";
 
 $Body.Value = "GettingSKUFromBIOS";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -102,6 +106,7 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 	}
     
     $Body.Value = "GettingImageUrl";
+	$Body.Time = [System.DateTime]::Now;
 	$BodyJson = ConvertTo-Json -InputObject $Body;
 	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -114,6 +119,7 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 	$ImageUrl;
 
 	$Body.Value = "DownloadingImage";
+	$Body.Time = [System.DateTime]::Now;
 	$BodyJson = ConvertTo-Json -InputObject $Body;
 	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
@@ -189,15 +195,18 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 
 
 $Body.Value = "ApplyingImage";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
 
 $Body.Value = "ImageApplied";
+$Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
+Copy-Item -Path X:\Windows\Logs\DISM\dism.log -Destination ("D:\dismlog_{0}_{1}.log" -f $ImageID, $TransactionID) -Force;
 
 #Function Clear-LocalFFUCache
 #{
