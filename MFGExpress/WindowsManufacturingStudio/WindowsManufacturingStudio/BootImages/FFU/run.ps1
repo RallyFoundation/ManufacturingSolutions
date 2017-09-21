@@ -91,7 +91,15 @@ $ImageFilePath;
 
 if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 {
-    Clear-LocalFFUCache;
+    #Clear local FFU image cache
+    [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu", [System.IO.SearchOption]::AllDirectories);
+	if(($files -ne $null) -and ($files.Length -gt 0))
+	{
+		foreach($file in $files)
+		{
+			[System.IO.File]::Delete($file);
+		}    
+	}
     
     $Body.Value = "GettingImageUrl";
 	$BodyJson = ConvertTo-Json -InputObject $Body;
@@ -155,11 +163,11 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 
 		If ($percent -ne $null) 
 		{
-			Write-Progress -Activity ("Downloading {0} from `n{1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
+			Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
 		}
 	}
 
-	Write-Progress -Activity ("Downloading {0} from `n{1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
+	Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
 }
 
 
@@ -191,15 +199,15 @@ $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 
-Function Clear-LocalFFUCache
-{
-   [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu", [System.IO.SearchOption]::AllDirectories);
+#Function Clear-LocalFFUCache
+#{
+#   [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu", [System.IO.SearchOption]::AllDirectories);
 
-   if($files -ne $null -and $files.Length -gt 0)
-   {
-       foreach($file in $files)
-	   {
-	      [System.IO.File]::Delete($file);
-	   }    
-   }
-}
+#   if($files -ne $null -and $files.Length -gt 0)
+#   {
+#       foreach($file in $files)
+#	   {
+#	      [System.IO.File]::Delete($file);
+#	   }    
+#   }
+#}
