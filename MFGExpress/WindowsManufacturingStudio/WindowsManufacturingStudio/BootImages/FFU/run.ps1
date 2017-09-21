@@ -76,73 +76,92 @@ if($ImageIdentifierType -eq 1)
 
 $ImageID;
 
-$Body.Value = "GettingImageUrl";
-$BodyJson = ConvertTo-Json -InputObject $Body;
-Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
-
-$Uri = $WDSApiServicePoint + $Url + $ImageID;
-
-$Uri;
-
-[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
-
-$ImageUrl;
-
-$Body.Value = "DownloadingImage";
-$BodyJson = ConvertTo-Json -InputObject $Body;
-Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
-
-
-if($ImageUrl.StartsWith("/"))
+if([System.String]::IsNullOrEmpty($ImageID))
 {
-   $ImageUrl = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
+    $Host.UI.RawUI.BackgroundColor = "Red";
+    $Host.UI.RawUI.ForegroundColor = "Yellow";
+    Write-Host -Object "The specified image identifier field in SMBIOS is empty!";
+	Read-Host -Prompt "The specified image identifier field in SMBIOS is empty! `nPress any key to exit...";
+    exit;
 }
 
-$ImageUrl = $ImageServerAddress + $ImageUrl;
-
-$ImageUrl;
-
-$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
-
-$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
-
-$authBase64 = [System.Convert]::ToBase64String($authBytes);
-
-$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
-
-$ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
-
-$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
-
-$AuthHeaderValue;
+$ImageFilePath = ("D:\{0}.ffu" -f $ImageID);
 
 $ImageFilePath;
 
-[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
-
-$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
-
-#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
-
-Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
-
-Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
-
-$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
-
-While (-Not $isDownloaded) 
+if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 {
-    $percent = $Global:Data.SourceArgs.ProgressPercentage;
-    $totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
-    $receivedBytes = $Global:Data.SourceArgs.BytesReceived;
+    Clear-LocalFFUCache;
+    
+    $Body.Value = "GettingImageUrl";
+	$BodyJson = ConvertTo-Json -InputObject $Body;
+	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-    If ($percent -ne $null) 
+	$Uri = $WDSApiServicePoint + $Url + $ImageID;
+
+	$Uri;
+
+	[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+
+	$ImageUrl;
+
+	$Body.Value = "DownloadingImage";
+	$BodyJson = ConvertTo-Json -InputObject $Body;
+	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+
+	if($ImageUrl.StartsWith("/"))
 	{
-        Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
-    }
+	   $ImageUrl = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
+	}
+
+	$ImageUrl = $ImageServerAddress + $ImageUrl;
+
+	$ImageUrl;
+
+	$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
+
+	$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
+
+	$authBase64 = [System.Convert]::ToBase64String($authBytes);
+
+	$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
+
+	#$ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
+
+	#$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
+
+	$AuthHeaderValue;
+
+	#$ImageFilePath;
+
+	[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+
+	$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
+
+	#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+
+	Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
+
+	Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
+
+	$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
+
+	While (-Not $isDownloaded) 
+	{
+		$percent = $Global:Data.SourceArgs.ProgressPercentage;
+		$totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
+		$receivedBytes = $Global:Data.SourceArgs.BytesReceived;
+
+		If ($percent -ne $null) 
+		{
+			Write-Progress -Activity ("Downloading {0} from `n{1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
+		}
+	}
+
+	Write-Progress -Activity ("Downloading {0} from `n{1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
 }
 
-Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
 
 #Start-Process -FilePath "HttpFileClient.exe" -ArgumentList @($ImageUrl, $ImageFilePath, "Basic", $authBase64) -Wait;
 
@@ -170,3 +189,17 @@ Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/I
 $Body.Value = "ImageApplied";
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+
+Function Clear-LocalFFUCache
+{
+   [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu", [System.IO.SearchOption]::AllDirectories);
+
+   if($files -ne $null -and $files.Length -gt 0)
+   {
+       foreach($file in $files)
+	   {
+	      [System.IO.File]::Delete($file);
+	   }    
+   }
+}
