@@ -572,6 +572,57 @@ app.get("/wds/imagefile/ffu/:fname", function (req, res) {
     });
 }); 
 
+app.get("/wds/imagefile/info/install/:fname", function (req, res) {
+    var filePath = installImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        var info = JSON.stringify(stats);
+
+        console.log(info);
+
+        res.end(info);
+
+        if (err) {
+            res.end(err.message);
+        }
+    });
+}); 
+
+app.get("/wds/imagefile/info/boot/:fname", function (req, res) {
+    var filePath = bootImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        var info = JSON.stringify(stats);
+
+        console.log(info);
+
+        res.end(info);
+
+        if (err) {
+            res.end(err.message);
+        }
+    });
+});
+
+app.get("/wds/imagefile/info/ffu/:fname", function (req, res) {
+    var filePath = ffuImageRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        var info = JSON.stringify(stats);
+
+        console.log(info);
+
+        res.end(info);
+
+        if (err) {
+            res.end(err.message);
+        }
+    });
+});
+
 app.post("/wds/imagefile/install/", function (req, res) {
 
     installImageUploader(req, res, function (err) {
