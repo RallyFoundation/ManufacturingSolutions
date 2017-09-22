@@ -58,6 +58,7 @@ $Body.Key = $ClientID;
 
 [System.String]$Url = "wds/lookup/";
 [System.String]$UrlProgress = "wds/terminal/status/";
+[System.String]$UrlImageFileInfo = "wds/imagefile/info/ffu/";
 
 $Body.Value = "GettingSKUFromBIOS";
 $Body.Time = [System.DateTime]::Now;
@@ -89,14 +90,51 @@ if([System.String]::IsNullOrEmpty($ImageID))
     exit;
 }
 
-$ImageFilePath = ("D:\{0}.ffu" -f $ImageID);
+$Body.Value = "GettingImageUrl";
+$Body.Time = [System.DateTime]::Now;
+$BodyJson = ConvertTo-Json -InputObject $Body;
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
+$Uri = $WDSApiServicePoint + $Url + $ImageID;
+$Uri;
+[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+$ImageUrl;
+
+
+$Body.Value = "GettingImageFileInfo";
+$Body.Time = [System.DateTime]::Now;
+$BodyJson = ConvertTo-Json -InputObject $Body;
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+$RemoteImageFileName = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
+$Uri= $WDSApiServicePoint + $UrlImageFileInfo + $RemoteImageFileName;
+$Uri;
+
+$RemoteImageFileInfo = Invoke-RestMethod -Method Get -Uri $Uri;
+
+$ImageFilePath = ("D:\{0}.ffu" -f $ImageID);
 $ImageFilePath;
+$ImageFileInfoPath = ("D:\{0}.ffu.info.json" -f $ImageID);
+$ImageFileInfoPath;
+
+if(([System.IO.File]::Exists($ImageFilePath) -eq $true) -and ([System.IO.File]::Exists($ImageFileInfoPath) -eq $true))
+{
+   $LocalImageFileInfoJson = Get-Content -Path $ImageFileInfoPath;
+   $LocalImageFileInfo = ConvertFrom-Json -InputObject $LocalImageFileInfoJson;
+
+   $ImageFile = Get-Item -Path $ImageFilePath;
+
+   if(($ImageFile.Length -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.atime -ne $RemoteImageFileInfo.atime) -or ($LocalImageFileInfo.birthtime -ne $RemoteImageFileInfo.birthtime) -or ($LocalImageFileInfo.ctime -ne $RemoteImageFileInfo.ctime) -or ($LocalImageFileInfo.mtime -ne $RemoteImageFileInfo.mtime) -or ($LocalImageFileInfo.size -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.ino -ne $RemoteImageFileInfo.ino))
+   {
+       [System.IO.File]::Delete($ImageFileInfoPath);
+	   [System.IO.File]::Delete($ImageFilePath);
+   }
+}
 
 if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 {
     #Clear local FFU image cache
-    [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu", [System.IO.SearchOption]::AllDirectories);
+    [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu*", [System.IO.SearchOption]::AllDirectories);
 	if(($files -ne $null) -and ($files.Length -gt 0))
 	{
 		foreach($file in $files)
@@ -105,18 +143,18 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 		}    
 	}
     
-    $Body.Value = "GettingImageUrl";
-	$Body.Time = [System.DateTime]::Now;
-	$BodyJson = ConvertTo-Json -InputObject $Body;
-	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+    #$Body.Value = "GettingImageUrl";
+	#$Body.Time = [System.DateTime]::Now;
+	#$BodyJson = ConvertTo-Json -InputObject $Body;
+	#Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-	$Uri = $WDSApiServicePoint + $Url + $ImageID;
+	#$Uri = $WDSApiServicePoint + $Url + $ImageID;
 
-	$Uri;
+	#$Uri;
 
-	[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+	#[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 
-	$ImageUrl;
+	#$ImageUrl;
 
 	$Body.Value = "DownloadingImage";
 	$Body.Time = [System.DateTime]::Now;
@@ -193,6 +231,28 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 
 #Expand-WindowsImage -ImagePath "R:\install.wim" -ApplyPath "W:\" -Index 1 -ScratchDirectory "R:\TEMP";
 
+$Body.Value = "CheckingImageFileIntegrity";
+$Body.Time = [System.DateTime]::Now;
+$BodyJson = ConvertTo-Json -InputObject $Body;
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+$ImageFile = Get-Item -Path $ImageFilePath;
+
+if($ImageFile.Length -eq $RemoteImageFileInfo.size)
+{
+    $RemoteImageFileInfoJson = ConvertTo-Json -InputObject $RemoteImageFileInfo;
+    [System.IO.File]::WriteAllText($ImageFileInfoPath, $RemoteImageFileInfoJson);
+}
+else
+{
+    [System.IO.File]::Delete($ImageFilePath);
+
+	$Host.UI.RawUI.BackgroundColor = "Red";
+    $Host.UI.RawUI.ForegroundColor = "Yellow";
+    Write-Host -Object "The specified image identifier field in SMBIOS is empty!";
+	Read-Host -Prompt "The specified image identifier field in SMBIOS is empty! `nPress any key to exit...";
+    exit;
+}
 
 $Body.Value = "ApplyingImage";
 $Body.Time = [System.DateTime]::Now;
