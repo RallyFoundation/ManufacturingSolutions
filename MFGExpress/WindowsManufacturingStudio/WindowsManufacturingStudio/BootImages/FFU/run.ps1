@@ -249,8 +249,8 @@ else
 
 	$Host.UI.RawUI.BackgroundColor = "Red";
     $Host.UI.RawUI.ForegroundColor = "Yellow";
-    Write-Host -Object ("Image file size incorrect, please try downloading it agian! (Expected Size: {0}; Actual Size: {1})" -f  $RemoteImageFileInfo.size, $ImageFile.Length);
-	Read-Host -Prompt ("Image file size incorrect, please try downloading it agian! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
+    Write-Host -Object ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1})" -f  $RemoteImageFileInfo.size, $ImageFile.Length);
+	Read-Host -Prompt ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
     exit;
 }
 
