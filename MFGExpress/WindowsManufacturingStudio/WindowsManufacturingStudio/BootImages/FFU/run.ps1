@@ -52,8 +52,8 @@ if($ClientIdentifierType -eq 1)
 	$ClientID = $MacAddress;
 }
 
-$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"ID`":`"`", `"Time`":`"`"}";
-$Body.ID = $TransactionID;
+$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"TransID`":`"`", `"Time`":`"`"}";
+$Body.TransID = $TransactionID;
 $Body.Key = $ClientID;
 
 [System.String]$Url = "wds/lookup/";
@@ -249,8 +249,8 @@ else
 
 	$Host.UI.RawUI.BackgroundColor = "Red";
     $Host.UI.RawUI.ForegroundColor = "Yellow";
-    Write-Host -Object "The specified image identifier field in SMBIOS is empty!";
-	Read-Host -Prompt "The specified image identifier field in SMBIOS is empty! `nPress any key to exit...";
+    Write-Host -Object ("Image file size incorrect, please try downloading it agian! (Expected Size: {0}; Actual Size: {1})" -f  $RemoteImageFileInfo.size, $ImageFile.Length);
+	Read-Host -Prompt ("Image file size incorrect, please try downloading it agian! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
     exit;
 }
 
