@@ -55,16 +55,22 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;-->Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="deleteImage()" ng-show="(currentImageIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
         </p>
         <br />
         <table class="table">
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Image Name</th>
                 <th>File Name</th>
                 <th>Description</th>
             </tr>
             <tr ng-repeat="image in images">
+                <td>
+                    <input type="radio" class="radio" name="currentImage" ng-click="setCurrentImageIndex($index)" />
+                </td>
                 <td>{{image.Name}}</td>
                 <td>{{image.ImageName}}</td>
                 <td>{{image.FileName}}</td>
@@ -143,6 +149,8 @@
 
             $scope.imageFileContents = [];
 
+            $scope.currentImageIndex = -1;
+
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
                 document.dispatchEvent(event);
@@ -169,6 +177,10 @@
             };
 
             //$scope.addImage - function () { };
+
+            $scope.setCurrentImageIndex = function (index) {
+                $scope.currentImageIndex = index;
+            };
 
             $scope.doConnect = function (index) {
 
@@ -294,6 +306,46 @@
                         return true;
                     }
                 });
+            };
+
+            $scope.deleteImage = function () {
+                var image = this.images[this.currentImageIndex];
+
+                var imageName = image.ImageName;
+                var architecture = "x86";
+
+                if (image.Architecture == 3) {
+                    architecture = "x64";
+                }
+
+                if (image != null && confirm("Are you sure to permanently delete boot image \"" + imageName + "\"?")) {
+                    $scope.showProgress();
+
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/image/boot/" + architecture + "/" + imageName;
+
+                    //alert(servicePoint);
+
+                    $http.delete((url + servicePoint)).then(function (data) {
+                        $scope.hideProgress();
+
+                        if ((data.data == "") && (data.status == 200)) {
+                            $scope.images.splice($scope.currentImageIndex, 1);
+                        }
+                        else {
+                            alert(JSON.stringify(data));
+                        }
+
+                        $scope.setCurrentImageIndex(-1);
+
+                    }).catch(function (err) {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentImageIndex(-1);
+                    });
+                }
             };
 
             $scope.doSubmit = function () {

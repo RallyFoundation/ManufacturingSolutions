@@ -57,6 +57,8 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
             &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="deleteImage()" ng-show="(currentImageIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
+            &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Lookup</a>
         </p>
         <br />
@@ -394,6 +396,46 @@
                         }
                     }
                 });
+            };
+
+            $scope.deleteImage = function () {
+                var image = this.images[this.currentImageIndex];
+
+                var imageName = image.ImageName;
+                var imageGroupName = image.ImageGroup;
+
+                if (image.Architecture == 3) {
+                    architecture = "x64";
+                }
+
+                if (image != null && confirm("Are you sure to permanently delete install image \"" + imageName + "\"?")) {
+                    $scope.showProgress();
+
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/image/install/" + imageGroupName + "/" + imageName;
+
+                    //alert(servicePoint);
+
+                    $http.delete((url + servicePoint)).then(function (data) {
+                        $scope.hideProgress();
+
+                        if ((data.data == "") && (data.status == 200)) {
+                            $scope.images.splice($scope.currentImageIndex, 1);
+                        }
+                        else {
+                            alert(JSON.stringify(data));
+                        }
+
+                        $scope.setCurrentImageIndex(-1);
+
+                    }).catch(function (err) {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentImageIndex(-1);
+                    });
+                }
             };
 
             $scope.doSubmit = function () {
