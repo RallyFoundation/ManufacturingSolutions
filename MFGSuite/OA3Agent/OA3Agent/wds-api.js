@@ -1286,9 +1286,9 @@ app.delete('/wds/image/install/:group/:name', function (req, res) {
             console.log(output);
             //res.end(output);
             if (fileName != null && fileName != '') {
-                ps.addCommand('$image = Remove-WdsInstallImage', ['InstallImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"', 'FileName "' + fileName + '"']);
+                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"', 'FileName "' + fileName + '"']);
             } else {
-                ps.addCommand('$image = Remove-WdsInstallImage', ['InstallImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"']);
+                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"']);
             }
             ps.invoke()
                 .then(output => {
