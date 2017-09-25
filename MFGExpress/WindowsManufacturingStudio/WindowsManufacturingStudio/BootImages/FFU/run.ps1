@@ -240,7 +240,7 @@ $ImageFile = Get-Item -Path $ImageFilePath;
 
 if($ImageFile.Length -eq $RemoteImageFileInfo.size)
 {
-    $RemoteImageFileInfoJson = ConvertTo-Json -InputObject $RemoteImageFileInfo;
+    $RemoteImageFileInfoJson = ConvertTo-Json -InputObject $RemoteImageFileInfo -Compress;
     [System.IO.File]::WriteAllText($ImageFileInfoPath, $RemoteImageFileInfoJson);
 }
 else
