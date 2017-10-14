@@ -1,5 +1,9 @@
 ﻿namespace PowerShellDataProcessing
 {
+    using System.Security.Permissions;
+
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     partial class FormReport
     {
         /// <summary>
@@ -36,10 +40,10 @@
             // webBrowserReport
             // 
             this.webBrowserReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowserReport.Location = new System.Drawing.Point(20, 60);
+            this.webBrowserReport.Location = new System.Drawing.Point(0, 0);
             this.webBrowserReport.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserReport.Name = "webBrowserReport";
-            this.webBrowserReport.Size = new System.Drawing.Size(760, 520);
+            this.webBrowserReport.Size = new System.Drawing.Size(800, 600);
             this.webBrowserReport.TabIndex = 0;
             this.webBrowserReport.FileDownload += new System.EventHandler(this.webBrowserReport_FileDownload);
             this.webBrowserReport.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowserReport_Navigating);
