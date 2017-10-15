@@ -158,7 +158,19 @@ namespace WebViewPlus
 
             if ((!String.IsNullOrEmpty(sourceFilePath)) && File.Exists(sourceFilePath))
             {
-                SaveFileDialog fileDialog = new SaveFileDialog();
+                string fileExtension = Path.GetExtension(sourceFilePath);
+
+                string fileFilter = "All Files(*.*)|*.*";
+
+                if (!String.IsNullOrEmpty(fileExtension))
+                {
+                    fileFilter = fileExtension.Substring(1) + " Files|(*" + fileExtension + ")|*" + fileExtension + "|" + fileFilter;
+                }
+
+                SaveFileDialog fileDialog = new SaveFileDialog()
+                {
+                     Filter = fileFilter
+                };
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
