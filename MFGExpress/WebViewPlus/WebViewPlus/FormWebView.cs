@@ -176,7 +176,11 @@ namespace WebViewPlus
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
             this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
-            this.geckoWebBrowser.Navigate(this.url);
+
+            if (!String.IsNullOrEmpty(this.url))
+            {
+                this.geckoWebBrowser.Navigate(this.url);
+            }
         }
 
         private void FormWebView_FormClosing(object sender, FormClosingEventArgs e)

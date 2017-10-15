@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 
 namespace WebViewPlus
 {
@@ -136,6 +137,41 @@ namespace WebViewPlus
             return returnValue;
         }
 
+        public static string JsonSerialize(object objectToSerialize, Type objectType)
+        {
+            string result = "";
+
+            JsonSerializer serializer = new JsonSerializer();
+
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                using (JsonTextWriter writer = new JsonTextWriter(stringWriter))
+                {
+                    serializer.Serialize(stringWriter, objectToSerialize, objectType);
+                }
+
+                result = stringWriter.ToString();
+            }
+
+            return result;
+        }
+
+        public static object JsonDeserialize<T>(string jsonValue)
+        {
+            object result = null;
+
+            JsonSerializer serializer = new JsonSerializer();
+
+            using (StringReader stringReader = new StringReader(jsonValue))
+            {
+                using (JsonTextReader jsonReader = new JsonTextReader(stringReader))
+                {
+                    result = serializer.Deserialize<T>(jsonReader);
+                }
+            }
+
+            return result;
+        }
         public static string GetFullPath(string RelativePath)
         {
             string rootPath = AppDomain.CurrentDomain.BaseDirectory;
