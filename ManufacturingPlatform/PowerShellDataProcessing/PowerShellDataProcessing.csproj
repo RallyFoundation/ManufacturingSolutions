@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoBinarySerializationCommand.cs" />
     <Compile Include="DoXmlSchemaValidationCommand.cs" />
     <Compile Include="FormReport.cs">
       <SubType>Form</SubType>
@@ -69,6 +70,8 @@
     <Compile Include="FormReport.Designer.cs">
       <DependentUpon>FormReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetJsonFromObjectCommand.cs" />
+    <Compile Include="GetObjcetFromBinaryDeserialization.cs" />
     <Compile Include="NewZipCommand.cs" />
     <Compile Include="DoXsltTransformationCommand.cs" />
     <Compile Include="FormGetInputPath.cs">

@@ -16,14 +16,14 @@ namespace Platform.DAAS.OData.Utility
 {
     public class CommonUtility
     {
-        public static object EnitObject(String AssemblyName, String TypeName)
+        public static object EmitObject(String AssemblyName, String TypeName)
         {
             ObjectHandle objectHandle = Activator.CreateInstance(AssemblyName, TypeName);
 
             return objectHandle.Unwrap();
         }
 
-        public static object EnitObject(String AssemblyName, String TypeName, object[] arguments)
+        public static object EmitObject(String AssemblyName, String TypeName, object[] arguments)
         {
             Assembly assembly = Assembly.Load(AssemblyName);
 
