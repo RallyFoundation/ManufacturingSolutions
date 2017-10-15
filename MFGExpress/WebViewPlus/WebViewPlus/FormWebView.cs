@@ -152,6 +152,31 @@ namespace WebViewPlus
             MessageBox.Show(String.Format("Successfully write content to file \"{0}\"", fileInfo.Path), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void saveFile(string sourceFilePath)
+        {
+            string destFilePath = "";
+
+            if ((!String.IsNullOrEmpty(sourceFilePath)) && File.Exists(sourceFilePath))
+            {
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    destFilePath = fileDialog.FileName;
+                    File.Copy(sourceFilePath, destFilePath);
+
+                    MessageBox.Show(String.Format("Successfully saved file \"{0}\" to \"{1}\"", sourceFilePath, destFilePath), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }        
+        }
+
+        private void runApp(string param)
+        {
+            string[] parameters = param.Split(new string[] { "|"}, StringSplitOptions.None);
+            string appName = parameters[0], args = parameters[1];
+            Utility.StartProcess(appName, args, true, false);
+        }
+
         private void setDocumentElementAttribute(string argumentString)
         {
             string[] args = argumentString.Split(new string[] { "," }, StringSplitOptions.None);
@@ -175,6 +200,8 @@ namespace WebViewPlus
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
             this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("SaveFile", (string param) => this.saveFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("RunApp", (string param) => this.runApp(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
 
             if (!String.IsNullOrEmpty(this.url))
