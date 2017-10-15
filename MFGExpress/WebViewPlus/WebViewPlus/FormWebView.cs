@@ -156,20 +156,24 @@ namespace WebViewPlus
         {
             string destFilePath = "";
 
+            string fileFilter = "All Files(*.*)|*.*";
+
             if ((!String.IsNullOrEmpty(sourceFilePath)) && File.Exists(sourceFilePath))
             {
                 string fileExtension = Path.GetExtension(sourceFilePath);
 
-                string fileFilter = "All Files(*.*)|*.*";
-
-                if (!String.IsNullOrEmpty(fileExtension))
-                {
-                    fileFilter = fileExtension.Substring(1) + " Files|(*" + fileExtension + ")|*" + fileExtension + "|" + fileFilter;
-                }
+                //if (!String.IsNullOrEmpty(fileExtension))
+                //{
+                //    fileFilter = fileExtension.Substring(1) + " Files|(*" + fileExtension + ")|*" + fileExtension + "|" + fileFilter;
+                //}
 
                 SaveFileDialog fileDialog = new SaveFileDialog()
                 {
-                     Filter = fileFilter
+                     Filter = fileFilter,
+                     FileName = sourceFilePath,
+                     OverwritePrompt = true,
+                     DefaultExt = fileExtension,
+                     AddExtension = true
                 };
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
