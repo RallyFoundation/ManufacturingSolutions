@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Configuration;
 using MetroFramework;
 using MetroFramework.Forms;
 using Gecko;
@@ -23,6 +24,7 @@ namespace WebViewPlus
 
             this.initGeckoComponent();
             this.initGeckoWebBrowser();
+            this.setDefaultUrl();
         }
 
         public FormWebView(MetroForm Caller, string Url)
@@ -53,6 +55,18 @@ namespace WebViewPlus
         private GeckoWebBrowser geckoWebBrowser;
 
         private MetroForm caller;
+
+        private void setDefaultUrl()
+        {
+            string defaultPageUrl = ConfigurationManager.AppSettings.Get("DefaultPage");
+
+            if (!string.IsNullOrEmpty(defaultPageUrl) && !defaultPageUrl.StartsWith("file://") && !Path.IsPathRooted(defaultPageUrl))
+            {
+                defaultPageUrl = appRootDir + "\\" + defaultPageUrl;
+            }
+
+            this.url = defaultPageUrl;
+        }
 
         private void initGeckoComponent()
         {
