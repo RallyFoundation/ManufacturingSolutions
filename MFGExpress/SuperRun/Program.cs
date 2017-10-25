@@ -44,11 +44,6 @@ namespace SuperRun
 
             logFilePath = String.Format(logFilePath, transactionID);
 
-            //if (!File.Exists(logFilePath))
-            //{
-            //    File.Create(logFilePath);
-            //}
-
             if (String.IsNullOrEmpty(scriptFullPath))
             {
                 Console.WriteLine("Script file name should not be null!");
@@ -197,6 +192,7 @@ namespace SuperRun
                 LogFilePath = LogFileFullPath;
 
                 process.OutputDataReceived += Process_OutputDataReceived;
+                process.ErrorDataReceived += Process_ErrorDataReceived;
             }
 
             process.Start();
@@ -218,6 +214,19 @@ namespace SuperRun
             //return result;
         }
 
+        private static void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(e.Data))
+            {
+                Console.WriteLine(e.Data);
+
+                using (StreamWriter writer = File.AppendText(LogFilePath))
+                {
+                    writer.WriteLine(e.Data);
+                }
+            }
+        }
+
         private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!String.IsNullOrEmpty(e.Data))
@@ -229,16 +238,7 @@ namespace SuperRun
                 {
                     writer.WriteLine(e.Data);
                 }
-            }
-            
-
-            //using (FileStream stream = new FileStream(LogFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
-            //{
-            //    using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
-            //    {
-            //        writer.Write(e.Data);
-            //    }
-            //}      
+            }    
         }
     }
 }
