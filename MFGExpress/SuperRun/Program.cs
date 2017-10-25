@@ -19,7 +19,12 @@ namespace SuperRun
         static string ScriptPath = ConfigurationManager.AppSettings.Get("ScriptPath");
         static string ScriptArgs = ConfigurationManager.AppSettings.Get("ScriptArgs");
         static string ArgsTemp = ConfigurationManager.AppSettings.Get("ArgumentTemplate");
-        static bool shouldExitOnComplete = (ConfigurationManager.AppSettings.Get("ShouldExitOnComplete") == "true");
+        static bool ShouldExitOnComplete = (ConfigurationManager.AppSettings.Get("ShouldExitOnComplete") == "true");
+        static bool ShouldShellExecute = (ConfigurationManager.AppSettings.Get("ShouldShellExecute") == "true");
+        static bool ShouldCreateNewWindow = (ConfigurationManager.AppSettings.Get("ShouldCreateNewWindow") == "true");
+        static string LogFilePathTemplate = ConfigurationManager.AppSettings.Get("LogFilePathTemplate");
+
+        static string LogFilePath = "";
 
         static void Main(string[] args)
         {
@@ -35,6 +40,15 @@ namespace SuperRun
                 appRootPath = GetShortPath(appRootPath);
             }
 
+            string logFilePath = appRootPath + LogFilePathTemplate;
+
+            logFilePath = String.Format(logFilePath, transactionID);
+
+            //if (!File.Exists(logFilePath))
+            //{
+            //    File.Create(logFilePath);
+            //}
+
             if (String.IsNullOrEmpty(scriptFullPath))
             {
                 Console.WriteLine("Script file name should not be null!");
@@ -47,27 +61,31 @@ namespace SuperRun
             {
                 string argsTemp = ArgsTemp; //"-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
 
-                string arguments = String.Format(argsTemp, scriptFullPath);
+                string arguments = "";
 
                 if (RequireTransactionID)
                 {
-                    arguments += " ";
-                    arguments += transactionID;
+                    //arguments += " ";
+                    //arguments += transactionID;
+
+                    arguments = String.Format(argsTemp, scriptFullPath, transactionID);
                 }
                 else
                 {
-                    arguments += " TRANS_ID_NULL";
+                    //arguments += " TRANS_ID_NULL";
+
+                    arguments = String.Format(argsTemp, scriptFullPath);
                 }
 
-                if (RequireAppRootPath)
-                {
-                    arguments += " ";
-                    arguments += appRootPath;
-                }
-                else
-                {
-                    arguments += " APP_ROOT_NULL";
-                }
+                //if (RequireAppRootPath)
+                //{
+                //    arguments += " ";
+                //    arguments += appRootPath;
+                //}
+                //else
+                //{
+                //    arguments += " APP_ROOT_NULL";
+                //}
 
                 if ((args != null) && (args.Length > 0))
                 {
@@ -92,12 +110,12 @@ namespace SuperRun
                     arguments = String.Format("{0} {1}", arguments, ScriptArgs);
                 }
 
-                StartProcess(ExePath, arguments, true, true);
+                //StartProcess(ExePath, arguments, true, true);
+
+                StartProcess(ExePath, arguments, ShouldCreateNewWindow, ShouldShellExecute, logFilePath);
             }
 
-            
-
-            if (!shouldExitOnComplete)
+            if (!ShouldExitOnComplete)
             {
                 Console.WriteLine("Press any key to exit...");
                 Console.Read();
@@ -161,6 +179,66 @@ namespace SuperRun
             }
 
             return result;
+        }
+
+        static void StartProcess(string AppPath, string AppParams, bool IsCreatingNewWindow, bool IsUsingShellExecute, string LogFileFullPath)
+        {
+            Process process = new Process();
+
+            process.StartInfo.FileName = AppPath;
+            process.StartInfo.Arguments = AppParams;
+            process.StartInfo.UseShellExecute = IsUsingShellExecute;
+            process.StartInfo.RedirectStandardError = !IsUsingShellExecute;
+            process.StartInfo.RedirectStandardOutput = !IsUsingShellExecute;
+            process.StartInfo.CreateNoWindow = !IsCreatingNewWindow;
+
+            if (!IsUsingShellExecute)
+            {
+                LogFilePath = LogFileFullPath;
+
+                process.OutputDataReceived += Process_OutputDataReceived;
+            }
+
+            process.Start();
+
+            process.BeginOutputReadLine();
+
+            process.WaitForExit();
+
+            //string result = "";
+
+            //if (!IsUsingShellExecute)
+            //{
+            //    using (process.StandardOutput)
+            //    {
+            //        result = process.StandardOutput.ReadToEnd();
+            //    }
+            //}
+
+            //return result;
+        }
+
+        private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(e.Data))
+            {
+                Console.WriteLine(e.Data);
+                //File.AppendAllText(LogFilePath, e.Data, Encoding.UTF8);
+
+                using (StreamWriter writer = File.AppendText(LogFilePath))
+                {
+                    writer.WriteLine(e.Data);
+                }
+            }
+            
+
+            //using (FileStream stream = new FileStream(LogFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            //{
+            //    using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+            //    {
+            //        writer.Write(e.Data);
+            //    }
+            //}      
         }
     }
 }
