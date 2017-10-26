@@ -502,24 +502,44 @@ if($ByPassUI -eq $false)
 	$Message;
 	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;    
 
-	$Choice = Read-Host -Prompt ("Validation Result: {0}.`nView the validation summary report for more details? (Y: `"Yes`"; N: `"No`" (Default).)" -f $TotalResult);
+	#$Choice = Read-Host -Prompt ("Validation Result: {0}.`nView the validation summary report for more details? (Y: `"Yes`"; N: `"No`" (Default).)" -f $TotalResult);
 
-	if(($Choice -eq "Y") -or ($Choice -eq "Yes"))
+	#if(($Choice -eq "Y") -or ($Choice -eq "Yes"))
+	#{
+	#   #Show-Report -Uri ([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
+
+	#   #Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -ArgumentList @($RootDir + "\Module\UI\Default.html") -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + ".log");
+
+ #      Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
+	#}
+	#else
+	#{
+	#   exit;
+	#}
+
+	$PromptTitle = "Show Validation Report"
+	$PromptMessage = "Do you want to view report for more details?"
+	$OptionYes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Show the report and view it."
+	$OptionNo = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skip the report and exit."
+	$PromptOptions = [System.Management.Automation.Host.ChoiceDescription[]]($OptionNo, $OptionYes)
+
+	$Choice = $Host.UI.PromptForChoice($PromptTitle, $PromptMessage, $PromptOptions, 0) 
+
+	switch ($Choice)
 	{
-	   #Show-Report -Uri ([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
-
-	   #Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -ArgumentList @($RootDir + "\Module\UI\Default.html") -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + ".log");
-
-       Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
-	}
-	else
-	{
-	   exit;
+	    0 {
+			#$Host.SetShouldExit(1);
+			exit;
+		}
+		1 {
+			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
+		}
 	}
 }
 else
 {
    exit;
+   #$Host.SetShouldExit(1);
 }
 
 #$ServiceUrl = "http://127.0.0.1:3000/engineering/";
@@ -553,3 +573,5 @@ if([System.String]::IsNullOrEmpty($ServiceUrl) -eq $false)
 
 	Invoke-RestMethod -Method Post -Body $BodyJsonString -Uri $ServiceUrl;
 }
+
+$Host.SetShouldExit(1);
