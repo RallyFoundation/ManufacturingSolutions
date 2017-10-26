@@ -493,7 +493,7 @@ Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 if($ByPassUI -eq $false)
 {
 	$AppDataResultJson = ("AppData=" + $ResultJson);
-	$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\data.json") -Force;
+	$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
 
 	$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 	$AppSettings.Add("Mode", "Offline");
@@ -508,7 +508,7 @@ if($ByPassUI -eq $false)
 
 	$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
 	$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
-	$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\config.json") -Force;
+	$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\config.json") -Force;
 
 	$Message = [System.String]::Format("Launching Report..., {0}", [System.DateTime]::Now);
 	$Message;
