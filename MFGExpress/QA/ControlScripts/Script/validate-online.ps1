@@ -13,7 +13,7 @@ if($PowerShellVersionInfo.PSVersion.Major -lt 5)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object "PowerShell 5.1 is required!";
    Read-Host -Prompt "PowerShell 5.1 is required!`nPress any key to exit...";
-   exit;
+   #exit;
 }
 
 if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
@@ -22,7 +22,7 @@ if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object ".NET Framework 4.52 is required!";
    Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
-   exit;
+   #exit;
 }
 
 if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
@@ -529,18 +529,18 @@ if($ByPassUI -eq $false)
 	{
 	    0 {
 			#$Host.SetShouldExit(1);
-			exit;
+			#exit;
 		}
 		1 {
 			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
 		}
 	}
 }
-else
-{
-   exit;
-   #$Host.SetShouldExit(1);
-}
+#else
+#{
+#   #exit;
+#   #$Host.SetShouldExit(1);
+#}
 
 #$ServiceUrl = "http://127.0.0.1:3000/engineering/";
 

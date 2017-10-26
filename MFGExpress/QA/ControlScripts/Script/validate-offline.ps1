@@ -13,7 +13,7 @@ if($PowerShellVersionInfo.PSVersion.Major -lt 5)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object "PowerShell 5.1 is required!";
    Read-Host -Prompt "PowerShell 5.1 is required!`nPress any key to exit...";
-   exit;
+   #exit;
 }
 
 if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
@@ -22,7 +22,7 @@ if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object ".NET Framework 4.52 is required!";
    Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
-   exit;
+   #exit;
 }
 
 if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
@@ -86,7 +86,7 @@ while([System.String]::IsNullOrEmpty($ReportFilePath))
 if($ReportFilePath -eq "Cancel_Abort")
 {
     Write-Host -Object "User canceled the operation.";
-    exit;
+    #exit;
 }
 
 #if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOrEmpty($DecodeFilePath) -or [System.String]::IsNullOrEmpty($TraceFilePath))
@@ -514,7 +514,7 @@ if($ByPassUI -eq $false)
 	$Message;
 	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
-	$Choice = Read-Host -Prompt ("Validation Result: {0}.`nView the validation summary report for more details? (Y: `"Yes`"; N: `"No`" (Default).)" -f $TotalResult);
+	#$Choice = Read-Host -Prompt ("Validation Result: {0}.`nView the validation summary report for more details? (Y: `"Yes`"; N: `"No`" (Default).)" -f $TotalResult);
 
 	#if(($Choice -eq "Y") -or ($Choice -eq "Yes"))
 	#{
@@ -541,17 +541,17 @@ if($ByPassUI -eq $false)
 	{
 	    0 {
 			#$Host.SetShouldExit(1);
-			exit;
+			#exit;
 		}
 		1 {
 			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
 		}
 	}
 }
-else
-{
-   exit;
-}
+#else
+#{
+#   exit;
+#}
 
 #$ServiceUrl = "http://127.0.0.1:3000/engineering/";
 
