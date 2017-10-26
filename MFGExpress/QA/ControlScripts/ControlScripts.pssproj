@@ -31,21 +31,12 @@
     <Compile Include="Script\validate-online.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\OA3Tool-FileBased.cfg" />
-    <Content Include="Data\SchemaOA3ToolReportKey.xsd" />
     <Content Include="Script\InvokeOffline.cmd" />
     <Content Include="Script\offline.cmd" />
     <Content Include="Script\online.cmd" />
-    <Content Include="Xslt\xslt-check-hh-html.xslt" />
-    <Content Include="Xslt\xslt-check-hh-xml.xslt" />
-    <Content Include="Xslt\xslt-report-detail.xslt" />
-    <Content Include="Xslt\xslt-report-summary.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\" />
-    <Folder Include="Data\" />
     <Folder Include="Script\" />
-    <Folder Include="Xslt\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

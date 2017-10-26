@@ -54,7 +54,7 @@ $LogPath = $RootDir +  "\Log";
 
 $DataProcessingModulePath = $RootDir + "\Module\DataProcessing\PowerShellDataProcessing.dll";
 
-$XsltExtensionObjectPath = $RootDir + "\Module\XsltExtension\XsltExtension.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
+$XsltExtensionObjectPath = $RootDir + "\Module\XsltExtension\BusinessRule.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
 
 $LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
 
