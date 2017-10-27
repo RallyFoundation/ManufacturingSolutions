@@ -71,23 +71,23 @@
                 <ul>
                     <content>
                         <table class="table">
-                            <tr ng-hide="testItems.ProductKeyID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProductKeyID)}" ng-mouseenter="onMouseOver(testItems.ProductKeyID)" ng-mouseleave="onMouseLeave(testItems.ProductKeyID)" ng-click="showDetailDialog('ProductKeyID', 'template-detail-expected-value.html')">
+                            <tr ng-hide="testItems.ProductKeyID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProductKeyID)}" ng-mouseover="onMouseOver(testItems.ProductKeyID)" ng-mouseleave="onMouseLeave(testItems.ProductKeyID)" ng-click="showDetailDialog('ProductKeyID', 'template-detail-expected-value.html')">
                                 <td>Product Key ID: </td>
                                 <td>{{testItems.ProductKeyID.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.OSType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseenter="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
+                            <tr ng-hide="testItems.OSType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseover="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
                                 <td>OS Type: </td>
                                 <td>{{testItems.OSType.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.OSType == null || testItems.OSType.Detail == null || testItems.OSType.Detail.OSBuild == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseenter="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
+                            <tr ng-hide="testItems.OSType == null || testItems.OSType.Detail == null || testItems.OSType.Detail.OSBuild == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseover="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
                                 <td>OS Build Number: </td>
                                 <td>{{testItems.OSType.Detail.OSBuild}}</td>
                             </tr>
-                            <tr ng-hide="testItems.NIC == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.NIC)}" ng-mouseenter="onMouseOver(testItems.NIC)" ng-mouseleave="onMouseLeave(testItems.NIC)" ng-click="showDetailDialog('NIC', 'template-detail-min-count.html')">
+                            <tr ng-hide="testItems.NIC == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.NIC)}" ng-mouseover="onMouseOver(testItems.NIC)" ng-mouseleave="onMouseLeave(testItems.NIC)" ng-click="showDetailDialog('NIC', 'template-detail-min-count.html')">
                                 <td>MAC Address: </td>
                                 <td>({{testItems.NIC.Value}})</td>
                             </tr>
-                            <tr ng-hide="testItems.OA3Tool == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OA3Tool)}" ng-mouseenter="onMouseOver(testItems.OA3Tool)" ng-mouseleave="onMouseLeave(testItems.OA3Tool)" ng-click="showDetailDialog('OA3Tool', 'template-detail-expected-value.html')">
+                            <tr ng-hide="testItems.OA3Tool == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OA3Tool)}" ng-mouseover="onMouseOver(testItems.OA3Tool)" ng-mouseleave="onMouseLeave(testItems.OA3Tool)" ng-click="showDetailDialog('OA3Tool', 'template-detail-expected-value.html')">
                                 <td>OA3Tool: </td>
                                 <td>{{testItems.OA3Tool.Value}}</td>
                             </tr>
@@ -100,43 +100,43 @@
                 <ul>
                     <content>
                         <table class="table">
-                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseenter="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
+                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseover="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
                                 <td>ChassisType: </td>
                                 <td>{{testItems.ChassisType.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.ProcessorModel == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorModel)}" ng-mouseenter="onMouseOver(testItems.ProcessorModel)" ng-mouseleave="onMouseLeave(testItems.ProcessorModel)" ng-click="showDetailDialog('ProcessorModel', 'template-detail-expected-value.html')">
+                            <tr ng-hide="testItems.ProcessorModel == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorModel)}" ng-mouseover="onMouseOver(testItems.ProcessorModel)" ng-mouseleave="onMouseLeave(testItems.ProcessorModel)" ng-click="showDetailDialog('ProcessorModel', 'template-detail-expected-value.html')">
                                 <td>ProcessorModel: </td>
                                 <td>{{testItems.ProcessorModel.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.TotalPhysicalRAM == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.TotalPhysicalRAM)}" ng-mouseenter="onMouseOver(testItems.TotalPhysicalRAM)" ng-mouseleave="onMouseLeave(testItems.TotalPhysicalRAM)" ng-click="showDetailDialog('TotalPhysicalRAM', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.TotalPhysicalRAM == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.TotalPhysicalRAM)}" ng-mouseover="onMouseOver(testItems.TotalPhysicalRAM)" ng-mouseleave="onMouseLeave(testItems.TotalPhysicalRAM)" ng-click="showDetailDialog('TotalPhysicalRAM', 'template-detail-min-max.html')">
                                 <td>TotalPhysicalRAM: </td>
                                 <td>{{testItems.TotalPhysicalRAM.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.PrimaryDiskType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskType)}" ng-mouseenter="onMouseOver(testItems.PrimaryDiskType)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskType)" ng-click="showDetailDialog('PrimaryDiskType', 'template-detail-expected-unexpected.html')">
+                            <tr ng-hide="testItems.PrimaryDiskType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskType)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskType)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskType)" ng-click="showDetailDialog('PrimaryDiskType', 'template-detail-expected-unexpected.html')">
                                 <td>PrimaryDiskType: </td>
                                 <td>{{testItems.PrimaryDiskType.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.PrimaryDiskTotalCapacity == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskTotalCapacity)}" ng-mouseenter="onMouseOver(testItems.PrimaryDiskTotalCapacity)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskTotalCapacity)" ng-click="showDetailDialog('PrimaryDiskTotalCapacity', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.PrimaryDiskTotalCapacity == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskTotalCapacity)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskTotalCapacity)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskTotalCapacity)" ng-click="showDetailDialog('PrimaryDiskTotalCapacity', 'template-detail-min-max.html')">
                                 <td>PrimaryDiskTotalCapacity: </td>
                                 <td>{{testItems.PrimaryDiskTotalCapacity.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.DisplayResolutionHorizontal == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionHorizontal)}" ng-mouseenter="onMouseOver(testItems.DisplayResolutionHorizontal)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionHorizontal)" ng-click="showDetailDialog('DisplayResolutionHorizontal', 'template-detail-min-max-chassis.html')">
+                            <tr ng-hide="testItems.DisplayResolutionHorizontal == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionHorizontal)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionHorizontal)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionHorizontal)" ng-click="showDetailDialog('DisplayResolutionHorizontal', 'template-detail-min-max-chassis.html')">
                                 <td>DisplayResolutionHorizontal: </td>
                                 <td>{{testItems.DisplayResolutionHorizontal.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.DisplayResolutionVertical == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionVertical)}" ng-mouseenter="onMouseOver(testItems.DisplayResolutionVertical)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionVertical)" ng-click="showDetailDialog('DisplayResolutionVertical', 'template-detail-min-max-chassis.html')">
+                            <tr ng-hide="testItems.DisplayResolutionVertical == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionVertical)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionVertical)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionVertical)" ng-click="showDetailDialog('DisplayResolutionVertical', 'template-detail-min-max-chassis.html')">
                                 <td>DisplayResolutionVertical: </td>
                                 <td>{{testItems.DisplayResolutionVertical.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.DisplaySizePhysicalH == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalH)}" ng-mouseenter="onMouseOver(testItems.DisplaySizePhysicalH)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalH)" ng-click="showDetailDialog('DisplaySizePhysicalH', 'template-detail-min-max-chassis.html')">
+                            <tr ng-hide="testItems.DisplaySizePhysicalH == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalH)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalH)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalH)" ng-click="showDetailDialog('DisplaySizePhysicalH', 'template-detail-min-max-chassis.html')">
                                 <td>DisplaySizePhysicalH: </td>
                                 <td>{{testItems.DisplaySizePhysicalH.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.DisplaySizePhysicalY == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalY)}" ng-mouseenter="onMouseOver(testItems.DisplaySizePhysicalY)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalY)" ng-click="showDetailDialog('DisplaySizePhysicalY', 'template-detail-min-max-chassis.html')">
+                            <tr ng-hide="testItems.DisplaySizePhysicalY == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalY)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalY)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalY)" ng-click="showDetailDialog('DisplaySizePhysicalY', 'template-detail-min-max-chassis.html')">
                                 <td>DisplaySizePhysicalY: </td>
                                 <td>{{testItems.DisplaySizePhysicalY.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.DigitizerSupportID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DigitizerSupportID)}" ng-mouseenter="onMouseOver(testItems.DigitizerSupportID)" ng-mouseleave="onMouseLeave(testItems.DigitizerSupportID)" ng-click="showDetailDialog('DigitizerSupportID', 'template-detail-expected-unexpected.html')">
+                            <tr ng-hide="testItems.DigitizerSupportID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DigitizerSupportID)}" ng-mouseover="onMouseOver(testItems.DigitizerSupportID)" ng-mouseleave="onMouseLeave(testItems.DigitizerSupportID)" ng-click="showDetailDialog('DigitizerSupportID', 'template-detail-expected-unexpected.html')">
                                 <td>DigitizerSupportID: </td>
                                 <td>{{testItems.DigitizerSupportID.Value}}</td>
                             </tr>
@@ -149,35 +149,35 @@
                 <ul>
                     <content>
                         <table class="table">
-                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseenter="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
+                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseover="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
                                 <td>ChassisType: </td>
                                 <td>{{testItems.ChassisType.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosSystemManufacturer == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemManufacturer)}" ng-mouseenter="onMouseOver(testItems.SmbiosSystemManufacturer)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemManufacturer)" ng-click="showDetailDialog('SmbiosSystemManufacturer', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosSystemManufacturer == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemManufacturer)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemManufacturer)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemManufacturer)" ng-click="showDetailDialog('SmbiosSystemManufacturer', 'template-detail-min-max.html')">
                                 <td>SmbiosSystemManufacturer: </td>
                                 <td>{{testItems.SmbiosSystemManufacturer.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosSystemFamily == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemFamily)}" ng-mouseenter="onMouseOver(testItems.SmbiosSystemFamily)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemFamily)" ng-click="showDetailDialog('SmbiosSystemFamily', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosSystemFamily == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemFamily)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemFamily)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemFamily)" ng-click="showDetailDialog('SmbiosSystemFamily', 'template-detail-min-max.html')">
                                 <td>SmbiosSystemFamily: </td>
                                 <td>{{testItems.SmbiosSystemFamily.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosSystemProductName == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemProductName)}" ng-mouseenter="onMouseOver(testItems.SmbiosSystemProductName)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemProductName)" ng-click="showDetailDialog('SmbiosSystemProductName', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosSystemProductName == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemProductName)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemProductName)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemProductName)" ng-click="showDetailDialog('SmbiosSystemProductName', 'template-detail-min-max.html')">
                                 <td>SmbiosSystemProductName: </td>
                                 <td>{{testItems.SmbiosSystemProductName.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosBoardProduct == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosBoardProduct)}" ng-mouseenter="onMouseOver(testItems.SmbiosBoardProduct)" ng-mouseleave="onMouseLeave(testItems.SmbiosBoardProduct)" ng-click="showDetailDialog('SmbiosBoardProduct', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosBoardProduct == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosBoardProduct)}" ng-mouseover="onMouseOver(testItems.SmbiosBoardProduct)" ng-mouseleave="onMouseLeave(testItems.SmbiosBoardProduct)" ng-click="showDetailDialog('SmbiosBoardProduct', 'template-detail-min-max.html')">
                                 <td>SmbiosBoardProduct: </td>
                                 <td>{{testItems.SmbiosBoardProduct.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosSkuNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSkuNumber)}" ng-mouseenter="onMouseOver(testItems.SmbiosSkuNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSkuNumber)" ng-click="showDetailDialog('SmbiosSkuNumber', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosSkuNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSkuNumber)}" ng-mouseover="onMouseOver(testItems.SmbiosSkuNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSkuNumber)" ng-click="showDetailDialog('SmbiosSkuNumber', 'template-detail-min-max.html')">
                                 <td>SmbiosSkuNumber: </td>
                                 <td>{{testItems.SmbiosSkuNumber.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosSystemSerialNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemSerialNumber)}" ng-mouseenter="onMouseOver(testItems.SmbiosSystemSerialNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemSerialNumber)" ng-click="showDetailDialog('SmbiosSystemSerialNumber', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosSystemSerialNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemSerialNumber)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemSerialNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemSerialNumber)" ng-click="showDetailDialog('SmbiosSystemSerialNumber', 'template-detail-min-max.html')">
                                 <td>SmbiosSystemSerialNumber: </td>
                                 <td>{{testItems.SmbiosSystemSerialNumber.Value}}</td>
                             </tr>
-                            <tr ng-hide="testItems.SmbiosUuid == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosUuid)}" ng-mouseenter="onMouseOver(testItems.SmbiosUuid)" ng-mouseleave="onMouseLeave(testItems.SmbiosUuid)" ng-click="showDetailDialog('SmbiosUuid', 'template-detail-min-max.html')">
+                            <tr ng-hide="testItems.SmbiosUuid == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosUuid)}" ng-mouseover="onMouseOver(testItems.SmbiosUuid)" ng-mouseleave="onMouseLeave(testItems.SmbiosUuid)" ng-click="showDetailDialog('SmbiosUuid', 'template-detail-min-max.html')">
                                 <td>SmbiosUuid: </td>
                                 <td>{{testItems.SmbiosUuid.Value}}</td>
                             </tr>
@@ -526,6 +526,10 @@
             };
 
             $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
                 ngDialog.closeAll();
             };
 
