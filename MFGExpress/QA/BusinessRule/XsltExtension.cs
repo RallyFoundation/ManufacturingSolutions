@@ -84,6 +84,33 @@ namespace HardwareHashValidation
         {
             return !String.IsNullOrEmpty(inputValue) ? inputValue.ToUpper() : "";
         }
+
+        public bool CompareNumberSequence(string comparingSequenceString, string comparedSequenceString, string separator, int index)
+        {
+            string[] comparingArray = comparingSequenceString.Split(new string[] { separator }, StringSplitOptions.None);
+            string[] comparedArray = comparedSequenceString.Split(new string[] { separator }, StringSplitOptions.None);
+
+            int minLength = (index + 1);
+
+            if (comparedArray == null || comparingArray == null || comparingArray.Length < minLength || comparedArray.Length < minLength)
+            {
+                return false;
+            }
+
+            int comparingValue = -1, comparedValue = -1;
+
+            if (!int.TryParse(comparingArray[index], out comparingValue) || !int.TryParse(comparedArray[index], out comparedValue))
+            {
+                return false;
+            }
+
+            if (comparedValue >= comparingValue)
+            {
+                return true;
+            }
+
+            return false;
+        } 
     }
 }
 

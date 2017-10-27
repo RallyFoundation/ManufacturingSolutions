@@ -173,8 +173,8 @@
       <xsl:value-of select="$toolBuild"/>
     </Value>
     <Result>
-      <xsl:if test="($toolBuild = $expectedToolBuild) and ($toolVersion = $expectedToolVersion)">Passed</xsl:if>
-      <xsl:if test="not($toolBuild = $expectedToolBuild) or not($toolVersion = $expectedToolVersion)">Failed</xsl:if>
+      <xsl:if test="($toolVersion &gt;= $expectedToolVersion) and (hhvxslx:CompareNumberSequence($expectedToolBuild, $toolBuild, '.', 2) = true())">Passed</xsl:if>
+      <xsl:if test="($toolVersion &lt; $expectedToolVersion) or (hhvxslx:CompareNumberSequence($expectedToolBuild, $toolBuild, '.', 2) = false())">Failed</xsl:if>
     </Result>
     <Detail>
       <ToolVersion>

@@ -544,7 +544,7 @@ if($ByPassUI -eq $false)
 			#exit;
 		}
 		1 {
-			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe");
+			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -Wait -NoNewWindow;
 		}
 	}
 }
