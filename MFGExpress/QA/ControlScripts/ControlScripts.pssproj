@@ -31,9 +31,9 @@
     <Compile Include="Script\validate-online.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Script\InvokeOffline.cmd" />
-    <Content Include="Script\offline.cmd" />
-    <Content Include="Script\online.cmd" />
+    <Content Include="InvokeOffline.cmd" />
+    <Content Include="offline.cmd" />
+    <Content Include="online.cmd" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Script\" />
