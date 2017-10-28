@@ -263,7 +263,9 @@
   <xsl:template name="SystemInfo">
     <xsl:variable name="ProductKeyID" select="/TestItems/ProductKeyID"/>
     <xsl:variable name="OSType" select="/TestItems/OSType"/>
-    <xsl:variable name="IsPassed" select="($ProductKeyID/Result = 'Passed') and ($OSType/Result = 'Passed')"/>
+    <xsl:variable name="MacAddress" select="/TestItems/NIC"/>
+    <xsl:variable name="OA3Tool" select="/TestItems/OA3Tool"/>
+    <xsl:variable name="IsPassed" select="($ProductKeyID/Result = 'Passed') and ($OSType/Result = 'Passed') and ($MacAddress/Result = 'Passed') and ($OA3Tool/Result = 'Passed')"/>
       <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
         System Info:
         <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
@@ -301,7 +303,7 @@
     <xsl:variable name="DisplayResolutionVertical" select="/TestItems/DisplayResolutionVertical"/>
     <xsl:variable name="DisplaySizePhysicalH" select="/TestItems/DisplaySizePhysicalH"/>
     <xsl:variable name="DisplaySizePhysicalY" select="/TestItems/DisplaySizePhysicalY"/>
-    <xsl:variable name="IsPassed" select="($ChassisType/Result = 'Passed') and ($DigitizerSupportID/Result = 'Passed') and ($ProcessorModel/Result = 'Passed') and ($TotalPhysicalRAM/Result = 'Passed') and ($PrimaryDiskType/Result = 'Passed') and ($PrimaryDiskTotalCapacity/Result = 'Passed') and ($DisplayResolutionHorizontal/Result = 'Passed') and ($DisplayResolutionVertical/Result = 'Passed') and (DisplaySizePhysicalH/Result = 'Passed') and ($DisplaySizePhysicalY/Result = 'Passed')"/>
+    <xsl:variable name="IsPassed" select="($ChassisType/Result != 'Failed') and ($DigitizerSupportID/Result != 'Failed') and ($ProcessorModel/Result != 'Failed') and ($TotalPhysicalRAM/Result != 'Failed') and ($PrimaryDiskType/Result != 'Failed') and ($PrimaryDiskTotalCapacity/Result != 'Failed') and ($DisplayResolutionHorizontal/Result != 'Failed') and ($DisplayResolutionVertical/Result != 'Failed') and ($DisplaySizePhysicalH/Result != 'Failed') and ($DisplaySizePhysicalY/Result != 'Failed')"/>
       <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
         Hardware-Based Price Fields:
         <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
