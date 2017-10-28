@@ -22,7 +22,7 @@
       </head>
       <body>
         <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-        <a>
+        <!--<a>
           <xsl:attribute name="href">
             <xsl:value-of select="$transactionId"/>
             <xsl:value-of select="'_'"/>
@@ -48,7 +48,7 @@
             <xsl:value-of select="'#close'"/>
           </xsl:attribute>
           Close
-        </a>
+        </a>-->
         <hr/>
         <p style="font-weight:bolder;font-size:x-large;font-family:Arial">Total Result: 
           <xsl:call-template name="TotalResult"/>
@@ -56,20 +56,21 @@
         <hr/>
         <ul>
           <li>
-            <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">General Information:</p>
+            <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">System Info:</p>-->
+            <xsl:call-template name="SystemInfo"/>
             <ul>
               <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ProductKeyID: </p>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">Product Key ID: </p>
                 <xsl:apply-templates select="TestItems/ProductKeyID">
                 </xsl:apply-templates>
               </li>
               <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">OSType: </p>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">OS Type: </p>
                 <xsl:apply-templates select="TestItems/OSType">
                 </xsl:apply-templates>
               </li>
               <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">MacAddress: </p>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">Mac Address: </p>
                 <xsl:apply-templates select="TestItems/NIC">
                 </xsl:apply-templates>
               </li>
@@ -81,70 +82,12 @@
             </ul>    
           </li>
           <li>
-            <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">SMBIOS Information:</p>
+            <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Hardware-Based Price Fields:</p>-->
+            <xsl:call-template name="HardwareBasedPriceInfo"/>
             <ul>
               <li>
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
                 <xsl:apply-templates select="TestItems/ChassisType">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemManufacturer: </p>
-                <xsl:apply-templates select="TestItems/SmbiosSystemManufacturer">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemFamily: </p>
-                <xsl:apply-templates select="TestItems/SmbiosSystemFamily">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemProductName: </p>
-                <xsl:apply-templates select="TestItems/SmbiosSystemProductName">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosBoardProduct: </p>
-                <xsl:apply-templates select="TestItems/SmbiosBoardProduct">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSkuNumber: </p>
-                <xsl:apply-templates select="TestItems/SmbiosSkuNumber">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemSerialNumber: </p>
-                <xsl:apply-templates select="TestItems/SmbiosSystemSerialNumber">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosUuid: </p>
-                <xsl:apply-templates select="TestItems/SmbiosUuid">
-                </xsl:apply-templates>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Hardware Components Information:</p>
-            <ul>
-              <li>
-                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DigitizerSupportID: </p>
-                <xsl:apply-templates select="TestItems/DigitizerSupportID">
                 </xsl:apply-templates>
               </li>
             </ul>
@@ -204,13 +147,80 @@
                 </xsl:apply-templates>
               </li>
             </ul>
+            <ul>
+                <li>
+                  <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DigitizerSupportID: </p>
+                  <xsl:apply-templates select="TestItems/DigitizerSupportID">
+                  </xsl:apply-templates>
+                </li>
+              </ul>
+          </li>
+          <li>
+            <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Smbios Fields:</p>-->
+            <xsl:call-template name="SmbiosInfo"/>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
+                <xsl:apply-templates select="TestItems/ChassisType">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemManufacturer: </p>
+                <xsl:apply-templates select="TestItems/SmbiosSystemManufacturer">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemFamily: </p>
+                <xsl:apply-templates select="TestItems/SmbiosSystemFamily">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemProductName: </p>
+                <xsl:apply-templates select="TestItems/SmbiosSystemProductName">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosBoardProduct: </p>
+                <xsl:apply-templates select="TestItems/SmbiosBoardProduct">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSkuNumber: </p>
+                <xsl:apply-templates select="TestItems/SmbiosSkuNumber">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemSerialNumber: </p>
+                <xsl:apply-templates select="TestItems/SmbiosSystemSerialNumber">
+                </xsl:apply-templates>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosUuid: </p>
+                <xsl:apply-templates select="TestItems/SmbiosUuid">
+                </xsl:apply-templates>
+              </li>
+            </ul>
           </li>
         </ul>
       </body>
     </html>
     </xsl:template>
 
-  <xsl:template name="TotalResult">
+  <!--<xsl:template name="TotalResult">
     <xsl:variable name="totalItemCount" select="count(//Result)"/>
     <xsl:variable name="passedItemCount" select="count(//Result[./text() = 'Passed'])"/>
     <Span>
@@ -223,6 +233,81 @@
         Failed
       </xsl:if>
     </Span>
+  </xsl:template>-->
+
+  <xsl:template name="TotalResult">
+    <xsl:variable name="totalItemCount" select="count(//Result)"/>
+    <xsl:variable name="passedItemCount" select="count(//Result[./text() = 'Passed'])"/>
+    <xsl:variable name="failedItemCount" select="count(//Result[./text() = 'Failed'])"/>
+    <Span>
+      <xsl:if test="$totalItemCount = $passedItemCount">
+        <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+        Passed
+      </xsl:if>
+      <xsl:if test="($totalItemCount &gt; $passedItemCount) and ($failedItemCount &gt; 0)">
+        <xsl:attribute name="style">background-color:red</xsl:attribute>
+        <xsl:value-of select="$failedItemCount"/>
+        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+        <xsl:if test="$failedItemCount = 1">
+          Field
+        </xsl:if>
+        <xsl:if test="$failedItemCount &gt; 1">
+          Fields
+        </xsl:if>
+        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+        Failed
+      </xsl:if>
+    </Span>
+  </xsl:template>
+
+  <xsl:template name="SystemInfo">
+    <xsl:variable name="ProductKeyID" select="/TestItems/ProductKeyID"/>
+    <xsl:variable name="OSType" select="/TestItems/OSType"/>
+    <xsl:variable name="IsPassed" select="($ProductKeyID/Result = 'Passed') and ($OSType/Result = 'Passed')"/>
+      <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
+        System Info:
+        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+        <xsl:if test="$IsPassed = true()">Passed</xsl:if>
+        <xsl:if test="$IsPassed = false()">Failed</xsl:if>
+      </p>
+  </xsl:template>
+
+  <xsl:template name="SmbiosInfo">
+    <xsl:variable name="ChassisType" select="/TestItems/ChassisType"/>
+    <xsl:variable name="SmbiosSystemManufacturer" select="/TestItems/SmbiosSystemManufacturer"/>
+    <xsl:variable name="SmbiosSystemFamily" select="/TestItems/SmbiosSystemFamily"/>
+    <xsl:variable name="SmbiosSystemProductName" select="/TestItems/SmbiosSystemProductName"/>
+    <xsl:variable name="SmbiosBoardProduct" select="/TestItems/SmbiosBoardProduct"/>
+    <xsl:variable name="SmbiosSkuNumber" select="/TestItems/SmbiosSkuNumber"/>
+    <xsl:variable name="SmbiosSystemSerialNumber" select="/TestItems/SmbiosSystemSerialNumber"/>
+    <xsl:variable name="SmbiosUuid" select="/TestItems/SmbiosUuid"/>
+    <xsl:variable name="IsPassed" select="($ChassisType/Result = 'Passed') and ($SmbiosSystemManufacturer/Result = 'Passed') and ($SmbiosSystemFamily/Result = 'Passed') and ($SmbiosSystemProductName/Result = 'Passed') and ($SmbiosBoardProduct/Result = 'Passed') and ($SmbiosSkuNumber/Result = 'Passed') and ($SmbiosSystemSerialNumber/Result = 'Passed') and ($SmbiosUuid/Result = 'Passed')"/>
+      <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
+        Smbios Fields:
+        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+        <xsl:if test="$IsPassed = true()">Passed</xsl:if>
+        <xsl:if test="$IsPassed = false()">Failed</xsl:if>
+      </p>
+  </xsl:template>
+
+  <xsl:template name="HardwareBasedPriceInfo">
+    <xsl:variable name="ChassisType" select="/TestItems/ChassisType"/>
+    <xsl:variable name="DigitizerSupportID" select="/TestItems/DigitizerSupportID"/>
+    <xsl:variable name="ProcessorModel" select="/TestItems/ProcessorModel"/>
+    <xsl:variable name="TotalPhysicalRAM" select="/TestItems/TotalPhysicalRAM"/>
+    <xsl:variable name="PrimaryDiskType" select="/TestItems/PrimaryDiskType"/>
+    <xsl:variable name="PrimaryDiskTotalCapacity" select="/TestItems/PrimaryDiskTotalCapacity"/>
+    <xsl:variable name="DisplayResolutionHorizontal" select="/TestItems/DisplayResolutionHorizontal"/>
+    <xsl:variable name="DisplayResolutionVertical" select="/TestItems/DisplayResolutionVertical"/>
+    <xsl:variable name="DisplaySizePhysicalH" select="/TestItems/DisplaySizePhysicalH"/>
+    <xsl:variable name="DisplaySizePhysicalY" select="/TestItems/DisplaySizePhysicalY"/>
+    <xsl:variable name="IsPassed" select="($ChassisType/Result = 'Passed') and ($DigitizerSupportID/Result = 'Passed') and ($ProcessorModel/Result = 'Passed') and ($TotalPhysicalRAM/Result = 'Passed') and ($PrimaryDiskType/Result = 'Passed') and ($PrimaryDiskTotalCapacity/Result = 'Passed') and ($DisplayResolutionHorizontal/Result = 'Passed') and ($DisplayResolutionVertical/Result = 'Passed') and (DisplaySizePhysicalH/Result = 'Passed') and ($DisplaySizePhysicalY/Result = 'Passed')"/>
+      <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
+        Hardware-Based Price Fields:
+        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+        <xsl:if test="$IsPassed = true()">Passed</xsl:if>
+        <xsl:if test="$IsPassed = false()">Failed</xsl:if>
+      </p>
   </xsl:template>
 
   <xsl:template match="TestItems/ProductKeyID">
