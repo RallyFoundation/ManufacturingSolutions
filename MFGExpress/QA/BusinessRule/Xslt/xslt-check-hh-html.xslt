@@ -303,7 +303,7 @@
     <xsl:variable name="DisplayResolutionVertical" select="/TestItems/DisplayResolutionVertical"/>
     <xsl:variable name="DisplaySizePhysicalH" select="/TestItems/DisplaySizePhysicalH"/>
     <xsl:variable name="DisplaySizePhysicalY" select="/TestItems/DisplaySizePhysicalY"/>
-    <xsl:variable name="IsPassed" select="($ChassisType/Result != 'Failed') and ($DigitizerSupportID/Result != 'Failed') and ($ProcessorModel/Result != 'Failed') and ($TotalPhysicalRAM/Result != 'Failed') and ($PrimaryDiskType/Result != 'Failed') and ($PrimaryDiskTotalCapacity/Result != 'Failed') and ($DisplayResolutionHorizontal/Result != 'Failed') and ($DisplayResolutionVertical/Result != 'Failed') and ($DisplaySizePhysicalH/Result != 'Failed') and ($DisplaySizePhysicalY/Result != 'Failed')"/>
+    <xsl:variable name="IsPassed" select="($ChassisType/Result = 'Passed' or $ChassisType = '') and ($DigitizerSupportID/Result = 'Passed' or $DigitizerSupportID = '') and ($ProcessorModel/Result = 'Passed' or $ProcessorModel = '') and ($TotalPhysicalRAM/Result = 'Passed' or $TotalPhysicalRAM = '') and ($PrimaryDiskType/Result = 'Passed') and ($PrimaryDiskTotalCapacity/Result = 'Passed' or $PrimaryDiskTotalCapacity = '') and ($DisplayResolutionHorizontal/Result = 'Passed' or $DisplayResolutionHorizontal = '') and ($DisplayResolutionVertical/Result = 'Passed' or $DisplayResolutionVertical = '') and ($DisplaySizePhysicalH/Result = 'Passed' or $DisplaySizePhysicalH = '') and ($DisplaySizePhysicalY/Result = 'Passed' or $DisplaySizePhysicalY = '')"/>
       <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">
         Hardware-Based Price Fields:
         <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
