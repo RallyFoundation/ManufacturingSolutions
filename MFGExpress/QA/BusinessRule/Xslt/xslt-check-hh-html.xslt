@@ -58,7 +58,7 @@
           <li>
             <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">System Info:</p>-->
             <xsl:call-template name="SystemInfo"/>
-            <ul>
+            <!--<ul>
               <li>
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">Product Key ID: </p>
                 <xsl:apply-templates select="TestItems/ProductKeyID">
@@ -79,12 +79,12 @@
                 <xsl:apply-templates select="TestItems/OA3Tool">
                 </xsl:apply-templates>
               </li>
-            </ul>    
+            </ul>-->    
           </li>
           <li>
             <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Hardware-Based Price Fields:</p>-->
             <xsl:call-template name="HardwareBasedPriceInfo"/>
-            <ul>
+            <!--<ul>
               <li>
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
                 <xsl:apply-templates select="TestItems/ChassisType">
@@ -153,12 +153,12 @@
                   <xsl:apply-templates select="TestItems/DigitizerSupportID">
                   </xsl:apply-templates>
                 </li>
-              </ul>
+              </ul>-->
           </li>
           <li>
             <!--<p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Smbios Fields:</p>-->
             <xsl:call-template name="SmbiosInfo"/>
-            <ul>
+            <!--<ul>
               <li>
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
                 <xsl:apply-templates select="TestItems/ChassisType">
@@ -213,7 +213,7 @@
                 <xsl:apply-templates select="TestItems/SmbiosUuid">
                 </xsl:apply-templates>
               </li>
-            </ul>
+            </ul>-->
           </li>
         </ul>
       </body>
@@ -272,6 +272,174 @@
         <xsl:if test="$IsPassed = true()">Passed</xsl:if>
         <xsl:if test="$IsPassed = false()">Failed</xsl:if>
       </p>
+      <ul>
+        <xsl:if test="$ProductKeyID != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">Product Key ID: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ProductKeyID/Expected)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ProductKeyID/Value)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$ProductKeyID/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$ProductKeyID/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$ProductKeyID/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:value-of select="$ProductKeyID/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+        <xsl:if test="$OSType != ''">
+         <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">OS Type: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($OSType/Expected)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($OSType/Value)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$OSType/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$OSType/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$OSType/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  OS Build Number:
+                  <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                  <xsl:value-of select="$OSType/Detail/OSBuild"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+        <xsl:if test="$MacAddress != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">Mac Address: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($MacAddress/Min)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($MacAddress/Value)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$MacAddress/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$MacAddress/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$MacAddress/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:for-each select="$MacAddress/Detail/child::*[starts-with(name(), 'PhysicalMedium_')]">
+                    <span>
+                      <xsl:value-of select="name()"/>
+                      <xsl:value-of select="':'"/>
+                      <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                      <xsl:value-of select="text()"/>
+                      <br/>
+                    </span>
+                  </xsl:for-each>
+                </td>
+              </tr>
+            </table>
+          </li> 
+        </xsl:if>
+        <xsl:if test="$OA3Tool != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">OA3Tool: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($OA3Tool/Expected)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($OA3Tool/Value)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$OA3Tool/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$OA3Tool/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$OA3Tool/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <span>
+                    Tool Version:
+                    <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                    <xsl:value-of select="$OA3Tool/Detail/ToolVersion"/>
+                    <br/>
+                    Tool Build:
+                    <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                    <xsl:value-of select="$OA3Tool/Detail/ToolBuild"/>
+                  </span>      
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+      </ul>  
   </xsl:template>
 
   <xsl:template name="SmbiosInfo">
@@ -290,6 +458,359 @@
         <xsl:if test="$IsPassed = true()">Passed</xsl:if>
         <xsl:if test="$IsPassed = false()">Failed</xsl:if>
       </p>
+    <ul>
+      <xsl:if test="$ChassisType != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Expected Value: </td>
+              <td>
+                <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Expected)" disable-output-escaping="yes"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Unexpected Value: </td>
+              <td>
+                <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Unexpected)" disable-output-escaping="yes"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Value)" disable-output-escaping="yes"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$ChassisType/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$ChassisType/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$ChassisType/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$ChassisType/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosSystemManufacturer != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemManufacturer: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemManufacturer/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemManufacturer/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosSystemManufacturer/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosSystemManufacturer/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosSystemManufacturer/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosSystemManufacturer/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosSystemManufacturer/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemManufacturer/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li> 
+      </xsl:if>
+      <xsl:if test="$SmbiosSystemFamily != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemFamily: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemFamily/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemFamily/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosSystemFamily/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosSystemFamily/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosSystemFamily/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosSystemFamily/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosSystemFamily/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemFamily/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosSystemProductName != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemProductName: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemProductName/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemProductName/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosSystemProductName/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosSystemProductName/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosSystemProductName/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosSystemProductName/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosSystemProductName/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemProductName/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosBoardProduct != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosBoardProduct: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosBoardProduct/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosBoardProduct/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosBoardProduct/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosBoardProduct/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosBoardProduct/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosBoardProduct/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosBoardProduct/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosBoardProduct/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosSkuNumber != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSkuNumber: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSkuNumber/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSkuNumber/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosSkuNumber/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosSkuNumber/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosSkuNumber/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosSkuNumber/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosSkuNumber/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosSkuNumber/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosSystemSerialNumber != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemSerialNumber: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemSerialNumber/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemSerialNumber/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosSystemSerialNumber/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosSystemSerialNumber/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosSystemSerialNumber/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosSystemSerialNumber/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosSystemSerialNumber/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosSystemSerialNumber/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+      <xsl:if test="$SmbiosUuid != ''">
+        <li>
+          <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosUuid: </p>
+          <table xmlns="http://www.w3.org/1999/xhtml">
+            <tr>
+              <td>Min Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosUuid/Min"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Max Value (Length): </td>
+              <td>
+                <xsl:value-of select="$SmbiosUuid/Max"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Test Value: </td>
+              <td style="background-color:yellow">
+                <xsl:value-of select="$SmbiosUuid/Value"/>
+                (Length: <xsl:value-of select="string-length($SmbiosUuid/Value)"/> characters)
+              </td>
+            </tr>
+            <tr>
+              <td>Result: </td>
+              <td>
+                <xsl:if test="$SmbiosUuid/Result = 'Passed'">
+                  <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$SmbiosUuid/Result = 'Failed'">
+                  <xsl:attribute name="style">background-color:red</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="$SmbiosUuid/Result"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Detail: </td>
+              <td>
+                <xsl:value-of select="$SmbiosUuid/Detail"/>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </xsl:if>
+    </ul>
   </xsl:template>
 
   <xsl:template name="HardwareBasedPriceInfo">
@@ -310,6 +831,580 @@
         <xsl:if test="$IsPassed = true()">Passed</xsl:if>
         <xsl:if test="$IsPassed = false()">Failed</xsl:if>
       </p>
+      <ul>
+          <xsl:if test="$ChassisType != ''">
+            <li>
+              <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ChassisType: </p>
+                <table xmlns="http://www.w3.org/1999/xhtml">
+                <tr>
+                  <td>Expected Value: </td>
+                  <td>
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Expected)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Unexpected Value: </td>
+                  <td>
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Unexpected)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Test Value: </td>
+                  <td style="background-color:yellow">
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Value)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Result: </td>
+                  <td>
+                    <xsl:if test="$ChassisType/Result = 'Passed'">
+                      <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$ChassisType/Result = 'Failed'">
+                      <xsl:attribute name="style">background-color:red</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$ChassisType/Result"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Detail: </td>
+                  <td>
+                    <xsl:value-of select="$ChassisType/Detail"/>
+                  </td>
+                </tr>
+              </table>
+            </li>     
+          </xsl:if>
+          <xsl:if test="$ProcessorModel != ''">
+            <li>
+              <p style="font-weight:bolder;text-decoration:underline;font-style:italic">ProcessorModel: </p>
+              <table xmlns="http://www.w3.org/1999/xhtml">
+                <tr>
+                  <td>Expected Value: </td>
+                  <td>
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ProcessorModel/Expected)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Test Value: </td>
+                  <td style="background-color:yellow">
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ProcessorModel/Value)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Result: </td>
+                  <td>
+                    <xsl:if test="$ProcessorModel/Result = 'Passed'">
+                      <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$ProcessorModel/Result = 'Failed'">
+                      <xsl:attribute name="style">background-color:red</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$ProcessorModel/Result"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Detail: </td>
+                  <td>
+                    <xsl:value-of select="$ProcessorModel/Detail"/>
+                  </td>
+                </tr>
+              </table>
+            </li>
+            </xsl:if>
+          <xsl:if test="$TotalPhysicalRAM != ''">
+              <li>
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">TotalPhysicalRAM: </p>
+                <table xmlns="http://www.w3.org/1999/xhtml">
+                  <tr>
+                    <td>Min Value (Length): </td>
+                    <td>
+                      <xsl:value-of select="$TotalPhysicalRAM/Min"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Max Value (Length): </td>
+                    <td>
+                      <xsl:value-of select="$TotalPhysicalRAM/Max"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test Value: </td>
+                    <td style="background-color:yellow">
+                      <xsl:value-of select="$TotalPhysicalRAM/Value"/>
+                      (Length: <xsl:value-of select="string-length($TotalPhysicalRAM/Value)"/> characters)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Result: </td>
+                    <td>
+                      <xsl:if test="$TotalPhysicalRAM/Result = 'Passed'">
+                        <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                      </xsl:if>
+                      <xsl:if test="$TotalPhysicalRAM/Result = 'Failed'">
+                        <xsl:attribute name="style">background-color:red</xsl:attribute>
+                      </xsl:if>
+                      <xsl:value-of select="$TotalPhysicalRAM/Result"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Detail: </td>
+                    <td>
+                      <xsl:if test="$mode = 'online' and $TotalPhysicalRAM/Result = 'Failed' and $transactionId != '' and $productKeyId != ''">
+                        <a target="_blank">
+                          <xsl:attribute name="href">
+                            <xsl:value-of select="$transactionId"/>
+                            <xsl:value-of select="'_'"/>
+                            <xsl:value-of select="$productKeyId"/>
+                            <xsl:value-of select="'_Trace.xml'"/>
+                          </xsl:attribute>
+                          View OA3Tool Log Trace
+                        </a>
+                        <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                        <a target="_blank">
+                          <xsl:attribute name="href">
+                            <xsl:value-of select="$transactionId"/>
+                            <xsl:value-of select="'_'"/>
+                            <xsl:value-of select="$productKeyId"/>
+                            <xsl:value-of select="'_SMBIOS_Dump.txt'"/>
+                          </xsl:attribute>
+                          View SMBIOS Dump
+                        </a>
+                        <br/>
+                      </xsl:if> 
+                      <xsl:value-of select="$TotalPhysicalRAM/Detail"/>
+                    </td>
+                  </tr>
+                </table>
+              </li>   
+            </xsl:if>
+          <xsl:if test="$PrimaryDiskType != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">PrimaryDiskType: </p>
+              <table xmlns="http://www.w3.org/1999/xhtml">
+                <tr>
+                  <td>Expected Value: </td>
+                  <td>
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Expected)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Unexpected Value: </td>
+                  <td>
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Unexpected)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Test Value: </td>
+                  <td style="background-color:yellow">
+                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Value)" disable-output-escaping="yes"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Result: </td>
+                  <td>
+                    <xsl:if test="$PrimaryDiskType/Result = 'Passed'">
+                      <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$PrimaryDiskType/Result = 'Failed'">
+                      <xsl:attribute name="style">background-color:red</xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="$PrimaryDiskType/Result"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Detail: </td>
+                  <td>
+                    <xsl:if test="$mode = 'online' and ./Result = 'Failed' and $transactionId != '' and $productKeyId != ''">
+                      <a target="_blank">
+                        <xsl:attribute name="href">
+                          <xsl:value-of select="$transactionId"/>
+                          <xsl:value-of select="'_'"/>
+                          <xsl:value-of select="$productKeyId"/>
+                          <xsl:value-of select="'_Trace.xml'"/>
+                        </xsl:attribute>
+                        View OA3Tool Log Trace
+                      </a>
+                      <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                      <a target="_blank">
+                        <xsl:attribute name="href">
+                          <xsl:value-of select="$transactionId"/>
+                          <xsl:value-of select="'_'"/>
+                          <xsl:value-of select="$productKeyId"/>
+                          <xsl:value-of select="'_SMBIOS_Dump.txt'"/>
+                        </xsl:attribute>
+                        View SMBIOS Dump
+                      </a>
+                      <br/>
+                    </xsl:if>
+                    <xsl:value-of select="$PrimaryDiskType/Detail"/>
+                  </td>
+                </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$PrimaryDiskTotalCapacity != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">PrimaryDiskTotalCapacity: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value: </td>
+                <td>
+                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Min"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Max Value: </td>
+                <td>
+                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Max"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Value"/>
+                  (Length: <xsl:value-of select="string-length($PrimaryDiskTotalCapacity/Value)"/> characters)
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$PrimaryDiskTotalCapacity/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$PrimaryDiskTotalCapacity/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:if test="$mode = 'online' and ./Result = 'Failed' and $transactionId != '' and $productKeyId != ''">
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_Trace.xml'"/>
+                      </xsl:attribute>
+                      View OA3Tool Log Trace
+                    </a>
+                    <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_SMBIOS_Dump.txt'"/>
+                      </xsl:attribute>
+                      View SMBIOS Dump
+                    </a>
+                    <br/>
+                  </xsl:if>
+                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$DisplayResolutionHorizontal != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplayResolutionHorizontal: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionHorizontal/Min"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Max Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionHorizontal/Max"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Chassis Type: </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionHorizontal/ChassisType"/>
+                  <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionHorizontal/ChassisType)"/>)
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="$DisplayResolutionHorizontal/Value"/>
+                  (Length: <xsl:value-of select="string-length($DisplayResolutionHorizontal/Value)"/> characters)
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$DisplayResolutionHorizontal/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$DisplayResolutionHorizontal/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplayResolutionHorizontal/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionHorizontal/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$DisplayResolutionVertical != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplayResolutionVertical: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionVertical/Min"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Max Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionVertical/Max"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Chassis Type: </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionVertical/ChassisType"/>
+                  <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionVertical/ChassisType)"/>)
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="$DisplayResolutionVertical/Value"/>
+                  (Length: <xsl:value-of select="string-length($DisplayResolutionVertical/Value)"/> characters)
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$DisplayResolutionVertical/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$DisplayResolutionVertical/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplayResolutionVertical/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:value-of select="$DisplayResolutionVertical/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$DisplaySizePhysicalH != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplaySizePhysicalH: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalH/Min"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Max Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalH/Max"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Chassis Type: </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalH/ChassisType"/>
+                  <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalH/ChassisType)"/>)
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="$DisplaySizePhysicalH/Value"/>
+                  (Length: <xsl:value-of select="string-length($DisplaySizePhysicalH/Value)"/> characters)
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$DisplaySizePhysicalH/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$DisplaySizePhysicalH/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplaySizePhysicalH/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:if test="$mode = 'online' and ./Result = 'Failed' and $transactionId != '' and $productKeyId != ''">
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_Trace.xml'"/>
+                      </xsl:attribute>
+                      View OA3Tool Log Trace
+                    </a>
+                    <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_MonitorSize_Dump.txt'"/>
+                      </xsl:attribute>
+                      View Monitor Size Dump
+                    </a>
+                    <br/>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplaySizePhysicalH/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$DisplaySizePhysicalY != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplaySizePhysicalY: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Min Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalY/Min"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Max Value (Length): </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalY/Max"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Chassis Type: </td>
+                <td>
+                  <xsl:value-of select="$DisplaySizePhysicalY/ChassisType"/>
+                  <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalY/ChassisType)"/>)
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="$DisplaySizePhysicalY/Value"/>
+                  (Length: <xsl:value-of select="string-length($DisplaySizePhysicalY/Value)"/> characters)
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$DisplaySizePhysicalY/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$DisplaySizePhysicalY/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplaySizePhysicalY/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:if test="$mode = 'online' and ./Result = 'Failed' and $transactionId != '' and $productKeyId != ''">
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_Trace.xml'"/>
+                      </xsl:attribute>
+                      View OA3Tool Log Trace
+                    </a>
+                    <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+                    <a target="_blank">
+                      <xsl:attribute name="href">
+                        <xsl:value-of select="$transactionId"/>
+                        <xsl:value-of select="'_'"/>
+                        <xsl:value-of select="$productKeyId"/>
+                        <xsl:value-of select="'_MonitorSize_Dump.txt'"/>
+                      </xsl:attribute>
+                      View Monitor Size Dump
+                    </a>
+                    <br/>
+                  </xsl:if>
+                  <xsl:value-of select="$DisplaySizePhysicalY/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>
+          <xsl:if test="$DigitizerSupportID != ''">
+          <li>
+            <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DigitizerSupportID: </p>
+            <table xmlns="http://www.w3.org/1999/xhtml">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($DigitizerSupportID/Expected)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($DigitizerSupportID/Unexpected)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Test Value: </td>
+                <td style="background-color:yellow">
+                  <xsl:value-of select="hhvxslx:GetHtmlSpacedString($DigitizerSupportID/Value)" disable-output-escaping="yes"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Result: </td>
+                <td>
+                  <xsl:if test="$DigitizerSupportID/Result = 'Passed'">
+                    <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="$DigitizerSupportID/Result = 'Failed'">
+                    <xsl:attribute name="style">background-color:red</xsl:attribute>
+                  </xsl:if>
+                  <xsl:value-of select="$DigitizerSupportID/Result"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Detail: </td>
+                <td>
+                  <xsl:value-of select="$DigitizerSupportID/Detail"/>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </xsl:if>    
+      </ul>
   </xsl:template>
 
   <xsl:template match="TestItems/ProductKeyID">
@@ -470,7 +1565,7 @@
     </table>
   </xsl:template>
   
-    <xsl:template match="TestItems/ChassisType">
+  <xsl:template match="TestItems/ChassisType">
      <table xmlns="http://www.w3.org/1999/xhtml">
       <tr>
         <td>Expected Value: </td>
