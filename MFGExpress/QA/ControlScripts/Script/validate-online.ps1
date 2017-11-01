@@ -1,4 +1,4 @@
-﻿param([System.String]$TraceFilePath, [System.String]$DecodeFilePath, [System.String]$ReportFilePath, [System.String]$TransactionID, [System.String]$RootDir, [System.String]$ServiceUrl, [System.Boolean]$ByPassUI = 0, [ref]$OutResult);
+﻿param([System.String]$TraceFilePath, [System.String]$DecodeFilePath, [System.String]$ReportFilePath, [System.String]$TransactionID, [System.String]$RootDir, [System.String]$ServiceUrl, [System.Boolean]$ByPassUI = 0, [System.Boolean]$StayInHost = 0, [ref]$OutResult);
 
 $ErrorActionPreference = "Stop";
 
@@ -574,4 +574,7 @@ if([System.String]::IsNullOrEmpty($ServiceUrl) -eq $false)
 	Invoke-RestMethod -Method Post -Body $BodyJsonString -Uri $ServiceUrl;
 }
 
-$Host.SetShouldExit(1);
+if($StayInHost -eq $false)
+{
+   $Host.SetShouldExit(1);
+}
