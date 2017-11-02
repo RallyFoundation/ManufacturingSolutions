@@ -55,11 +55,11 @@ if([System.String]::IsNullOrEmpty($TransactionID) -eq $true)
 [System.String]$Message;
 
 $LogPath = $RootDir +  "\Log";
-if([System.IO.Directory]::Exists($LogPath) -eq $false)
-{
-    [System.IO.Directory]::CreateDirectory($LogPath);
-	Start-Sleep -Milliseconds 1000;
-}
+#if([System.IO.Directory]::Exists($LogPath) -eq $false)
+#{
+#    [System.IO.Directory]::CreateDirectory($LogPath);
+#	Start-Sleep -Milliseconds 1000;
+#}
 
 $OutputPath = $RootDir +  "\Output";
 if([System.IO.Directory]::Exists($OutputPath) -eq $false)
@@ -160,9 +160,13 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 	    #Write-Host -Object "Error(s) occurred during xml schema validation!";
         #Write-Host $Message;
 	    Read-Host -Prompt ("`nError(s) occurred during xml schema validation! `nPress any key to exit...");
-        #exit;
-		$Host.SetShouldExit(1);
+        exit;
+		#$Host.SetShouldExit(1);
     }
+	finally
+	{
+	   $Host.SetShouldExit(1);
+	}
 
 	#$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
 
@@ -357,14 +361,19 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 	{
 		$Message = $Error[0].Exception;
 		$Message;
+		"Errors occurred!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
   
 		$Host.UI.RawUI.BackgroundColor = "Red";
 		$Host.UI.RawUI.ForegroundColor = "Yellow";
-		Write-Host -Object "Errors occurred!";
+		#Write-Host -Object "Errors occurred!";
 		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-		#exit;
-		$Host.SetShouldExit(1);
+		exit;
+		#$Host.SetShouldExit(1);
+	}
+	finally
+	{
+	   $Host.SetShouldExit(1);
 	}
 }
 

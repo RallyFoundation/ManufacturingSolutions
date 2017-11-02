@@ -53,11 +53,11 @@ if([System.String]::IsNullOrEmpty($TransactionID) -eq $true)
 }
 
 $LogPath = $RootDir +  "\Log";
-if([System.IO.Directory]::Exists($LogPath) -eq $false)
-{
-    [System.IO.Directory]::CreateDirectory($LogPath);
-	Start-Sleep -Milliseconds 1000;
-}
+#if([System.IO.Directory]::Exists($LogPath) -eq $false)
+#{
+#    [System.IO.Directory]::CreateDirectory($LogPath);
+#	Start-Sleep -Milliseconds 1000;
+#}
 
 $OutputPath = $RootDir +  "\Output";
 if([System.IO.Directory]::Exists($OutputPath) -eq $false)
@@ -213,12 +213,19 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 		$Message = $Error[0].Exception;
 		$Message;
 
+		"Error(s) occurred during ACPI MSDM table validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+
 		$Host.UI.RawUI.BackgroundColor = "Red";
 		$Host.UI.RawUI.ForegroundColor = "Yellow";
-		Write-Host -Object "Error(s) occurred during ACPI MSDM table validation!";
+		#Write-Host -Object "Error(s) occurred during ACPI MSDM table validation!";
 		Read-Host -Prompt "Error(s) occurred during ACPI MSDM table validation!`nPress any key to exit...";
-		#exit;
-		$Host.SetShouldExit(1);
+		exit;
+		
+	}
+	finally
+	{
+	   $Host.SetShouldExit(1);
 	}
 
 	#Invokes OA3Tool.exe /Report to generate output DPK info xml file
@@ -247,8 +254,11 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 		$Host.UI.RawUI.ForegroundColor = "Yellow";
 		Write-Host -Object "Errors occurred!";
 		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-		#exit;
-		$Host.SetShouldExit(1);
+		exit;
+	}
+    finally
+	{
+	   $Host.SetShouldExit(1);
 	}
 
 	#Invokes OA3Tool.exe /CheckHwHash to generate log trace
@@ -304,13 +314,19 @@ catch [System.Exception]
 {
     $Message = $Error[0].Exception;
 
+	"Error(s) occurred during xml schema validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+
 	$Host.UI.RawUI.BackgroundColor = "Red";
 	$Host.UI.RawUI.ForegroundColor = "Yellow";
-	Write-Host -Object "Error(s) occurred during xml schema validation!";
+	#Write-Host -Object "Error(s) occurred during xml schema validation!";
     Write-Host $Message;
 	Read-Host -Prompt ($Message + "`nError(s) occurred during xml schema validation! `nPress any key to exit...");
-    #exit;
-	$Host.SetShouldExit(1);
+    exit;
+}
+finally
+{
+   $Host.SetShouldExit(1);
 }
 
 #Invokes OA3Tool.exe /DecodeHwHash to generate decoded hardware hash info
@@ -326,14 +342,19 @@ catch [System.Exception]
 {
 	$Message = $Error[0].Exception;
 	$Message;
+
+	"Errors occurred!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
   
 	$Host.UI.RawUI.BackgroundColor = "Red";
 	$Host.UI.RawUI.ForegroundColor = "Yellow";
-	Write-Host -Object "Errors occurred!";
+	#Write-Host -Object "Errors occurred!";
 	Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-	#exit;
-	$Host.SetShouldExit(1);
+	exit;
+}
+finally
+{
+    $Host.SetShouldExit(1);
 }
 
 if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
