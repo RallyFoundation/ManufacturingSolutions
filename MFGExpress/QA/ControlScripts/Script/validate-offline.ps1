@@ -14,6 +14,7 @@ if($PowerShellVersionInfo.PSVersion.Major -lt 5)
    Write-Host -Object "PowerShell 5.1 is required!";
    Read-Host -Prompt "PowerShell 5.1 is required!`nPress any key to exit...";
    #exit;
+   $Host.SetShouldExit(1);
 }
 
 if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
@@ -23,6 +24,7 @@ if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
    Write-Host -Object ".NET Framework 4.52 is required!";
    Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
    #exit;
+   $Host.SetShouldExit(1);
 }
 
 if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
@@ -143,18 +145,23 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
           Write-Host $Message;
 	      Read-Host -Prompt ($Message + "`nThe file provided for the OA3Tool report result file failed to pass the XML schema validation! `nPress any key to exit...");
           #exit;
+		  $Host.SetShouldExit(1);
        }
     }
-    catch
+    catch [System.Exception]
     {
         $Message = $Error[0].Exception;
 
+		"Error(s) occurred during xml schema validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+
 	    $Host.UI.RawUI.BackgroundColor = "Red";
 	    $Host.UI.RawUI.ForegroundColor = "Yellow";
-	    Write-Host -Object "Error(s) occurred during xml schema validation!";
-        Write-Host $Message;
-	    Read-Host -Prompt ($Message + "`nError(s) occurred during xml schema validation! `nPress any key to exit...");
+	    #Write-Host -Object "Error(s) occurred during xml schema validation!";
+        #Write-Host $Message;
+	    Read-Host -Prompt ("`nError(s) occurred during xml schema validation! `nPress any key to exit...");
         #exit;
+		$Host.SetShouldExit(1);
     }
 
 	#$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
@@ -357,6 +364,7 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 		Write-Host -Object "Errors occurred!";
 		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
 		#exit;
+		$Host.SetShouldExit(1);
 	}
 }
 
@@ -384,6 +392,7 @@ if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
    Write-Host -Object ("Errors occurred decoding hardware hash. Please see the log file for more details.");
    Read-Host -Prompt ([System.String]::Format("Errors occurred decoding hardware hash! `nPlease see the log file (`"{0}`") for more details...`nPress any key to exit...", ($LogPath + "\" + $TransactionID + ".log")));
    #exit;
+   $Host.SetShouldExit(1);
 }
 
 [xml]$HardwareHashDecode = [xml](Get-Content -Path $DecodeFilePath);
