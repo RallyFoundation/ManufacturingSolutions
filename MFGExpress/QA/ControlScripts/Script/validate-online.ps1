@@ -13,7 +13,7 @@ if($PowerShellVersionInfo.PSVersion.Major -lt 5)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object "PowerShell 5.1 is required!";
    Read-Host -Prompt "PowerShell 5.1 is required!`nPress any key to exit...";
-   #exit;
+   exit;
    $Host.SetShouldExit(1);
 }
 
@@ -23,7 +23,7 @@ if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object ".NET Framework 4.52 is required!";
    Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
-   #exit;
+   exit;
    $Host.SetShouldExit(1);
 }
 
@@ -306,7 +306,7 @@ try
 	    Write-Host -Object "The file provided for the OA3Tool report result file failed to pass the XML schema validation!"; 
         Write-Host $Message;
 	    Read-Host -Prompt ($Message + "`nThe file provided for the OA3Tool report result file failed to pass the XML schema validation! `nPress any key to exit...");
-        #exit;
+        exit;
 		$Host.SetShouldExit(1);
     }
 }
@@ -363,7 +363,7 @@ if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object ("Errors occurred decoding hardware hash. Please see the log file for more details.");
    Read-Host -Prompt ([System.String]::Format("Errors occurred decoding hardware hash! `nPlease see the log file (`"{0}`") for more details...`nPress any key to exit...", ($LogPath + "\" + $TransactionID + ".log")));
-   #exit;
+   exit;
    $Host.SetShouldExit(1);
 }
 
