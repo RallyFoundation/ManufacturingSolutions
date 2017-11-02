@@ -9,7 +9,14 @@
       <xs:sequence>
         <xs:element name="ProductKeyID"  type="xs:long" minOccurs="0" maxOccurs="1" nillable="true"></xs:element>
         <xs:element name="ProductKeyState"  type="xs:integer"></xs:element>
-        <xs:element name="HardwareHash"  type="xs:string"></xs:element>
+        <xs:element name="HardwareHash">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:minLength value="4000"/>
+              <xs:maxLength value="4000"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
         <xs:choice>
           <xs:element name="OEMOptionalInfo"  minOccurs="0" maxOccurs="1"></xs:element>
         </xs:choice>
