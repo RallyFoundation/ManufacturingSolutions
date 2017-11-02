@@ -53,6 +53,25 @@ if([System.String]::IsNullOrEmpty($TransactionID) -eq $true)
 [System.String]$Message;
 
 $LogPath = $RootDir +  "\Log";
+if([System.IO.Directory]::Exists($LogPath) -eq $false)
+{
+    [System.IO.Directory]::CreateDirectory($LogPath);
+	Start-Sleep -Milliseconds 1000;
+}
+
+$OutputPath = $RootDir +  "\Output";
+if([System.IO.Directory]::Exists($OutputPath) -eq $false)
+{
+    [System.IO.Directory]::CreateDirectory($OutputPath);
+	Start-Sleep -Milliseconds 1000;
+}
+
+$InputPath = $RootDir +  "\Input";
+if([System.IO.Directory]::Exists($InputPath) -eq $false)
+{
+    [System.IO.Directory]::CreateDirectory($InputPath);
+	Start-Sleep -Milliseconds 1000;
+}
 
 $DataProcessingModulePath = $RootDir + "\Module\DataProcessing\PowerShellDataProcessing.dll";
 
@@ -123,7 +142,7 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 	      Write-Host -Object "The file provided for the OA3Tool report result file failed to pass the XML schema validation!"; 
           Write-Host $Message;
 	      Read-Host -Prompt ($Message + "`nThe file provided for the OA3Tool report result file failed to pass the XML schema validation! `nPress any key to exit...");
-          exit;
+          #exit;
        }
     }
     catch
@@ -135,7 +154,7 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 	    Write-Host -Object "Error(s) occurred during xml schema validation!";
         Write-Host $Message;
 	    Read-Host -Prompt ($Message + "`nError(s) occurred during xml schema validation! `nPress any key to exit...");
-        exit;
+        #exit;
     }
 
 	#$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
@@ -337,7 +356,7 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 		$Host.UI.RawUI.ForegroundColor = "Yellow";
 		Write-Host -Object "Errors occurred!";
 		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-		exit;
+		#exit;
 	}
 }
 
@@ -364,7 +383,7 @@ if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
    $Host.UI.RawUI.ForegroundColor = "Yellow";
    Write-Host -Object ("Errors occurred decoding hardware hash. Please see the log file for more details.");
    Read-Host -Prompt ([System.String]::Format("Errors occurred decoding hardware hash! `nPlease see the log file (`"{0}`") for more details...`nPress any key to exit...", ($LogPath + "\" + $TransactionID + ".log")));
-   exit;
+   #exit;
 }
 
 [xml]$HardwareHashDecode = [xml](Get-Content -Path $DecodeFilePath);

@@ -1407,6 +1407,272 @@
       </ul>
   </xsl:template>
 
+  <xsl:template name="TemplateTableExpected">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Expected Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Expected)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Value)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:value-of select="$itemNode/Detail"/>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
+  <xsl:template name="TemplateTableExpectedUnexpected">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Expected Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Expected)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Unexpected Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Unexpected)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Value)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:value-of select="$itemNode/Detail"/>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
+  <xsl:template name="TemplateTableMinCount">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Min Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Min)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Value)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:for-each select="$itemNode/Detail/child::*[starts-with(name(), 'PhysicalMedium_')]">
+            <span>
+              <xsl:value-of select="name()"/>
+              <xsl:value-of select="':'"/>
+              <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+              <xsl:value-of select="text()"/>
+              <br/>
+            </span>
+          </xsl:for-each>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
+  <xsl:template name="TemplateTableMinMax">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Min Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Min)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Max Value: </td>
+        <td>
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Max)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="hhvxslx:GetHtmlSpacedString($itemNode/Value)" disable-output-escaping="yes"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:for-each select="$itemNode/Detail/child::*[starts-with(name(), 'PhysicalMedium_')]">
+            <span>
+              <xsl:value-of select="name()"/>
+              <xsl:value-of select="':'"/>
+              <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+              <xsl:value-of select="text()"/>
+              <br/>
+            </span>
+          </xsl:for-each>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
+  <xsl:template name="TemplateTableMinMaxLength">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Min Value (Length): </td>
+        <td>
+          <xsl:value-of select="$itemNode/Min"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Max Value (Length): </td>
+        <td>
+          <xsl:value-of select="$itemNode/Max"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="$itemNode/Value"/>
+          (Length: <xsl:value-of select="string-length($itemNode/Value)"/> characters)
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:value-of select="$itemNode/Detail"/>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
+  <xsl:template name="TemplateTableMinMaxLengthChassis">
+    <xsl:param name="itemNode"/>
+    <table xmlns="http://www.w3.org/1999/xhtml">
+      <tr>
+        <td>Min Value (Length): </td>
+        <td>
+          <xsl:value-of select="$itemNode/Min"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Max Value (Length): </td>
+        <td>
+          <xsl:value-of select="$itemNode/Max"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Chassis Type: </td>
+        <td>
+          <xsl:value-of select="$itemNode/ChassisType"/>
+          <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
+          (<xsl:value-of select="hhvxslx:GetEnclosureType($itemNode/ChassisType)"/>)
+        </td>
+      </tr>
+      <tr>
+        <td>Test Value: </td>
+        <td style="background-color:yellow">
+          <xsl:value-of select="$itemNode/Value"/>
+          (Length: <xsl:value-of select="string-length($itemNode/Value)"/> characters)
+        </td>
+      </tr>
+      <tr>
+        <td>Result: </td>
+        <td>
+          <xsl:if test="$itemNode/Result = 'Passed'">
+            <xsl:attribute name="style">background-color:forestgreen</xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$itemNode/Result = 'Failed'">
+            <xsl:attribute name="style">background-color:red</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="$itemNode/Result"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Detail: </td>
+        <td>
+          <xsl:value-of select="$itemNode/Detail"/>
+        </td>
+      </tr>
+    </table>
+  </xsl:template>
+
   <xsl:template match="TestItems/ProductKeyID">
     <table xmlns="http://www.w3.org/1999/xhtml">
       <tr>
