@@ -55,11 +55,11 @@ if([System.String]::IsNullOrEmpty($TransactionID) -eq $true)
 [System.String]$Message;
 
 $LogPath = $RootDir +  "\Log";
-#if([System.IO.Directory]::Exists($LogPath) -eq $false)
-#{
-#    [System.IO.Directory]::CreateDirectory($LogPath);
-#	Start-Sleep -Milliseconds 1000;
-#}
+if([System.IO.Directory]::Exists($LogPath) -eq $false)
+{
+    [System.IO.Directory]::CreateDirectory($LogPath);
+	Start-Sleep -Milliseconds 1000;
+}
 
 $OutputPath = $RootDir +  "\Output";
 if([System.IO.Directory]::Exists($OutputPath) -eq $false)
