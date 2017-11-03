@@ -225,7 +225,10 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 	}
 	finally
 	{
-	   $Host.SetShouldExit(1);
+	    if($Error.Count -gt 0)
+		{
+			$Host.SetShouldExit(1);
+		}
 	}
 
 	#Invokes OA3Tool.exe /Report to generate output DPK info xml file
@@ -258,7 +261,10 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 	}
     finally
 	{
-	   $Host.SetShouldExit(1);
+	    if($Error.Count -gt 0)
+		{
+			$Host.SetShouldExit(1);
+		}
 	}
 
 	#Invokes OA3Tool.exe /CheckHwHash to generate log trace
@@ -326,7 +332,10 @@ catch [System.Exception]
 }
 finally
 {
-   $Host.SetShouldExit(1);
+    if($Error.Count -gt 0)
+	{
+		$Host.SetShouldExit(1);
+	}
 }
 
 #Invokes OA3Tool.exe /DecodeHwHash to generate decoded hardware hash info
@@ -354,7 +363,10 @@ catch [System.Exception]
 }
 finally
 {
-    $Host.SetShouldExit(1);
+    if($Error.Count -gt 0)
+    {
+	    $Host.SetShouldExit(1);
+    }
 }
 
 if([System.IO.File]::Exists($DecodeFilePath) -eq $false)

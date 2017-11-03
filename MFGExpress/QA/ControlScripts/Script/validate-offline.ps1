@@ -165,7 +165,10 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
     }
 	finally
 	{
-	   $Host.SetShouldExit(1);
+	   if($Error.Count -gt 0)
+       {
+	      $Host.SetShouldExit(1);
+       }
 	}
 
 	#$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
@@ -373,7 +376,10 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 	}
 	finally
 	{
-	   $Host.SetShouldExit(1);
+	   if($Error.Count -gt 0)
+       {
+	      $Host.SetShouldExit(1);
+       }
 	}
 }
 
