@@ -44,6 +44,13 @@ namespace SuperRun
 
             logFilePath = String.Format(logFilePath, transactionID);
 
+            string logDir = Path.GetDirectoryName(logFilePath);
+
+            if (!Directory.Exists(logDir))
+            {
+                Directory.CreateDirectory(logDir);
+            }
+
             if (String.IsNullOrEmpty(scriptFullPath))
             {
                 Console.WriteLine("Script file name should not be null!");
