@@ -47,6 +47,13 @@ if($ClientIdentifierType -eq 1)
 	$ClientID = $MacAddress;
 }
 
+if([System.String]::IsNullOrEmpty($ClientID))
+{
+	$ClientID = $ConfigXml.configurationItems.clientIdentifierValue;
+}
+
+$ClientID;
+
 $Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"ID`":`"`", `"Time`":`"`"}";
 $Body.ID = $TransactionID;
 $Body.Key = $ClientID;
@@ -73,7 +80,21 @@ if($ImageIdentifierType -eq 1)
    $ImageID = $Model;
 }
 
+if([System.String]::IsNullOrEmpty($ImageID))
+{
+	$ImageID = $ConfigXml.configurationItems.imageIdentifierValue;
+}
+
 $ImageID;
+
+if([System.String]::IsNullOrEmpty($ImageID))
+{
+    $Host.UI.RawUI.BackgroundColor = "Red";
+    $Host.UI.RawUI.ForegroundColor = "Yellow";
+    Write-Host -Object "The specified image identifier field in SMBIOS is empty!";
+	Read-Host -Prompt "The specified image identifier field in SMBIOS is empty! `nPress any key to exit...";
+    exit;
+}
 
 $Body.Value = "GettingImageUrl";
 $Body.Time = [System.DateTime]::Now;

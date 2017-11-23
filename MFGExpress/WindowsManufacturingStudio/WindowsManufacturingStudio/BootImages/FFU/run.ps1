@@ -52,6 +52,13 @@ if($ClientIdentifierType -eq 1)
 	$ClientID = $MacAddress;
 }
 
+if([System.String]::IsNullOrEmpty($ClientID))
+{
+	$ClientID = $ConfigXml.configurationItems.clientIdentifierValue;
+}
+
+$ClientID;
+
 $Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"TransID`":`"`", `"Time`":`"`"}";
 $Body.TransID = $TransactionID;
 $Body.Key = $ClientID;
@@ -79,6 +86,11 @@ if($ImageIdentifierType -eq 1)
    $ImageID = $Model;
 }
 
+if([System.String]::IsNullOrEmpty($ImageID))
+{
+	$ImageID = $ConfigXml.configurationItems.imageIdentifierValue;
+}
+
 $ImageID;
 
 if([System.String]::IsNullOrEmpty($ImageID))
@@ -99,7 +111,6 @@ $Uri = $WDSApiServicePoint + $Url + $ImageID;
 $Uri;
 [System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 $ImageUrl;
-
 
 $Body.Value = "GettingImageFileInfo";
 $Body.Time = [System.DateTime]::Now;
@@ -259,7 +270,8 @@ $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
+#Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
+Start-Process -FilePath "DISM" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
 
 $Body.Value = "ImageApplied";
 $Body.Time = [System.DateTime]::Now;

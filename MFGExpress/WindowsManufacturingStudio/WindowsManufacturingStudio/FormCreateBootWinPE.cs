@@ -132,6 +132,8 @@ namespace WindowsManufacturingStudio
             config.NICName = this.metroTextBoxClientNICName.Text;
             config.ClientIdentifierType = this.metroComboBoxClientIdentifierType.SelectedIndex;
             config.ImageIdentifierType = this.metroComboBoxImageIdentifierType.SelectedIndex;
+            config.ClientIdentifierValue = this.metroTextBoxClientIdentifierValue.Text;
+            config.ImageIdentifierValue = this.metroTextBoxImageIdentifierValue.Text;
         }
 
         private void metroTileBack_Click(object sender, EventArgs e)

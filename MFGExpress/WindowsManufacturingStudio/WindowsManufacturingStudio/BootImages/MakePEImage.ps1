@@ -52,16 +52,16 @@ if($ImageType -eq "multicast")
    Copy-Item -Path ($PEScriptDir + "\diskpartcmd.txt") .\mount\windows\system32 -Force;
 }
 
-if($ImageType -eq "ffu")
-{
-   #Copy-Item -Path .\DISM\* .\mount\windows\system32 -Recurse -Force;
-   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.exe") .\mount\windows\system32 -Force;
-   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.exe.config") .\mount\windows\system32 -Force;
-   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.pdb") .\mount\windows\system32 -Force;
+#if($ImageType -eq "ffu")
+#{
+#   #Copy-Item -Path .\DISM\* .\mount\windows\system32 -Recurse -Force;
+#   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.exe") .\mount\windows\system32 -Force;
+#   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.exe.config") .\mount\windows\system32 -Force;
+#   #Copy-Item -Path ($PEScriptDir + "\HttpFileClient.pdb") .\mount\windows\system32 -Force;
 
-   mkdir .\mount\windows\system32\DISM-FFU;
-   Copy-Item -Path .\DISM-FFU\* .\mount\windows\system32\DISM-FFU -Recurse -Force;
-}
+#   #mkdir .\mount\windows\system32\DISM-FFU;
+#   #Copy-Item -Path .\DISM-FFU\* .\mount\windows\system32\DISM-FFU -Recurse -Force;
+#}
 
 $PakageDir = "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\";
 

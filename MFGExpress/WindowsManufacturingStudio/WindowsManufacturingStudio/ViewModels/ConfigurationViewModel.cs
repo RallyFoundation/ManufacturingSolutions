@@ -55,8 +55,16 @@ namespace WindowsManufacturingStudio.ViewModels
         [XmlElement(ElementName = "clientIdentifierType")]
         public int ClientIdentifierType { get; set; }
 
+        [JsonProperty("client-identifier-value")]
+        [XmlElement(ElementName = "clientIdentifierValue")]
+        public string ClientIdentifierValue { get; set; }
+
         [JsonProperty("image-identifier-type")]
         [XmlElement(ElementName = "imageIdentifierType")]
         public int ImageIdentifierType { get; set; }
+
+        [JsonProperty("image-identifier-value")]
+        [XmlElement(ElementName = "imageIdentifierValue")]
+        public string ImageIdentifierValue { get; set; }
     }
 }
