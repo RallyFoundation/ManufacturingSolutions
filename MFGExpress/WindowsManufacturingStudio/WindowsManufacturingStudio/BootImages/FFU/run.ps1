@@ -24,10 +24,10 @@ if($WDSApiServicePoint.EndsWith("/") -eq $false)
    $WDSApiServicePoint += "/";
 }
 
-if($ImageServerAddress.EndsWith("/") -eq $false)
-{
-   $ImageServerAddress += "/";
-}
+#if($ImageServerAddress.EndsWith("/") -eq $false)
+#{
+#   $ImageServerAddress += "/";
+#}
 
 $ImageServerAddress;
 $ImageServerUserName;
@@ -112,118 +112,118 @@ $Uri;
 [System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 $ImageUrl;
 
-$Body.Value = "GettingImageFileInfo";
-$Body.Time = [System.DateTime]::Now;
-$BodyJson = ConvertTo-Json -InputObject $Body;
-Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+#$Body.Value = "GettingImageFileInfo";
+#$Body.Time = [System.DateTime]::Now;
+#$BodyJson = ConvertTo-Json -InputObject $Body;
+#Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-$RemoteImageFileName = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
-$Uri= $WDSApiServicePoint + $UrlImageFileInfo + $RemoteImageFileName;
-$Uri;
+#$RemoteImageFileName = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
+#$Uri= $WDSApiServicePoint + $UrlImageFileInfo + $RemoteImageFileName;
+#$Uri;
 
-$RemoteImageFileInfo = Invoke-RestMethod -Method Get -Uri $Uri;
+#$RemoteImageFileInfo = Invoke-RestMethod -Method Get -Uri $Uri;
 
-$ImageFilePath = ("D:\{0}.ffu" -f $ImageID);
-$ImageFilePath;
-$ImageFileInfoPath = ("D:\{0}.ffu.info.json" -f $ImageID);
-$ImageFileInfoPath;
+#$ImageFilePath = ("D:\{0}.ffu" -f $ImageID);
+#$ImageFilePath;
+#$ImageFileInfoPath = ("D:\{0}.ffu.info.json" -f $ImageID);
+#$ImageFileInfoPath;
 
-if(([System.IO.File]::Exists($ImageFilePath) -eq $true) -and ([System.IO.File]::Exists($ImageFileInfoPath) -eq $true))
-{
-   $LocalImageFileInfoJson = Get-Content -Path $ImageFileInfoPath;
-   $LocalImageFileInfo = ConvertFrom-Json -InputObject $LocalImageFileInfoJson;
+#if(([System.IO.File]::Exists($ImageFilePath) -eq $true) -and ([System.IO.File]::Exists($ImageFileInfoPath) -eq $true))
+#{
+#   $LocalImageFileInfoJson = Get-Content -Path $ImageFileInfoPath;
+#   $LocalImageFileInfo = ConvertFrom-Json -InputObject $LocalImageFileInfoJson;
 
-   $ImageFile = Get-Item -Path $ImageFilePath;
+#   $ImageFile = Get-Item -Path $ImageFilePath;
 
-   if(($ImageFile.Length -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.atime -ne $RemoteImageFileInfo.atime) -or ($LocalImageFileInfo.birthtime -ne $RemoteImageFileInfo.birthtime) -or ($LocalImageFileInfo.ctime -ne $RemoteImageFileInfo.ctime) -or ($LocalImageFileInfo.mtime -ne $RemoteImageFileInfo.mtime) -or ($LocalImageFileInfo.size -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.ino -ne $RemoteImageFileInfo.ino))
-   {
-       [System.IO.File]::Delete($ImageFileInfoPath);
-	   [System.IO.File]::Delete($ImageFilePath);
-   }
-}
+#   if(($ImageFile.Length -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.atime -ne $RemoteImageFileInfo.atime) -or ($LocalImageFileInfo.birthtime -ne $RemoteImageFileInfo.birthtime) -or ($LocalImageFileInfo.ctime -ne $RemoteImageFileInfo.ctime) -or ($LocalImageFileInfo.mtime -ne $RemoteImageFileInfo.mtime) -or ($LocalImageFileInfo.size -ne $RemoteImageFileInfo.size) -or ($LocalImageFileInfo.ino -ne $RemoteImageFileInfo.ino))
+#   {
+#       [System.IO.File]::Delete($ImageFileInfoPath);
+#	   [System.IO.File]::Delete($ImageFilePath);
+#   }
+#}
 
-if([System.IO.File]::Exists($ImageFilePath) -eq $false)
-{
-    #Clear local FFU image cache
-    [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu*", [System.IO.SearchOption]::AllDirectories);
-	if(($files -ne $null) -and ($files.Length -gt 0))
-	{
-		foreach($file in $files)
-		{
-			[System.IO.File]::Delete($file);
-		}    
-	}
+#if([System.IO.File]::Exists($ImageFilePath) -eq $false)
+#{
+#    #Clear local FFU image cache
+#    [System.String[]]$files = [System.IO.Directory]::GetFiles("D:\", "*.ffu*", [System.IO.SearchOption]::AllDirectories);
+#	if(($files -ne $null) -and ($files.Length -gt 0))
+#	{
+#		foreach($file in $files)
+#		{
+#			[System.IO.File]::Delete($file);
+#		}    
+#	}
     
-    #$Body.Value = "GettingImageUrl";
-	#$Body.Time = [System.DateTime]::Now;
-	#$BodyJson = ConvertTo-Json -InputObject $Body;
-	#Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+#    #$Body.Value = "GettingImageUrl";
+#	#$Body.Time = [System.DateTime]::Now;
+#	#$BodyJson = ConvertTo-Json -InputObject $Body;
+#	#Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-	#$Uri = $WDSApiServicePoint + $Url + $ImageID;
+#	#$Uri = $WDSApiServicePoint + $Url + $ImageID;
 
-	#$Uri;
+#	#$Uri;
 
-	#[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+#	#[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 
-	#$ImageUrl;
+#	#$ImageUrl;
 
-	$Body.Value = "DownloadingImage";
-	$Body.Time = [System.DateTime]::Now;
-	$BodyJson = ConvertTo-Json -InputObject $Body;
-	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+#	$Body.Value = "DownloadingImage";
+#	$Body.Time = [System.DateTime]::Now;
+#	$BodyJson = ConvertTo-Json -InputObject $Body;
+#	Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 
-	if($ImageUrl.StartsWith("/"))
-	{
-	   $ImageUrl = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
-	}
+#	if($ImageUrl.StartsWith("/"))
+#	{
+#	   $ImageUrl = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
+#	}
 
-	$ImageUrl = $ImageServerAddress + $ImageUrl;
+#	$ImageUrl = $ImageServerAddress + $ImageUrl;
 
-	$ImageUrl;
+#	$ImageUrl;
 
-	$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
+#	$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
 
-	$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
+#	$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
 
-	$authBase64 = [System.Convert]::ToBase64String($authBytes);
+#	$authBase64 = [System.Convert]::ToBase64String($authBytes);
 
-	$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
+#	$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
 
-	#$ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
+#	#$ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
 
-	#$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
+#	#$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
 
-	$AuthHeaderValue;
+#	$AuthHeaderValue;
 
-	#$ImageFilePath;
+#	#$ImageFilePath;
 
-	[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+#	[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
 
-	$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
+#	$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
 
-	#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+#	#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
 
-	Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
+#	Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
 
-	Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
+#	Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
 
-	$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
+#	$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
 
-	While (-Not $isDownloaded) 
-	{
-		$percent = $Global:Data.SourceArgs.ProgressPercentage;
-		$totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
-		$receivedBytes = $Global:Data.SourceArgs.BytesReceived;
+#	While (-Not $isDownloaded) 
+#	{
+#		$percent = $Global:Data.SourceArgs.ProgressPercentage;
+#		$totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
+#		$receivedBytes = $Global:Data.SourceArgs.BytesReceived;
 
-		If ($percent -ne $null) 
-		{
-			Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
-		}
-	}
+#		If ($percent -ne $null) 
+#		{
+#			Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
+#		}
+#	}
 
-	Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
-}
+#	Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
+#}
 
 
 #Start-Process -FilePath "HttpFileClient.exe" -ArgumentList @($ImageUrl, $ImageFilePath, "Basic", $authBase64) -Wait;
@@ -242,33 +242,59 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 
 #Expand-WindowsImage -ImagePath "R:\install.wim" -ApplyPath "W:\" -Index 1 -ScratchDirectory "R:\TEMP";
 
-$Body.Value = "CheckingImageFileIntegrity";
-$Body.Time = [System.DateTime]::Now;
-$BodyJson = ConvertTo-Json -InputObject $Body;
-Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+#$Body.Value = "CheckingImageFileIntegrity";
+#$Body.Time = [System.DateTime]::Now;
+#$BodyJson = ConvertTo-Json -InputObject $Body;
+#Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-$ImageFile = Get-Item -Path $ImageFilePath;
+#$ImageFile = Get-Item -Path $ImageFilePath;
 
-if($ImageFile.Length -eq $RemoteImageFileInfo.size)
-{
-    $RemoteImageFileInfoJson = ConvertTo-Json -InputObject $RemoteImageFileInfo -Compress;
-    [System.IO.File]::WriteAllText($ImageFileInfoPath, $RemoteImageFileInfoJson);
-}
-else
-{
-    [System.IO.File]::Delete($ImageFilePath);
+#if($ImageFile.Length -eq $RemoteImageFileInfo.size)
+#{
+#    $RemoteImageFileInfoJson = ConvertTo-Json -InputObject $RemoteImageFileInfo -Compress;
+#    [System.IO.File]::WriteAllText($ImageFileInfoPath, $RemoteImageFileInfoJson);
+#}
+#else
+#{
+#    [System.IO.File]::Delete($ImageFilePath);
 
-	$Host.UI.RawUI.BackgroundColor = "Red";
-    $Host.UI.RawUI.ForegroundColor = "Yellow";
-    Write-Host -Object ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1})" -f  $RemoteImageFileInfo.size, $ImageFile.Length);
-	Read-Host -Prompt ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
-    exit;
-}
+#	$Host.UI.RawUI.BackgroundColor = "Red";
+#    $Host.UI.RawUI.ForegroundColor = "Yellow";
+#    Write-Host -Object ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1})" -f  $RemoteImageFileInfo.size, $ImageFile.Length);
+#	Read-Host -Prompt ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
+#    exit;
+#}
 
 $Body.Value = "ApplyingImage";
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+$SecuredPassword = ConvertTo-SecureString -String $ImageServerPassword -AsPlainText -Force;
+$ServerHostName = $ImageServerAddress.Substring(2);
+$ServerHostName = $ServerHostName.Substring(0, $ServerHostName.LastIndexOf("\"));
+
+$ServerHostName;
+
+$DomainUserName = ($ServerHostName + "\" + $ImageServerUserName);
+
+$DomainUserName;
+
+$Credential = New-Object -TypeName System.Management.Automation.PSCredential ($DomainUserName, $SecuredPassword);
+
+$Credential;
+$ImageServerAddress;
+
+New-PSDrive -Name "Z" -PSProvider FileSystem -Root $ImageServerAddress -Credential $Credential -Persist;
+
+if($ImageUrl.StartsWith("/"))
+{
+   $ImageUrl = $ImageUrl.Substring(($ImageUrl.IndexOf("/") + 1));
+}
+
+$ImageFilePath = ("Z:\FFU\{0}" -f $ImageUrl);
+
+$ImageFilePath;
 
 #Start-Process -FilePath ".\DISM-FFU\DISM.exe" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
 Start-Process -FilePath "DISM" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:\\.\PhysicalDrive0") -Wait -NoNewWindow;
@@ -278,7 +304,7 @@ $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
-Copy-Item -Path X:\Windows\Logs\DISM\dism.log -Destination ("D:\dismlog_{0}_{1}.log" -f $ImageID, $TransactionID) -Force;
+#Copy-Item -Path X:\Windows\Logs\DISM\dism.log -Destination ("D:\dismlog_{0}_{1}.log" -f $ImageID, $TransactionID) -Force;
 
 #Function Clear-LocalFFUCache
 #{
