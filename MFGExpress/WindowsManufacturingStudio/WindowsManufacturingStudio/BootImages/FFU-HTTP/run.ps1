@@ -279,7 +279,7 @@ if([System.String]::IsNullOrEmpty($ImageDestination) -eq $true)
    $ImageDestination = "\\.\PhysicalDrive0";
 }
 
-Start-Process -FilePath "DISM" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), "/ApplyDrive:" + $ImageDestination) -Wait -NoNewWindow;
+Start-Process -FilePath "DISM" -ArgumentList @("/Apply-FFU", ("/ImageFile:" + $ImageFilePath), ("/ApplyDrive:" + $ImageDestination)) -Wait -NoNewWindow;
 
 $Body.Value = "ImageApplied";
 $Body.Time = [System.DateTime]::Now;
