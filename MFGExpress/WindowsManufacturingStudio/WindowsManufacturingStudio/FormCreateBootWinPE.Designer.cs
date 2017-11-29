@@ -60,6 +60,8 @@
             this.metroLabelClientIdentifierValue = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxImageIdentifierValue = new MetroFramework.Controls.MetroTextBox();
             this.metroLabelImageIdentifierValue = new MetroFramework.Controls.MetroLabel();
+            this.metroTextBoxImageDestination = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabelImageDestination = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // metroLabelArchitecture
@@ -135,8 +137,9 @@
             this.metroComboBoxImageType.FormattingEnabled = true;
             this.metroComboBoxImageType.ItemHeight = 23;
             this.metroComboBoxImageType.Items.AddRange(new object[] {
-            "Multicast",
-            "Full Flash Update (FFU)"});
+            "WIM Over TFTP (WDS + Multicast)",
+            "Full Flash Update (FFU) Over SMB",
+            "Full Flash Update (FFU) Over HTTP"});
             this.metroComboBoxImageType.Location = new System.Drawing.Point(169, 146);
             this.metroComboBoxImageType.Name = "metroComboBoxImageType";
             this.metroComboBoxImageType.Size = new System.Drawing.Size(500, 29);
@@ -185,7 +188,7 @@
             // metroTextBoxImageServerUsername
             // 
             this.metroTextBoxImageServerUsername.Location = new System.Drawing.Point(169, 274);
-            this.metroTextBoxImageServerUsername.MaxLength = 20;
+            this.metroTextBoxImageServerUsername.MaxLength = 120;
             this.metroTextBoxImageServerUsername.Name = "metroTextBoxImageServerUsername";
             this.metroTextBoxImageServerUsername.Size = new System.Drawing.Size(500, 32);
             this.metroTextBoxImageServerUsername.TabIndex = 15;
@@ -349,11 +352,30 @@
             this.metroLabelImageIdentifierValue.TabIndex = 30;
             this.metroLabelImageIdentifierValue.Text = "Default Image Identifier:";
             // 
+            // metroTextBoxImageDestination
+            // 
+            this.metroTextBoxImageDestination.Location = new System.Drawing.Point(169, 625);
+            this.metroTextBoxImageDestination.MaxLength = 100;
+            this.metroTextBoxImageDestination.Name = "metroTextBoxImageDestination";
+            this.metroTextBoxImageDestination.Size = new System.Drawing.Size(500, 32);
+            this.metroTextBoxImageDestination.TabIndex = 33;
+            // 
+            // metroLabelImageDestination
+            // 
+            this.metroLabelImageDestination.AutoSize = true;
+            this.metroLabelImageDestination.Location = new System.Drawing.Point(45, 631);
+            this.metroLabelImageDestination.Name = "metroLabelImageDestination";
+            this.metroLabelImageDestination.Size = new System.Drawing.Size(117, 19);
+            this.metroLabelImageDestination.TabIndex = 32;
+            this.metroLabelImageDestination.Text = "Image Destination:";
+            // 
             // FormCreateBootWinPE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 656);
+            this.ClientSize = new System.Drawing.Size(820, 699);
+            this.Controls.Add(this.metroTextBoxImageDestination);
+            this.Controls.Add(this.metroLabelImageDestination);
             this.Controls.Add(this.metroTextBoxImageIdentifierValue);
             this.Controls.Add(this.metroLabelImageIdentifierValue);
             this.Controls.Add(this.metroTextBoxClientIdentifierValue);
@@ -428,5 +450,7 @@
         private MetroFramework.Controls.MetroLabel metroLabelClientIdentifierValue;
         private MetroFramework.Controls.MetroTextBox metroTextBoxImageIdentifierValue;
         private MetroFramework.Controls.MetroLabel metroLabelImageIdentifierValue;
+        private MetroFramework.Controls.MetroTextBox metroTextBoxImageDestination;
+        private MetroFramework.Controls.MetroLabel metroLabelImageDestination;
     }
 }

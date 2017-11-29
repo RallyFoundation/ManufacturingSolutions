@@ -35,8 +35,16 @@ namespace WindowsManufacturingStudio
         {
             string confPath = this.rootDir + "\\BootImages";
 
-            confPath += index == 0 ? "\\Multicast\\config.xml" : "\\FFU\\config.xml";
+            //confPath += index == 0 ? "\\Multicast\\config.xml" : "\\FFU\\config.xml";
             //confPath += index == 0 ? "\\Multicast\\client.json" : "\\FFU\\client.json";
+
+            switch (index)
+            {
+                case 0: { confPath += "\\Multicast\\config.xml"; break; }
+                case 1: { confPath += "\\FFU\\config.xml"; break; }
+                case 2: { confPath += "\\FFU-HTTP\\config.xml"; break; }
+                default: { confPath += "\\Multicast\\config.xml"; break; }
+            }
 
             return confPath;
         }
@@ -121,6 +129,9 @@ namespace WindowsManufacturingStudio
             this.metroTextBoxClientNICName.Text = config.NICName;
             this.metroComboBoxClientIdentifierType.SelectedIndex = config.ClientIdentifierType;
             this.metroComboBoxImageIdentifierType.SelectedIndex = config.ImageIdentifierType;
+            this.metroTextBoxClientIdentifierValue.Text = config.ClientIdentifierValue;
+            this.metroTextBoxImageIdentifierValue.Text = config.ImageIdentifierValue;
+            this.metroTextBoxImageDestination.Text = config.ImageDestination;
         }
 
         private void setConfValuesFromControl(ConfigurationViewModel config)
@@ -134,6 +145,7 @@ namespace WindowsManufacturingStudio
             config.ImageIdentifierType = this.metroComboBoxImageIdentifierType.SelectedIndex;
             config.ClientIdentifierValue = this.metroTextBoxClientIdentifierValue.Text;
             config.ImageIdentifierValue = this.metroTextBoxImageIdentifierValue.Text;
+            config.ImageDestination = this.metroTextBoxImageDestination.Text;
         }
 
         private void metroTileBack_Click(object sender, EventArgs e)
@@ -167,6 +179,12 @@ namespace WindowsManufacturingStudio
                 return;
             }
 
+            if (String.IsNullOrEmpty(this.metroTextBoxImageDestination.Text))
+            {
+                MessageBox.Show("Image Destination is required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             this.setConfValuesFromControl(this.conf);
 
             string confPath = this.getConfPath(this.metroComboBoxImageType.SelectedIndex);
@@ -174,7 +192,16 @@ namespace WindowsManufacturingStudio
             this.writeConfXml(confPath);
 
             string architecture = this.metroRadioButtonX86.Checked ? "x86" : "amd64";
-            string imageType = this.metroComboBoxImageType.SelectedIndex == 0 ? "multicast" : "ffu";
+            string imageType = "multicast";//this.metroComboBoxImageType.SelectedIndex == 0 ? "multicast" : "ffu";
+
+            switch (this.metroComboBoxImageType.SelectedIndex)
+            {
+                case 0: { imageType = "multicast"; break; }
+                case 1: { imageType = "ffu"; break; }
+                case 2: { imageType = "ffu-http"; break; }
+                default: { imageType = "multicast"; break; }
+            }
+
             string outputDir = this.metroTextBoxOutputLocation.Text;
             string peScriptDir = confPath.Substring(0, confPath.LastIndexOf("\\"));
 

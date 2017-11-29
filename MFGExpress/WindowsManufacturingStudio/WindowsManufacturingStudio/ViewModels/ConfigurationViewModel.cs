@@ -66,5 +66,9 @@ namespace WindowsManufacturingStudio.ViewModels
         [JsonProperty("image-identifier-value")]
         [XmlElement(ElementName = "imageIdentifierValue")]
         public string ImageIdentifierValue { get; set; }
+
+        [JsonProperty("image-destination")]
+        [XmlElement(ElementName = "imageDestination")]
+        public string ImageDestination { get; set; }
     }
 }
