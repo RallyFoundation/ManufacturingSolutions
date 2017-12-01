@@ -67,6 +67,7 @@ $Body.Key = $ClientID;
 [System.String]$Url = "wds/lookup/";
 [System.String]$UrlProgress = "wds/terminal/status/";
 [System.String]$UrlImageFileInfo = "wds/imagefile/info/ffu/";
+[System.String]$UrlLogFile = ("wds/logfile/{0}" -f $TransactionID);
 
 $Body.Value = "GettingSKUFromBIOS";
 $Body.Time = [System.DateTime]::Now;
@@ -317,6 +318,9 @@ $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 #Copy-Item -Path X:\Windows\Logs\DISM\dism.log -Destination ("D:\dismlog_{0}_{1}.log" -f $ImageID, $TransactionID) -Force;
+
+[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+$WebClient.UploadFileAsync(($WDSApiServicePoint + $UrlLogfile), "X:\Windows\Logs\DISM\dism.log");
 
 #Function Clear-LocalFFUCache
 #{
