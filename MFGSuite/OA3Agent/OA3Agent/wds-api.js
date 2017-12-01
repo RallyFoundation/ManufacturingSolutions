@@ -45,6 +45,7 @@ var mongoDBCollectionName = config.get("app.mongodb-collection-name");;
 var installImageRepository = config.get("app.install-image-repository");
 var bootImageRepository = config.get("app.boot-image-repository");
 var ffuImageRepository = config.get("app.ffu-image-repository");
+var logRepository = config.get("app.log-repository");
 
 var installImageUploader = multer({
     storage: multer.diskStorage({
@@ -83,6 +84,17 @@ var ffuImageUploader = multer({
         },
         filename: function (req, file, cb) {
             cb(null, Date.now().toString() + "_" + file.originalname);
+        }
+    })
+}).any();
+
+var logUploader = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, logRepository);
+        },
+        filename: function (req, file, cb) {
+            cb(null, req.params.trsnid + "_" + file.originalname);
         }
     })
 }).any();
@@ -775,6 +787,19 @@ app.post("/wds/imagefile/ffu/", function (req, res) {
         //    console.log(err);
         //});
 
+    });
+});
+
+app.post("/wds/logfile/:trsnid", function (req, res) {
+
+    logUploader(req, res, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+
+        console.log(req.params.trsnid);
+        console.log(req.files[0].path);
     });
 });
 
