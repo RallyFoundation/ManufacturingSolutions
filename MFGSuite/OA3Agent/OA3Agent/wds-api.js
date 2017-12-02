@@ -40,8 +40,8 @@ var redisPort = config.get("app.redis-port"); //6379;
 var redisPassword = config.get("app.redis-password"); //"P@ssword1";
 var redisDbIndex = config.get("app.redis-db-index"); //0;
 var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
-var mongoDBUrl = config.get("app.mongodb-url");;
-var mongoDBCollectionName = config.get("app.mongodb-collection-name");;
+var mongoDBUrl = config.get("app.mongodb-url");
+var mongoDBCollectionName = config.get("app.mongodb-collection-name");
 var installImageRepository = config.get("app.install-image-repository");
 var bootImageRepository = config.get("app.boot-image-repository");
 var ffuImageRepository = config.get("app.ffu-image-repository");
@@ -280,6 +280,32 @@ app.post('/wds/lookup/', function (req, res) {
     });
 });
 
+app.delete('/wds/lookup/:key', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.key;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.del(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    var resultString = String(result);
+                    console.log(resultString);
+                    redisClient.end(true);
+                    res.end(resultString);
+                }
+            });
+        }
+    });
+});
+
 app.get('/wds/terminal/status/:id', function (req, res) {
     var redisClient = getRedisClient();
     var key = req.params.id;
@@ -356,6 +382,32 @@ app.post('/wds/terminal/status/', function (req, res) {
                     res.end(result);
 
                     io.emit("msg:clientStat", data);
+                }
+            });
+        }
+    });
+});
+
+app.delete('/wds/terminal/status/:id', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.id;
+
+    redisClient.select(redisDbIndexClientStatus, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.del(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    var resultString = String(result);
+                    console.log(resultString);
+                    redisClient.end(true);
+                    res.end(resultString);
                 }
             });
         }

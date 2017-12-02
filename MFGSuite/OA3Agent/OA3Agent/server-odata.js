@@ -1,13 +1,14 @@
 ﻿var odata = require('node-odata');
 var io = require('socket.io-client');
+var config = require("nodejs-config")(__dirname);
 
-var url = "mongodb://localhost:27017/mfgcloud";
-var resourceName = "engineering";
-var resourceModel = { uid: String, transactionId: String, type: String, value: Number, time: Number, systemInfo: Object, smbInfo: Object, monitorInfo: Object, oa3Report: Object, oa3ReportTrace: Object, oa3HwDecode: Object, validationResult: Object };
-var servicePortNumber = 3001;
+var url = config.get("app.mongodb-url");//"mongodb://localhost:27017/mfgcloud";
+var resourceName = config.get("app.mongodb-collection-name");//"engineering";
+var resourceModel = config.get("app.mongo-odata-resource-model");//{ uid: String, transactionId: String, type: String, value: Number, time: Number, systemInfo: Object, smbInfo: Object, monitorInfo: Object, oa3Report: Object, oa3ReportTrace: Object, oa3HwDecode: Object, validationResult: Object };
+var servicePortNumber = config.get("app.http-server-port"); //3001;
 
-var socketHost = "127.0.0.1";
-var socketPort = 3000;
+var socketHost = config.get("app.web-socket-server-host");//"127.0.0.1";
+var socketPort = config.get("app.web-socket-server-port");//3000;
 
 var server = odata(url);
 
@@ -29,5 +30,4 @@ server.listen(servicePortNumber, function () {
 	socket.on('connect', function () {
 		console.log('Connected to socket.io server.');
 	});
-
 });

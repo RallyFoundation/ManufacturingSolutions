@@ -1,5 +1,6 @@
 ﻿{
   "http-server-port": 8089,
+  "web-socket-server-host": "127.0.0.1",
   "web-socket-server-port": 3000,
   "redis-address": "127.0.0.1",
   "redis-port": 6379,
@@ -8,6 +9,13 @@
   "redis-db-index-client-status": 1,
   "mongodb-url": "mongodb://localhost:27017/mfgcloud",
   "mongodb-collection-name": "engineering",
+  "mongo-odata-resource-model": {
+    "TransactionId": "String",
+    "Key": "String",
+    "Time": "Number",
+    "Value": "String",
+    "Data": "String"
+  },
   "install-image-repository": "D:\\WDS-Images\\Install",
   "boot-image-repository": "D:\\WDS-Images\\Boot",
   "ffu-image-repository": "D:\\WDS-Images\\FFU",

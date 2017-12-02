@@ -83,3 +83,29 @@ app.post('/redis/:key', function (req, res)
         }
     });
 });
+
+app.delete('/redis/:key', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.key;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.del(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    var resultString = String(result);
+                    console.log(resultString);
+                    redisClient.end(true);
+                    res.end(resultString);
+                }
+            });
+        }
+    });
+});
