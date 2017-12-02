@@ -286,7 +286,7 @@
             this.metroComboBoxClientIdentifierType.FormattingEnabled = true;
             this.metroComboBoxClientIdentifierType.ItemHeight = 23;
             this.metroComboBoxClientIdentifierType.Items.AddRange(new object[] {
-            "Serial Number",
+            "SmbiosSystemSerialNumber",
             "MAC Address",
             "Custom"});
             this.metroComboBoxClientIdentifierType.Location = new System.Drawing.Point(169, 494);
