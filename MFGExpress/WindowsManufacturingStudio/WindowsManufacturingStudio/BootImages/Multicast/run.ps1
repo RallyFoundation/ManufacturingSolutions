@@ -5,6 +5,10 @@ if($RootDir.EndsWith("\") -eq $true)
    $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
 }
 
+$ErrorActionPreference = "Stop";
+
+[System.DateTime]$StartTime = [System.DateTime]::Now;
+
 [xml]$ConfigXml = Get-Content -Path ($RootDir + "\config.xml") -Encoding UTF8;
 
 $ConfigXml.InnerXml;
@@ -55,8 +59,8 @@ if([System.String]::IsNullOrEmpty($ClientID))
 
 $ClientID;
 
-$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`", `"ID`":`"`", `"Time`":`"`"}";
-$Body.ID = $TransactionID;
+$Body = ConvertFrom-Json -InputObject "{`"Key`":`"`", `"Value`":`"`",  `"Data`":`"`", `"TransID`":`"`", `"Time`":`"`"}";
+$Body.TransID = $TransactionID;
 $Body.Key = $ClientID;
 
 [System.String]$Url = "wds/lookup/";
@@ -111,7 +115,8 @@ $ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 
 $ImageUrl;
 
-$Body.Value = "DownloadingImage";
+$Body.Data = $ImageUrl;
+$Body.Value = "ApplyingImage";
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
@@ -153,3 +158,10 @@ Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $
 
 [System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
 $WebClient.UploadFileAsync(($WDSApiServicePoint + $UrlLogfile), "X:\Windows\Logs\DISM\dism.log");
+
+[System.DateTime]$EndTime = [System.DateTime]::Now;
+[System.TimeSpan]$TimeSpan = $EndTime.Subtract($StartTime);
+$Message = ("Total time spent: {0} seconds ({1} minutes)." -f $TimeSpan.TotalSeconds, $TimeSpan.TotalMinutes);
+$Host.UI.RawUI.BackgroundColor = "Yellow";
+$Host.UI.RawUI.ForegroundColor = "Green";
+Write-Host -Object $Message;
