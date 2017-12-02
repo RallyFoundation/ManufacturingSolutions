@@ -371,7 +371,7 @@ app.post('/wds/terminal/status/', function (req, res) {
             if (!(data.Key)) {
                 data.Key = req.ip.toString();
             }
-            redisClient.set(data.Key, data.Value, function (err, result) {
+            redisClient.set(data.Key, JSON.stringify(data), function (err, result) {
                 if (err) {
                     console.log(err);
                     res.end(err);

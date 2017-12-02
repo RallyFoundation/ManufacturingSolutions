@@ -52,7 +52,7 @@
             &#160; 
             <a href="#" class="btn btn-info btn-lg" ng-click="getWdsClients()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &#160; 
-            <a href="#" class="btn btn-info btn-lg" ng-click="clearWdsClients()" ng-show="wdsClients.length > 1"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Clear</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="clearWdsClients()" ng-show="wdsClients.length > 0"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Clear</a>
             &#160;
             <a href="#" id="btn_RefreshMdl" ng-hide="true" ng-click="refreshModel()" />
         </p>
@@ -60,10 +60,12 @@
         <table class="table">
             <tr>
                 <th>Client ID</th>
+                <th>Image</th>
                 <th>Staus</th>
             </tr>
             <tr ng-repeat="wdsClient in wdsClients">
                 <td>{{wdsClient.Key}}</td>
+                <td>{{wdsClient.Data}}</td>
                 <td>{{wdsClient.Value}}</td>
             </tr>
         </table>
@@ -179,11 +181,11 @@
 
                         if (data.data.length > 0) {
                             for (var i = 0; i < data.data.length; i++) {
-                                $scope.wdsClients.push({Key:data.data[i], Value:""});
+                                $scope.wdsClients.push({ Key: data.data[i], Value: "", Data: "", Time: null, TransID: ""});
                             }
                         }
                         else {
-                            $scope.wdsClients.push({ Key: data.data, Value: "" });
+                            $scope.wdsClients.push({ Key: data.data, Value: "", Data: "", Time: null, TransID: "" });
                         }
                     }
 
@@ -209,7 +211,10 @@
                                 for (var i = 0; i < $scope.wdsClients.length; i++) {
                                     if ($scope.wdsClients[i].Key == key)
                                     {
-                                        $scope.wdsClients[i].Value = data.data;
+                                        $scope.wdsClients[i].Value = data.data.Value;
+                                        $scope.wdsClients[i].Data = data.data.Data;
+                                        $scope.wdsClients[i].Time = data.data.Time;
+                                        $scope.wdsClients[i].TransID = data.data.TransID;
                                         break;
                                     }
                                 }

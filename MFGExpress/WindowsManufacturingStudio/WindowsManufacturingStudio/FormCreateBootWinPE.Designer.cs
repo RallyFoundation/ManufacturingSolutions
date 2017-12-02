@@ -262,8 +262,12 @@
             this.metroComboBoxImageIdentifierType.FormattingEnabled = true;
             this.metroComboBoxImageIdentifierType.ItemHeight = 23;
             this.metroComboBoxImageIdentifierType.Items.AddRange(new object[] {
-            "SKU Number",
+            "SmbiosSkuNumber",
             "Model",
+            "SmbiosSystemProductName",
+            "SmbiosBoardProduct",
+            "SmbiosSystemFamily",
+            "SmbiosSystemManufacturer",
             "Custom"});
             this.metroComboBoxImageIdentifierType.Location = new System.Drawing.Point(170, 406);
             this.metroComboBoxImageIdentifierType.Name = "metroComboBoxImageIdentifierType";
