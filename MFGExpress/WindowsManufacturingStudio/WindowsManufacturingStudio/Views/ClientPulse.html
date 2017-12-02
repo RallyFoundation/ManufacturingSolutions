@@ -52,6 +52,8 @@
             &#160; 
             <a href="#" class="btn btn-info btn-lg" ng-click="getWdsClients()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &#160; 
+            <a href="#" class="btn btn-info btn-lg" ng-click="clearWdsClients()" ng-show="wdsClients.length > 1"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Clear</a>
+            &#160;
             <a href="#" id="btn_RefreshMdl" ng-hide="true" ng-click="refreshModel()" />
         </p>
         <br />
@@ -215,6 +217,37 @@
                         });
                     }
                 }
+            };
+
+            $scope.clearWdsClients = function () {
+
+                var keys = [];
+
+                if ($scope.wdsClients != null && $scope.wdsClients.length > 0) {
+
+                    for (var i = 0; i < $scope.wdsClients.length; i++) {
+                        keys.push(String($scope.wdsClients[i].Key));
+                    }
+                }
+
+                $scope.wdsClients.splice(0);
+
+                if (keys.length > 0) {
+                    var url = settings.WdsApiUrl;
+                    var servicePoint = "wds/terminal/status/";
+
+                    for (var i = 0; i < keys.length; i++) {
+                        $http.delete(url + servicePoint + keys[i]).then(function (data) {
+                            if (data != null && data.data != null && data.data != "") {
+                                if (data.data == "1") {
+                                }
+                                else {
+                                    alert(data.data);
+                                }
+                            }
+                        });
+                    }
+                }   
             };
 
             $scope.refreshModel = function () { };
