@@ -10,7 +10,7 @@
   "mongodb-url": "mongodb://localhost:27017/mfgcloud",
   "mongodb-collection-name": "engineering",
   "mongo-odata-resource-model": {
-    "TransactionId": "String",
+    "TransID": "String",
     "Key": "String",
     "Time": "Number",
     "Value": "String",
