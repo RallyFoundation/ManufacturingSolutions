@@ -53,23 +53,29 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="getImageLookups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="showNewImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="deleteImageLookup()" ng-show="(selectedImageLookupIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
         </p>
         <br />
-        <!--<table class="table">
-            <tr>
+        <table class="table">
+            <!--<tr>
+                <th></th>
                 <th>Key</th>
                 <th>Value</th>
-            </tr>
+            </tr>-->
             <tr ng-repeat="imageLookup in imageLookups">
-                <td>{{imageLookup.Key}}</td>
-                <td>{{imageLookup.Value}}</td>
+                <td>
+                    <input type="radio" class="radio" name="currentFile" ng-click="setCurrentLookupIndex($index)" ng-checked="(selectedImageLookupIndex == $index)" />
+                </td>
+                <td><a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a> </td>
+                <!--<td>{{imageLookup.Value}}</td>-->
             </tr>
-        </table>-->
-        <ul class="list-group">
+        </table>
+        <!--<ul class="list-group">
             <li class="list-group-item" ng-repeat="imageLookup in imageLookups">
                 <a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a>  
             </li>
-        </ul>
+        </ul>-->
     </div>
     <script type="text/javascript">
         function createGuid() {
@@ -161,6 +167,10 @@
 
             $scope.hideProgress = function () {
                 ngDialog.closeAll();
+            };
+
+            $scope.setCurrentLookupIndex = function (index) {
+                $scope.selectedImageLookupIndex = index;
             };
 
             $scope.getImageLookups = function ()
@@ -281,6 +291,37 @@
                         }
                     }
                 });
+            };
+
+            $scope.deleteImageLookup = function () {
+                var key = String(this.imageLookups[this.selectedImageLookupIndex].Key);
+
+                if (key != null && confirm("Are you sure to permanently delete image lookup \"" + key + "\"?")) {
+                    $scope.showProgress();
+
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/lookup/" + key;
+
+                    $http.delete((url + servicePoint)).then(function (data) {
+                        $scope.hideProgress();
+
+                        if (data.data == "1") {
+                            $scope.imageLookups.splice($scope.selectedImageLookupIndex, 1);
+                        }
+                        else {
+                            alert(data.data);
+                        }
+
+                        $scope.setCurrentLookupIndex(-1);
+
+                    }).catch(function (err) {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentLookupIndex(-1);
+                    });
+                }
             };
         });
     </script>

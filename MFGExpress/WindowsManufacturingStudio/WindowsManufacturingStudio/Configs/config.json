@@ -1,17 +1,18 @@
 ﻿Settings = {
-   "Data" : {
-    "WdsApiUrl": "http://minint-et2evvt:8089/",
+  "Data": {
+    "WdsApiUrl": "http://minint-123qni3:8089/",
     "WdsApiUserName": "",
     "WdsApiPassword": "",
-    "FileServiceUrl": "http://minint-et2evvt:8080/",
+    "FileServiceUrl": "http://minint-123qni3:8181/",
     "FileServiceUserName": "WDS",
     "FileServicePassword": "W@lcome!",
-    "WebSocketAddress": "minint-et2evvt",
+    "WebSocketAddress": "minint-123qni3",
     "WebSocketPort": 3000,
-    "WebSocketUrl": "ws://minint-et2evvt:3000/",
-    "SocketIOClientUrl": "http://minint-et2evvt:3000/socket.io/socket.io.js",
+    "WebSocketUrl": "ws://minint-123qni3:3000/",
+    "SocketIOClientUrl": "http://minint-123qni3:3000/socket.io/socket.io.js",
     "InstallImageRepository": "Install",
     "BootImageRepository": "Boot",
-    "FFUImageRepository": "FFU"
+    "FFUImageRepository": "FFU",
+    "LogRepository": "Log"
   }
 };
