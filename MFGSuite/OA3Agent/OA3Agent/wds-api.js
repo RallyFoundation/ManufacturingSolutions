@@ -672,6 +672,31 @@ app.get("/wds/imagefile/ffu/:fname", function (req, res) {
     });
 }); 
 
+app.get("/wds/logfile/:fname", function (req, res) {
+    var filePath = logRepository + "/" + req.params.fname;
+
+    fs.stat(filePath, function (err, stats) {
+
+        console.log(JSON.stringify(stats));
+
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+
+        res.setHeader("Content-Length", stats.size);
+
+        var stream = fs.createReadStream(filePath);
+
+        stream.pipe(res);
+
+        stream.on("error", function (err) {
+            res.statusCode = 500;
+            res.end(err);
+        });
+    });
+});
+
 app.get("/wds/imagefile/info/install/:fname", function (req, res) {
     var filePath = installImageRepository + "/" + req.params.fname;
 

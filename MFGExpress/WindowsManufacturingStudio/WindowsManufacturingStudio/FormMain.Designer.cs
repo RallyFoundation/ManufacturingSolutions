@@ -38,6 +38,7 @@
             this.metroTileCreateBootWindowsPE = new MetroFramework.Controls.MetroTile();
             this.metroTileImageLookups = new MetroFramework.Controls.MetroTile();
             this.metroTileImageFiles = new MetroFramework.Controls.MetroTile();
+            this.metroTileLogHistory = new MetroFramework.Controls.MetroTile();
             this.SuspendLayout();
             // 
             // metroTileInstallImages
@@ -82,7 +83,7 @@
             // metroTileFFUImages
             // 
             this.metroTileFFUImages.BackColor = System.Drawing.Color.White;
-            this.metroTileFFUImages.Location = new System.Drawing.Point(401, 76);
+            this.metroTileFFUImages.Location = new System.Drawing.Point(653, 202);
             this.metroTileFFUImages.Name = "metroTileFFUImages";
             this.metroTileFFUImages.Size = new System.Drawing.Size(120, 120);
             this.metroTileFFUImages.Style = MetroFramework.MetroColorStyle.Teal;
@@ -90,12 +91,13 @@
             this.metroTileFFUImages.Text = "Full Flash Update\r\n (FFU) \r\nImages";
             this.metroTileFFUImages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileFFUImages.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileFFUImages.Visible = false;
             this.metroTileFFUImages.Click += new System.EventHandler(this.metroTileFFUImages_Click);
             // 
             // metroTileClientPulse
             // 
             this.metroTileClientPulse.BackColor = System.Drawing.Color.White;
-            this.metroTileClientPulse.Location = new System.Drawing.Point(149, 202);
+            this.metroTileClientPulse.Location = new System.Drawing.Point(23, 202);
             this.metroTileClientPulse.Name = "metroTileClientPulse";
             this.metroTileClientPulse.Size = new System.Drawing.Size(120, 120);
             this.metroTileClientPulse.Style = MetroFramework.MetroColorStyle.Silver;
@@ -121,7 +123,7 @@
             // metroTileCreateBootWindowsPE
             // 
             this.metroTileCreateBootWindowsPE.BackColor = System.Drawing.Color.White;
-            this.metroTileCreateBootWindowsPE.Location = new System.Drawing.Point(527, 76);
+            this.metroTileCreateBootWindowsPE.Location = new System.Drawing.Point(653, 76);
             this.metroTileCreateBootWindowsPE.Name = "metroTileCreateBootWindowsPE";
             this.metroTileCreateBootWindowsPE.Size = new System.Drawing.Size(120, 120);
             this.metroTileCreateBootWindowsPE.Style = MetroFramework.MetroColorStyle.Orange;
@@ -134,7 +136,7 @@
             // metroTileImageLookups
             // 
             this.metroTileImageLookups.BackColor = System.Drawing.Color.White;
-            this.metroTileImageLookups.Location = new System.Drawing.Point(653, 76);
+            this.metroTileImageLookups.Location = new System.Drawing.Point(527, 76);
             this.metroTileImageLookups.Name = "metroTileImageLookups";
             this.metroTileImageLookups.Size = new System.Drawing.Size(120, 120);
             this.metroTileImageLookups.Style = MetroFramework.MetroColorStyle.Purple;
@@ -147,7 +149,7 @@
             // metroTileImageFiles
             // 
             this.metroTileImageFiles.BackColor = System.Drawing.Color.White;
-            this.metroTileImageFiles.Location = new System.Drawing.Point(23, 202);
+            this.metroTileImageFiles.Location = new System.Drawing.Point(401, 76);
             this.metroTileImageFiles.Name = "metroTileImageFiles";
             this.metroTileImageFiles.Size = new System.Drawing.Size(120, 120);
             this.metroTileImageFiles.Style = MetroFramework.MetroColorStyle.Green;
@@ -157,11 +159,25 @@
             this.metroTileImageFiles.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
             this.metroTileImageFiles.Click += new System.EventHandler(this.metroTileImageFiles_Click);
             // 
+            // metroTileLogHistory
+            // 
+            this.metroTileLogHistory.BackColor = System.Drawing.Color.White;
+            this.metroTileLogHistory.Location = new System.Drawing.Point(149, 202);
+            this.metroTileLogHistory.Name = "metroTileLogHistory";
+            this.metroTileLogHistory.Size = new System.Drawing.Size(120, 120);
+            this.metroTileLogHistory.Style = MetroFramework.MetroColorStyle.Lime;
+            this.metroTileLogHistory.TabIndex = 9;
+            this.metroTileLogHistory.Text = "Log / History";
+            this.metroTileLogHistory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroTileLogHistory.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileLogHistory.Click += new System.EventHandler(this.metroTileLogHistory_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.metroTileLogHistory);
             this.Controls.Add(this.metroTileImageFiles);
             this.Controls.Add(this.metroTileImageLookups);
             this.Controls.Add(this.metroTileCreateBootWindowsPE);
@@ -192,6 +208,7 @@
         private MetroFramework.Controls.MetroTile metroTileCreateBootWindowsPE;
         private MetroFramework.Controls.MetroTile metroTileImageLookups;
         private MetroFramework.Controls.MetroTile metroTileImageFiles;
+        private MetroFramework.Controls.MetroTile metroTileLogHistory;
     }
 }
 

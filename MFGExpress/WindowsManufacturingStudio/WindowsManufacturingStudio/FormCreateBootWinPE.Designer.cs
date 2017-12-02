@@ -264,8 +264,6 @@
             this.metroComboBoxImageIdentifierType.Items.AddRange(new object[] {
             "SmbiosSkuNumber",
             "Model",
-            "SmbiosSystemProductName",
-            "SmbiosBoardProduct",
             "SmbiosSystemFamily",
             "SmbiosSystemManufacturer",
             "Custom"});

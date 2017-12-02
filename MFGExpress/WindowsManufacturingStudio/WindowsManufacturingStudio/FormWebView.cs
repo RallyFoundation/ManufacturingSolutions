@@ -97,6 +97,47 @@ namespace WindowsManufacturingStudio
             }
         }
 
+        private void downloadFile(string fileInfoJson)
+        {
+            string jsonValue = fileInfoJson;
+
+            jsonValue = jsonValue.Substring(jsonValue.IndexOf("{"));
+            jsonValue = jsonValue.Substring(0, (jsonValue.LastIndexOf("}") + 1));
+
+            JsonSerializer serializer = new JsonSerializer();
+            JsonTextReader reader = new JsonTextReader(new StringReader(jsonValue));
+            ViewModels.FileViewModel fileInfo = serializer.Deserialize(reader, typeof(ViewModels.FileViewModel)) as ViewModels.FileViewModel;
+
+            string defualtFileName = fileInfo.Path;
+            string fileFilter = "All Files(*.*)|*.*";
+            string fileExtension = Path.GetExtension(defualtFileName);
+
+            SaveFileDialog fileDialog = new SaveFileDialog()
+            {
+                Filter = fileFilter,
+                FileName = defualtFileName,
+                OverwritePrompt = true,
+                DefaultExt = fileExtension,
+                AddExtension = true
+            };
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fileInfo.Path = fileDialog.FileName;
+                FormFileDownloadProgress formFileDownload = new FormFileDownloadProgress(fileInfo);
+
+                if (formFileDownload.ShowDialog(this) == DialogResult.OK)
+                {
+                    string message = String.Format("File \"{0}\" successfully downloaded to \"{1}\"!", fileInfo.Url, fileInfo.Path);
+
+                    if (MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
+
+                    }
+                }
+            }
+        }
+
         private void writeFile(string fileInfoJson)
         {
             string jsonValue = fileInfoJson;
@@ -139,6 +180,47 @@ namespace WindowsManufacturingStudio
             MessageBox.Show(String.Format("Successfully write content to file \"{0}\"", fileInfo.Path), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void saveFile(string sourceFilePath)
+        {
+            string destFilePath = "";
+
+            string fileFilter = "All Files(*.*)|*.*";
+
+            if ((!String.IsNullOrEmpty(sourceFilePath)) && File.Exists(sourceFilePath))
+            {
+                string fileExtension = Path.GetExtension(sourceFilePath);
+
+                //if (!String.IsNullOrEmpty(fileExtension))
+                //{
+                //    fileFilter = fileExtension.Substring(1) + " Files|(*" + fileExtension + ")|*" + fileExtension + "|" + fileFilter;
+                //}
+
+                SaveFileDialog fileDialog = new SaveFileDialog()
+                {
+                    Filter = fileFilter,
+                    FileName = sourceFilePath,
+                    OverwritePrompt = true,
+                    DefaultExt = fileExtension,
+                    AddExtension = true
+                };
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    destFilePath = fileDialog.FileName;
+                    File.Copy(sourceFilePath, destFilePath);
+
+                    MessageBox.Show(String.Format("Successfully saved file \"{0}\" to \"{1}\"", sourceFilePath, destFilePath), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void runApp(string param)
+        {
+            string[] parameters = param.Split(new string[] { "|" }, StringSplitOptions.None);
+            string appName = parameters[0], args = parameters[1];
+            Utility.StartProcess(appName, args, true, false);
+        }
+
         private void setDocumentElementAttribute(string argumentString)
         {
             string[] args = argumentString.Split(new string[] { "," }, StringSplitOptions.None);
@@ -162,6 +244,9 @@ namespace WindowsManufacturingStudio
             this.geckoWebBrowser.AddMessageEventListener("ShowMessageErrorBox", (string param) =>  MessageBox.Show(param, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
             this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("DownloadFile", (string param) => this.downloadFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("SaveFile", (string param) => this.saveFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("RunApp", (string param) => this.runApp(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
             this.geckoWebBrowser.Navigate(this.url);
         }

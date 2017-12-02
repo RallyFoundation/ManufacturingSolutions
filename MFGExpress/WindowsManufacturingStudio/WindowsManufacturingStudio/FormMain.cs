@@ -23,7 +23,7 @@ namespace WindowsManufacturingStudio
             this.loadConfigs();
         }
 
-        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlImageFiles, urlImageLookups, urlClientPulse, urlConfigurations;
+        private string appRootDir, urlInstallImages, urlBootImages, urlImageGroups, urlImageFiles, urlImageLookups, urlClientPulse, urlConfigurations, urlLogHistory;
 
         private FormWebView formWebView;
         private FormCreateBootWinPE formCreateBootWinPE;
@@ -57,6 +57,21 @@ namespace WindowsManufacturingStudio
             else if (this.formWebView.Url != this.urlImageLookups)
             {
                 this.formWebView.Navigate(this.urlImageLookups);
+            }
+
+            this.formWebView.Show();
+            this.Visible = false;
+        }
+
+        private void metroTileLogHistory_Click(object sender, EventArgs e)
+        {
+            if (this.formWebView == null)
+            {
+                this.formWebView = new FormWebView(this, this.urlLogHistory);
+            }
+            else if (this.formWebView.Url != this.urlLogHistory)
+            {
+                this.formWebView.Navigate(this.urlLogHistory);
             }
 
             this.formWebView.Show();
@@ -159,6 +174,7 @@ namespace WindowsManufacturingStudio
             this.urlImageLookups = String.Format(ConfigurationManager.AppSettings.Get("UrlImageLookups"), appRootDir);
             this.urlClientPulse = String.Format(ConfigurationManager.AppSettings.Get("UrlClientPulse"), appRootDir);
             this.urlConfigurations = String.Format(ConfigurationManager.AppSettings.Get("UrlConfigurations"), appRootDir);
+            this.urlLogHistory = String.Format(ConfigurationManager.AppSettings.Get("UrlLogHistory"), appRootDir);
         }
     }
 }

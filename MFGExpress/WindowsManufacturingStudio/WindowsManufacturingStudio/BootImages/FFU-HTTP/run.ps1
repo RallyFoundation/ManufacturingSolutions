@@ -92,6 +92,18 @@ if($ImageIdentifierType -eq 1)
    $ImageID = $Model;
 }
 
+if($ImageIdentifierType -eq 2)
+{
+   $SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
+   $ImageID = $SystemInfo.SystemFamily;
+}
+
+if($ImageIdentifierType -eq 3)
+{
+   $SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
+   $ImageID = $SystemInfo.Manufacturer;
+}
+
 if([System.String]::IsNullOrEmpty($ImageID))
 {
 	$ImageID = $ConfigXml.configurationItems.imageIdentifierValue;
