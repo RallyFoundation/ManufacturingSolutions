@@ -70,5 +70,9 @@ namespace WindowsManufacturingStudio.ViewModels
         [JsonProperty("image-destination")]
         [XmlElement(ElementName = "imageDestination")]
         public string ImageDestination { get; set; }
+
+        [JsonProperty("disk-identifier-value")]
+        [XmlElement(ElementName = "diskIdentifierValue")]
+        public string DiskIdentifierValue { get; set; }
     }
 }

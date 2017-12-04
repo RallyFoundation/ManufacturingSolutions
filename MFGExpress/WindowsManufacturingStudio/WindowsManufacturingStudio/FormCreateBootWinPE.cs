@@ -41,8 +41,10 @@ namespace WindowsManufacturingStudio
             switch (index)
             {
                 case 0: { confPath += "\\Multicast\\config.xml"; break; }
-                case 1: { confPath += "\\FFU\\config.xml"; break; }
-                case 2: { confPath += "\\FFU-HTTP\\config.xml"; break; }
+                case 1: { confPath += "\\WIM-USB\\config.xml"; break; }
+                case 2: { confPath += "\\FFU\\config.xml"; break; }
+                case 3: { confPath += "\\FFU-HTTP\\config.xml"; break; }
+                case 4: { confPath += "\\FFU-USB\\config.xml"; break; }
                 default: { confPath += "\\Multicast\\config.xml"; break; }
             }
 
@@ -132,6 +134,7 @@ namespace WindowsManufacturingStudio
             this.metroTextBoxClientIdentifierValue.Text = config.ClientIdentifierValue;
             this.metroTextBoxImageIdentifierValue.Text = config.ImageIdentifierValue;
             this.metroTextBoxImageDestination.Text = config.ImageDestination;
+            this.metroTextBoxDiskIdentifier.Text = config.DiskIdentifierValue;
         }
 
         private void setConfValuesFromControl(ConfigurationViewModel config)
@@ -146,6 +149,7 @@ namespace WindowsManufacturingStudio
             config.ClientIdentifierValue = this.metroTextBoxClientIdentifierValue.Text;
             config.ImageIdentifierValue = this.metroTextBoxImageIdentifierValue.Text;
             config.ImageDestination = this.metroTextBoxImageDestination.Text;
+            config.DiskIdentifierValue = this.metroTextBoxDiskIdentifier.Text;
         }
 
         private void metroTileBack_Click(object sender, EventArgs e)
@@ -197,8 +201,10 @@ namespace WindowsManufacturingStudio
             switch (this.metroComboBoxImageType.SelectedIndex)
             {
                 case 0: { imageType = "multicast"; break; }
-                case 1: { imageType = "ffu"; break; }
-                case 2: { imageType = "ffu-http"; break; }
+                case 1: { imageType = "wim-usb"; break; }
+                case 2: { imageType = "ffu"; break; }
+                case 3: { imageType = "ffu-http"; break; }
+                case 4: { imageType = "ffu-usb"; break; }
                 default: { imageType = "multicast"; break; }
             }
 

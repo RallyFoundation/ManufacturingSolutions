@@ -47,8 +47,36 @@ Copy-Item -Path ($PEScriptDir + "\startnet.cmd") .\mount\windows\system32 -Force
 #Copy-Item -Path ($PEScriptDir + "\diskpartcmd.txt") .\mount\windows\system32 -Force;
 Copy-Item -Path ($PEScriptDir + "\config.xml") .\mount\windows\system32 -Force;
 
-if($ImageType -eq "multicast")
+if(($ImageType -eq "multicast") -or ($ImageType -eq "wim-usb"))
 {
+   [xml]$ConfigXml = Get-Content -Path ($PEScriptDir + "\config.xml") -Encoding UTF8;
+
+   $DiskNumber = $ConfigXml.configurationItems.diskIdentifierValue;
+
+   if(([System.String]::IsNullOrEmpty($DiskNumber) -eq $true))
+   {
+	   $DiskNumber = "0";
+   }
+   
+   $DiskPartCmdTemplate = Get-Content -Path ($PEScriptDir + "\diskpartcmd-template.txt") -Encoding Ascii;
+
+   if([System.IO.File]::Exists(($PEScriptDir + "\diskpartcmd.txt")))
+   {
+      [System.IO.File]::Delete($PEScriptDir + "\diskpartcmd.txt");
+   }
+
+   foreach($line in  $DiskPartCmdTemplate)
+   {
+      #$line;
+
+      if($line.StartsWith("select disk {0}"))
+      {
+         $line = ($line -f $DiskNumber);      
+      }
+
+      $line | Out-File -FilePath ($PEScriptDir + "\diskpartcmd.txt") -Encoding ascii -Append -Force;
+   }
+   
    Copy-Item -Path ($PEScriptDir + "\diskpartcmd.txt") .\mount\windows\system32 -Force;
 }
 

@@ -62,6 +62,8 @@
             this.metroLabelImageIdentifierValue = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxImageDestination = new MetroFramework.Controls.MetroTextBox();
             this.metroLabelImageDestination = new MetroFramework.Controls.MetroLabel();
+            this.metroTextBoxDiskIdentifier = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabelDiskIdentifier = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // metroLabelArchitecture
@@ -138,8 +140,10 @@
             this.metroComboBoxImageType.ItemHeight = 23;
             this.metroComboBoxImageType.Items.AddRange(new object[] {
             "WIM Over TFTP (WDS + Multicast)",
+            "WIM Over USB",
             "Full Flash Update (FFU) Over SMB",
-            "Full Flash Update (FFU) Over HTTP"});
+            "Full Flash Update (FFU) Over HTTP",
+            "Full Flash Update (FFU) Over USB"});
             this.metroComboBoxImageType.Location = new System.Drawing.Point(169, 146);
             this.metroComboBoxImageType.Name = "metroComboBoxImageType";
             this.metroComboBoxImageType.Size = new System.Drawing.Size(500, 29);
@@ -371,11 +375,30 @@
             this.metroLabelImageDestination.TabIndex = 32;
             this.metroLabelImageDestination.Text = "Image Destination:";
             // 
+            // metroTextBoxDiskIdentifier
+            // 
+            this.metroTextBoxDiskIdentifier.Location = new System.Drawing.Point(169, 670);
+            this.metroTextBoxDiskIdentifier.MaxLength = 100;
+            this.metroTextBoxDiskIdentifier.Name = "metroTextBoxDiskIdentifier";
+            this.metroTextBoxDiskIdentifier.Size = new System.Drawing.Size(500, 32);
+            this.metroTextBoxDiskIdentifier.TabIndex = 35;
+            // 
+            // metroLabelDiskIdentifier
+            // 
+            this.metroLabelDiskIdentifier.AutoSize = true;
+            this.metroLabelDiskIdentifier.Location = new System.Drawing.Point(68, 676);
+            this.metroLabelDiskIdentifier.Name = "metroLabelDiskIdentifier";
+            this.metroLabelDiskIdentifier.Size = new System.Drawing.Size(91, 19);
+            this.metroLabelDiskIdentifier.TabIndex = 34;
+            this.metroLabelDiskIdentifier.Text = "Disk Identifier:";
+            // 
             // FormCreateBootWinPE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 699);
+            this.ClientSize = new System.Drawing.Size(820, 741);
+            this.Controls.Add(this.metroTextBoxDiskIdentifier);
+            this.Controls.Add(this.metroLabelDiskIdentifier);
             this.Controls.Add(this.metroTextBoxImageDestination);
             this.Controls.Add(this.metroLabelImageDestination);
             this.Controls.Add(this.metroTextBoxImageIdentifierValue);
@@ -454,5 +477,7 @@
         private MetroFramework.Controls.MetroLabel metroLabelImageIdentifierValue;
         private MetroFramework.Controls.MetroTextBox metroTextBoxImageDestination;
         private MetroFramework.Controls.MetroLabel metroLabelImageDestination;
+        private MetroFramework.Controls.MetroTextBox metroTextBoxDiskIdentifier;
+        private MetroFramework.Controls.MetroLabel metroLabelDiskIdentifier;
     }
 }
