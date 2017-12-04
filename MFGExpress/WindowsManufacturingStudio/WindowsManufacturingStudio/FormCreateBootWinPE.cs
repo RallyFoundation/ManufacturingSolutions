@@ -305,6 +305,18 @@ namespace WindowsManufacturingStudio
 
         private void metroComboBoxImageType_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            switch (this.metroComboBoxImageType.SelectedIndex)
+            {
+                case 0: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                case 1: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                default:
+                    break;
+            }
+
             string confPath = this.getConfPath(this.metroComboBoxImageType.SelectedIndex);
 
             if (!File.Exists(confPath))
