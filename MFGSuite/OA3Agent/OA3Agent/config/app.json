@@ -12,7 +12,7 @@
   "mongo-odata-resource-model": {
     "TransID": "String",
     "Key": "String",
-    "Time": "Number",
+    "Time": "String",
     "Value": "String",
     "Data": "String"
   },
