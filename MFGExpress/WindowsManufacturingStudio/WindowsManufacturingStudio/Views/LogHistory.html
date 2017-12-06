@@ -78,17 +78,23 @@
             </tr>
         </table>
         &#160;
-        <span>Current Page:&#160; {{currentPageIndex}};</span>
+        <span>Current Page:&#160;</span>
         &#160;
-        <span>Transactions in Current Page:&#160; {{transactionIndexes.length}};</span>
-        &#160;
-        <span>Total Records:&#160; {{totalRecordCount}}</span>
-        &#160;
-        <select ng-model="currentPageIndex" ng-change="onPaging(currentPageIndex)" style="width:56px">
-            <option ng-repeat="pageNumber in pageNumbers" value="{{pageNumber}}">
+        <select style="width:56px">
+            <option ng-repeat="pageNumber in pageNumbers" ng-click="onPaging(pageNumber)" ng-selected="(pageNumber == currentPageIndex)">
                 {{pageNumber}}
             </option>
         </select>
+        &#160;
+        <span>Page Size:&#160; {{pageSize}}</span>
+        &#160;
+        <select style="width:68px">
+            <option ng-repeat="pgSize in pageSizes" ng-click="onPageSizeChange(pgSize)" ng-selected="(PageSize == pgSize)">{{pgSize}}</option>
+        </select>
+        &#160;
+        <span>(Total Records:&#160; {{totalRecordCount}};</span>
+        &#160;
+        <span>Transactions in Current Page:&#160; {{transactionIndexes.length}})</span>
     </div>
 
     <script type="text/javascript">
@@ -160,13 +166,15 @@
 
             $scope.totalRecordCount = 0;
 
-            $scope.pageSize = 10;
+            $scope.pageSize = 15;
 
             $scope.pageCount = 0;
 
             $scope.currentPageIndex = 0;
 
             $scope.pageNumbers = [];
+
+            $scope.pageSizes = [15, 20, 25, 30, 35, 40, 50, 60, 70, 100];
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
@@ -204,6 +212,11 @@
             $scope.onPaging = function (pageIndex) {
                 $scope.currentPageIndex = pageIndex;
                 $scope.getTransactions();
+            };
+
+            $scope.onPageSizeChange = function (newPageSize) {
+                $scope.pageSize = newPageSize;
+                $scope.onInit();
             };
 
             $scope.getRecordCount = function ()
