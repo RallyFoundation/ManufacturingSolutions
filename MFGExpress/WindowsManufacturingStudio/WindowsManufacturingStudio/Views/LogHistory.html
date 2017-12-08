@@ -72,8 +72,8 @@
             <tr ng-repeat="transaction in transactionIndexes">
                 <td><a href="#" ng-click="showTransactionDetailDialog(transaction.TransID)">{{transaction.TransID}}</a></td>
                 <td>{{transaction.Key}}</td>
-                <td>{{transaction.Time}}</td>
-                <td></td>
+                <td>{{getTimeUtcString(transaction.Time)}}</td>
+                <td>{{transaction.Duration}}</td>
                 <td><a href="#" ng-click="getLogFile(transaction.TransID)">Download</a></td>
             </tr>
         </table>
@@ -219,6 +219,28 @@
                 $scope.onInit();
             };
 
+
+            $scope.formatTime = function (timeValue) {
+                var timeVal = String(timeValue).substring(6);
+                timeVal = timeVal.substring(0, timeVal.lastIndexOf(")"));
+
+                return timeVal;
+            };
+
+            $scope.getTimeSpan = function (startTimeMillisec, endTimeMillisec) {
+                var timeSpan = Number(endTimeMillisec) - Number(startTimeMillisec);
+                return timeSpan;
+            };
+
+            $scope.getTimeUtcString = function (timeMillisecValue) {
+                var newDate = new Date();
+                newDate.setMilliseconds(timeMillisecValue);
+
+                var dateUtcVal = newDate.toString();
+
+                return dateUtcVal;
+            };
+
             $scope.getRecordCount = function ()
             {
                 $scope.showProgress();
@@ -280,18 +302,22 @@
                         if (data.data.value.length > 0) {
 
                             for (var i = 0; i < data.data.value.length; i++) {
-                                $scope.transactions.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: data.data.value[i].Time, TransID: data.data.value[i].TransID });
+                                $scope.transactions.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: $scope.formatTime(data.data.value[i].Time), TransID: data.data.value[i].TransID });
 
                                 if (($scope.transactionIndexes.length == 0) || (String($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].TransID) != String(data.data.value[i].TransID))) {
-                                    $scope.transactionIndexes.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: data.data.value[i].Time, TransID: data.data.value[i].TransID });
+                                    $scope.transactionIndexes.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: $scope.formatTime(data.data.value[i].Time), TransID: data.data.value[i].TransID, Duration: 0 });
+                                } else {
+                                    $scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Duration = $scope.getTimeSpan($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Time, $scope.formatTime(data.data.value[i].Time));
                                 }
                             }
                         }
                         else {
-                            $scope.transactions.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: data.data.value.Time, TransID: data.data.value.TransID });
+                            $scope.transactions.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: $scope.formatTime(data.data.value.Time), TransID: data.data.value.TransID });
 
                             if (($scope.transactionIndexes.length == 0) || (String($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].TransID) != String(data.data.value.TransID))) {
-                                $scope.transactionIndexes.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: data.data.value.Time, TransID: data.data.value.TransID });
+                                $scope.transactionIndexes.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: $scope.formatTime(data.data.value.Time), TransID: data.data.value.TransID, Duration: 0 });
+                            } else {
+                                $scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Duration = $scope.getTimeSpan($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Time, $scope.formatTime(data.data.value.Time));
                             }
                         }
                     }
@@ -322,7 +348,7 @@
                     showClose: true,
                     closeByDocument: false,
                     closeByEscape: false,
-                    width: 500,
+                    width: 640,
                     preCloseCallback: function (value) {
                         return true;
                     }

@@ -10,7 +10,7 @@
         </tr>
         <tr ng-repeat="transaction in currentTransactions">
             <td>{{transaction.Key}}</td>
-            <td>{{transaction.Time}}</td>
+            <td>{{getTimeUtcString(transaction.Time)}}</td>
             <td>{{transaction.Value}}</td>
             <td>{{transaction.Data}}</td>
         </tr>
