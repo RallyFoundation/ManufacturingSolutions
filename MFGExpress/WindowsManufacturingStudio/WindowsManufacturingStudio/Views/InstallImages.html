@@ -407,13 +407,13 @@
 
                 var imageName = image.ImageName;
 
-                var imageGroup = image.ImageGroup;
+                var imageGroupName = image.ImageGroup;
 
                 $scope.showProgress();
 
                 var url = settings.WdsApiUrl;
 
-                var body = { ImageName: imageName, ImageGroup: imageGroup };
+                var body = { ImageName: imageName, ImageGroupName: imageGroupName };
 
                 var flag = image.Enabled == true ? "disable" : "enable";
 
