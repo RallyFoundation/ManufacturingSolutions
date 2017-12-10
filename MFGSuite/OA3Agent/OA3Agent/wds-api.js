@@ -1229,7 +1229,7 @@ app.patch('/wds/image/install/disable', function (req, res) {
             console.log(output);
             //res.end(output);
 
-            ps.addCommand('$image = Disable-WdsInstallImage', ['InstallImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
+            ps.addCommand('$image = Disable-WdsInstallImage', ['ImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
 
             ps.invoke()
                 .then(output => {
@@ -1274,7 +1274,7 @@ app.patch('/wds/image/install/enable', function (req, res) {
             console.log(output);
             //res.end(output);
 
-            ps.addCommand('$image = Enable-WdsInstallImage', ['InstallImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
+            ps.addCommand('$image = Enable-WdsInstallImage', ['ImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
 
             ps.invoke()
                 .then(output => {
