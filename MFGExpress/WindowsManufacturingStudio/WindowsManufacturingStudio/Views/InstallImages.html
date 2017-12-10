@@ -57,9 +57,11 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
             &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Lookup</a>
+            &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="deleteImage()" ng-show="(currentImageIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Lookup</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="enableDisableImage()" ng-show="(currentImageIndex >= 0)">{{(images[currentImageIndex].Enabled == true) ? 'Disable' : 'Enable'}}</a>
         </p>
         <br />
         <table class="table">
@@ -70,6 +72,7 @@
                 <th>Image Group</th>
                 <th>File Name</th>
                 <th>Description</th>
+                <th>Enabled</th>
             </tr>
             <tr ng-repeat="image in images">
                 <td>
@@ -80,6 +83,7 @@
                 <td>{{image.ImageGroup}}</td>
                 <td>{{image.FileName}}</td>
                 <td>{{image.Description}}</td>
+                <td>{{(image.Enabled == true) ? 'Yes' : 'No'}}</td>
             </tr>
         </table>
         <!--<table ng-table="tableParams" class="table">
@@ -398,8 +402,46 @@
                 });
             };
 
+            $scope.enableDisableImage = function () {
+                var image = $scope.images[this.currentImageIndex];
+
+                var imageName = image.ImageName;
+
+                var imageGroup = image.ImageGroup;
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var body = { ImageName: imageName, ImageGroup: imageGroup };
+
+                var flag = image.Enabled == true ? "disable" : "enable";
+
+                var servicePoint = "wds/image/install/" + flag;
+
+                $http.patch((url + servicePoint), body).then(function (data) {
+                    $scope.hideProgress();
+
+                    if ((data.data != null) && (data.status == 200)) {
+
+                        image.Enabled = (String(data.data.Enabled) == "true");
+                    }
+                    else {
+                        alert(JSON.stringify(data));
+                    }
+
+                    $scope.setCurrentImageIndex(-1);
+
+                }).catch(function (err) {
+                    $scope.hideProgress();
+                    alert(JSON.stringify(err));
+
+                    $scope.setCurrentImageIndex(-1);
+                });
+            };
+
             $scope.deleteImage = function () {
-                var image = this.images[this.currentImageIndex];
+                var image = $scope.images[this.currentImageIndex];
 
                 var imageName = image.ImageName;
                 var imageGroupName = image.ImageGroup;

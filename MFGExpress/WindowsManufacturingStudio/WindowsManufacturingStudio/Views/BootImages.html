@@ -57,6 +57,8 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;-->Add</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="deleteImage()" ng-show="(currentImageIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="enableDisableImage()" ng-show="(currentImageIndex >= 0)">{{(images[currentImageIndex].Enabled == true) ? 'Disable' : 'Enable'}}</a>
         </p>
         <br />
         <table class="table">
@@ -66,6 +68,7 @@
                 <th>Image Name</th>
                 <th>File Name</th>
                 <th>Description</th>
+                <th>Enabled</th>
             </tr>
             <tr ng-repeat="image in images">
                 <td>
@@ -75,6 +78,7 @@
                 <td>{{image.ImageName}}</td>
                 <td>{{image.FileName}}</td>
                 <td>{{image.Description}}</td>
+                <td>{{(image.Enabled == true) ? 'Yes' : 'No'}}</td>
             </tr>
         </table>
     </div>
@@ -185,12 +189,6 @@
             $scope.doConnect = function (index) {
 
                 $scope.showProgress();
-
-                //var protocol = $location.protocol();
-                //var host = $location.host();
-                //var port = $location.port();
-
-                //var url = protocol + "://" + host + ":" + port + "/";
 
                 var url = settings.WdsApiUrl;
 
@@ -308,8 +306,49 @@
                 });
             };
 
+            $scope.enableDisableImage = function () {
+                var image = $scope.images[this.currentImageIndex];
+
+                var imageName = image.ImageName;
+                var architecture = "x86";
+
+                if (image.Architecture == 3) {
+                    architecture = "x64";
+                }
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var body = { ImageName: imageName, Architecture: architecture };
+
+                var flag = image.Enabled == true ? "disable" : "enable";
+
+                var servicePoint = "wds/image/boot/" + flag;
+
+                $http.patch((url + servicePoint), body).then(function (data) {
+                    $scope.hideProgress();
+
+                    if ((data.data != null) && (data.status == 200)) {
+
+                        image.Enabled = (String(data.data.Enabled) == "true");
+                    }
+                    else {
+                        alert(JSON.stringify(data));
+                    }
+
+                    $scope.setCurrentImageIndex(-1);
+
+                }).catch(function (err) {
+                    $scope.hideProgress();
+                    alert(JSON.stringify(err));
+
+                    $scope.setCurrentImageIndex(-1);
+                });
+            };
+
             $scope.deleteImage = function () {
-                var image = this.images[this.currentImageIndex];
+                var image = $scope.images[this.currentImageIndex];
 
                 var imageName = image.ImageName;
                 var architecture = "x86";
@@ -352,12 +391,6 @@
                 ngDialog.closeAll();
 
                 $scope.showProgress();
-
-                //var protocol = $location.protocol();
-                //var host = $location.host();
-                //var port = $location.port();
-
-                //var url = protocol + "://" + host + ":" + port + "/";
 
                 var url = settings.WdsApiUrl;
 

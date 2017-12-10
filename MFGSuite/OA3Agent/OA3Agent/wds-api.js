@@ -1215,6 +1215,151 @@ app.post('/wds/image/install/', function (req, res) {
 });
 
 
+app.patch('/wds/image/install/disable', function (req, res) {
+    var data = req.body;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+
+            ps.addCommand('$image = Disable-WdsInstallImage', ['InstallImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
+
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+});
+
+
+app.patch('/wds/image/install/enable', function (req, res) {
+    var data = req.body;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+
+            ps.addCommand('$image = Enable-WdsInstallImage', ['InstallImageName "' + data.ImageName + '"', 'ImageGroup "' + data.ImageGroupName + '"']);
+
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+});
+
+
+app.delete('/wds/image/install/:group/:name', function (req, res) {
+    //var data = req.body;
+
+    var imageName = req.params.name;
+    imageName = String(imageName).replace(/\$/g, " ");
+
+    var imageGroup = req.params.group;
+
+    var fileName = req.query.fname != null ? String(req.query.fname).replace(/\$/g, " ") : null;
+    //fileName = String(fileName).replace(/\$/g, " ");
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+            if (fileName != null && fileName != '') {
+                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"', 'FileName "' + fileName + '"']);
+            } else {
+                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"']);
+            }
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+});
+
+
 app.post('/wds/image/boot/', function (req, res) {
     var data = req.body;
 
@@ -1311,16 +1456,8 @@ app.patch('/wds/image/boot/', function (req, res) {
 });
 
 
-app.delete('/wds/image/boot/:arch/:name', function (req, res) {
-    //var data = req.body;
-
-    var imageName = req.params.name;
-    imageName = String(imageName).replace(/\$/g, " ");
-
-    var architecture = req.params.arch;
-
-    var fileName = req.query.fname != null ? String(req.query.fname).replace(/\$/g, " ") : null;
-    //fileName = String(fileName).replace(/\$/g, " ");
+app.patch('/wds/image/boot/disable', function (req, res) {
+    var data = req.body;
 
     let ps = new shell({
         executionPolicy: 'Bypass',
@@ -1332,11 +1469,9 @@ app.delete('/wds/image/boot/:arch/:name', function (req, res) {
         .then(output => {
             console.log(output);
             //res.end(output);
-            if (fileName != null && fileName != '') {
-                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"', 'FileName "' + fileName + '"']);
-            } else {
-                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"']);
-            }
+
+            ps.addCommand('$image = Disable-WdsBootImage', ['Architecture ' + data.Architecture, 'ImageName "' + data.ImageName + '"']);
+
             ps.invoke()
                 .then(output => {
                     console.log(output);
@@ -1366,13 +1501,58 @@ app.delete('/wds/image/boot/:arch/:name', function (req, res) {
 });
 
 
-app.delete('/wds/image/install/:group/:name', function (req, res) {
+app.patch('/wds/image/boot/enable', function (req, res) {
+    var data = req.body;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    ps.addCommand('Import-Module', ['Name "WDS"']);
+    ps.invoke()
+        .then(output => {
+            console.log(output);
+            //res.end(output);
+
+            ps.addCommand('$image = Enable-WdsBootImage', ['Architecture ' + data.Architecture, 'ImageName "' + data.ImageName + '"']);
+
+            ps.invoke()
+                .then(output => {
+                    console.log(output);
+                    //res.end(output);
+                    ps.addCommand('$image | ConvertTo-Json')
+                    ps.invoke()
+                        .then(output => {
+                            console.log(output);
+                            res.end(output);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            ps.dispose();
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //ps.dispose();
+                    res.end(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+            //ps.dispose();
+            res.end(err);
+        });
+});
+
+
+app.delete('/wds/image/boot/:arch/:name', function (req, res) {
     //var data = req.body;
 
     var imageName = req.params.name;
     imageName = String(imageName).replace(/\$/g, " ");
 
-    var imageGroup = req.params.group;
+    var architecture = req.params.arch;
 
     var fileName = req.query.fname != null ? String(req.query.fname).replace(/\$/g, " ") : null;
     //fileName = String(fileName).replace(/\$/g, " ");
@@ -1388,9 +1568,9 @@ app.delete('/wds/image/install/:group/:name', function (req, res) {
             console.log(output);
             //res.end(output);
             if (fileName != null && fileName != '') {
-                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"', 'FileName "' + fileName + '"']);
+                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"', 'FileName "' + fileName + '"']);
             } else {
-                ps.addCommand('$image = Remove-WdsInstallImage', ['ImageName "' + imageName + '"', 'ImageGroup "' + imageGroup + '"']);
+                ps.addCommand('$image = Remove-WdsBootImage', ['Architecture ' + architecture, 'ImageName "' + imageName + '"']);
             }
             ps.invoke()
                 .then(output => {
