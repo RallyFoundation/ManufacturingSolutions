@@ -29,11 +29,6 @@ if($WDSApiServicePoint.EndsWith("/") -eq $false)
    $WDSApiServicePoint += "/";
 }
 
-if($ImageServerAddress.EndsWith("/") -eq $false)
-{
-   $ImageServerAddress += "/";
-}
-
 $ImageServerAddress;
 $ImageServerUserName;
 $WDSApiServicePoint;
@@ -151,6 +146,11 @@ if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerPassword) -eq $false)
 if([System.String]::IsNullOrEmpty($ImageConfig.ImageDestination) -eq $false)
 {
 	 $ImageDestination = $ImageConfig.ImageDestination;
+}
+
+if($ImageServerAddress.EndsWith("/") -eq $false)
+{
+   $ImageServerAddress += "/";
 }
 
 $ImageUrl = $ImageConfig.ImageSource;
