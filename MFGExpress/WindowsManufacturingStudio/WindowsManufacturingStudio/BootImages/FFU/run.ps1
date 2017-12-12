@@ -127,10 +127,10 @@ Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $
 
 $Uri = $WDSApiServicePoint + $Url + $ImageID;
 $Uri;
-$ImageConfigJson = Invoke-RestMethod -Method Get -Uri $Uri;
-$ImageConfigJson;
+$ImageConfig = Invoke-RestMethod -Method Get -Uri $Uri;
+$ImageConfig;
 
-$ImageConfig = ConvertFrom-Json -InputObject $ImageConfigJson;
+#$ImageConfig = ConvertFrom-Json -InputObject $ImageConfigJson;
 
 #$Body.Value = "GettingImageFileInfo";
 #$Body.Time = [System.DateTime]::Now;

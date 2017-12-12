@@ -125,6 +125,9 @@ $Uri;
 #$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
 #$ImageUrl;
 
+$ImageConfig = Invoke-RestMethod -Method Get -Uri $Uri;
+$ImageConfig;
+
 if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerAddress) -eq $false)
 {
 	 $ImageServerAddress = $ImageConfig.ImageServerAddress;
