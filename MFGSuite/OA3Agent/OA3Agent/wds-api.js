@@ -265,7 +265,7 @@ app.post('/wds/lookup/', function (req, res) {
             res.end(err);
         }
         else {
-            redisClient.set(data.Key, data.Value, function (err, result) {
+            redisClient.set(data.Key, JSON.stringify(data.Value), function (err, result) {
                 if (err) {
                     console.log(err);
                     res.end(err);
@@ -281,6 +281,107 @@ app.post('/wds/lookup/', function (req, res) {
 });
 
 app.delete('/wds/lookup/:key', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.key;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.del(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    var resultString = String(result);
+                    console.log(resultString);
+                    redisClient.end(true);
+                    res.end(resultString);
+                }
+            });
+        }
+    });
+});
+
+app.get('/wds/biz/:key', function (req, res) {
+    var redisClient = getRedisClient();
+    var key = req.params.key;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.get(key, function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(result);
+                    redisClient.end(true);
+                    res.end(result);
+                }
+            });
+        }
+    });
+});
+
+app.get('/wds/biz/keys/all', function (req, res) {
+    var redisClient = getRedisClient();
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.keys('*', function (err, keys) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(JSON.stringify(keys));
+                    redisClient.end(true);
+                    res.end(JSON.stringify(keys));
+                }
+            });
+        }
+    });
+});
+
+app.post('/wds/biz/', function (req, res) {
+    var redisClient = getRedisClient();
+    //var key = req.params.key;
+    var data = req.body;
+
+    redisClient.select(redisDbIndex, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            redisClient.set(data.Key, JSON.stringify(data.Value), function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.end(err);
+                }
+                else {
+                    console.log(result);
+                    redisClient.end(true);
+                    res.end(result);
+                }
+            });
+        }
+    });
+});
+
+app.delete('/wds/biz/:key', function (req, res) {
     var redisClient = getRedisClient();
     var key = req.params.key;
 

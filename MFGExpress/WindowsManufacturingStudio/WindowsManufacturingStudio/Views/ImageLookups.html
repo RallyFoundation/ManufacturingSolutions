@@ -204,7 +204,7 @@
 
             $scope.showNewImageLookupDialog = function () {
                     $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
-                    $scope.newImageLookup.Value = "";//cacheValue;
+                    $scope.newImageLookup.Value = { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: "", ImageDestination: "", DiskIdentifier: ""};//cacheValue;
 
                     $scope.currentDialog = ngDialog.open({
                         scope: $scope,
