@@ -78,6 +78,8 @@ if(($ImageType -eq "multicast") -or ($ImageType -eq "wim-usb"))
    }
    
    Copy-Item -Path ($PEScriptDir + "\diskpartcmd.txt") .\mount\windows\system32 -Force;
+
+   Copy-Item -Path ($PEScriptDir + "\diskpartcmd-template.txt") .\mount\windows\system32 -Force;
 }
 
 #if($ImageType -eq "ffu")

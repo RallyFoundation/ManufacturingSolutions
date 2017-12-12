@@ -120,15 +120,17 @@ if([System.String]::IsNullOrEmpty($ImageID))
     exit;
 }
 
-$Body.Value = "GettingImageUrl";
+$Body.Value = "GettingImageConfiguration";
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 $Uri = $WDSApiServicePoint + $Url + $ImageID;
 $Uri;
-[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
-$ImageUrl;
+$ImageConfigJson = Invoke-RestMethod -Method Get -Uri $Uri;
+$ImageConfigJson;
+
+$ImageConfig = ConvertFrom-Json -InputObject $ImageConfigJson;
 
 #$Body.Value = "GettingImageFileInfo";
 #$Body.Time = [System.DateTime]::Now;
@@ -282,6 +284,28 @@ $ImageUrl;
 #	Read-Host -Prompt ("Image file size incorrect, please try downloading it again! (Expected Size: {0}; Actual Size: {1}) `nPress any key to exit..."-f  $RemoteImageFileInfo.size, $ImageFile.Length);
 #    exit;
 #}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerAddress) -eq $false)
+{
+	 $ImageServerAddress = $ImageConfig.ImageServerAddress;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerUsername) -eq $false)
+{
+	 $ImageServerUserName = $ImageConfig.ImageServerUsername;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerPassword) -eq $false)
+{
+	 $ImageServerPassword = $ImageConfig.ImageServerPassword;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageDestination) -eq $false)
+{
+	 $ImageDestination = $ImageConfig.ImageDestination;
+}
+
+$ImageUrl = $ImageConfig.ImageSource;
 
 $Body.Data = $ImageUrl;
 $Body.Value = "ApplyingImage";

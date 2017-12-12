@@ -120,15 +120,40 @@ if([System.String]::IsNullOrEmpty($ImageID))
     exit;
 }
 
-$Body.Value = "GettingImageUrl";
+$Body.Value = "GettingImageConfiguration";
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 $Uri = $WDSApiServicePoint + $Url + $ImageID;
 $Uri;
-[System.String]$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
-$ImageUrl;
+$ImageConfigJson = Invoke-RestMethod -Method Get -Uri $Uri;
+$ImageConfigJson;
+
+$ImageConfig = ConvertFrom-Json -InputObject $ImageConfigJson;
+
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerAddress) -eq $false)
+{
+	 $ImageServerAddress = $ImageConfig.ImageServerAddress;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerUsername) -eq $false)
+{
+	 $ImageServerUserName = $ImageConfig.ImageServerUsername;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerPassword) -eq $false)
+{
+	 $ImageServerPassword = $ImageConfig.ImageServerPassword;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageDestination) -eq $false)
+{
+	 $ImageDestination = $ImageConfig.ImageDestination;
+}
+
+$ImageUrl = $ImageConfig.ImageSource;
 
 $Body.Value = "GettingImageFileInfo";
 $Body.Time = [System.DateTime]::Now;

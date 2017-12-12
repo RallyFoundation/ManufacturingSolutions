@@ -114,25 +114,70 @@ if([System.String]::IsNullOrEmpty($ImageID))
     exit;
 }
 
-$Body.Value = "CreatingDiskPartition";
-$Body.Time = [System.DateTime]::Now;
-$BodyJson = ConvertTo-Json -InputObject $Body;
-Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
-
-Start-Process -FilePath "diskpart" -ArgumentList  @("/s diskpartcmd.txt") -Wait -NoNewWindow;
-
-$Body.Value = "GettingImageUrl";
+$Body.Value = "GettingImageConfiguration";
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
 
 $Uri = $WDSApiServicePoint + $Url + $ImageID;
-
 $Uri;
 
-$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+#$ImageUrl = Invoke-RestMethod -Method Get -Uri $Uri;
+#$ImageUrl;
 
-$ImageUrl;
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerAddress) -eq $false)
+{
+	 $ImageServerAddress = $ImageConfig.ImageServerAddress;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerUsername) -eq $false)
+{
+	 $ImageServerUserName = $ImageConfig.ImageServerUsername;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageServerPassword) -eq $false)
+{
+	 $ImageServerPassword = $ImageConfig.ImageServerPassword;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.ImageDestination) -eq $false)
+{
+	 $ImageDestination = $ImageConfig.ImageDestination;
+}
+
+if([System.String]::IsNullOrEmpty($ImageConfig.DiskIdentifier) -eq $false)
+{
+	 $DiskIdentifier = $ImageConfig.DiskIdentifier;
+}
+
+$ImageUrl = $ImageConfig.ImageSource;
+
+$Body.Value = "CreatingDiskPartition";
+$Body.Time = [System.DateTime]::Now;
+$BodyJson = ConvertTo-Json -InputObject $Body;
+Invoke-RestMethod -Method Post -Uri ($WDSApiServicePoint + $UrlProgress) -Body $BodyJson -ContentType "application/json";
+
+if($DiskIdentifier -ne $ConfigXml.configurationItems.diskIdentifierValue)
+{
+   $DiskPartCmdTemplate = Get-Content -Path ("diskpartcmd-template.txt") -Encoding Ascii;
+
+   if([System.IO.File]::Exists("diskpartcmd.txt"))
+   {
+      [System.IO.File]::Delete("diskpartcmd.txt");
+   }
+
+   foreach($line in  $DiskPartCmdTemplate)
+   {
+      if($line.StartsWith("select disk {0}"))
+      {
+         $line = ($line -f $DiskIdentifier);      
+      }
+
+      $line | Out-File -FilePath ("diskpartcmd.txt") -Encoding ascii -Append -Force;
+   }
+}
+
+Start-Process -FilePath "diskpart" -ArgumentList  @("/s diskpartcmd.txt") -Wait -NoNewWindow;
 
 $Body.Data = $ImageUrl;
 $Body.Value = "ApplyingImage";
