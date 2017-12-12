@@ -174,7 +174,7 @@
 
             $scope.imageFileContents = [];
 
-            $scope.newImageLookup = { Key: "", Value: "" };
+            $scope.newImageLookup = { Key: "", Value: { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: "", ImageDestination: "", DiskIdentifier: "" } };
 
             $scope.currentImageIndex = -1;
 
@@ -365,7 +365,7 @@
                     var cacheValue = "WDS:" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
 
                     $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
-                    $scope.newImageLookup.Value = cacheValue;
+                    $scope.newImageLookup.Value = { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: cacheValue, ImageDestination: "W:\\", DiskIdentifier: "0" };
 
                     $scope.currentDialog = ngDialog.open({
                         scope: $scope,
