@@ -45,7 +45,9 @@ namespace OA3ToolConfGen
         public static string OA3ToolConfigurationValue_Options_HardwareHashVersion = "1";
         public static int OA3ToolConfigurationValue_Options_HardwareHashPadding = 4000;
 
-        public static string Configuration_Database_Name = "MDOSKeyStore_CloudOA";
+        public static string Configuration_Database_Name = "MDOS_FFKI_KeyStore_Test";//"MDOSKeyStore_CloudOA";
+        public static string Configuration_Database_Username = "MDOS";
+        public static string Configuration_Database_Password = "D!S@OMSG.msft";
         public static string SQL_GetConfigurationsAll = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";//"SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1";
         //public static string SQL_GetConfigurationByID = "SELECT BusinessID, BusinessName, Status, DatabaseType, HostName, UserName, Password, DatabaseName, TrustConnection FROM Business WHERE Status = 1 AND DatabaseType = 1 AND BusinessID = @BusinessID";
 
@@ -55,6 +57,8 @@ namespace OA3ToolConfGen
         public static string OEMOptionalInfo_ZPGM_ELIG_VAL_SubValueSeparator = "|";
 
         public static int KeyTypeID = 1;
+
+        public static bool ShowConfigurationsFromServer = false;
 
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {

@@ -16,12 +16,22 @@ namespace OA3ToolConfGen
         public FormMain()
         {
             InitializeComponent();
+
+            if (!ModuleConfiguration.ShowConfigurationsFromServer)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageCloud);
+            }
         }
 
         public FormMain(string ConfigFilePath)
         {
             this.currentFilePath = ConfigFilePath;
             InitializeComponent();
+
+            if (!ModuleConfiguration.ShowConfigurationsFromServer)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageCloud);
+            }    
         }
 
         private string currentFilePath;
@@ -33,11 +43,14 @@ namespace OA3ToolConfGen
             {ModuleConfiguration.AppStateKey_DBConnectionString, ""},
             {ModuleConfiguration.AppStateKey_CloudConfigurationID, ""},
             {ModuleConfiguration.AppStateKey_CloudServicePoint, ""},
-            {ModuleConfiguration.AppStateKey_CloudUserName, "MDOS"},
-            {ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
+            //{ModuleConfiguration.AppStateKey_CloudUserName, "MDOS"},
+            //{ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
+            {ModuleConfiguration.AppStateKey_CloudUserName, ModuleConfiguration.Configuration_Database_Username},
+            {ModuleConfiguration.AppStateKey_CloudPassword, ModuleConfiguration.Configuration_Database_Password},
             {ModuleConfiguration.AppStateKey_OA3ToolConfiguration, null},
             {ModuleConfiguration.AppStateKey_CloudConfigurationSets, null},
-            {ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"},
+            //{ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"},
+            {ModuleConfiguration.AppStateKey_CloudClientDBName, ModuleConfiguration.Configuration_Database_Name},
             {ModuleConfiguration.AppStateKey_KeyTypeID, ModuleConfiguration.KeyTypeID}
         };
 
