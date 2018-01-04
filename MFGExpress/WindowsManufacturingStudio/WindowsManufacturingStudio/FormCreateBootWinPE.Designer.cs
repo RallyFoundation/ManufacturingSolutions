@@ -143,7 +143,9 @@
             "WIM Over USB",
             "Full Flash Update (FFU) Over SMB",
             "Full Flash Update (FFU) Over HTTP",
-            "Full Flash Update (FFU) Over USB"});
+            "Full Flash Update (FFU) Over USB",
+            "Capture - WIM Over USB",
+            "Capture - Full Flash Update (FFU) Over USB"});
             this.metroComboBoxImageType.Location = new System.Drawing.Point(169, 146);
             this.metroComboBoxImageType.Name = "metroComboBoxImageType";
             this.metroComboBoxImageType.Size = new System.Drawing.Size(500, 29);

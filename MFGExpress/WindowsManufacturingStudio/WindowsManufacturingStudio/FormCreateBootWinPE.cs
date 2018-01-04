@@ -205,6 +205,8 @@ namespace WindowsManufacturingStudio
                 case 2: { imageType = "ffu"; break; }
                 case 3: { imageType = "ffu-http"; break; }
                 case 4: { imageType = "ffu-usb"; break; }
+                case 5: { imageType = "capture-wim-usb"; break; }
+                case 6: { imageType = "capture-ffu-usb"; break; }
                 default: { imageType = "multicast"; break; }
             }
 
@@ -313,6 +315,8 @@ namespace WindowsManufacturingStudio
                 case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
                 case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
                 case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                case 5: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                case 6: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }  
                 default:
                     break;
             }
