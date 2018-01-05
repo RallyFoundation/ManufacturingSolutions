@@ -335,7 +335,7 @@ if([System.String]::IsNullOrEmpty($ImageDestination) -eq $true)
    $ImageDestination = "\\.\PhysicalDrive0";
 }
 
-Start-Process -FilePath "DISM" -ArgumentList @("/Capture-FFU", ("/ImageFile:" + $ImageFilePath), ("/CaptureDrive:" + $ImageDestination), ("/Name:FFU-Cap-" + $ImageID), ("/Description:FFU-Cap-" + $ImageID + "-" + $TransactionID)) -Wait -NoNewWindow;
+Start-Process -FilePath "DISM" -ArgumentList @("/Capture-FFU", ("/ImageFile:" + $ImageFilePath), ("/CaptureDrive:" + $ImageDestination), ("/Name:" + $TransactionID), ("/Description:FFU-Cap-" + $TransactionID)) -Wait -NoNewWindow;
 
 #$Body.Value = "ImageApplied";
 #$Body.Time = [System.DateTime]::Now;

@@ -45,6 +45,8 @@ namespace WindowsManufacturingStudio
                 case 2: { confPath += "\\FFU\\config.xml"; break; }
                 case 3: { confPath += "\\FFU-HTTP\\config.xml"; break; }
                 case 4: { confPath += "\\FFU-USB\\config.xml"; break; }
+                case 5: { confPath += "\\Capture-WIM-USB\\config.xml"; break; }
+                case 6: { confPath += "\\Capture-FFU-USB\\config.xml"; break; }
                 default: { confPath += "\\Multicast\\config.xml"; break; }
             }
 
