@@ -1,0 +1,9 @@
+﻿<div>
+    <dl class="dl-horizontal">
+        <dt>Image Group Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImageGroup.Name" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+        </dd>
+    </dl>
+    <input type="submit" value="OK" class="btn btn-info btn-lg" ng-click="doSubmit()" />
+</div>

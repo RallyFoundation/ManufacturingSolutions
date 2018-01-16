@@ -1,0 +1,9 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "angular": "angularjs#v1.6.9-build.5530+sha.07d84dd",
+    "ng-dialog": "ngDialog#v1.4.0"
+  }
+}

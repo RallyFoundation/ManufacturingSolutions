@@ -1,0 +1,75 @@
+﻿<div>
+    <dl class="dl-horizontal">
+        <dt>Key: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Key" class="form-control" maxlength="60" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Work Flow: </dt>
+        <dd>
+            <!--<input type="text" ng-model="newImageLookup.Value.ImageIdentifierType" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />-->
+            <select ng-model="newImageLookup.Value.ImageType" class="form-control">
+                <option value="0">WIM Over TFTP (WDS + Multicast)</option>
+                <option value="1">WIM Over USB</option>
+                <option value="2">Full Flash Update (FFU) Over SMB</option>
+                <option value="3">Full Flash Update (FFU) Over HTTP</option>
+                <option value="4">Full Flash Update (FFU) Over USB</option>
+            </select>
+        </dd>
+        <dt>Image Server Address: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageServerAddress" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Image Server Username: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageServerUsername" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Image Server Password: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageServerPassword" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Image Identifier Type: </dt>
+        <dd>
+            <!--<input type="text" ng-model="newImageLookup.Value.ImageIdentifierType" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />-->
+            <select ng-model="newImageLookup.Value.ImageIdentifierType" class="form-control">
+                <option value="0">SmbiosSkuNumber</option>
+                <option value="1">Model</option>
+                <option value="2">SmbiosSystemFamily</option>
+                <option value="3">SmbiosSystemManufacturer</option>
+                <option value="4">Custom</option>
+            </select>
+        </dd>
+        <dt>Default Image Identifier: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageIdentifierValue" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Client Identifier Type: </dt>
+        <dd>
+            <select ng-model="newImageLookup.Value.ClientIdentifierType" class="form-control">
+                <option value="0">SmbiosSystemSerialNumber</option>
+                <option value="1">MAC Address</option>
+                <option value="2">Custom</option>
+            </select>
+        </dd>
+        <dt>Default Client Identifier: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ClientIdentifierValue" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Client NIC Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ClientNICName" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Image Source: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageSource" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Image Destination: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.ImageDestination" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>Disk Identifier: </dt>
+        <dd>
+            <input type="text" ng-model="newImageLookup.Value.DiskIdentifier" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+    </dl>
+    <input type="submit" value="OK" class="btn btn-info btn-lg" ng-click="setImageLookup()" />
+</div>

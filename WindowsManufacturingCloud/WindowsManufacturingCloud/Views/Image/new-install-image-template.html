@@ -1,0 +1,47 @@
+﻿<div>
+    <dl class="dl-horizontal">
+        <dt>Image Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImage.NewImageName" class="form-control" maxlength="60" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+        </dd>
+
+        <dt>Image Group: </dt>
+        <dd>
+            <select ng-model="newImage.ImageGroupName" class="form-control">
+                <option ng-repeat="imageGroup in imageGroups">{{imageGroup.Name}}</option>
+            </select>
+        </dd>
+
+        <dt>Image File: </dt>
+        <dd>
+            <select ng-model="newImage.ImageFilePath" class="form-control">
+                <option ng-repeat="imageFile in imageFiles" ng-click="getImageContents($index)">{{imageFile}}</option>
+            </select>
+        </dd>
+
+        <dt>Image: </dt>
+        <dd>
+            <select ng-model="newImage.RawImageNameInFile" class="form-control">
+                <option ng-repeat="image in imageFileContents">{{image.ImageName}}</option>
+            </select>
+        </dd>
+
+        <dt>Image Description: </dt>
+        <dd>
+            <input type="text" ng-model="newImage.NewDescription" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+        </dd>
+
+        <dt>Image File Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImage.NewFileName" class="form-control" maxlength="60" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+        </dd>
+
+        <dt>Multicast: </dt>
+        <dd>
+            <!--<label class="form-control"><input type="checkbox" ng-model="newImage.EnableMulticastTransmission" class="form-control" />Enabled</label>-->  
+            <input type="range" min="0" max="1" step="1" ng-model="newImage.EnableMulticastTransmission" class="form-control" />
+        </dd>
+    </dl>
+    
+    <input type="submit" value="OK" class="btn btn-info btn-lg" ng-click="doSubmit()" />
+</div>
