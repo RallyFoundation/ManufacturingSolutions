@@ -1,0 +1,339 @@
+﻿
+@{
+    ViewData["Title"] = "Log History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Log History</h2>
+
+<div ng-controller="LogHistoryController" ng-init="onInit()">
+    <p>
+        &#160;&#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="onInit()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="onPaging(1)" ng-show="(currentPageIndex > 1)">First</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="onPaging((currentPageIndex - 1))" ng-show="(currentPageIndex > 1)">Previous</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="onPaging((currentPageIndex + 1))" ng-show="((currentPageIndex > 0) && (currentPageIndex < pageCount))">Next</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="onPaging(pageCount)" ng-show="((currentPageIndex > 0) && (currentPageIndex < pageCount))">Last</a>
+    </p>
+    <br />
+    <table class="table">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Client ID</th>
+            <th>Date</th>
+            <th>Time Spent</th>
+            <th>Log</th>
+        </tr>
+        <tr ng-repeat="transaction in transactionIndexes">
+            <td><a href="#" ng-click="showTransactionDetailDialog(transaction.TransID)">{{transaction.TransID}}</a></td>
+            <td>{{transaction.Key}}</td>
+            <td>{{getTimeUtcString(transaction.Time)}}</td>
+            <td>{{transaction.Duration}}</td>
+            <td><a href="#" ng-click="getLogFile(transaction.TransID)">Download</a></td>
+        </tr>
+    </table>
+    &#160;
+    <span>Current Page:&#160;</span>
+    &#160;
+    <select style="width:56px">
+        <option ng-repeat="pageNumber in pageNumbers" ng-click="onPaging(pageNumber)" ng-selected="(pageNumber == currentPageIndex)">
+            {{pageNumber}}
+        </option>
+    </select>
+    &#160;
+    <span>Page Size:&#160; {{pageSize}}</span>
+    &#160;
+    <select style="width:68px">
+        <option ng-repeat="pgSize in pageSizes" ng-click="onPageSizeChange(pgSize)" ng-selected="(PageSize == pgSize)">{{pgSize}}</option>
+    </select>
+    &#160;
+    <span>(Total Records:&#160; {{totalRecordCount}};</span>
+    &#160;
+    <span>Transactions in Current Page:&#160; {{transactionIndexes.length}})</span>
+</div>
+
+<script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("LogHistoryController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.transactions = [];
+
+            $scope.transactionIndexes = [];
+
+            $scope.currentTransactions = [];
+
+            $scope.totalRecordCount = 0;
+
+            $scope.pageSize = 15;
+
+            $scope.pageCount = 0;
+
+            $scope.currentPageIndex = 0;
+
+            $scope.pageNumbers = [];
+
+            $scope.pageSizes = [15, 20, 25, 30, 35, 40, 50, 60, 70, 100];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.onInit = function () {
+                $scope.getRecordCount();
+            };
+
+            $scope.onPaging = function (pageIndex) {
+                $scope.currentPageIndex = pageIndex;
+                $scope.getTransactions();
+            };
+
+            $scope.onPageSizeChange = function (newPageSize) {
+                $scope.pageSize = newPageSize;
+                $scope.onInit();
+            };
+
+
+            $scope.formatTime = function (timeValue) {
+                var timeVal = String(timeValue).substring(6);
+                timeVal = timeVal.substring(0, timeVal.lastIndexOf(")"));
+
+                return timeVal;
+            };
+
+            $scope.getTimeSpan = function (startTimeMillisec, endTimeMillisec) {
+                var timeSpan = Number(endTimeMillisec) - Number(startTimeMillisec);
+                return timeSpan;
+            };
+
+            $scope.getTimeUtcString = function (timeMillisecValue) {
+                var newDate = new Date();
+                newDate.setMilliseconds(timeMillisecValue);
+
+                var dateUtcVal = newDate.toString();
+
+                return dateUtcVal;
+            };
+
+            $scope.getRecordCount = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+                var servicePoint = "engineering?$count=true&$select=id";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    if (data != null && data.data != null && data.data.value != null) {
+
+                        //alert(JSON.stringify(data.data));
+
+                        $scope.totalRecordCount = data.data.value.length;
+                        $scope.pageCount = Math.floor($scope.totalRecordCount / $scope.pageSize);
+
+                        var mod = ($scope.totalRecordCount % $scope.pageSize);
+
+                        if (mod > 0) {
+                            $scope.pageCount += 1;
+                        }
+
+                        $scope.pageNumbers.splice(0);
+
+                        for (var i = 0; i < $scope.pageCount; i++) {
+                            $scope.pageNumbers.push((i + 1));
+                        }
+
+                        $scope.hideProgress();
+
+                        $scope.onPaging(1);
+                    }
+                });
+            };
+
+            $scope.getTransactions = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "engineering?$orderby=id";
+
+                var skip = ($scope.currentPageIndex - 1) * $scope.pageSize;
+
+                var pagingArgs = "&$top=" + String($scope.pageSize) + "&$skip=" + String(skip);
+
+                $http.get(url + servicePoint + pagingArgs).then(function (data) {
+
+                    //$scope.transactions.splice(0, $scope.transactions.length);
+
+                    //alert(pagingArgs);
+
+                    $scope.transactions.splice(0);
+                    $scope.transactionIndexes.splice(0);
+
+                    if (data != null && data.data != null && data.data.value != null)
+                    {
+                        if (data.data.value.length > 0) {
+
+                            for (var i = 0; i < data.data.value.length; i++) {
+                                $scope.transactions.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: $scope.formatTime(data.data.value[i].Time), TransID: data.data.value[i].TransID });
+
+                                if (($scope.transactionIndexes.length == 0) || (String($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].TransID) != String(data.data.value[i].TransID))) {
+                                    $scope.transactionIndexes.push({ Key: data.data.value[i].Key, Value: data.data.value[i].Value, Data: data.data.value[i].Data, Time: $scope.formatTime(data.data.value[i].Time), TransID: data.data.value[i].TransID, Duration: 0 });
+                                } else {
+                                    $scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Duration = $scope.getTimeSpan($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Time, $scope.formatTime(data.data.value[i].Time));
+                                }
+                            }
+                        }
+                        else {
+                            $scope.transactions.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: $scope.formatTime(data.data.value.Time), TransID: data.data.value.TransID });
+
+                            if (($scope.transactionIndexes.length == 0) || (String($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].TransID) != String(data.data.value.TransID))) {
+                                $scope.transactionIndexes.push({ Key: data.data.value.Key, Value: data.data.value.Value, Data: data.data.value.Data, Time: $scope.formatTime(data.data.value.Time), TransID: data.data.value.TransID, Duration: 0 });
+                            } else {
+                                $scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Duration = $scope.getTimeSpan($scope.transactionIndexes[($scope.transactionIndexes.length - 1)].Time, $scope.formatTime(data.data.value.Time));
+                            }
+                        }
+                    }
+
+                    $scope.hideProgress();
+                });
+            };
+
+            $scope.showTransactionDetailDialog = function (transactionId) {
+
+                if (($scope.currentTransactions.length > 0) && (String($scope.currentTransactions[0].TransID) != String(transactionId))) {
+                    $scope.currentTransactions.splice(0);
+                }
+
+                if ($scope.transactions != null && $scope.transactions.length > 0) {
+                    for (var i = 0; i < $scope.transactions.length; i++) {
+                        if (String($scope.transactions[i].TransID) == String(transactionId)) {
+                            $scope.currentTransactions.push({ Key: $scope.transactions[i].Key, Value: $scope.transactions[i].Value, Data: $scope.transactions[i].Data, Time: $scope.transactions[i].Time, TransID: $scope.transactions[i].TransID });
+                        }
+                    }
+                }
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/transaction-detail-template.html',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 640,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.getLogFile = function (transacitonId)
+            {
+                var url = settings.WdsApiUrl;
+                var servicePoint = "wds/logfile/";
+                var fileName = transacitonId + "_dism.log";
+
+                var fileInfo = { Url: "", Path: "", Content: "", UserName: "", Password: "", AuthenticationScheme: "Basic" };
+
+                fileInfo.Url = (url + servicePoint + fileName);
+                fileInfo.Path = fileName;
+                fileInfo.UserName = settings.FileServiceUserName;
+                fileInfo.Password = settings.FileServicePassword;
+
+                var fileInfoJson = JSON.stringify(fileInfo);
+
+                event = new MessageEvent("DownloadFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                document.dispatchEvent(event);
+            };
+        });
+</script>
+

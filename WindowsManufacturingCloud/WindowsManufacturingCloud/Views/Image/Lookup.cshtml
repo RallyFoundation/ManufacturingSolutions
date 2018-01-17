@@ -1,0 +1,288 @@
+﻿
+@{
+    ViewData["Title"] = "Image Lookups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Image Lookups</h2>
+
+<div ng-controller="ImageLookupController" ng-init="getImageLookups()">
+    <p>
+        &nbsp;&nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="getImageLookups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="showNewImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="deleteImageLookup()" ng-show="(selectedImageLookupIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
+    </p>
+    <br />
+    <table class="table">
+        <!--<tr>
+            <th></th>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>-->
+        <tr ng-repeat="imageLookup in imageLookups">
+            <td>
+                <input type="radio" class="radio" name="currentFile" ng-click="setCurrentLookupIndex($index)" ng-checked="(selectedImageLookupIndex == $index)" />
+            </td>
+            <td><a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a> </td>
+            <!--<td>{{imageLookup.Value}}</td>-->
+        </tr>
+    </table>
+    <!--<ul class="list-group">
+        <li class="list-group-item" ng-repeat="imageLookup in imageLookups">
+            <a href="#" ng-click="showImageLookupDetailDialog($index)">{{imageLookup.Key}}</a>
+        </li>
+    </ul>-->
+</div>
+<script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("ImageLookupController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.newImageLookup = { Key: "", Value: { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: "", ImageDestination: "", DiskIdentifier: "" } };
+
+            $scope.selectedImageLookupIndex = -1;
+
+            $scope.imageLookups = [];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.setCurrentLookupIndex = function (index) {
+                $scope.selectedImageLookupIndex = index;
+            };
+
+            $scope.getImageLookups = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/keys/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    $scope.imageLookups.splice(0, $scope.imageLookups.length);
+
+                    if (data != null && data.data != null && data.data != "")
+                    {
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                //$scope.imageLookups.push(data.data[i]);
+                                $scope.imageLookups.push({Key:data.data[i], Value:""});
+                            }
+                        }
+                        else {
+                            $scope.imageLookups.push({Key:data.data, Value: ""});
+                        }
+                    }
+
+                    $scope.hideProgress();
+                });
+            };
+
+            $scope.showNewImageLookupDialog = function () {
+                    $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
+                    $scope.newImageLookup.Value = { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: "", ImageDestination: "", DiskIdentifier: ""};//cacheValue;
+
+                    $scope.currentDialog = ngDialog.open({
+                        scope: $scope,
+                        className: 'ngdialog-theme-default',
+                        template: '/assets/new-image-lookup-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                        //plain: true,
+                        showClose: true,
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        width: 500,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    });
+            };
+
+            $scope.showImageLookupDetailDialog = function (index) {
+
+                $scope.selectedImageLookupIndex = index;
+
+                if(!($scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet))
+                {
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/lookup/" + $scope.imageLookups[$scope.selectedImageLookupIndex].Key;
+
+                    $http.get(url + servicePoint).then(function (data) {
+
+                        if (data != null && data.data != null) {
+                            $scope.imageLookups[$scope.selectedImageLookupIndex].Value = data.data;
+                            $scope.imageLookups[$scope.selectedImageLookupIndex].IsValueSet = true;
+                        }
+                    });
+                }
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/image-lookup-detail-template.html',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.setImageLookup = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/";
+
+                $http.post(url + servicePoint, $scope.newImageLookup).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data == "OK") {
+                            $scope.imageLookups.push($scope.newImageLookup);
+                            $scope.hideProgress();
+                        }
+                    }
+                });
+            };
+
+            $scope.updateImageLookup = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/lookup/";
+
+                $http.post(url + servicePoint, $scope.imageLookups[$scope.selectedImageLookupIndex]).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data == "OK") {
+                            //$scope.imageLookups.push($scope.newImageLookup);
+                            $scope.hideProgress();
+                        }
+                    }
+                });
+            };
+
+            $scope.deleteImageLookup = function () {
+                var key = String(this.imageLookups[this.selectedImageLookupIndex].Key);
+
+                if (key != null && confirm("Are you sure to permanently delete image lookup \"" + key + "\"?")) {
+                    $scope.showProgress();
+
+                    var url = settings.WdsApiUrl;
+
+                    var servicePoint = "wds/lookup/" + key;
+
+                    $http.delete((url + servicePoint)).then(function (data) {
+                        $scope.hideProgress();
+
+                        if (data.data == "1") {
+                            $scope.imageLookups.splice($scope.selectedImageLookupIndex, 1);
+                        }
+                        else {
+                            alert(data.data);
+                        }
+
+                        $scope.setCurrentLookupIndex(-1);
+
+                    }).catch(function (err) {
+                        $scope.hideProgress();
+                        alert(JSON.stringify(err));
+
+                        $scope.setCurrentLookupIndex(-1);
+                    });
+                }
+            };
+        });
+</script>

@@ -1,21 +1,19 @@
 ﻿
 @{
-    ViewData["Title"] = "Install Images";
+    ViewData["Title"] = "Boot Images";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Install Images</h2>
+<h2>Boot Images</h2>
 
-<div ng-controller="InstallImageController" ng-init="doConnect()">
+<div ng-controller="BootImageController" ng-init="doConnect()">
     <p>
         &nbsp;&nbsp;
-        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;&nbsp;-->Back</a>
         &nbsp;
-        <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+        <a href="#" class="btn btn-info btn-lg" ng-click="doConnect()"><!--<span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;-->Refresh</a>
         &nbsp;
-        <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
-        &nbsp;
-        <a href="#" class="btn btn-info btn-lg" ng-click="showImageLookupDialog()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Lookup</a>
+        <a href="#" class="btn btn-info btn-lg" ng-click="addImage()"><!--<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;-->Add</a>
         &nbsp;
         <a href="#" class="btn btn-info btn-lg" ng-click="deleteImage()" ng-show="(currentImageIndex >= 0)"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Delete</a>
         &nbsp;
@@ -27,7 +25,6 @@
             <th></th>
             <th>Name</th>
             <th>Image Name</th>
-            <th>Image Group</th>
             <th>File Name</th>
             <th>Description</th>
             <th>Enabled</th>
@@ -38,28 +35,11 @@
             </td>
             <td>{{image.Name}}</td>
             <td>{{image.ImageName}}</td>
-            <td>{{image.ImageGroup}}</td>
             <td>{{image.FileName}}</td>
             <td>{{image.Description}}</td>
             <td>{{(image.Enabled == true) ? 'Yes' : 'No'}}</td>
         </tr>
     </table>
-    <!--<table ng-table="tableParams" class="table">
-        <tr>
-            <td>Name</td>
-            <td>Image Name</td>
-            <td>Image Group</td>
-            <td>File Name</td>
-            <td>Description</td>
-        </tr>
-        <tr ng-repeat="image in images">
-            <td>{{image.Name}}</td>
-            <td>{{image.ImageName}}</td>
-            <td>{{image.ImageGroup}}</td>
-            <td>{{image.FileName}}</td>
-            <td>{{image.Description}}</td>
-        </tr>
-    </table>-->
 </div>
 <script type="text/javascript">
         function createGuid() {
@@ -116,7 +96,7 @@
 
         var settings = Settings.Data;
 
-        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("InstallImageController",
+        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("BootImageController",
 
         function ($scope, $location, $http, ngDialog) {
 
@@ -126,17 +106,13 @@
 
             $scope.newImage = null;
 
-            $scope.imageGroups = [];
+            //$scope.imageGroups = [];
 
             $scope.imageFiles = [];
 
             $scope.imageFileContents = [];
 
-            $scope.newImageLookup = { Key: "", Value: { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: "", ImageDestination: "", DiskIdentifier: "" } };
-
             $scope.currentImageIndex = -1;
-
-            //var tableParams = new NgTableParams({}, { dataset: $scope.images });
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
@@ -160,29 +136,24 @@
             };
 
             $scope.hideProgress = function () {
-                //alert($scope.currentDialog);
-                //if ($scope.currentDialog != null) {
-                //$scope.currentDialog.close();
-                //}
                 ngDialog.closeAll();
+            };
+
+            //$scope.addImage - function () { };
+
+            $scope.setCurrentImageIndex = function (index) {
+                $scope.currentImageIndex = index;
             };
 
             $scope.doConnect = function (index) {
 
                 $scope.showProgress();
 
-                //var protocol = $location.protocol();
-                //var host = $location.host();
-                //var port = $location.port();
-
-                //var url = protocol + "://" + host + ":" + port + "/";
-
                 var url = settings.WdsApiUrl;
 
-                var servicePoint = "wds/image/install/all";
+                var servicePoint = "wds/image/boot/all";
 
                 $http.get(url + servicePoint).then(function (data) {
-
                     $scope.images.splice(0, $scope.images.length);
 
                     if (data != null && data.data != null && data.data != "") {
@@ -202,39 +173,20 @@
                 });
             };
 
-            $scope.getImageGroups = function ()
-            {
-                var url = settings.WdsApiUrl;
+            //$scope.shouldShowAddButton = function () {
+            //    return ($scope.images.length <= 0);
+            //};
 
-                var servicePoint = "wds/imagegroup/install/all";
-
-                $http.get(url + servicePoint).then(function (data) {
-
-                    $scope.imageGroups.splice(0, $scope.imageGroups.length);
-
-                    if (data != null && data.data != null && data.data != "")
-                    {
-                        //$scope.imageGroups.splice(0, $scope.imageGroups.length);
-
-                        if (data.data.length > 0) {
-                            for (var i = 0; i < data.data.length; i++) {
-                                $scope.imageGroups.push(data.data[i]);
-                            }
-                        }
-                        else {
-                            $scope.imageGroups.push(data.data);
-                        }
-                    }
-                });
-            };
+            //$scope.shouldShowRemoveButton = function () {
+            //    return ($scope.images.length >= 1);
+            //};
 
             $scope.getImageFiles = function () {
                 var url = settings.WdsApiUrl;
 
-                var servicePoint = "wds/imagefile/install";
+                var servicePoint = "wds/imagefile/boot";
 
                 $http.get(url + servicePoint).then(function (data) {
-
                     $scope.imageFiles.splice(0, $scope.imageFiles.length);
 
                     if (data != null && data.data != null && data.data != "")
@@ -283,24 +235,25 @@
 
             $scope.addImage = function () {
                 $scope.newImage = {
-                    ImageGroupName: "",
+                    //ImageGroupName: "",
+                    DisplayOrder: 0,
                     ImageFilePath: "",
                     NewImageName: "New_Image_" + createGuid(),
                     NewDescription: "New Image",
                     NewFileName: "",
                     RawImageNameInFile: "",
-                    EnableMulticastTransmission: true,
+                    EnableMulticastTransmission: false,
                     MulticastTransmissionName: ""
                 };
 
-                $scope.getImageGroups();
+                //$scope.getImageGroups();
 
                 $scope.getImageFiles();
 
                 $scope.currentDialog = ngDialog.open({
                     scope: $scope,
                     className: 'ngdialog-theme-default',
-                    template: '/assets/new-install-image-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    template: '/assets/new-boot-image-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
                     //plain: true,
                     showClose: true,
                     closeByDocument: false,
@@ -312,70 +265,25 @@
                 });
             };
 
-            $scope.setCurrentImageIndex = function (index) {
-                $scope.currentImageIndex = index;
-            };
-
-            $scope.showImageLookupDialog = function () {
-                if ($scope.currentImageIndex >= 0) {
-                    var image = $scope.images[$scope.currentImageIndex];
-
-                    var cacheValue = "WDS:" + image.ImageGroup + "/" + image.FileName + "/" + String(image.Index);
-
-                    $scope.newImageLookup.Key = "ImgLookup_" + createGuid();
-                    $scope.newImageLookup.Value = { ImageServerAddress: "", ImageServerUsername: "", ImageServerPassword: "", ImageIdentifierType: 0, ImageIdentifierValue: "", ClientIdentifierType: 0, ClientIdentifierValue: "", ClientNICName: "", ImageSource: cacheValue, ImageDestination: "W:\\", DiskIdentifier: "0" };
-
-                    $scope.currentDialog = ngDialog.open({
-                        scope: $scope,
-                        className: 'ngdialog-theme-default',
-                        template: '/assets/new-image-lookup-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
-                        //plain: true,
-                        showClose: true,
-                        closeByDocument: false,
-                        closeByEscape: false,
-                        width: 500,
-                        preCloseCallback: function (value) {
-                            return true;
-                        }
-                    });
-                }
-            };
-
-            $scope.setImageLookup = function ()
-            {
-                ngDialog.closeAll();
-
-                $scope.showProgress();
-
-                var url = settings.WdsApiUrl;
-
-                var servicePoint = "wds/lookup/";
-
-                $http.post(url + servicePoint, $scope.newImageLookup).then(function (data) {
-                    if (data != null && data.data != null) {
-                        if (data.data == "OK") {
-                            $scope.hideProgress();
-                        }
-                    }
-                });
-            };
-
             $scope.enableDisableImage = function () {
                 var image = $scope.images[this.currentImageIndex];
 
                 var imageName = image.ImageName;
+                var architecture = "x86";
 
-                var imageGroupName = image.ImageGroup;
+                if (image.Architecture == 3) {
+                    architecture = "x64";
+                }
 
                 $scope.showProgress();
 
                 var url = settings.WdsApiUrl;
 
-                var body = { ImageName: imageName, ImageGroupName: imageGroupName };
+                var body = { ImageName: imageName, Architecture: architecture };
 
                 var flag = image.Enabled == true ? "disable" : "enable";
 
-                var servicePoint = "wds/image/install/" + flag;
+                var servicePoint = "wds/image/boot/" + flag;
 
                 $http.patch((url + servicePoint), body).then(function (data) {
                     $scope.hideProgress();
@@ -402,18 +310,18 @@
                 var image = $scope.images[this.currentImageIndex];
 
                 var imageName = image.ImageName;
-                var imageGroupName = image.ImageGroup;
+                var architecture = "x86";
 
                 if (image.Architecture == 3) {
                     architecture = "x64";
                 }
 
-                if (image != null && confirm("Are you sure to permanently delete install image \"" + imageName + "\"?")) {
+                if (image != null && confirm("Are you sure to permanently delete boot image \"" + imageName + "\"?")) {
                     $scope.showProgress();
 
                     var url = settings.WdsApiUrl;
 
-                    var servicePoint = "wds/image/install/" + imageGroupName + "/" + imageName;
+                    var servicePoint = "wds/image/boot/" + architecture + "/" + imageName;
 
                     //alert(servicePoint);
 
@@ -443,15 +351,9 @@
 
                 $scope.showProgress();
 
-                //var protocol = $location.protocol();
-                //var host = $location.host();
-                //var port = $location.port();
-
-                //var url = protocol + "://" + host + ":" + port + "/";
-
                 var url = settings.WdsApiUrl;
 
-                var servicePoint = "wds/image/install";
+                var servicePoint = "wds/image/boot";
 
                 $scope.newImage.ImageFilePath = $scope.newImage.ImageFilePath.replace(/\//g, "\\");
 
@@ -481,3 +383,4 @@
             };
         });
 </script>
+

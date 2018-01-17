@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewData["Title"] = "Image Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Image Groups</h2>
+
+<div ng-controller="ImageGroupController" ng-init="getImageGroups()">
+    <p>
+        &nbsp;&nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="getImageGroups()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="addImageGroup()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Add</a>
+    </p>
+    <br />
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Image Format</th>
+        </tr>
+        <tr ng-repeat="imageGroup in imageGroups">
+            <td>{{imageGroup.Name}}</td>
+            <td>{{imageGroup.ImageFormat}}</td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("ImageGroupController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.newImageGroup = null;
+
+            $scope.imageGroups = [];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getImageGroups = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/imagegroup/install/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    $scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                    if (data != null && data.data != null && data.data != "")
+                    {
+                        //$scope.imageGroups.splice(0, $scope.imageGroups.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageGroups.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.imageGroups.push(data.data);
+                        }
+                    }
+
+                    $scope.hideProgress();
+                });
+            };
+
+            $scope.addImageGroup = function () {
+                $scope.newImageGroup = {
+                    Name: "New_ImageGroup_" + createGuid(),
+                };
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/new-image-group-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.doSubmit = function () {
+                ngDialog.closeAll();
+
+                $scope.showProgress();
+
+                //var protocol = $location.protocol();
+                //var host = $location.host();
+                //var port = $location.port();
+
+                //var url = protocol + "://" + host + ":" + port + "/";
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/imagegroup/install";
+
+                $http.post(url + servicePoint, $scope.newImageGroup).then(function (data) {
+                    if (data != null && data.data != null) {
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.imageGroups.push(data.data[i]);
+                            }
+                        }
+                        else {
+                            $scope.imageGroups.push(data.data);
+                        }
+
+                        $scope.hideProgress();
+                    }
+                });
+            };
+        });
+</script>

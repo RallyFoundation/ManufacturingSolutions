@@ -17,5 +17,35 @@ namespace WindowsManufacturingCloud.Controllers
         {
             return View();
         }
+
+        public IActionResult Boot()
+        {
+            return View();
+        }
+
+        public IActionResult Group()
+        {
+            return View();
+        }
+
+        public IActionResult File()
+        {
+            return View();
+        }
+
+        public IActionResult Lookup()
+        {
+            return View();
+        }
+
+        public IActionResult LogHistory()
+        {
+            return View();
+        }
+
+        public IActionResult ClientPulse()
+        {
+            return View();
+        }
     }
 }
