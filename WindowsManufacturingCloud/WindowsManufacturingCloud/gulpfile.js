@@ -12,15 +12,18 @@ var gulp = require('gulp'),
 
 gulp.task('min:js', function () {
     // place code for your default task here
-    return gulp.src('Scripts/*.js')
-        .pipe(gulp.dest('wwwroot/js'));
+    return gulp.src('Scripts/*.js').pipe(gulp.dest('wwwroot/js'));
 });
 
 gulp.task('min:css', function () {
     // place code for your default task here
     return gulp.src('Contents/*.*')
-        .pipe(gulp.dest('wwwroot/asset'));
+        .pipe(gulp.dest('wwwroot/assets'));
+});
+
+gulp.task('cfg', function () {
+    return gulp.src('Configs/*.json').pipe(gulp.dest('wwwroot/configs'))
 });
 
 
-gulp.task("min", ["min:js", "min:css"]);
+gulp.task("min", ["min:js", "min:css", "cfg"]);
