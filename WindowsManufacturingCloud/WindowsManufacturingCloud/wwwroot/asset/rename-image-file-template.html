@@ -1,0 +1,13 @@
+<div>
+    <dl class="dl-horizontal">
+        <dt>Old Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImageFile.OldName" class="form-control" maxlength="120" readonly="readonly" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+        <dt>New Name: </dt>
+        <dd>
+            <input type="text" ng-model="newImageFile.NewName" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+        </dd>
+    </dl>
+    <input type="submit" value="OK" class="btn btn-info btn-lg" ng-click="doSubmit()" />
+</div>

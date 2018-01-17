@@ -22,7 +22,18 @@
 
   <ItemGroup>
     <Folder Include="Configs\" />
-    <Folder Include="Contents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Contents\image-lookup-detail-template.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Contents\progress-template.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Contents\progress_red.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
  <!--<Target Name="GulpTarget" BeforeTargets="Build">

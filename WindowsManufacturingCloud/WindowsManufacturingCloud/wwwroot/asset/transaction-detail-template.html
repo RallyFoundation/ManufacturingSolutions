@@ -1,0 +1,21 @@
+<div>
+    <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">{{currentTransactions[0].TransID}}</p>
+    <br/>
+    <table class="table">
+        <tr>
+            <th>Client ID</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Image</th>
+        </tr>
+        <tr ng-repeat="transaction in currentTransactions">
+            <td>{{transaction.Key}}</td>
+            <td>{{getTimeUtcString(transaction.Time)}}</td>
+            <td>{{transaction.Value}}</td>
+            <td>{{transaction.Data}}</td>
+        </tr>
+    </table>
+    <p style="text-align:center">
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeDialog()">Go Back</a>
+    </p>
+</div>
