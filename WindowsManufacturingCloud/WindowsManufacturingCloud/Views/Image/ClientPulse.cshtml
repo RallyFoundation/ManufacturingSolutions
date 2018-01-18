@@ -1,0 +1,256 @@
+﻿@model WindowsManufacturingCloud.Models.ClientPulseViewModel;
+
+@{
+    ViewData["Title"] = "Client Pulse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Client Pulse</h2>
+
+<div ng-controller="ClientPulseController" ng-init="getWdsClients()">
+    <p>
+        &#160;&#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Back</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="getWdsClients()"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Refresh</a>
+        &#160;
+        <a href="#" class="btn btn-info btn-lg" ng-click="clearWdsClients()" ng-show="wdsClients.length > 0"><!--<span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;-->Clear</a>
+        &#160;
+        <a href="#" id="btn_RefreshMdl" ng-hide="true" ng-click="refreshModel()" />
+    </p>
+    <br />
+    <table class="table">
+        <tr>
+            <th>Client ID</th>
+            <th>Transaction ID</th>
+            <th>Image</th>
+            <th>Staus</th>
+        </tr>
+        <tr ng-repeat="wdsClient in wdsClients">
+            <td>{{wdsClient.Key}}</td>
+            <td>{{wdsClient.TransID}}</td>
+            <td>{{wdsClient.Data}}</td>
+            <td>{{wdsClient.Value}}</td>
+        </tr>
+    </table>
+</div>
+
+<script id="socket-io-client-ref" src="@Html.ValueFor(model => model.SocketIOClientUrl)"></script>
+
+<script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("WinMfgCloud", ['ngDialog']).controller("ClientPulseController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.currentDialog = null;
+
+            $scope.socket = io.connect(settings.WebSocketUrl);
+
+            $scope.wdsClients = [];
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: '/assets/progress-template.html',//'<img src=\"/Content/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getWdsClients = function ()
+            {
+                $scope.showProgress();
+
+                var url = settings.WdsApiUrl;
+
+                var servicePoint = "wds/terminal/status/keys/all";
+
+                $http.get(url + servicePoint).then(function (data) {
+
+                    //alert(JSON.stringify(data));
+
+                    $scope.wdsClients.splice(0, $scope.wdsClients.length);
+
+                    if (data != null && data.data != null && data.data != "")
+                    {
+                        //$scope.wdsClients.splice(0, $scope.wdsClients.length);
+
+                        if (data.data.length > 0) {
+                            for (var i = 0; i < data.data.length; i++) {
+                                $scope.wdsClients.push({ Key: data.data[i], Value: "", Data: "", Time: null, TransID: ""});
+                            }
+                        }
+                        else {
+                            $scope.wdsClients.push({ Key: data.data, Value: "", Data: "", Time: null, TransID: "" });
+                        }
+                    }
+
+                    $scope.hideProgress();
+
+                    $scope.getWdsClientStatus();
+                });
+            };
+
+            $scope.getWdsClientStatus = function ()
+            {
+                if ($scope.wdsClients != null && $scope.wdsClients.length > 0) {
+                    var url = settings.WdsApiUrl;
+                    var servicePoint = "wds/terminal/status/";
+
+                    for (var i = 0; i < $scope.wdsClients.length; i++) {
+                        $http.get(url + servicePoint + $scope.wdsClients[i].Key).then(function (data) {
+                            if (data != null && data.data != null && data.data != "")
+                            {
+                                var key = data.config.url;
+                                key = key.substring((key.lastIndexOf("/") + 1));
+
+                                for (var i = 0; i < $scope.wdsClients.length; i++) {
+                                    if ($scope.wdsClients[i].Key == key)
+                                    {
+                                        $scope.wdsClients[i].Value = data.data.Value;
+                                        $scope.wdsClients[i].Data = data.data.Data;
+                                        $scope.wdsClients[i].Time = data.data.Time;
+                                        $scope.wdsClients[i].TransID = data.data.TransID;
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            };
+
+            $scope.clearWdsClients = function () {
+
+                var keys = [];
+
+                if ($scope.wdsClients != null && $scope.wdsClients.length > 0) {
+
+                    for (var i = 0; i < $scope.wdsClients.length; i++) {
+                        keys.push(String($scope.wdsClients[i].Key));
+                    }
+                }
+
+                $scope.wdsClients.splice(0);
+
+                if (keys.length > 0) {
+                    var url = settings.WdsApiUrl;
+                    var servicePoint = "wds/terminal/status/";
+
+                    for (var i = 0; i < keys.length; i++) {
+                        $http.delete(url + servicePoint + keys[i]).then(function (data) {
+                            if (data != null && data.data != null && data.data != "") {
+                                if (data.data == "1") {
+                                }
+                                else {
+                                    alert(data.data);
+                                }
+                            }
+                        });
+                    }
+                }
+            };
+
+            $scope.refreshModel = function () { };
+
+            $scope.socket.on("msg:clientStat", function (obj) {
+
+                //$scope.wdsClients.push(obj);
+
+                if (obj) {
+                    if ($scope.wdsClients.length > 0) {
+                        var isNewObj = true;
+
+                        for (var i = 0; i < $scope.wdsClients.length; i++) {
+                            if ($scope.wdsClients[i].Key == obj.Key) {
+                                $scope.wdsClients[i].Value = obj.Value;
+                                $scope.wdsClients[i].Data = obj.Data;
+                                $scope.wdsClients[i].Time = obj.Time;
+                                $scope.wdsClients[i].TransID = obj.TransID;
+                                isNewObj = false;
+                                break;
+                            }
+                        }
+
+                        if (isNewObj == true) {
+                            $scope.wdsClients.push(obj);
+                        }
+                    } else {
+                        $scope.wdsClients.push(obj);
+                    }
+                }
+
+                document.getElementById("btn_RefreshMdl").click();
+            });
+        });
+</script>

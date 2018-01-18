@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WindowsManufacturingCloud.Models;
 
 namespace WindowsManufacturingCloud
 {
@@ -14,6 +15,8 @@ namespace WindowsManufacturingCloud
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddEnvironmentVariables();
+            //Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -21,6 +24,8 @@ namespace WindowsManufacturingCloud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<WdsApiConfig>(Configuration.GetSection("WdsApi"));
+
             services.AddMvc();
         }
 
