@@ -34,7 +34,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
  <!--<Target Name="GulpTarget" BeforeTargets="Build">
   <Exec Command="gulp min" />
  </Target>-->
