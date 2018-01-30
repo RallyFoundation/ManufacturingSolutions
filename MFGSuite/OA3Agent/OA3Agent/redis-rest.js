@@ -14,6 +14,10 @@ var redisDbIndex = 0;
 
 var httpServerPort = 8087;
 
+var cluster = require('cluster');
+var os = require('os');
+var cpuCount = os.cpus().length;
+
 function getRedisClient() {
     var client = redis.createClient(redisPort, redisAddress);
     client.auth(redisPassword);
@@ -21,11 +25,36 @@ function getRedisClient() {
     return client;
 }
 
-var server = app.listen(httpServerPort, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Redis RESTful API service listening at http://%s:%s", host, port)
-})
+if (cluster.isMaster) {
+
+    console.log(`Master ${process.pid} is running`);
+
+    console.log(`Number of CPUs: ${cpuCount}.`);
+
+    for (var i = 0; i < cpuCount; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`);
+    });
+}
+else {
+
+    var server = app.listen(httpServerPort, function () {
+        var host = server.address().address
+        var port = server.address().port
+        console.log("Redis RESTful API service listening at http://%s:%s", host, port)
+    })
+
+    console.log(`Worker ${process.pid} started`);
+}
+
+//var server = app.listen(httpServerPort, function () {
+//    var host = server.address().address
+//    var port = server.address().port
+//    console.log("Redis RESTful API service listening at http://%s:%s", host, port)
+//})
 
 app.get('/', function (req, res) {
     res.send('Hello!');

@@ -12,6 +12,10 @@ var assert = require('assert');
 //var bearerToken = require('express-bearer-token');
 //var async = require("async");
 
+var cluster = require('cluster');
+var os = require('os');
+var cpuCount = os.cpus().length;
+
 var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -99,18 +103,47 @@ var logUploader = multer({
     })
 }).any();
 
-var server = app.listen(httpServerPort, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("WDS RESTful API service listening at http://%s:%s", host, port);
-})
-
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-http.listen(webSocketServerPort, function () {
-    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
-});
+if (cluster.isMaster) {
+
+    console.log(`Master ${process.pid} is running`);
+
+    console.log(`Number of CPUs: ${cpuCount}.`);
+
+    for (var i = 0; i < cpuCount; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`);
+    });
+}
+else {
+
+    var server = app.listen(httpServerPort, function () {
+        var host = server.address().address;
+        var port = server.address().port;
+        console.log("WDS RESTful API service listening at http://%s:%s", host, port);
+    })
+
+    http.listen(webSocketServerPort, function () {
+        console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+    });
+
+    console.log(`Worker ${process.pid} started`);
+}
+
+//var server = app.listen(httpServerPort, function () {
+//    var host = server.address().address;
+//    var port = server.address().port;
+//    console.log("WDS RESTful API service listening at http://%s:%s", host, port);
+//})
+
+//http.listen(webSocketServerPort, function () {
+//    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+//});
 
 io.on("connection", function (socket) {
     console.log("A new app connected!");

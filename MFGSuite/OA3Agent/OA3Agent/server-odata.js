@@ -15,19 +15,42 @@ var server = odata(url);
 var socket = null;
 
 server.resource(resourceName, resourceModel)
-.post().after(function (originEntity, newEntity) {
-	console.log(JSON.stringify(originEntity));
-	console.log(JSON.stringify(newEntity));
+    .post().after(function (originEntity, newEntity) {
+        console.log(JSON.stringify(originEntity));
+        console.log(JSON.stringify(newEntity));
 
-	socket.emit('msg:newmsg', originEntity);
-});
+        socket.emit('msg:newmsg', originEntity);
+    });
 
 server.listen(servicePortNumber, function () {
-	console.log("Node-OData Service is running, listening on port \"" + servicePortNumber + "\"...");
+    console.log("Node-OData Service is running, listening on port \"" + servicePortNumber + "\"...");
 
-	socket = io.connect("ws://" + socketHost + ":" + socketPort.toString());
-	
-	socket.on('connect', function () {
-		console.log('Connected to socket.io server.');
-	});
+    socket = io.connect("ws://" + socketHost + ":" + socketPort.toString());
+
+    socket.on('connect', function () {
+        console.log('Connected to socket.io server.');
+    });
 });
+
+//var cluster = require('cluster');
+//var os = require('os');
+//var cpuCount = os.cpus().length;
+
+//if (cluster.isMaster) {
+
+//    console.log(`Master ${process.pid} is running`);
+
+//    console.log(`Number of CPUs: ${cpuCount}.`);
+
+//    for (var i = 0; i < cpuCount; i++) {
+//        cluster.fork();
+//    }
+
+//    cluster.on('exit', (worker, code, signal) => {
+//        console.log(`worker ${worker.process.pid} died`);
+//    });
+//}
+//else {
+
+//    console.log(`Worker ${process.pid} started`);
+//}
