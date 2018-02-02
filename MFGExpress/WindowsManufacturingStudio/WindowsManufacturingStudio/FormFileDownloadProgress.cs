@@ -6,8 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows.Forms;
 using System.Net;
+using System.IO;
+using FluentFTP;
 using MetroFramework.Forms;
 using WindowsManufacturingStudio.ViewModels;
 
@@ -29,8 +32,87 @@ namespace WindowsManufacturingStudio
 
         private FileViewModel fileViewModel;
         private bool isBusy = false;
+        private string fileServiceType = "ftp";
 
         private void doDownload(FileViewModel fileInfo)
+        {
+            Uri uri = new Uri(fileInfo.Url);
+
+            fileInfo.Host = uri.Host;
+            fileInfo.Port = uri.Port;
+            fileInfo.Protocol = uri.Scheme;
+
+            this.fileServiceType = fileInfo.Protocol;
+
+            switch (this.fileServiceType.ToLower())
+            {
+                case "http":{
+                        this.doHttpDownload(fileInfo);
+                        break;
+                    }
+                case "ftp":{
+                        this.doFtpDownload(fileInfo);
+                        break;
+                    }
+                default:{
+                        this.doFtpDownload(fileInfo);
+                        break;
+                    }
+            }
+        }
+
+        private async void doFtpDownload(FileViewModel fileInfo)
+        {
+            FtpClient client = new FtpClient(fileInfo.Host);
+
+            client.Host = fileInfo.Host; //fileInfo.Url;
+            client.Port = fileInfo.Port; //21;
+            client.RetryAttempts = 5;
+            client.DataConnectionReadTimeout = 30;
+            client.DataConnectionConnectTimeout = 30;
+            client.ConnectTimeout = 30;
+            //client.BulkListing = false;
+            //client.SocketKeepAlive = true;
+
+            client.Credentials = new NetworkCredential(fileInfo.UserName, fileInfo.Password);
+            client.DataConnectionType = FtpDataConnectionType.AutoPassive; //FtpDataConnectionType.AutoActive;
+
+            // begin connecting to the server
+            client.Connect();
+
+            using (FileStream stream = new FileStream(fileInfo.Path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                this.metroLabelDownloadStatus.Text = String.Format("downloading file from \"{0}\" to \"{1}\"...please wait...", this.fileViewModel.Url, this.fileViewModel.Path);
+                this.metroProgressBarDownloadProgress.ProgressBarStyle = ProgressBarStyle.Marquee;
+                this.metroProgressBarDownloadProgress.HideProgressText = true;
+
+                string remoteFileName = fileInfo.Url.Substring(fileInfo.Url.LastIndexOf("/"));
+
+                //bool result = client.Download(stream, fileInfo.Url);
+
+                //if (result)
+                //{
+                //    this.isBusy = false;
+                //    this.metroButtonOK.Enabled = true;
+                //}
+                //else
+                //{
+                //    //Console.WriteLine("Error!");
+                //}
+
+                await client.DownloadAsync(stream, remoteFileName);
+
+                this.isBusy = false;
+                this.metroLabelDownloadStatus.Text = "Done.";
+                this.metroProgressBarDownloadProgress.ProgressBarStyle = ProgressBarStyle.Continuous;
+                this.metroProgressBarDownloadProgress.Maximum = 100;
+                this.metroProgressBarDownloadProgress.Value = 100;
+                this.metroProgressBarDownloadProgress.HideProgressText = false;
+                this.metroButtonOK.Enabled = true;
+            }
+        }
+
+        private void doHttpDownload(FileViewModel fileInfo)
         {
             WebClient client = new WebClient();
 
@@ -42,10 +124,8 @@ namespace WindowsManufacturingStudio
             }
 
             client.DownloadFileAsync(new Uri(fileInfo.Url), fileInfo.Path);
-
             client.DownloadProgressChanged += Client_DownloadProgressChanged;
-
-            client.DownloadFileCompleted += Client_DownloadFileCompleted1; ;
+            client.DownloadFileCompleted += Client_DownloadFileCompleted1;
         }
 
         private void Client_DownloadFileCompleted1(object sender, AsyncCompletedEventArgs e)
@@ -80,10 +160,21 @@ namespace WindowsManufacturingStudio
         {
             this.isBusy = true;
             this.metroButtonOK.Enabled = false;
-
             this.metroLabelDownloadStatus.Text = String.Format("Preparing to download from \"{0}\" ", this.fileViewModel.Url);
 
-            this.doDownload(this.fileViewModel);
+            try
+            {
+                this.doDownload(this.fileViewModel);
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show(ex.ToString(), "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                {
+                    this.isBusy = false;
+                    this.metroButtonOK.Enabled = true;
+                    this.metroLabelDownloadStatus.Text = "";
+                }
+            }     
         }
 
         private void metroButtonOK_Click(object sender, EventArgs e)
