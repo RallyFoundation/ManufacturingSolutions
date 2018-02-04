@@ -1,0 +1,13 @@
+{
+  "server": {
+    "host": "",
+    "port": 21,
+    "passive_port": 5001,
+    "user": "WDS",
+    "password": "W@lcome!",
+    "home_dir": "D:\\WDS-Images",
+    "permissions": "elradfmwMT"
+  },
+  "other": {
+  }
+}
