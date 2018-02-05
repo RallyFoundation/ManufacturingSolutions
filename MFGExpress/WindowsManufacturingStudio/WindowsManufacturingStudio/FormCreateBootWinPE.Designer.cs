@@ -143,6 +143,7 @@
             "WIM Over USB",
             "Full Flash Update (FFU) Over SMB",
             "Full Flash Update (FFU) Over HTTP",
+            "Full Flash Update (FFU) Over FTP",
             "Full Flash Update (FFU) Over USB",
             "Capture - WIM Over USB",
             "Capture - Full Flash Update (FFU) Over USB"});

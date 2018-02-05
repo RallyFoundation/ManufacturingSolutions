@@ -44,9 +44,10 @@ namespace WindowsManufacturingStudio
                 case 1: { confPath += "\\WIM-USB\\config.xml"; break; }
                 case 2: { confPath += "\\FFU\\config.xml"; break; }
                 case 3: { confPath += "\\FFU-HTTP\\config.xml"; break; }
-                case 4: { confPath += "\\FFU-USB\\config.xml"; break; }
-                case 5: { confPath += "\\Capture-WIM-USB\\config.xml"; break; }
-                case 6: { confPath += "\\Capture-FFU-USB\\config.xml"; break; }
+                case 4: { confPath += "\\FFU-FTP\\config.xml"; break; }
+                case 5: { confPath += "\\FFU-USB\\config.xml"; break; }
+                case 6: { confPath += "\\Capture-WIM-USB\\config.xml"; break; }
+                case 7: { confPath += "\\Capture-FFU-USB\\config.xml"; break; }
                 default: { confPath += "\\Multicast\\config.xml"; break; }
             }
 
@@ -206,9 +207,10 @@ namespace WindowsManufacturingStudio
                 case 1: { imageType = "wim-usb"; break; }
                 case 2: { imageType = "ffu"; break; }
                 case 3: { imageType = "ffu-http"; break; }
-                case 4: { imageType = "ffu-usb"; break; }
-                case 5: { imageType = "capture-wim-usb"; break; }
-                case 6: { imageType = "capture-ffu-usb"; break; }
+                case 4: { imageType = "ffu-ftp"; break; }
+                case 5: { imageType = "ffu-usb"; break; }
+                case 6: { imageType = "capture-wim-usb"; break; }
+                case 7: { imageType = "capture-ffu-usb"; break; }
                 default: { imageType = "multicast"; break; }
             }
 
@@ -317,8 +319,9 @@ namespace WindowsManufacturingStudio
                 case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
                 case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
                 case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
-                case 5: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
-                case 6: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }  
+                case 5: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                case 6: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                case 7: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }  
                 default:
                     break;
             }
