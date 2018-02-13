@@ -226,6 +226,67 @@ app.get('/oa3/business/all', function (req, res) {
     }
 });
 
+
+app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT DISTINCT " + req.params.name + " FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
+                request.addParameter('KeyType', TYPES.Int, req.params.keytype);   
+
+                request.on('row', function (columns) { 
+                    columns.forEach(function (column) {
+                        if (column.value === null) {
+                            console.log('NULL');
+                        } else {
+                            console.log(column.value);
+                            results.push(column.value);
+                            console.log(JSON.stringify(results));
+                        }
+                    });
+                });
+
+                //request.on('done', function (rowCount, more) {
+                //    console.log(rowCount);
+                //    //console.log(JSON.stringify(results));
+                //    //res.end(JSON.stringify(results));
+                //});
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 app.post("/oa3/report/", function (req, res) {
 
     oa3ReportXmlUploader(req, res, function (err) {
@@ -235,33 +296,6 @@ app.post("/oa3/report/", function (req, res) {
         }
 
         console.log(req.files[0].path);
-
-        //req.file = req.files[0];
-        //var tmp_path = req.file.path;
-        //console.log(tmp_path);
-
-        //var target_path = ffuImageRepository + "/" + Date.now().toString() + "_" + req.file.originalname;
-
-        //console.log(target_path);
-
-        //if (!fs.existsSync(ffuImageRepository)) {
-        //    fs.mkdirSync(ffuImageRepository);
-        //}
-
-        //var src = fs.createReadStream(tmp_path);
-        //var dest = fs.createWriteStream(target_path);
-
-        //src.pipe(dest);
-
-        //src.on('end', function () {
-        //    res.end();
-        //});
-
-        //src.on('error', function (err) {
-        //    res.end();
-        //    console.log(err);
-        //});
-
     });
 });
 
