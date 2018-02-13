@@ -1,0 +1,31 @@
+﻿{
+  "http-server-port": 8089,
+  "web-socket-server-host": "127.0.0.1",
+  "web-socket-server-port": 3000,
+  "redis-address": "127.0.0.1",
+  "redis-port": 6379,
+  "redis-password": "",
+  "redis-db-index": 0,
+  "redis-db-index-client-status": 1,
+  "mongodb-url": "mongodb://localhost:27017/mfgcloud",
+  "mongodb-collection-name": "engineering",
+  "mongo-odata-resource-model": {
+    "TransID": "String",
+    "Key": "String",
+    "Time": "String",
+    "Value": "String",
+    "Data": "String"
+  },
+  "mssql-connection-string": "mssql://MDOS:D!S@OMSG.msft@minint-kuf9jnn/MDOS_FFKI_KeyStore_Test",
+  "mssql-connection-config": {
+    "server": "192.168.0.106",
+    "userName": "MDOS",
+    "password": "D!S@OMSG.msft",
+    "port": 1433,
+    "options": {
+      "database": "MDOS_FFKI_KeyStore_Test"
+    }
+  },
+  "report-xml-repository": "D:\\OA3\\Report",
+  "log-repository": "D:\\OA3\\Log"
+}

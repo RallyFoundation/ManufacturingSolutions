@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookupManager", "LookupManager\LookupManager.csproj", "{29AC0043-D55C-4CE1-88E5-F638A720B486}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "FfkiApi", "FfkiApi\FfkiApi.njsproj", "{B806EC5F-3839-4CBB-91D4-4F83C5937215}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B806EC5F-3839-4CBB-91D4-4F83C5937215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B806EC5F-3839-4CBB-91D4-4F83C5937215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B806EC5F-3839-4CBB-91D4-4F83C5937215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B806EC5F-3839-4CBB-91D4-4F83C5937215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
