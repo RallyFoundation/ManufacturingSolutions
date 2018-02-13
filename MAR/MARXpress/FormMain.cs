@@ -25,6 +25,8 @@ namespace MARXpress
         //private string OA3ValidateScriptPath;
         private string OA3ToolConfGenPath;
         private string OA3ToolConfPath;
+        private string LookupMapperPath;
+        private string LookupConfPath;
         //private string OA3ToolPath;
         //private string InjectionToolPath;
         //private string InjectionToolEraseCommand;
@@ -38,6 +40,8 @@ namespace MARXpress
             this.OA3ToolConfGenPath = ConfigurationManager.AppSettings.Get("OA3ToolConfGenPath");
             //this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
             this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPath");
+            this.LookupMapperPath = ConfigurationManager.AppSettings.Get("LookupMapperPath");
+            this.LookupConfPath = ConfigurationManager.AppSettings.Get("LookupConfPath");
             //this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
             //this.InjectionToolPath = ConfigurationManager.AppSettings.Get("InjectionToolPath");
             //this.InjectionToolEraseCommand = ConfigurationManager.AppSettings.Get("InjectionToolEraseCommand");
@@ -111,6 +115,14 @@ namespace MARXpress
             string args = String.Format(argsTemp, startScriptFullPath, "x86");
 
             Utility.StartProcess("PowerShell", args, true, true);
+        }
+
+        private void metroTileConfigureLookup_Click(object sender, EventArgs e)
+        {
+            string lookupMapperFullPath = this.getFullPath(this.LookupMapperPath);
+            string lookupConfFullPath = this.getFullPath(this.LookupConfPath);
+
+            Utility.StartProcess(lookupMapperFullPath, lookupConfFullPath, true, true);
         }
 
         //private void metroTileValidate_Click(object sender, EventArgs e)

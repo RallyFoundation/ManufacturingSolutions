@@ -1,12 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.Remoting;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
+using Ionic.Zip;
 
 namespace Utility
 {
     public class CommonUtility
     {
+        public static object EmitObject(String AssemblyName, String TypeName)
+        {
+            ObjectHandle objectHandle = Activator.CreateInstance(AssemblyName, TypeName);
+
+            return objectHandle.Unwrap();
+        }
+
+        public static object EmitObject(String AssemblyName, String TypeName, object[] arguments)
+        {
+            Assembly assembly = Assembly.Load(AssemblyName);
+
+            Type type = assembly.GetType(TypeName);
+
+            return Activator.CreateInstance(type, arguments);
+        }
+
+        public static byte[] BinarySerialize(object objectToSerialize)
+        {
+            byte[] returnValue = null;
+
+            IFormatter formater = new BinaryFormatter();
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formater.Serialize(stream, objectToSerialize);
+
+                returnValue = stream.GetBuffer();
+            }
+
+            return returnValue;
+        }
+
+        public static object BinaryDeserialize(byte[] objectBytes)
+        {
+            object returnValue = null;
+
+            IFormatter formater = new BinaryFormatter();
+
+            using (MemoryStream stream = new MemoryStream(objectBytes))
+            {
+                returnValue = formater.Deserialize(stream);
+            }
+
+            return returnValue;
+        }
+
+        public static IList<IDictionary<string, object>> ConvertDataTableToList(DataTable table)
+        {
+            IList<IDictionary<string, object>> returnValue = null;
+
+            if ((table != null) && (table.Rows.Count > 0))
+            {
+                returnValue = new List<IDictionary<string, object>>();
+
+                Dictionary<string, object> dataEntry = null;
+
+                foreach (DataRow row in table.Rows)
+                {
+                    if (row != null)
+                    {
+                        dataEntry = new Dictionary<string, object>();
+
+                        foreach (DataColumn column in table.Columns)
+                        {
+                            dataEntry.Add(column.ColumnName, row[column.ColumnName]);
+                        }
+
+                        returnValue.Add(dataEntry);
+                    }
+                }
+            }
+
+            return returnValue;
+        }
+
         /// <summary>
         /// Converts the current date time value to a millisecond value with the reference starting date specified 
         /// </summary>
@@ -100,6 +184,44 @@ namespace Utility
             }
 
             return returnValue;
+        }
+
+        public static void CreateZip(string[] filesToZip, string zippedFilePath, string pathInZip)
+        {
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach (string file in filesToZip)
+                {
+                    if (File.Exists(file))
+                    {
+                        zip.AddFile(file, pathInZip);
+                    }
+                }
+
+                zip.Save(zippedFilePath);
+            }
+        }
+
+        public static void ExtractZip(string zipFilePath, string extractionPath)
+        {
+            using (ZipFile zip = ZipFile.Read(zipFilePath))
+            {
+                zip.ExtractAll(extractionPath, ExtractExistingFileAction.InvokeExtractProgressEvent);
+            }
+        }
+
+        [DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
+        static extern int GetShortPathName(string lpszLongPath, StringBuilder lpszShortPath, int cchBuffer);
+
+        public static string GetShortPath(string longPath)
+        {
+            string shortPath = longPath;
+
+            StringBuilder sPath = new StringBuilder(longPath.Length);
+            GetShortPathName(longPath, sPath, longPath.Length);
+            shortPath = sPath.ToString();
+
+            return shortPath;
         }
     }
 }

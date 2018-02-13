@@ -61,49 +61,13 @@ if($RootDir.EndsWith("\") -eq $true)
   $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
 }
 
-[xml]$OemHardwareReportData = [xml]'<OEMOptionalInfo>
-										  <Field>
-											<Name>ZPC_MODEL_SKU</Name>
-											<Value>ABCDEFGHIJKLM1122233344Z</Value>
-										  </Field>
-										  <Field>
-											<Name>ZMANUF_GEO_LOC</Name>
-											<Value>1</Value>
-										  </Field>
-										  <Field>
-											<Name>ZPGM_ELIG_VAL</Name>
-											<Value>12345678Z,ABC,DEFGH,1212,1212</Value>
-										  </Field>
-										  <Field>
-											<Name>ZOEM_EXT_ID</Name>
-											<Value>30000123</Value>
-										  </Field>
-										  <Field>
-											<Name>ZCHANNEL_REL_ID</Name>
-											<Value>China</Value>
-										  </Field>
-										  <Field>
-											<Name>ZFRM_FACTOR_ CL1</Name>
-											<Value>Tablet</Value>
-										  </Field>
-										  <Field>
-											<Name>ZFRM_FACTOR_ CL2</Name>
-											<Value>Standard</Value>
-										  </Field>
-										  <Field>
-											<Name>ZSCREEN_SIZE</Name>
-											<Value>10.1</Value>
-										  </Field>
-										  <Field>
-											<Name>ZTOUCH_SCREEN</Name>
-											<Value>Touch</Value>
-										  </Field>
-									   </OEMOptionalInfo>';
+[xml]$OemHardwareReportData = [xml]'<OEMOptionalInfo/>';
 
 
 #$OA3ToolPath = $RootDir + "\OA3Tool\amd64\oa3tool.exe";
 
 $OA3ToolConfigurationFilePath = $RootDir + "\Config\OA3Tool-ServerBased.cfg";
+$SKULNPLookupConfigurationFilePath = $RootDir + "\Config\lookup.xml";
 
 #if($Architecture.ToLower() -eq "x86")
 #{
@@ -115,6 +79,10 @@ $OA3ToolPath = $RootDir + "\OA3Tool";
 $OSInfo = Get-CimInstance -ClassName Win32_OperatingSystem;
 
 $OSInfo;
+
+$OSInfoJson = $OSInfo | ConvertTo-Json;
+
+$OSInfoJson;
 
 [System.String]$OSArchitecture = $OSInfo.CimInstanceProperties.Item("OSArchitecture").Value;
 
@@ -129,24 +97,31 @@ else
 	$OA3ToolPath += "\x86\oa3tool.exe"; 
 }
 
+$OSSKU = $OSInfo.CimInstanceProperties.Item("OperatingSystemSKU").Value;
+
+$OSSKU;
+
+$OSCaption = $OSInfo.CimInstanceProperties.Item("Caption").Value;
+
+$OSCaption;
 
 $DPKFilePath = $RootDir + "\Output\";
 
-$LogPath = $RootDir +  "\Log";
+$LogPath = $RootDir + "\Log";
 if([System.IO.Directory]::Exists($LogPath) -eq $false)
 {
     [System.IO.Directory]::CreateDirectory($LogPath);
 	Start-Sleep -Milliseconds 1000;
 }
 
-$OutputPath = $RootDir +  "\Output";
+$OutputPath = $RootDir + "\Output";
 if([System.IO.Directory]::Exists($OutputPath) -eq $false)
 {
     [System.IO.Directory]::CreateDirectory($OutputPath);
     Start-Sleep -Milliseconds 1000;
 }
 
-$InputPath = $RootDir +  "\Input";
+$InputPath = $RootDir + "\Input";
 if([System.IO.Directory]::Exists($InputPath) -eq $false)
 {
     [System.IO.Directory]::CreateDirectory($InputPath);
@@ -166,7 +141,11 @@ $OA3OutputXmlFilePath = $RootDir + "\Input\" + $TransactionID + ".xml";
 $TransactionID | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
 $OSInfo | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
 $OSArchitecture | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
+$OSSKU | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
+$OSCaption | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
 $OA3ToolPath | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
+
+$OSInfoJson | Out-File -FilePath ($LogPath + "\" + $TransactionID + "-osinfo.json") -Encoding utf8 -Force;
 
 "Serial Number: " | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
 
@@ -246,6 +225,18 @@ catch [System.Exception]
     exit;
 }
 
+[xml]$SKULPNLookupConfigurationXml = Get-Content -Path $SKULNPLookupConfigurationFilePath -Encoding UTF8;
+
+#Commented out and reserved for future extension.
+#if($SKULPNLookupConfigurationXml.Mapping.Key -ne $OSSKU)
+#{
+#	$Host.UI.RawUI.BackgroundColor = "Red";
+#    $Host.UI.RawUI.ForegroundColor = "Yellow";
+#    Write-Host -Object "The SKU found in the machine does NOT match the one configured in the SKU / LPN mapping!";
+#    Read-Host -Prompt "Press any key to exit...";
+#    exit;
+#}
+
 #Sets the output file paths for .bin file and .xml file in OA3Tool configuration file;
 #And appends OHR data, serial number, CloudConfigurationID to OA3Tool configuration file (if there is not any for each):
 try
@@ -285,10 +276,12 @@ try
     
     if($OA3ToolConfigurationXml.OA3.ServerBased.Parameters.OEMOptionalInfo -eq $null)
     {
-        $OHRNodes = $OA3ToolConfigurationXml.ImportNode($OemHardwareReportData.OEMOptionalInfo, $true);
+        #$OHRNodes = $OA3ToolConfigurationXml.ImportNode($OemHardwareReportData.OEMOptionalInfo, $true);
+
+		$OHRNodes = $OA3ToolConfigurationXml.ImportNode($OemHardwareReportData.FirstChild, $true);
   
         #$OA3ToolConfigurationXml.OA3.ServerBased.Parameters.InsertBefore($OHRNodes, $OA3ToolConfigurationXml.OA3.ServerBased.Parameters.CloudConfigurationID);
-        $OA3ToolConfigurationXml.OA3.ServerBased.Parameters.InsertBefore($OHRNodes, $OA3ToolConfigurationXml.OA3.ServerBased.Parameters.SelectSingleNode("CloudConfigurationID"));
+        $OA3ToolConfigurationXml.OA3.ServerBased.Parameters.InsertBefore($OHRNodes, $OA3ToolConfigurationXml.OA3.ServerBased.Parameters.SelectSingleNode("BusinessID"));
     }
 
     ##Adding serial number to OA3Tool configuration file:
@@ -362,6 +355,16 @@ Copy-Item -Path $OA3OutputXmlFilePath -Destination ($DPKFilePath + $ProductKeyID
 
 #Copies the output .bin file to the directory that archives all of the DPK .bin files, and renames it to be in the form of "{product_key_id}.bin"
 Copy-Item -Path $OA3OutputBinFilePath -Destination ($DPKFilePath + $ProductKeyID + ".bin") -Force;
+
+#Commented out and reserved for future extension.
+#if($SKULPNLookupConfigurationXml.Mapping.Value -ne $ProductKeyInfo.Key.ProductKeyPartNumber)
+#{
+#	$Host.UI.RawUI.BackgroundColor = "Red";
+#	$Host.UI.RawUI.ForegroundColor = "Yellow";
+#	Write-Host -Object "The Product Key Part Number regarding the DPK does NOT match the one configured in the SKU / LPN mapping!";
+#	Read-Host -Prompt "Press any key to exit...";
+#	exit;
+#}
 
 #Runs slmgr.vbs /ipk to install the 5x5 here
 try
@@ -463,7 +466,14 @@ try
         $OA3OutputXml.key.RemoveChild($OA3OutputXml.Key.OEMOptionalInfo);
     }
 
-    $OHRNodes = $OA3OutputXml.ImportNode($OA3ToolConfigurationXml.OA3.ServerBased.Parameters.OEMOptionalInfo, $true);
+	if($OA3ToolConfigurationXml.OA3.ServerBased.Parameters.OEMOptionalInfo.FirstChild -ne $null)
+	{
+        $OHRNodes = $OA3OutputXml.ImportNode($OA3ToolConfigurationXml.OA3.ServerBased.Parameters.OEMOptionalInfo, $true);
+	}
+	else
+	{
+		$OHRNodes = $OA3OutputXml.ImportNode($OemHardwareReportData.FirstChild, $true);
+	}
   
     #$OA3OutputXml.Key.AppendChild($OHRNodes);
 
@@ -514,7 +524,7 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
 {
    try
    {
-      Import-Module ($RootDir + "\Module\PS\PowerShellOA3DPKSNBinder.dll");
+      Import-Module ($RootDir + "\Module\PSDPKSNBinder\PowerShellOA3DPKSNBinder.dll");
 
       [xml]$ProductKeyInfo = [xml](Get-Content -Path $OA3OutputXmlFilePath); 
 

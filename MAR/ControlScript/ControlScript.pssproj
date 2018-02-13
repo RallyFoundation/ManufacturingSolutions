@@ -11,9 +11,11 @@
 Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
 Copy-Item "..\Readme.txt" ..\bin\Release -Recurse -Force
 Copy-Item "..\ThirdPartyNotices.txt" ..\bin\Release -Recurse -Force
+Copy-Item  ..\bin\Release\Module\SKULPNMapper\lookup.xml ..\bin\Release\Config -Recurse -Force
 Remove-Item ..\bin\Release\*.pdb -Recurse -Force
-Remove-Item ..\bin\Release\Module\PS\*.pdb -Recurse -Force
-Remove-Item ..\bin\Release\Module\OA3ToolConfGen\*.pdb -Recurse -Force</PostBuildScript>
+Remove-Item ..\bin\Release\Module\PSDPKSNBinder\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\OA3ToolConfGen\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\SKULPNMapper\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
