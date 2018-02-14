@@ -330,9 +330,6 @@ app.get('/oa3/sku/', function (req, res) {
                     }
                 });
 
-                request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
-                request.addParameter('KeyType', TYPES.Int, req.params.keytype);
-
                 request.on('row', function (columns) {
 
                     keyInfo = { LicensablePartNumber: "", LicensableName: "", SKUID: "" };
@@ -342,6 +339,143 @@ app.get('/oa3/sku/', function (req, res) {
                     keyInfo.SKUID = columns[2].value;
 
                     results.push(keyInfo);
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get('/oa3/keys/count/:startkeyid/:endkeyid', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT COUNT(*) FROM ProductKeyInfo WHERE ProductKeyID BETWEEN @StartProductKeyID AND @EndProductKeyID"; 
+
+                console.log(sqlCommandText);
+
+                var result = -1;
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(result);
+                        res.end(String(result));
+                    }
+                });
+
+                request.addParameter('StartProductKeyID', TYPES.BigInt, Number(req.params.startkeyid));
+                request.addParameter('EndProductKeyID', TYPES.BigInt, Number(req.params.endkeyid)); 
+
+                request.on('row', function (columns) {
+                    result = columns[0].value;
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+app.get('/oa3/keys/max/:keycount/:startkeyid', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID >= @StartProductKeyID ORDER BY ProductKeyID DESC";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('StartProductKeyID', TYPES.BigInt, req.params.startkeyid);
+
+                request.on('row', function (columns) {
+                    results.push(columns[0].value);
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get('/oa3/keys/min/:keycount/:endkeyid', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID <= @EndProductKeyID ORDER BY ProductKeyID DESC";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('EndProductKeyID', TYPES.BigInt, req.params.endkeyid);
+
+                request.on('row', function (columns) {
+                    results.push(columns[0].value);
                 });
 
                 sqlConn.execSql(request);
