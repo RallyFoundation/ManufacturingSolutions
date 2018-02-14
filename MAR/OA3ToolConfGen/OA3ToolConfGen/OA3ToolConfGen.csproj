@@ -144,6 +144,12 @@
   <ItemGroup>
     <Content Include="agt_softwared.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ResourceIntegrator\ResourceIntegrator.csproj">
+      <Project>{52401417-15aa-468b-88a1-5578afc71e69}</Project>
+      <Name>ResourceIntegrator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

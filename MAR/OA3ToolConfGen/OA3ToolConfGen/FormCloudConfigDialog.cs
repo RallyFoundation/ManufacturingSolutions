@@ -19,7 +19,7 @@ namespace OA3ToolConfGen
         {
             InitializeComponent();
 
-            this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
+            //this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
         }
 
         private Dictionary<string, object> Settings;
@@ -50,7 +50,7 @@ namespace OA3ToolConfGen
                 ModuleConfiguration.Configuration_Database_Name = this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName].ToString();
             }
 
-            this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
+            //this.textBoxDatabaseName.Text = ModuleConfiguration.Configuration_Database_Name;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace OA3ToolConfGen
             this.Settings[ModuleConfiguration.AppStateKey_CloudUserName] = this.textBoxUserName.Text;
             this.Settings[ModuleConfiguration.AppStateKey_CloudPassword] = this.textBoxPassword.Text;
             this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationSets] = this.currentCustomers;
-            this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName] = this.textBoxDatabaseName.Text;
+            //this.Settings[ModuleConfiguration.AppStateKey_CloudClientDBName] = this.textBoxDatabaseName.Text;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
 
@@ -111,11 +111,11 @@ namespace OA3ToolConfGen
                 return;
             }
 
-            if (String.IsNullOrEmpty(this.textBoxDatabaseName.Text))
-            {
-                MessageBox.Show("Database name for MDOS Client is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (String.IsNullOrEmpty(this.textBoxDatabaseName.Text))
+            //{
+            //    MessageBox.Show("Database name for MDOS Client is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             if (String.IsNullOrEmpty(this.textBoxUserName.Text))
             {
@@ -131,7 +131,7 @@ namespace OA3ToolConfGen
 
             try
             {
-                ModuleConfiguration.Configuration_Database_Name = this.textBoxDatabaseName.Text;
+                //ModuleConfiguration.Configuration_Database_Name = this.textBoxDatabaseName.Text;
 
                 this.currentCustomers = ModuleConfiguration.GetFactoryFloorConfigurationSets(this.textBoxDISConfiguraitonCloudUrl.Text, this.textBoxUserName.Text, this.textBoxPassword.Text);
 
@@ -144,8 +144,8 @@ namespace OA3ToolConfGen
             }
             catch (Exception ex)
             {
-                string errorMessage = String.Format("Error(s) occurred connecting to DIS Configuration Cloud: {0}", ex.ToString());
-                MessageBox.Show(errorMessage, "Cloud Connection Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string errorMessage = String.Format("Error(s) occurred connecting to FFKI API: {0}", ex.ToString());
+                MessageBox.Show(errorMessage, "FFKI API Connection Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
