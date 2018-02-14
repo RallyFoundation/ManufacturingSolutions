@@ -98,7 +98,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(373, 17);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "Version: 1.2.1.0";
+            this.labelVersion.Text = "Version: 1.3.0.0";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -110,7 +110,7 @@
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(373, 17);
             this.labelCopyright.TabIndex = 21;
-            this.labelCopyright.Text = "Copyright (C) 2017,  GNU General Public License ";
+            this.labelCopyright.Text = "Copyright (C) 2018, The MIT License (MIT)";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCompanyName
@@ -137,7 +137,6 @@
             this.textBoxDescription.Size = new System.Drawing.Size(373, 157);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
             // 
             // okButton
             // 

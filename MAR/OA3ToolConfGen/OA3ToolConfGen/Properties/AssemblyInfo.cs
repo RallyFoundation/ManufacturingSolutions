@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OA3Tool Configuration Generator - CSI MDOS Client (v1.1+) Special Edition")]
-[assembly: AssemblyDescription("This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. \r\n \r\n This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the GNU General Public License for more details. \r\n \r\n This release build is contributed by: Rally Foundation of Software Decommercialization.Feb. 7, 2017. \r\n \r\n https://github.com/RallyFoundation/ManufacturingSolutions/tree/CSI-CloudOA/OA3ToolConfGen")]
+[assembly: AssemblyTitle("OA3Tool Configuration Generator - CSI MDOS Client (v1.3) Special Edition")]
+[assembly: AssemblyDescription("The MIT License (MIT)\r\n\r\nCopyright (c) 2018, Rally Foundation of Software Decommercialization\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\r\n")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rally Foundation of Software Decommercialization")]
-[assembly: AssemblyProduct("OA3Tool Configuration Generator - CSI MDOS Client (v1.1+) Special Edition")]
-[assembly: AssemblyCopyright("Copyright ©  2017, GNU General Public License ")]
+[assembly: AssemblyProduct("OA3Tool Configuration Generator - CSI MDOS Client (v1.3) Special Edition")]
+[assembly: AssemblyCopyright("Copyright ©  2018, The MIT License (MIT)")]
 [assembly: AssemblyTrademark("Rally Foundation")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.2.0")]
-[assembly: AssemblyFileVersion("1.2.2.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]
