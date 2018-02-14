@@ -27,5 +27,6 @@
     }
   },
   "report-xml-repository": "D:\\OA3\\Report",
+  "config-xml-repository": "D:\\OA3\\Config",
   "log-repository": "D:\\OA3\\Log"
 }

@@ -52,12 +52,24 @@ var mongoDBCollectionName = config.get("app.mongodb-collection-name");
 var mssqlConnectionString = config.get("app.mssql-connection-string");
 var mssqlConnectionConfig = config.get("app.mssql-connection-config");
 var oa3ReportXmlRepository = config.get("app.report-xml-repository");
+var oa3ConfigXmlRepository = config.get("app.config-xml-repository");
 var logRepository = config.get("app.log-repository");
 
 var oa3ReportXmlUploader = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, oa3ReportXmlRepository);
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now().toString() + "_" + file.originalname);
+        }
+    })
+}).any();
+
+var oa3ConfigXmlUploader = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, oa3ConfigXmlRepository);
         },
         filename: function (req, file, cb) {
             cb(null, Date.now().toString() + "_" + file.originalname);
@@ -287,6 +299,60 @@ app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
     }
 });
 
+app.get('/oa3/sku/', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT DISTINCT LicensablePartNumber, LicensableName, SKUID FROM ProductKeyInfo";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+                var keyInfo = { LicensablePartNumber: "", LicensableName: "", SKUID: "" };
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
+                request.addParameter('KeyType', TYPES.Int, req.params.keytype);
+
+                request.on('row', function (columns) {
+
+                    keyInfo = { LicensablePartNumber: "", LicensableName: "", SKUID: "" };
+
+                    keyInfo.LicensablePartNumber = columns[0].value;
+                    keyInfo.LicensableName = columns[1].value;
+                    keyInfo.SKUID = columns[2].value;
+
+                    results.push(keyInfo);
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 app.post("/oa3/report/", function (req, res) {
 
     oa3ReportXmlUploader(req, res, function (err) {
@@ -298,6 +364,19 @@ app.post("/oa3/report/", function (req, res) {
         console.log(req.files[0].path);
     });
 });
+
+app.post("/oa3/config/", function (req, res) {
+
+    oa3ConfigXmlUploader(req, res, function (err) {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+
+        console.log(req.files[0].path);
+    });
+});
+
 
 app.post("/oa3/log/:trsnid", function (req, res) {
 
