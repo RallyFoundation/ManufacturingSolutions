@@ -154,43 +154,43 @@ io.on("connection", function (socket) {
 });
 
 
-function getRedisClient() {
-    var client = redis.createClient(redisPort, redisAddress);
-    client.auth(redisPassword);
+//function getRedisClient() {
+//    var client = redis.createClient(redisPort, redisAddress);
+//    client.auth(redisPassword);
 
-    return client;
-}
+//    return client;
+//}
 
-var insertDocuments = function (db, data, callback) {
-    var collection = db.collection(mongoDBCollectionName);
-    collection.insertOne(
-        data,
-        function (err, result) {
-            assert.equal(err, null);
-            assert.equal(1, result.result.n);
-            assert.equal(1, result.ops.length);
-            console.log("OK!");
-            callback(result);
-        });
-}
+//var insertDocuments = function (db, data, callback) {
+//    var collection = db.collection(mongoDBCollectionName);
+//    collection.insertOne(
+//        data,
+//        function (err, result) {
+//            assert.equal(err, null);
+//            assert.equal(1, result.result.n);
+//            assert.equal(1, result.ops.length);
+//            console.log("OK!");
+//            callback(result);
+//        });
+//}
 
-function persistData(data) {
-    mongoClient.connect(mongoDBUrl, function (err, db) {
-        assert.equal(null, err);
-        console.log("Connected to MongoDB.");
+//function persistData(data) {
+//    mongoClient.connect(mongoDBUrl, function (err, db) {
+//        assert.equal(null, err);
+//        console.log("Connected to MongoDB.");
 
-        insertDocuments(db, data, function (res) {
-            db.close();
+//        insertDocuments(db, data, function (res) {
+//            db.close();
 
-            console.log(res);
+//            console.log(res);
 
-            data.id = res.insertedId;
-            console.log(JSON.stringify(data));
+//            data.id = res.insertedId;
+//            console.log(JSON.stringify(data));
 
-            //io.emit("msg:msgrly", data);
-        });
-    });
-}
+//            //io.emit("msg:msgrly", data);
+//        });
+//    });
+//}
 
 app.get('/', function (req, res) {
     res.send('Welcome to OA3.0!');
@@ -339,6 +339,61 @@ app.get('/oa3/sku/', function (req, res) {
                     keyInfo.SKUID = columns[2].value;
 
                     results.push(keyInfo);
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get('/oa3/keys/:bizid/:name/:value/:keytype', function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT ProductKeyID FROM ProductKeyInfo WHERE " + req.params.name + " = @Value AND ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType) ORDER BY ProductKeyID DESC";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('Value', TYPES.NVarChar, req.params.value);
+                request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
+                request.addParameter('KeyType', TYPES.Int, req.params.keytype);
+
+                request.on('row', function (columns) {
+                    columns.forEach(function (column) {
+                        if (column.value === null) {
+                            console.log('NULL');
+                        } else {
+                            console.log(column.value);
+                            results.push(column.value);
+                            //console.log(JSON.stringify(results));
+                        }
+                    });
                 });
 
                 sqlConn.execSql(request);
@@ -525,27 +580,27 @@ app.post("/oa3/log/:trsnid", function (req, res) {
     });
 });
 
-app.get('/wds/lookup/:key', function (req, res) {
-    var redisClient = getRedisClient();
-    var key = req.params.key;
+//app.get('/wds/lookup/:key', function (req, res) {
+//    var redisClient = getRedisClient();
+//    var key = req.params.key;
 
-    redisClient.select(redisDbIndex, function (err) {
-        if (err) {
-            console.log(err);
-            res.end(err);
-        }
-        else {
-            redisClient.get(key, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    res.end(err);
-                }
-                else {
-                    console.log(result);
-                    redisClient.end(true);
-                    res.end(result);
-                }
-            });
-        }
-    });
-});
+//    redisClient.select(redisDbIndex, function (err) {
+//        if (err) {
+//            console.log(err);
+//            res.end(err);
+//        }
+//        else {
+//            redisClient.get(key, function (err, result) {
+//                if (err) {
+//                    console.log(err);
+//                    res.end(err);
+//                }
+//                else {
+//                    console.log(result);
+//                    redisClient.end(true);
+//                    res.end(result);
+//                }
+//            });
+//        }
+//    });
+//});
