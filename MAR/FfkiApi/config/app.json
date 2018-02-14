@@ -16,9 +16,8 @@
     "Value": "String",
     "Data": "String"
   },
-  "mssql-connection-string": "mssql://MDOS:D!S@OMSG.msft@minint-kuf9jnn/MDOS_FFKI_KeyStore_Test",
   "mssql-connection-config": {
-    "server": "192.168.0.106",
+    "server": "localhost",
     "userName": "MDOS",
     "password": "D!S@OMSG.msft",
     "port": 1433,
@@ -26,7 +25,7 @@
       "database": "MDOS_FFKI_KeyStore_Test"
     }
   },
-  "report-xml-repository": "D:\\OA3\\Report",
-  "config-xml-repository": "D:\\OA3\\Config",
-  "log-repository": "D:\\OA3\\Log"
+  "report-xml-repository": "C:\\OA3\\Report",
+  "config-xml-repository": "C:\\OA3\\Config",
+  "log-repository": "C:\\OA3\\Log"
 }

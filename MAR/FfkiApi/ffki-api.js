@@ -91,44 +91,44 @@ var logUploader = multer({
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-//if (cluster.isMaster) {
+if (cluster.isMaster) {
 
-//    console.log(`Master ${process.pid} is running`);
+    console.log(`Master ${process.pid} is running`);
 
-//    console.log(`Number of CPUs: ${cpuCount}.`);
+    console.log(`Number of CPUs: ${cpuCount}.`);
 
-//    for (var i = 0; i < cpuCount; i++) {
-//        cluster.fork();
-//    }
+    for (var i = 0; i < cpuCount; i++) {
+        cluster.fork();
+    }
 
-//    cluster.on('exit', (worker, code, signal) => {
-//        console.log(`worker ${worker.process.pid} died`);
-//    });
-//}
-//else {
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`);
+    });
+}
+else {
 
-//    var server = app.listen(httpServerPort, function () {
-//        var host = server.address().address;
-//        var port = server.address().port;
-//        console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
-//    });
+    var server = app.listen(httpServerPort, function () {
+        var host = server.address().address;
+        var port = server.address().port;
+        console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
+    });
 
-//    http.listen(webSocketServerPort, function () {
-//        console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
-//    });
+    http.listen(webSocketServerPort, function () {
+        console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+    });
 
-//    console.log(`Worker ${process.pid} started`);
-//}
+    console.log(`Worker ${process.pid} started`);
+}
 
-var server = app.listen(httpServerPort, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
-})
+//var server = app.listen(httpServerPort, function () {
+//    var host = server.address().address;
+//    var port = server.address().port;
+//    console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
+//})
 
-http.listen(webSocketServerPort, function () {
-    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
-});
+//http.listen(webSocketServerPort, function () {
+//    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+//});
 
 io.on("connection", function (socket) {
     console.log("A new app connected!");
