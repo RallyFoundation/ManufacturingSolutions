@@ -24,6 +24,8 @@ namespace OA3ToolConfGen
 
         public string DBConnectionString { get; set; }
 
+        public string FFKIAPIUrl { get; set; }
+
         public string ConfigurationID { get; set; }
 
         public bool IsSelected { get { return this.checkBoxSelection.Checked; } }
@@ -42,9 +44,17 @@ namespace OA3ToolConfGen
 
         public bool Populate() 
         {
-            if (!String.IsNullOrEmpty(this.DBConnectionString))
+            //if (!String.IsNullOrEmpty(this.DBConnectionString))
+            //{
+            //    this.comboBoxParameterValue.DataSource = this.getValuesFromDB(this.DBConnectionString, this.ParameterType.ToString());
+            //    this.comboBoxParameterValue.Refresh();
+
+            //    return (this.comboBoxParameterValue.Items.Count > 0);
+            //}
+
+            if (!String.IsNullOrEmpty(this.FFKIAPIUrl))
             {
-                this.comboBoxParameterValue.DataSource = this.getValuesFromDB(this.DBConnectionString, this.ParameterType.ToString());
+                this.comboBoxParameterValue.DataSource = this.getValuesFromFFKIAPI(this.FFKIAPIUrl, this.ParameterType.ToString());
                 this.comboBoxParameterValue.Refresh();
 
                 return (this.comboBoxParameterValue.Items.Count > 0);
@@ -56,7 +66,9 @@ namespace OA3ToolConfGen
         public void Enable(bool IsEnabled) 
         {
             this.checkBoxSelection.Checked = IsEnabled;
-            this.buttonGet.Enabled = IsEnabled && !String.IsNullOrEmpty(this.DBConnectionString);
+            //this.buttonGet.Enabled = IsEnabled && !String.IsNullOrEmpty(this.DBConnectionString);
+
+            this.buttonGet.Enabled = IsEnabled && !String.IsNullOrEmpty(this.FFKIAPIUrl);
         }
 
         public void SetParameterValue(string Value) 
@@ -76,7 +88,8 @@ namespace OA3ToolConfGen
             bool isChecked = (sender as CheckBox).Checked;
 
             this.comboBoxParameterValue.Enabled = isChecked;
-            this.buttonGet.Enabled = isChecked && !String.IsNullOrEmpty(this.DBConnectionString);
+            //this.buttonGet.Enabled = isChecked && !String.IsNullOrEmpty(this.DBConnectionString);
+            this.buttonGet.Enabled = isChecked && !String.IsNullOrEmpty(this.FFKIAPIUrl);
 
             if (!isChecked)
             {
@@ -134,6 +147,22 @@ namespace OA3ToolConfGen
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                returnValue = null;
+            }
+
+            return returnValue;
+        }
+
+        private List<String> getValuesFromFFKIAPI(string url, string paramName)
+        {
+            List<string> returnValue = new List<string>();
+
+            try
+            {
+               returnValue = ModuleConfiguration.GetParameterValues(url, "", "", ConfigurationID, paramName);
             }
             catch (Exception ex)
             {

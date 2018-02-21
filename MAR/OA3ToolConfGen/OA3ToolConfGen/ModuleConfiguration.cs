@@ -9,6 +9,7 @@ using System.Xml;
 //using DISConfigurationCloud.Contract;
 using Contract;
 using ResourceIntegrator;
+using Utility;
 
 namespace OA3ToolConfGen
 {
@@ -181,6 +182,41 @@ namespace OA3ToolConfGen
             }
 
             returnValue = customers.ToArray();
+
+            return returnValue;
+        }
+
+
+        public static List<String> GetParameterValues(string ServicePoint, string UserName, string Password, string BusinessID, string ParameterName)
+        {
+            List<string> returnValue = null;
+
+            IResourceRouter router = new ResourceRouter();
+
+            string url = ServicePoint;
+
+            if (url.EndsWith("/"))
+            {
+                url = url.Substring(0, (url.Length - 1));
+            }
+
+            url += String.Format("/oa3/parameter/{0}/{1}/{2}", BusinessID, ParameterName, ModuleConfiguration.KeyTypeID);
+
+            object result = router.Get(url, new ResourceIntegrator.Authentication() { Type = AuthenticationType.Custom }, null);
+
+            if (result != null)
+            {
+                string paramValueJsonString = result.ToString();
+
+                byte[] paramValueJsonBytes = Encoding.UTF8.GetBytes(paramValueJsonString);
+
+                string[] paramValues = JsonUtility.JsonDeserialize(paramValueJsonBytes, typeof(string[]), new Type[] { typeof(string[]) }, "root") as string[];
+
+                if (paramValues != null)
+                {
+                    returnValue = new List<string>(paramValues);
+                }
+            }
 
             return returnValue;
         }

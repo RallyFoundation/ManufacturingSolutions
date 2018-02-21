@@ -149,6 +149,10 @@
       <Project>{52401417-15aa-468b-88a1-5578afc71e69}</Project>
       <Name>ResourceIntegrator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Utility\Utility.csproj">
+      <Project>{c2c084b3-6cc5-4146-9c61-fd2cd9739043}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

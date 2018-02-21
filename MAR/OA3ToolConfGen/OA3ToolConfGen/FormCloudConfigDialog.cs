@@ -107,7 +107,7 @@ namespace OA3ToolConfGen
         {
             if (String.IsNullOrEmpty(this.textBoxDISConfiguraitonCloudUrl.Text))
             {
-                MessageBox.Show("Host address for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Host address for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -119,13 +119,13 @@ namespace OA3ToolConfGen
 
             if (String.IsNullOrEmpty(this.textBoxUserName.Text))
             {
-                MessageBox.Show("User Name for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("User Name for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (String.IsNullOrEmpty(this.textBoxPassword.Text))
             {
-                MessageBox.Show("Password for MDOS Client database server is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

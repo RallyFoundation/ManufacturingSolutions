@@ -280,12 +280,19 @@ namespace OA3ToolConfGen
 
         private void setControls() 
         {
-            string dbConnectionString = (this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] != null) ? this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString].ToString() : "";
+            //string dbConnectionString = (this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] != null) ? this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString].ToString() : "";
 
-            this.ucParameterLPN.DBConnectionString = dbConnectionString;
-            this.ucParameterOPN.DBConnectionString = dbConnectionString;
-            this.ucParameterOPON.DBConnectionString = dbConnectionString;
-            this.ucParameterSN.DBConnectionString = dbConnectionString;
+            //this.ucParameterLPN.DBConnectionString = dbConnectionString;
+            //this.ucParameterOPN.DBConnectionString = dbConnectionString;
+            //this.ucParameterOPON.DBConnectionString = dbConnectionString;
+            //this.ucParameterSN.DBConnectionString = dbConnectionString;
+
+            string ffkiApiUrl = (this.Settings[ModuleConfiguration.AppStateKey_CloudServicePoint] != null) ? this.Settings[ModuleConfiguration.AppStateKey_CloudServicePoint].ToString() : "";
+
+            this.ucParameterLPN.FFKIAPIUrl = ffkiApiUrl;
+            this.ucParameterOPN.FFKIAPIUrl = ffkiApiUrl;
+            this.ucParameterOPON.FFKIAPIUrl = ffkiApiUrl;
+            this.ucParameterSN.FFKIAPIUrl = ffkiApiUrl;
 
             this.ucParameterLPN.Enable(false);
             this.ucParameterOPN.Enable(false);
