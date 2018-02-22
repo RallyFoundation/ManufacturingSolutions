@@ -25,6 +25,13 @@ namespace OA3ToolConfGen
         public const string AppStateKey_CloudClientDBName = "CloudClientDBName";
         public const string AppStateKey_KeyTypeID = "KeyTypeID";
 
+        public static string ParameterKey_LicensablePartNumber = "LicensablePartNumber";
+        public static string ParameterKey_OEMPartNumber = "OEMPartNumber";
+        public static string ParameterKey_OEMPONumber = "OEMPONumber";
+        public static string ParameterKey_SerialNumber = "SerialNumber";
+        public static string ParameterKey_ProductKeyIDFrom = "ProductKeyIDFrom";
+        public static string ParameterKey_ProductKeyIDTo = "ProductKeyIDTo";
+
         public static string OHRKey_ZPC_MODEL_SKU = "ZPC_MODEL_SKU";
         public static string OHRKey_ZFRM_FACTOR_CL1 = "ZFRM_FACTOR_CL1";
         public static string OHRKey_ZFRM_FACTOR_CL2 = "ZFRM_FACTOR_CL2";
@@ -215,6 +222,44 @@ namespace OA3ToolConfGen
                 if (paramValues != null)
                 {
                     returnValue = new List<string>(paramValues);
+                }
+            }
+
+            return returnValue;
+        }
+
+        public static List<long> GetProductKeyIDRange(string ServicePoint, string UserName, string Password, int KeyCount, string BusinessID, QueryItem[] QueryItems)
+        {
+            List<long> returnValue = null;
+
+            IResourceRouter router = new ResourceRouter();
+
+            string url = ServicePoint;
+
+            if (url.EndsWith("/"))
+            {
+                url = url.Substring(0, (url.Length - 1));
+            }
+
+            url += String.Format("/oa3/keys/query/{0}/{1}/{2}", KeyCount, BusinessID, ModuleConfiguration.KeyTypeID);
+
+            byte[] jsonBytes = JsonUtility.JsonSerialize(QueryItems, new Type[] { typeof(QueryItem[]) }, "root");
+
+            string jsonString = Encoding.UTF8.GetString(jsonBytes);
+
+            object result = router.Post(url, jsonString, new ResourceIntegrator.Authentication() { Type = AuthenticationType.Custom }, new Dictionary<string, string>() { { "Content-Type", "application/json;charset=utf-8" }, { "Accept", "application/json" } });
+
+            if (result != null)
+            {
+                string paramValueJsonString = result.ToString();
+
+                byte[] paramValueJsonBytes = Encoding.UTF8.GetBytes(paramValueJsonString);
+
+                long[] paramValues = JsonUtility.JsonDeserialize(paramValueJsonBytes, typeof(long[]), new Type[] { typeof(long[]) }, "root") as long[];
+
+                if (paramValues != null)
+                {
+                    returnValue = new List<long>(paramValues);
                 }
             }
 

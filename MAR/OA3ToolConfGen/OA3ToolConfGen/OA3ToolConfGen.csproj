@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Contract\Configuration.cs" />
     <Compile Include="Contract\Customer.cs" />
+    <Compile Include="Contract\QueryItem.cs" />
     <Compile Include="FormCloudConfigDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +102,12 @@
     <Compile Include="UCPGMELIG.Designer.cs">
       <DependentUpon>UCPGMELIG.cs</DependentUpon>
     </Compile>
+    <Compile Include="UCProductKeyIDRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCProductKeyIDRange.Designer.cs">
+      <DependentUpon>UCProductKeyIDRange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
@@ -129,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UCPGMELIG.resx">
       <DependentUpon>UCPGMELIG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCProductKeyIDRange.resx">
+      <DependentUpon>UCProductKeyIDRange.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

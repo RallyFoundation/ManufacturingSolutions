@@ -162,6 +162,17 @@ namespace OA3ToolConfGen
                 parameters.Add(new OA3ServerBasedParametersParameter() { name = this.ucParameterSN.ParameterName, value = this.ucParameterSN.ParameterValue });
             }
 
+            if (this.checkBoxProductKeyIDRangeRequired.Checked)
+            {
+                long[] keyIDRange = this.ucProductKeyIDRange.GetKeyRange();
+
+                if ((keyIDRange != null) && (keyIDRange.Length > 0))
+                {
+                    parameters.Add(new OA3ServerBasedParametersParameter() { name = ModuleConfiguration.ParameterKey_ProductKeyIDFrom, value = keyIDRange[0].ToString() });
+                    parameters.Add(new OA3ServerBasedParametersParameter() { name = ModuleConfiguration.ParameterKey_ProductKeyIDTo, value = keyIDRange[(keyIDRange.Length - 1)].ToString() });
+                }
+            }
+
             this.OA3ToolConfiguration.ServerBased.Parameters.Parameter = parameters.ToArray();
 
             if (this.checkBoxOHRRequired.Checked)
@@ -293,6 +304,7 @@ namespace OA3ToolConfGen
             this.ucParameterOPN.FFKIAPIUrl = ffkiApiUrl;
             this.ucParameterOPON.FFKIAPIUrl = ffkiApiUrl;
             this.ucParameterSN.FFKIAPIUrl = ffkiApiUrl;
+            this.ucProductKeyIDRange.FFKIAPIUrl = ffkiApiUrl;
 
             this.ucParameterLPN.Enable(false);
             this.ucParameterOPN.Enable(false);
@@ -328,6 +340,7 @@ namespace OA3ToolConfGen
                     this.ucParameterOPN.ConfigurationID = configurationID;
                     this.ucParameterOPON.ConfigurationID = configurationID;
                     this.ucParameterSN.ConfigurationID = configurationID;
+                    this.ucProductKeyIDRange.ConfigurationID = configurationID;
 
                     if (this.OA3ToolConfiguration.ServerBased.Parameters.OEMOptionalInfo != null)
                     {
@@ -360,15 +373,19 @@ namespace OA3ToolConfGen
 
                     if ((this.OA3ToolConfiguration.ServerBased.Parameters.Parameter != null) && (this.OA3ToolConfiguration.ServerBased.Parameters.Parameter.Length > 0))
                     {
+                        Dictionary<string, object> paramDict = new Dictionary<string, object>();
+                        
                         foreach (var parameter in this.OA3ToolConfiguration.ServerBased.Parameters.Parameter)
                         {
+                            paramDict.Add(parameter.name, parameter.value);
+
                             if (this.ucParameterLPN.ParameterName == parameter.name)
                             {
                                 this.ucParameterLPN.Enable(true);
                                 this.ucParameterLPN.Populate();
                                 this.ucParameterLPN.SetParameterValue(parameter.value);
                             }
-                            else if (this.ucParameterOPN.ParameterName == parameter.name) 
+                            else if (this.ucParameterOPN.ParameterName == parameter.name)
                             {
                                 this.ucParameterOPN.Enable(true);
                                 this.ucParameterOPN.Populate();
@@ -387,6 +404,13 @@ namespace OA3ToolConfGen
                                 this.ucParameterSN.SetParameterValue(parameter.value);
                             }
                         }
+
+                        if (paramDict.ContainsKey(ModuleConfiguration.ParameterKey_ProductKeyIDFrom) || paramDict.ContainsKey(ModuleConfiguration.ParameterKey_ProductKeyIDTo))
+                        {
+                            this.checkBoxProductKeyIDRangeRequired.Checked = true;
+                        }
+
+                        this.ucProductKeyIDRange.SetKeyRange(paramDict);
                     }
                 }
             }
@@ -590,6 +614,19 @@ namespace OA3ToolConfGen
 
                 this.webBrowserPreview.DocumentText = oa3ToolConfigXml;
             }
+            else if (this.tabControlMain.SelectedTab == this.tabPageProductKeyIDRange)
+            {
+                try
+                {
+                    this.setOA3ToolConfiguration();
+                    this.ucProductKeyIDRange.Populate(this.OA3ToolConfiguration.ServerBased.Parameters.Parameter);
+                }
+                catch (Exception ex)
+                {
+                    string errorMessage = String.Format("Error(s) occurred: {0}", ex.ToString());
+                    MessageBox.Show(errorMessage, "Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }       
+            }
             else if (this.tabControlMain.SelectedTab == this.tabPageCloud)
             {
                 this.webBrowserCloud.DocumentText = this.getCloudConfigSetsXml();
@@ -638,6 +675,10 @@ namespace OA3ToolConfGen
         private void checkBoxPromoCodeRequired_CheckedChanged(object sender, EventArgs e)
         {
             this.ucpgmeligPromoCode.Enabled = this.checkBoxPromoCodeRequired.Checked;
+        }
+        private void checkBoxProductKeyIDRangeRequired_CheckedChanged(object sender, EventArgs e)
+        {
+            this.ucProductKeyIDRange.Enabled = this.checkBoxProductKeyIDRangeRequired.Checked;
         }
 
         private void radioButtonStandard_CheckedChanged(object sender, EventArgs e)

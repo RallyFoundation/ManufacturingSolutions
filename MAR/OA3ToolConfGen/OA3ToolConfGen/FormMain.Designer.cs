@@ -80,6 +80,9 @@
             this.tabPagePromoCode = new System.Windows.Forms.TabPage();
             this.checkBoxPromoCodeRequired = new System.Windows.Forms.CheckBox();
             this.ucpgmeligPromoCode = new OA3ToolConfGen.UCPGMELIG();
+            this.tabPageProductKeyIDRange = new System.Windows.Forms.TabPage();
+            this.checkBoxProductKeyIDRangeRequired = new System.Windows.Forms.CheckBox();
+            this.ucProductKeyIDRange = new OA3ToolConfGen.UCProductKeyIDRange();
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.tabPageCloud = new System.Windows.Forms.TabPage();
@@ -94,6 +97,7 @@
             this.tabPageParameters.SuspendLayout();
             this.tabPageOHR.SuspendLayout();
             this.tabPagePromoCode.SuspendLayout();
+            this.tabPageProductKeyIDRange.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             this.tabPageCloud.SuspendLayout();
             this.SuspendLayout();
@@ -272,6 +276,7 @@
             this.tabControlMain.Controls.Add(this.tabPageParameters);
             this.tabControlMain.Controls.Add(this.tabPageOHR);
             this.tabControlMain.Controls.Add(this.tabPagePromoCode);
+            this.tabControlMain.Controls.Add(this.tabPageProductKeyIDRange);
             this.tabControlMain.Controls.Add(this.tabPagePreview);
             this.tabControlMain.Controls.Add(this.tabPageCloud);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -490,6 +495,7 @@
             // 
             this.ucParameterSN.ConfigurationID = null;
             this.ucParameterSN.DBConnectionString = null;
+            this.ucParameterSN.FFKIAPIUrl = null;
             this.ucParameterSN.Location = new System.Drawing.Point(5, 187);
             this.ucParameterSN.Name = "ucParameterSN";
             this.ucParameterSN.ParameterType = OA3ToolConfGen.ParameterType.SerialNumber;
@@ -500,6 +506,7 @@
             // 
             this.ucParameterOPON.ConfigurationID = null;
             this.ucParameterOPON.DBConnectionString = null;
+            this.ucParameterOPON.FFKIAPIUrl = null;
             this.ucParameterOPON.Location = new System.Drawing.Point(5, 153);
             this.ucParameterOPON.Name = "ucParameterOPON";
             this.ucParameterOPON.ParameterType = OA3ToolConfGen.ParameterType.OEMPONumber;
@@ -510,6 +517,7 @@
             // 
             this.ucParameterOPN.ConfigurationID = null;
             this.ucParameterOPN.DBConnectionString = null;
+            this.ucParameterOPN.FFKIAPIUrl = null;
             this.ucParameterOPN.Location = new System.Drawing.Point(5, 118);
             this.ucParameterOPN.Name = "ucParameterOPN";
             this.ucParameterOPN.ParameterType = OA3ToolConfGen.ParameterType.OEMPartNumber;
@@ -520,6 +528,7 @@
             // 
             this.ucParameterLPN.ConfigurationID = null;
             this.ucParameterLPN.DBConnectionString = null;
+            this.ucParameterLPN.FFKIAPIUrl = null;
             this.ucParameterLPN.Location = new System.Drawing.Point(5, 84);
             this.ucParameterLPN.Name = "ucParameterLPN";
             this.ucParameterLPN.ParameterType = OA3ToolConfGen.ParameterType.LicensablePartNumber;
@@ -589,6 +598,39 @@
             this.ucpgmeligPromoCode.Name = "ucpgmeligPromoCode";
             this.ucpgmeligPromoCode.Size = new System.Drawing.Size(161, 36);
             this.ucpgmeligPromoCode.TabIndex = 0;
+            // 
+            // tabPageProductKeyIDRange
+            // 
+            this.tabPageProductKeyIDRange.Controls.Add(this.checkBoxProductKeyIDRangeRequired);
+            this.tabPageProductKeyIDRange.Controls.Add(this.ucProductKeyIDRange);
+            this.tabPageProductKeyIDRange.Location = new System.Drawing.Point(4, 44);
+            this.tabPageProductKeyIDRange.Name = "tabPageProductKeyIDRange";
+            this.tabPageProductKeyIDRange.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProductKeyIDRange.Size = new System.Drawing.Size(616, 270);
+            this.tabPageProductKeyIDRange.TabIndex = 6;
+            this.tabPageProductKeyIDRange.Text = "Product Key ID Range";
+            this.tabPageProductKeyIDRange.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxProductKeyIDRangeRequired
+            // 
+            this.checkBoxProductKeyIDRangeRequired.AutoSize = true;
+            this.checkBoxProductKeyIDRangeRequired.Location = new System.Drawing.Point(29, 18);
+            this.checkBoxProductKeyIDRangeRequired.Name = "checkBoxProductKeyIDRangeRequired";
+            this.checkBoxProductKeyIDRangeRequired.Size = new System.Drawing.Size(179, 17);
+            this.checkBoxProductKeyIDRangeRequired.TabIndex = 3;
+            this.checkBoxProductKeyIDRangeRequired.Text = "Product Key ID Range Required";
+            this.checkBoxProductKeyIDRangeRequired.UseVisualStyleBackColor = true;
+            this.checkBoxProductKeyIDRangeRequired.CheckedChanged += new System.EventHandler(this.checkBoxProductKeyIDRangeRequired_CheckedChanged);
+            // 
+            // ucProductKeyIDRange
+            // 
+            this.ucProductKeyIDRange.ConfigurationID = null;
+            this.ucProductKeyIDRange.Enabled = false;
+            this.ucProductKeyIDRange.FFKIAPIUrl = null;
+            this.ucProductKeyIDRange.Location = new System.Drawing.Point(19, 41);
+            this.ucProductKeyIDRange.Name = "ucProductKeyIDRange";
+            this.ucProductKeyIDRange.Size = new System.Drawing.Size(388, 213);
+            this.ucProductKeyIDRange.TabIndex = 0;
             // 
             // tabPagePreview
             // 
@@ -669,6 +711,8 @@
             this.tabPageOHR.PerformLayout();
             this.tabPagePromoCode.ResumeLayout(false);
             this.tabPagePromoCode.PerformLayout();
+            this.tabPageProductKeyIDRange.ResumeLayout(false);
+            this.tabPageProductKeyIDRange.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
             this.tabPageCloud.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -735,6 +779,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.TabPage tabPageProductKeyIDRange;
+        private UCProductKeyIDRange ucProductKeyIDRange;
+        private System.Windows.Forms.CheckBox checkBoxProductKeyIDRangeRequired;
     }
 }
 
