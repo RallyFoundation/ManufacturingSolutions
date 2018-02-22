@@ -42,13 +42,13 @@ app.use(cors());
 
 var httpServerPort = config.get("app.http-server-port"); //8089;
 var webSocketServerPort = config.get("app.web-socket-server-port");
-var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
-var redisPort = config.get("app.redis-port"); //6379;
-var redisPassword = config.get("app.redis-password"); //"P@ssword1";
-var redisDbIndex = config.get("app.redis-db-index"); //0;
-var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
-var mongoDBUrl = config.get("app.mongodb-url");
-var mongoDBCollectionName = config.get("app.mongodb-collection-name");
+//var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
+//var redisPort = config.get("app.redis-port"); //6379;
+//var redisPassword = config.get("app.redis-password"); //"P@ssword1";
+//var redisDbIndex = config.get("app.redis-db-index"); //0;
+//var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
+//var mongoDBUrl = config.get("app.mongodb-url");
+//var mongoDBCollectionName = config.get("app.mongodb-collection-name");
 var mssqlConnectionString = config.get("app.mssql-connection-string");
 var mssqlConnectionConfig = config.get("app.mssql-connection-config");
 var oa3ReportXmlRepository = config.get("app.report-xml-repository");
@@ -531,6 +531,78 @@ app.get('/oa3/keys/min/:keycount/:endkeyid', function (req, res) {
 
                 request.on('row', function (columns) {
                     results.push(columns[0].value);
+                });
+
+                sqlConn.execSql(request);
+            }
+        });
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
+    try {
+        console.log(mssqlConnectionConfig);
+        var sqlConn = new Connection(mssqlConnectionConfig);
+
+        var queryItems = req.body;
+
+        sqlConn.on('connect', function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Connected");
+
+                var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+
+                if (queryItems != null) {
+
+                    console.log(JSON.stringify(queryItems));
+
+                    for (var i = 0; i < queryItems.length; i++) {
+                        sqlCommandText += " AND " + queryItems[i].name + " = @" + queryItems[i].name;
+                    }
+                }
+
+                sqlCommandText += " ORDER BY ProductKeyID DESC";
+
+                console.log(sqlCommandText);
+
+                var results = [];
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(rowCount);
+                        console.log(JSON.stringify(results));
+                        res.end(JSON.stringify(results));
+                    }
+                });
+
+                request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
+                request.addParameter('KeyType', TYPES.Int, req.params.keytype);
+
+                if (queryItems != null) {
+                    for (var i = 0; i < queryItems.length; i++) {
+                        request.addParameter(queryItems[i].name, TYPES.NVarChar, queryItems[i].value);
+                    }
+                }
+
+                request.on('row', function (columns) {
+                    columns.forEach(function (column) {
+                        if (column.value === null) {
+                            console.log('NULL');
+                        } else {
+                            console.log(column.value);
+                            results.push(column.value);
+                            //console.log(JSON.stringify(results));
+                        }
+                    });
                 });
 
                 sqlConn.execSql(request);
