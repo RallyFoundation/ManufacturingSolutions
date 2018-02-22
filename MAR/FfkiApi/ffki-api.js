@@ -545,9 +545,12 @@ app.get('/oa3/keys/min/:keycount/:endkeyid', function (req, res) {
 app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
     try {
         console.log(mssqlConnectionConfig);
+
         var sqlConn = new Connection(mssqlConnectionConfig);
 
         var queryItems = req.body;
+
+        var keyCount = req.params.keycount;
 
         sqlConn.on('connect', function (err) {
             if (err) {
@@ -556,7 +559,11 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
             else {
                 console.log("Connected");
 
-                var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+                var sqlCommandText = "SELECT ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+
+                if (Number(keyCount) > 0) {
+                    sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+                }       
 
                 if (queryItems != null) {
 
