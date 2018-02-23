@@ -29,8 +29,8 @@ namespace OA3ToolConfGen
         public static string ParameterKey_OEMPartNumber = "OEMPartNumber";
         public static string ParameterKey_OEMPONumber = "OEMPONumber";
         public static string ParameterKey_SerialNumber = "SerialNumber";
-        public static string ParameterKey_ProductKeyIDFrom = "ProductKeyIDFrom";
-        public static string ParameterKey_ProductKeyIDTo = "ProductKeyIDTo";
+        public static string ParameterKey_ProductKeyIDFrom = "ProductKeyIdFrom";
+        public static string ParameterKey_ProductKeyIDTo = "ProductKeyIdTo";
 
         public static string OHRKey_ZPC_MODEL_SKU = "ZPC_MODEL_SKU";
         public static string OHRKey_ZFRM_FACTOR_CL1 = "ZFRM_FACTOR_CL1";
