@@ -47,6 +47,7 @@
             this.labelParamNameLicensablePartNumber = new System.Windows.Forms.Label();
             this.labelParamValueBusinessID = new System.Windows.Forms.Label();
             this.labelParamNameBusinessID = new System.Windows.Forms.Label();
+            this.listBoxSearchResult = new System.Windows.Forms.ListBox();
             this.groupBoxKeyRange.SuspendLayout();
             this.groupBoxParameters.SuspendLayout();
             this.SuspendLayout();
@@ -71,11 +72,14 @@
             // 
             // textBoxProductKeyIDFrom
             // 
+            this.textBoxProductKeyIDFrom.AllowDrop = true;
             this.textBoxProductKeyIDFrom.Location = new System.Drawing.Point(45, 25);
             this.textBoxProductKeyIDFrom.MaxLength = 9;
             this.textBoxProductKeyIDFrom.Name = "textBoxProductKeyIDFrom";
             this.textBoxProductKeyIDFrom.Size = new System.Drawing.Size(131, 20);
             this.textBoxProductKeyIDFrom.TabIndex = 3;
+            this.textBoxProductKeyIDFrom.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxProductKeyIDFrom_DragDrop);
+            this.textBoxProductKeyIDFrom.DragOver += new System.Windows.Forms.DragEventHandler(this.textBoxProductKeyIDFrom_DragOver);
             // 
             // labelProductKeyIDFrom
             // 
@@ -88,11 +92,14 @@
             // 
             // textBoxProductKeyIDTo
             // 
+            this.textBoxProductKeyIDTo.AllowDrop = true;
             this.textBoxProductKeyIDTo.Location = new System.Drawing.Point(214, 25);
             this.textBoxProductKeyIDTo.MaxLength = 9;
             this.textBoxProductKeyIDTo.Name = "textBoxProductKeyIDTo";
             this.textBoxProductKeyIDTo.Size = new System.Drawing.Size(131, 20);
             this.textBoxProductKeyIDTo.TabIndex = 5;
+            this.textBoxProductKeyIDTo.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxProductKeyIDTo_DragDrop);
+            this.textBoxProductKeyIDTo.DragOver += new System.Windows.Forms.DragEventHandler(this.textBoxProductKeyIDTo_DragOver);
             // 
             // labelProductKeyIDTo
             // 
@@ -230,17 +237,28 @@
             this.labelParamNameBusinessID.TabIndex = 0;
             this.labelParamNameBusinessID.Text = "Business ID:";
             // 
+            // listBoxSearchResult
+            // 
+            this.listBoxSearchResult.FormattingEnabled = true;
+            this.listBoxSearchResult.Location = new System.Drawing.Point(8, 212);
+            this.listBoxSearchResult.Name = "listBoxSearchResult";
+            this.listBoxSearchResult.Size = new System.Drawing.Size(372, 186);
+            this.listBoxSearchResult.TabIndex = 10;
+            this.listBoxSearchResult.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxSearchResult_MouseDown);
+            // 
             // UCProductKeyIDRange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Controls.Add(this.listBoxSearchResult);
             this.Controls.Add(this.groupBoxParameters);
             this.Controls.Add(this.groupBoxKeyRange);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textBoxTotalKeys);
             this.Controls.Add(this.labelTotalKeyCount);
             this.Name = "UCProductKeyIDRange";
-            this.Size = new System.Drawing.Size(388, 213);
+            this.Size = new System.Drawing.Size(388, 420);
             this.groupBoxKeyRange.ResumeLayout(false);
             this.groupBoxKeyRange.PerformLayout();
             this.groupBoxParameters.ResumeLayout(false);
@@ -271,5 +289,6 @@
         private System.Windows.Forms.Label labelParamNameBusinessID;
         private System.Windows.Forms.Label labelParamValueOEMPONumber;
         private System.Windows.Forms.Label labelParamNameOEMPONumber;
+        private System.Windows.Forms.ListBox listBoxSearchResult;
     }
 }

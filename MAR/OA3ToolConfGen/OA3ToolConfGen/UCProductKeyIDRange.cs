@@ -114,23 +114,14 @@ namespace OA3ToolConfGen
             //this.textBoxTotalKeys.Text = "-1";
         }
 
-        private void getValueFromFFKIAPI()
+        private void getValueFromFFKIAPI(int keyCount)
         {
-            string bizID = this.ConfigurationID;
-
-            int keyCount = -1;
-
-            if (!int.TryParse(this.textBoxTotalKeys.Text, out keyCount))
-            {
-                keyCount = -9;
-            }
-
-            List<long> result = ModuleConfiguration.GetProductKeyIDRange(this.FFKIAPIUrl, "", "", keyCount, bizID, this.keyQueryItems.ToArray());
+            List<long> result = ModuleConfiguration.GetProductKeyIDRange(this.FFKIAPIUrl, "", "", keyCount, this.ConfigurationID, this.keyQueryItems.ToArray());
 
             if ((result != null) && (result.Count > 0))
             {
-                this.textBoxProductKeyIDFrom.Text = result[0].ToString();
-                this.textBoxProductKeyIDTo.Text = result[result.Count - 1].ToString();
+                this.textBoxProductKeyIDTo.Text = result[0].ToString();
+                this.textBoxProductKeyIDFrom.Text = result[result.Count - 1].ToString();
 
                 this.keyQueryResults = result.ToArray();
             }
@@ -140,13 +131,54 @@ namespace OA3ToolConfGen
         {
             try
             {
-                this.getValueFromFFKIAPI();
+                int keyCount = -1;
+
+                if (!int.TryParse(this.textBoxTotalKeys.Text, out keyCount))
+                {
+                    keyCount = -9;
+                }
+
+                this.getValueFromFFKIAPI(keyCount);
+
+                this.listBoxSearchResult.DataSource = this.keyQueryResults;
             }
             catch (Exception ex)
             {
                 string errorMessage = String.Format("Error(s) occurred: {0}", ex.ToString());
                 MessageBox.Show(errorMessage, "Failure", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void textBoxProductKeyIDFrom_DragDrop(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(typeof(long));
+            this.textBoxProductKeyIDFrom.Text = data.ToString();
+        }
+
+        private void textBoxProductKeyIDTo_DragDrop(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(typeof(long));
+            this.textBoxProductKeyIDTo.Text = data.ToString();
+        }
+
+        private void listBoxSearchResult_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.listBoxSearchResult.SelectedItem == null)
+            {
+                return;
+            }
+
+            this.listBoxSearchResult.DoDragDrop(this.listBoxSearchResult.SelectedItem, DragDropEffects.Move);
+        }
+
+        private void textBoxProductKeyIDFrom_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void textBoxProductKeyIDTo_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
         }
     }
 }
