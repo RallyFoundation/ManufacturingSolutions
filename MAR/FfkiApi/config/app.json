@@ -1,7 +1,7 @@
 ﻿{
-  "http-server-port": 8089,
+  "http-server-port": 9909,
   "web-socket-server-host": "127.0.0.1",
-  "web-socket-server-port": 3000,
+  "web-socket-server-port": 3303,
   "redis-address": "127.0.0.1",
   "redis-port": 6379,
   "redis-password": "",
