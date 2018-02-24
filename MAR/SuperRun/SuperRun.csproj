@@ -73,7 +73,7 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>circuit.ico</ApplicationIcon>
+    <ApplicationIcon>black-white-metro-server-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -95,6 +95,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="black-white-metro-server-icon.ico" />
     <Content Include="circuit.ico" />
   </ItemGroup>
   <ItemGroup>
