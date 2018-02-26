@@ -245,7 +245,7 @@
             {
                 $scope.showProgress();
 
-                var url = settings.WdsApiUrl;
+                var url = settings.ODataServiceUrl;
                 var servicePoint = "engineering?$count=true&$select=id";
 
                 $http.get(url + servicePoint).then(function (data) {
@@ -280,7 +280,7 @@
             {
                 $scope.showProgress();
 
-                var url = settings.WdsApiUrl;
+                var url = settings.ODataServiceUrl;
 
                 var servicePoint = "engineering?$orderby=id";
 

@@ -99,6 +99,13 @@
                 <dd>
                     <input type="password" ng-model="configSettings.FileServicePassword" class="form-control" maxlength="20" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
                 </dd>
+                <content>
+                    <br />
+                </content>
+                <dt>OData Service Url: </dt>
+                <dd>
+                    <input type="text" ng-model="configSettings.ODataServiceUrl" class="form-control" maxlength="120" onkeyup="purgeValue(valuePolicy.DBCCase, this)" onmouseout="purgeValue(valuePolicy.DBCCase, this)" />
+                </dd>
             </dl>
         </div>
     </div>
