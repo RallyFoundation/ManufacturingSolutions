@@ -122,8 +122,11 @@ namespace OA3ToolConfGen
             {
                 this.textBoxProductKeyIDTo.Text = result[0].ToString();
                 this.textBoxProductKeyIDFrom.Text = result[result.Count - 1].ToString();
+                this.textBoxTotalKeys.Text = result.Count.ToString();
 
                 this.keyQueryResults = result.ToArray();
+
+                this.listBoxSearchResult.DataSource = this.keyQueryResults;  
             }
         }
 
@@ -139,8 +142,6 @@ namespace OA3ToolConfGen
                 }
 
                 this.getValueFromFFKIAPI(keyCount);
-
-                this.listBoxSearchResult.DataSource = this.keyQueryResults;
             }
             catch (Exception ex)
             {
