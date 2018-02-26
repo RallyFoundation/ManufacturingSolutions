@@ -1,0 +1,2 @@
+﻿Netsh AdvFirewall Firewall Add Rule Name = "WDSAPI-WebSocket-3000-In" Dir=In Action=Allow Protocol=TCP LocalPort = 3000 LocalIP=Any RemotePort=Any RemoteIP=Any
+Netsh AdvFirewall Firewall Add Rule Name = "WDSAPI-WebSocket-3000-Out" Dir=Out Action=Allow Protocol=TCP LocalPort=Any LocalIP=Any RemotePort = 3000 RemoteIP=Any

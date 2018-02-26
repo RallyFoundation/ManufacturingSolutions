@@ -1,0 +1,2 @@
+﻿Netsh AdvFirewall Firewall Add Rule Name = "Ftp-21-In" Dir=In Action=Allow Protocol=TCP LocalPort = 21 LocalIP=Any RemotePort=Any RemoteIP=Any
+Netsh AdvFirewall Firewall Add Rule Name = "Ftp-21-Out" Dir=Out Action=Allow Protocol=TCP LocalPort=Any LocalIP=Any RemotePort = 21 RemoteIP=Any
