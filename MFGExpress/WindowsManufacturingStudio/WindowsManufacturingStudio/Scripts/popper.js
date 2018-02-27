@@ -1,6 +1,6 @@
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.9
+ * @version 1.13.0-next
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -368,8 +368,8 @@ function getBoundingClientRect(element) {
   // IE10 10 FIX: Please, don't ask, the element isn't
   // considered in DOM in some circumstances...
   // This isn't reproducible in IE10 compatibility mode of IE11
-  if (isIE10$1()) {
-    try {
+  try {
+    if (isIE10$1()) {
       rect = element.getBoundingClientRect();
       const scrollTop = getScroll(element, 'top');
       const scrollLeft = getScroll(element, 'left');
@@ -377,10 +377,10 @@ function getBoundingClientRect(element) {
       rect.left += scrollLeft;
       rect.bottom += scrollTop;
       rect.right += scrollLeft;
-    } catch (err) {}
-  } else {
-    rect = element.getBoundingClientRect();
-  }
+    } else {
+      rect = element.getBoundingClientRect();
+    }
+  } catch (e) {}
 
   const result = {
     left: rect.left,
@@ -502,12 +502,13 @@ function isFixed(element) {
  * @param {HTMLElement} reference
  * @param {number} padding
  * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {HTMLElement} fixedParent - Force this element as the parent
  * @returns {Object} Coordinates of the boundaries
  */
-function getBoundaries(popper, reference, padding, boundariesElement) {
+function getBoundaries(popper, reference, padding, boundariesElement, fixedParent = null) {
   // NOTE: 1 DOM access here
   let boundaries = { top: 0, left: 0 };
-  const offsetParent = findCommonOffsetParent(popper, reference);
+  const offsetParent = fixedParent || findCommonOffsetParent(popper, reference);
 
   // Handle viewport case
   if (boundariesElement === 'viewport') {
@@ -568,7 +569,7 @@ function computeAutoPlacement(placement, refRect, popper, reference, boundariesE
     return placement;
   }
 
-  const boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+  const boundaries = getBoundaries(popper, reference, padding, boundariesElement, null);
 
   const rects = {
     top: {
@@ -613,8 +614,8 @@ function computeAutoPlacement(placement, refRect, popper, reference, boundariesE
  * @param {Element} reference - the reference element (the popper will be relative to this)
  * @returns {Object} An object containing the offsets which will be applied to the popper
  */
-function getReferenceOffsets(state, popper, reference) {
-  const commonOffsetParent = findCommonOffsetParent(popper, reference);
+function getReferenceOffsets(state, popper, reference, fixedParent) {
+  const commonOffsetParent = fixedParent || findCommonOffsetParent(popper, reference);
   return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent);
 }
 
@@ -782,7 +783,7 @@ function update() {
   };
 
   // compute reference element offsets
-  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference);
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed ? window.document.documentElement : undefined);
 
   // compute auto placement, store placement inside the data object,
   // modifiers will be able to edit `placement` if needed
@@ -792,9 +793,11 @@ function update() {
   // store the computed placement inside `originalPlacement`
   data.originalPlacement = data.placement;
 
+  data.positionFixed = this.options.positionFixed;
+
   // compute the popper offsets
   data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
-  data.offsets.popper.position = 'absolute';
+  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute';
 
   // run the modifiers
   data = runModifiers(this.modifiers, data);
@@ -1046,7 +1049,7 @@ function applyStyle(data) {
  */
 function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
   // compute reference element offsets
-  const referenceOffsets = getReferenceOffsets(state, popper, reference);
+  const referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed ? window.document.documentElement : undefined);
 
   // compute auto placement, store placement inside the data object,
   // modifiers will be able to edit `placement` if needed
@@ -1057,7 +1060,7 @@ function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
 
   // Apply `position` to popper before anything else because
   // without the position applied we can't guarantee correct computations
-  setStyles(popper, { position: 'absolute' });
+  setStyles(popper, { position: options.positionFixed ? 'fixed' : 'absolute' });
 
   return options;
 }
@@ -1348,7 +1351,7 @@ function flip(data, options) {
     return data;
   }
 
-  const boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement);
+  const boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, options.positionFixed ? window.document.documentElement : undefined);
 
   let placement = data.placement.split('-')[0];
   let placementOpposite = getOppositePlacement(placement);
@@ -1617,7 +1620,8 @@ function offset(data, { offset }) {
  * @returns {Object} The data object, properly modified
  */
 function preventOverflow(data, options) {
-  let boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
+  const fixedParent = data.positionFixed ? window.document.documentElement : undefined;
+  let boundariesElement = options.boundariesElement || fixedParent || getOffsetParent(data.instance.popper);
 
   // If offsetParent is the reference element, we really want to
   // go one step up and use the next offsetParent as reference to
@@ -1626,7 +1630,7 @@ function preventOverflow(data, options) {
     boundariesElement = getOffsetParent(boundariesElement);
   }
 
-  const boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement);
+  const boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, fixedParent);
   options.boundaries = boundaries;
 
   const order = options.priority;
@@ -2116,6 +2120,12 @@ var Defaults = {
    * @prop {Popper.placements} placement='bottom'
    */
   placement: 'bottom',
+
+  /**
+   * Set this to true if you want popper to position it self in 'fixed' mode
+   * @prop {Boolean} positionFixed=false
+   */
+  positionFixed: false,
 
   /**
    * Whether events (resize, scroll) are initially enabled

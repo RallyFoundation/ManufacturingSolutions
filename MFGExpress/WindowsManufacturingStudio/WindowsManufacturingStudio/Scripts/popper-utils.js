@@ -1,6 +1,6 @@
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.9
+ * @version 1.13.0-next
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -306,8 +306,8 @@ function getBoundingClientRect(element) {
   // IE10 10 FIX: Please, don't ask, the element isn't
   // considered in DOM in some circumstances...
   // This isn't reproducible in IE10 compatibility mode of IE11
-  if (isIE10$1()) {
-    try {
+  try {
+    if (isIE10$1()) {
       rect = element.getBoundingClientRect();
       const scrollTop = getScroll(element, 'top');
       const scrollLeft = getScroll(element, 'left');
@@ -315,10 +315,10 @@ function getBoundingClientRect(element) {
       rect.left += scrollLeft;
       rect.bottom += scrollTop;
       rect.right += scrollLeft;
-    } catch (err) {}
-  } else {
-    rect = element.getBoundingClientRect();
-  }
+    } else {
+      rect = element.getBoundingClientRect();
+    }
+  } catch (e) {}
 
   const result = {
     left: rect.left,
@@ -440,12 +440,13 @@ function isFixed(element) {
  * @param {HTMLElement} reference
  * @param {number} padding
  * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {HTMLElement} fixedParent - Force this element as the parent
  * @returns {Object} Coordinates of the boundaries
  */
-function getBoundaries(popper, reference, padding, boundariesElement) {
+function getBoundaries(popper, reference, padding, boundariesElement, fixedParent = null) {
   // NOTE: 1 DOM access here
   let boundaries = { top: 0, left: 0 };
-  const offsetParent = findCommonOffsetParent(popper, reference);
+  const offsetParent = fixedParent || findCommonOffsetParent(popper, reference);
 
   // Handle viewport case
   if (boundariesElement === 'viewport') {
@@ -506,7 +507,7 @@ function computeAutoPlacement(placement, refRect, popper, reference, boundariesE
     return placement;
   }
 
-  const boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+  const boundaries = getBoundaries(popper, reference, padding, boundariesElement, null);
 
   const rects = {
     top: {
@@ -739,8 +740,8 @@ function getPopperOffsets(popper, referenceOffsets, placement) {
  * @param {Element} reference - the reference element (the popper will be relative to this)
  * @returns {Object} An object containing the offsets which will be applied to the popper
  */
-function getReferenceOffsets(state, popper, reference) {
-  const commonOffsetParent = findCommonOffsetParent(popper, reference);
+function getReferenceOffsets(state, popper, reference, fixedParent) {
+  const commonOffsetParent = fixedParent || findCommonOffsetParent(popper, reference);
   return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent);
 }
 

@@ -80,7 +80,7 @@ namespace WindowsManufacturingStudio
             // begin connecting to the server
             client.Connect();
 
-            using (FileStream stream = new FileStream(fileInfo.Path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream stream = new FileStream(fileInfo.Path, FileMode.Create, FileAccess.Write, FileShare.Write))
             {
                 this.metroLabelDownloadStatus.Text = String.Format("downloading file from \"{0}\" to \"{1}\"...please wait...", this.fileViewModel.Url, this.fileViewModel.Path);
                 this.metroProgressBarDownloadProgress.ProgressBarStyle = ProgressBarStyle.Marquee;
