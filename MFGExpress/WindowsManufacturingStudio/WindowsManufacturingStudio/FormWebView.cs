@@ -12,6 +12,7 @@ using MetroFramework;
 using MetroFramework.Forms;
 using Gecko;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace WindowsManufacturingStudio
 {
@@ -36,6 +37,7 @@ namespace WindowsManufacturingStudio
         public string Url { get { return this.url; } }
 
         private string appRootDir;
+        private string fxLibPath;
         private string url;
         private GeckoWebBrowser geckoWebBrowser;
 
@@ -44,7 +46,8 @@ namespace WindowsManufacturingStudio
         private void initGeckoComponent()
         {
             appRootDir = Path.GetDirectoryName(Application.ExecutablePath);
-            Xpcom.Initialize(Path.Combine(appRootDir, "FireFox"));
+            fxLibPath = ConfigurationManager.AppSettings.Get("FxLibPath");
+            Xpcom.Initialize(Path.Combine(appRootDir, fxLibPath));
         }
 
         private void initGeckoWebBrowser()
