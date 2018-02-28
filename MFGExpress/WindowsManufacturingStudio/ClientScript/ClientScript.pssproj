@@ -7,6 +7,11 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>ClientScript</Name>
+    <PostBuildScript>Copy-Item .\BootImages ..\Release -Recurse -Force
+New-Item -Path ..\Release\BootImages\FFU-FTP -Name PSModule -Type Directory -Force
+Copy-Item ..\PowerShellFTPClient\bin\Release\*.dll ..\Release\BootImages\FFU-FTP\PSModule -Recurse -Force
+Copy-Item ..\PowerShellFTPClient\bin\Release\*.xml ..\Release\BootImages\FFU-FTP\PSModule -Recurse -Force
+Remove-Item ..\Release\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,9 +30,52 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Compile Include="BootImages\Capture-FFU-USB\run.ps1" />
+    <Compile Include="BootImages\Capture-WIM-USB\run.ps1" />
+    <Compile Include="BootImages\FFU-FTP\run.ps1" />
+    <Compile Include="BootImages\FFU-HTTP\run.ps1" />
+    <Compile Include="BootImages\FFU-USB\run.ps1" />
+    <Compile Include="BootImages\FFU\run.ps1" />
+    <Compile Include="BootImages\Multicast\run.ps1" />
+    <Compile Include="BootImages\WIM-USB\run.ps1" />
     <Compile Include="Script.ps1" />
+    <Compile Include="BootImages\MakePEImage.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BootImages\" />
+    <Folder Include="BootImages\Capture-FFU-USB" />
+    <Folder Include="BootImages\Capture-WIM-USB" />
+    <Folder Include="BootImages\FFU" />
+    <Folder Include="BootImages\FFU-FTP" />
+    <Folder Include="BootImages\FFU-HTTP" />
+    <Folder Include="BootImages\FFU-USB" />
+    <Folder Include="BootImages\WIM-USB" />
+    <Folder Include="BootImages\Multicast" />
+    <Folder Include="BootImages\WindowsPE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BootImages\Capture-FFU-USB\config.xml" />
+    <Content Include="BootImages\Capture-FFU-USB\startnet.cmd" />
+    <Content Include="BootImages\Capture-WIM-USB\config.xml" />
+    <Content Include="BootImages\Capture-WIM-USB\startnet.cmd" />
+    <Content Include="BootImages\FFU-FTP\config.xml" />
+    <Content Include="BootImages\FFU-FTP\startnet.cmd" />
+    <Content Include="BootImages\FFU-HTTP\config.xml" />
+    <Content Include="BootImages\FFU-HTTP\startnet.cmd" />
+    <Content Include="BootImages\FFU-USB\config.xml" />
+    <Content Include="BootImages\FFU-USB\startnet.cmd" />
+    <Content Include="BootImages\FFU\config.xml" />
+    <Content Include="BootImages\FFU\startnet.cmd" />
+    <Content Include="BootImages\Multicast\config.xml" />
+    <Content Include="BootImages\Multicast\diskpartcmd-template.txt" />
+    <Content Include="BootImages\Multicast\diskpartcmd.txt" />
+    <Content Include="BootImages\Multicast\startnet.cmd" />
+    <Content Include="BootImages\WIM-USB\config.xml" />
+    <Content Include="BootImages\WIM-USB\diskpartcmd-template.txt" />
+    <Content Include="BootImages\WIM-USB\diskpartcmd.txt" />
+    <Content Include="BootImages\WIM-USB\startnet.cmd" />
+    <Content Include="BootImages\WindowsPE\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
