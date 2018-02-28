@@ -33,6 +33,8 @@ $ImageServerAddress;
 $ImageServerUserName;
 $WDSApiServicePoint;
 
+Import-Module -Name ($RootDir + "\PSModuleFTPClient\PowerShellFTPClient.dll");
+
 $TransactionID = [System.Guid]::NewGuid().ToString();
 
 $ClientID = "";
@@ -225,49 +227,53 @@ if([System.IO.File]::Exists($ImageFilePath) -eq $false)
 
 	$ImageUrl;
 
-	$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
+	#$auth = [System.String]::Format("{0}:{1}", $ImageServerUserName, $ImageServerPassword);
 
-	$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
+	#$authBytes = [System.Text.Encoding]::UTF8.GetBytes($auth);
 
-	$authBase64 = [System.Convert]::ToBase64String($authBytes);
+	#$authBase64 = [System.Convert]::ToBase64String($authBytes);
 
-	$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
+	#$AuthHeaderValue = [System.String]::Format("Basic {0}",$authBase64);
 
 	#$ImageFilePath = $ImageUrl.Substring(($ImageUrl.LastIndexOf("/") + 1));
 
 	#$ImageFilePath = [System.String]::Format("D:\{0}_{1}", [System.Guid]::NewGuid().ToString() , $ImageFilePath);
 
-	$AuthHeaderValue;
+	#$AuthHeaderValue;
 
 	#$ImageFilePath;
 
-	[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
+	#[System.Net.WebClient]$WebClient = [System.Net.WebClient]::new();
 
-	$WebClient.Credentials = New-Object System.Net.NetworkCredential($ImageServerUserName,$ImageServerPassword);
+	#$WebClient.Credentials = New-Object System.Net.NetworkCredential($ImageServerUserName,$ImageServerPassword);
 
-	#$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
+	##$WebClient.Headers.Add([System.Net.HttpRequestHeader]::Authorization, $AuthHeaderValue);
 
-	#$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
+	##$WebClient.DownloadFile($ImageUrl, $ImageFilePath);
 
-	Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
+	#Register-ObjectEvent -InputObject $WebClient -EventName DownloadFileCompleted -SourceIdentifier Web.DownloadFileCompleted -Action { $Global:isDownloaded = $True; };
 
-	Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
+	#Register-ObjectEvent -InputObject $WebClient -EventName DownloadProgressChanged -SourceIdentifier Web.DownloadProgressChanged -Action { $Global:Data = $event; };
 
-	$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
+	#$WebClient.DownloadFileAsync($ImageUrl ,$ImageFilePath);
 
-	While (-Not $isDownloaded) 
-	{
-		$percent = $Global:Data.SourceArgs.ProgressPercentage;
-		$totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
-		$receivedBytes = $Global:Data.SourceArgs.BytesReceived;
+	#While (-Not $isDownloaded) 
+	#{
+	#	$percent = $Global:Data.SourceArgs.ProgressPercentage;
+	#	$totalBytes = $Global:Data.SourceArgs.TotalBytesToReceive;
+	#	$receivedBytes = $Global:Data.SourceArgs.BytesReceived;
 
-		If ($percent -ne $null) 
-		{
-			Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
-		}
-	}
+	#	If ($percent -ne $null) 
+	#	{
+	#		Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -PercentComplete $percent;
+	#	}
+	#}
 
-	Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
+	#Write-Progress -Activity ("Downloading {0} from {1}" -f $ImageFilePath, $ImageUrl) -Status ("{0} bytes \ {1} bytes" -f $receivedBytes,$totalBytes) -Completed;
+
+	[System.Uri]$ImageFileUri = New-Object -TypeName "System.Uri" -ArgumentList($ImageUrl);
+
+	Get-FTPFile -Host $ImageFileUri.Host -Port $ImageFileUri.Port -UserName $ImageServerUserName -Password $ImageServerPassword -RemoteName $ImageFileUri.PathAndQuery -LocalName $ImageFilePath;
 }
 
 

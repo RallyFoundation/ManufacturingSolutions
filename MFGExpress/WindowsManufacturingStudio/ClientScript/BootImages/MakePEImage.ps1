@@ -82,6 +82,12 @@ if(($ImageType -eq "multicast") -or ($ImageType -eq "wim-usb"))
    Copy-Item -Path ($PEScriptDir + "\diskpartcmd-template.txt") .\mount\windows\system32 -Force;
 }
 
+if($ImageType -eq "ffu-ftp")
+{
+   New-Item -Path .\mount\windows\system32 -Name PSModuleFTPClient -Type Directory -Force;
+   Copy-Item -Path ($PEScriptDir + "\PSModule\*") .\mount\windows\system32\PSModuleFTPClient -Recurse -Force;
+}
+
 #if($ImageType -eq "ffu")
 #{
 #   #Copy-Item -Path .\DISM\* .\mount\windows\system32 -Recurse -Force;
