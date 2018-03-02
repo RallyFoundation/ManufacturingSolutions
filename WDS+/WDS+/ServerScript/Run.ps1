@@ -33,8 +33,11 @@ if([System.IO.Directory]::Exists($LogPath) -eq $false)
 }
 
 Start-Process "node" -ArgumentList @(($RootDir + "\Bin\Wds\wds-api.js"));
+Start-Process "node" -ArgumentList @(($RootDir + "\Bin\General\wds-api.js"));
 Start-Process "node" -ArgumentList @(($RootDir + "\Bin\OData\server-odata.js"));
 
 cd ($RootDir + "\Bin\Ftp\");
-
 Start-Process ($RootDir + "\Lib\python\python.exe") -ArgumentList @(".\PythonFTP.py");
+
+cd ($RootDir + "\Lib\nginx\");
+Start-Process ($RootDir + "\Lib\nginx\nginx.exe");

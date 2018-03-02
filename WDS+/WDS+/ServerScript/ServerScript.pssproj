@@ -27,6 +27,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="mongod.cfg" />
+    <Content Include="nginx.conf" />
     <Content Include="redis.windows-service.conf" />
     <Content Include="redis.windows.conf" />
   </ItemGroup>
