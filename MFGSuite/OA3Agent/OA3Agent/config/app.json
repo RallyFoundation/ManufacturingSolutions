@@ -1,4 +1,5 @@
 ﻿{
+  "enable-cpu-clustering": false,
   "http-server-port": 8089,
   "web-socket-server-host": "127.0.0.1",
   "web-socket-server-port": 3000,
