@@ -29,6 +29,8 @@ Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "ClientScript", "ClientScrip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellFTPClient", "PowerShellFTPClient\PowerShellFTPClient.csproj", "{FCF3E89F-5FF9-4070-A962-AC2E3250C554}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FtpDownloader", "FtpDownloader\FtpDownloader.csproj", "{1560A860-18D4-4F16-91FE-98F21C51E9CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{FCF3E89F-5FF9-4070-A962-AC2E3250C554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF3E89F-5FF9-4070-A962-AC2E3250C554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF3E89F-5FF9-4070-A962-AC2E3250C554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1560A860-18D4-4F16-91FE-98F21C51E9CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1560A860-18D4-4F16-91FE-98F21C51E9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1560A860-18D4-4F16-91FE-98F21C51E9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1560A860-18D4-4F16-91FE-98F21C51E9CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
