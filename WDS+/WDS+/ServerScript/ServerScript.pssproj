@@ -46,6 +46,7 @@
     <Compile Include="SetFirewallWDSAPI-WebSocket-3000.ps1" />
     <Compile Include="SetFirewallWdsApi8089.ps1" />
     <Compile Include="Start.ps1" />
+    <Compile Include="Stop.ps1" />
     <Compile Include="StopNginx.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
