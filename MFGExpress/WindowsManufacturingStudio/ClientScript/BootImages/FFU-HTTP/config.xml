@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configurationItems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <imageServerAddress>http://minint-et2evvt:280/</imageServerAddress>
+  <imageServerAddress>http://wds-server:280/ffu</imageServerAddress>
   <imageServerPort>280</imageServerPort>
   <imageServerUserName>WDS</imageServerUserName>
   <imageServerPassword>W@lcome!</imageServerPassword>
-  <wdsApiServicePoint>http://minint-et2evvt:8089</wdsApiServicePoint>
+  <wdsApiServicePoint>http://wds-server:8089</wdsApiServicePoint>
   <httpServerPort>0</httpServerPort>
   <webSocketServerPort>3000</webSocketServerPort>
   <nicName>ASIX AX88179 USB 3.0 to Gigabit Ethernet Adapter</nicName>
   <clientIdentifierType>1</clientIdentifierType>
   <imageIdentifierType>1</imageIdentifierType>
+  <imageDestination>\\.\PhysicalDrive0</imageDestination>
+  <diskIdentifierValue>0</diskIdentifierValue>
 </configurationItems>

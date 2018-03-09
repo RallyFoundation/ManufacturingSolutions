@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configurationItems>
-  <imageServerAddress>minint-et2evvt</imageServerAddress>
-  <imageServerUserName>Administrator</imageServerUserName>
-  <imageServerPassword>W@lcome!</imageServerPassword>
-  <wdsApiServicePoint>http://minint-et2evvt:8089</wdsApiServicePoint>
+  <wdsApiServicePoint>http://wds-server:8089</wdsApiServicePoint>
   <httpServerPort>0</httpServerPort>
   <webSocketServerPort>3000</webSocketServerPort>
   <nicName>ASIX AX88179 USB 3.0 to Gigabit Ethernet Adapter</nicName>
   <clientIdentifierType>1</clientIdentifierType>
-  <imageIdentifierType>1</imageIdentifierType>
+  <imageIdentifierType>4</imageIdentifierType>
+  <imageIdentifierValue>E:\images\install.wim</imageIdentifierValue>
+  <imageDestination>W:\</imageDestination>
+  <diskIdentifierValue>0</diskIdentifierValue>
 </configurationItems>

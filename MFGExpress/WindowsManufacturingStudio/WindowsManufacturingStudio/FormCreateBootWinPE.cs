@@ -311,30 +311,45 @@ namespace WindowsManufacturingStudio
 
         private void metroComboBoxImageType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            switch (this.metroComboBoxImageType.SelectedIndex)
-            {
-                case 0: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
-                case 1: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
-                case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
-                case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
-                case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
-                case 5: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
-                case 6: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
-                case 7: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }  
-                default:
-                    break;
-            }
+            //switch (this.metroComboBoxImageType.SelectedIndex)
+            //{
+            //    case 0: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+            //    case 1: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+            //    case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+            //    case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+            //    case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+            //    case 5: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+            //    case 6: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+            //    case 7: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }  
+            //    default:
+            //        break;
+            //}
 
             string confPath = this.getConfPath(this.metroComboBoxImageType.SelectedIndex);
 
             if (!File.Exists(confPath))
             {
+                switch (this.metroComboBoxImageType.SelectedIndex)
+                {
+                    case 0: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                    case 1: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                    case 2: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                    case 3: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                    case 4: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                    case 5: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                    case 6: { this.metroTextBoxImageDestination.Text = @"W:\"; break; }
+                    case 7: { this.metroTextBoxImageDestination.Text = @"\\.\PhysicalDrive0"; break; }
+                    default:
+                        break;
+                }
+
                 this.conf = new ConfigurationViewModel();
                 this.writeConfXml(confPath);
             }
 
             this.loadConfXml(confPath);
+
+            this.setControlValuesFromConf(this.conf);
         }
     }
 }
