@@ -16,13 +16,16 @@
     "Value": "String",
     "Data": "String"
   },
+  "ffki-version": 2,
   "mssql-connection-config": {
     "server": "localhost",
-    "userName": "MDOS",
-    "password": "D!S@OMSG.msft",
+    "userName": "sa",
+    "password": "123",
     "port": 1433,
     "options": {
-      "database": "MDOS_FFKI_KeyStore_Test"
+      "database": "SmartClient",
+      "truestedConnection": true,
+      "instanceName": "MDOS"
     }
   },
   "report-xml-repository": "C:\\OA3\\Report",

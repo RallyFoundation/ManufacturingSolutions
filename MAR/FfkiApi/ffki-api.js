@@ -21,6 +21,12 @@ var os = require('os');
 var cpuCount = os.cpus().length;
 var app = express();
 
+var et = require('elementtree');
+var XML = et.XML;
+var ElementTree = et.ElementTree;
+var element = et.Element;
+var subElement = et.SubElement;
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -54,6 +60,8 @@ var mssqlConnectionConfig = config.get("app.mssql-connection-config");
 var oa3ReportXmlRepository = config.get("app.report-xml-repository");
 var oa3ConfigXmlRepository = config.get("app.config-xml-repository");
 var logRepository = config.get("app.log-repository");
+
+var ffkiVersion = config.get("app.ffki-version");
 
 var oa3ReportXmlUploader = multer({
     storage: multer.diskStorage({
@@ -209,24 +217,54 @@ app.get('/oa3/business/all', function (req, res) {
             else {
                 console.log("Connected");
 
-                request = new Request("SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'", function (err, rowCount) {
+                var sqlCommandText = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";
+
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT BusinessID, BusinessName FROM Profile";
+                }
+
+                console.log(sqlCommandText);
+
+                var bizXmlRoot = element('CloudOAConfiguration');
+                bizXmlRoot.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+                bizXmlRoot.set('xmlns:xsd', 'http://www.w3.org/2001/XMLSchema');
+                var bizSettings = subElement(bizXmlRoot, 'BusinessSettings');
+
+                request = new Request(sqlCommandText, function (err, rowCount) {
                     if (err) {
                         console.log(err);
                     }
                     else {
                         console.log(rowCount);
+
+                        if (ffkiVersion == 2) {
+                            var etree = new ElementTree(bizXmlRoot);
+                            var resultXml = etree.write({ 'xml_declaration': false });
+
+                            console.log(resultXml);
+                            res.end(resultXml);
+                        }
                     }
                 });
 
                 request.on('row', function (columns) {
-                    columns.forEach(function (column) {
-                        if (column.value === null) {
-                            console.log('NULL');
-                        } else {
-                            console.log(column.value);
-                            res.end(column.value);
-                        }
-                    });
+                    if (ffkiVersion == 2) {
+                        var bizSetting = subElement(bizSettings, 'CloudOABusinessSetting');
+                        var bizId = subElement(bizSetting, 'BusinessId');
+                        bizId.text = columns[0].value.toString();
+                        var bizName = subElement(bizSetting, 'BusinessName');
+                        bizName.text = columns[1].value.toString();
+                    }
+                    else {
+                        columns.forEach(function (column) {
+                            if (column.value === null) {
+                                console.log('NULL');
+                            } else {
+                                console.log(column.value);
+                                res.end(column.value);
+                            }
+                        });
+                    }
                 });
 
                 sqlConn.execSql(request);  
@@ -253,6 +291,10 @@ app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
                 console.log("Connected");
 
                 var sqlCommandText = "SELECT DISTINCT " + req.params.name + " FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
+
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT DISTINCT " + req.params.name + " FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
+                }
 
                 console.log(sqlCommandText);
 
@@ -314,6 +356,10 @@ app.get('/oa3/sku/', function (req, res) {
 
                 var sqlCommandText = "SELECT DISTINCT LicensablePartNumber, LicensableName, SKUID FROM ProductKeyInfo";
 
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT DISTINCT LicensablePartNumber, LicensableName, SKUID FROM ProductKey";
+                }
+
                 console.log(sqlCommandText);
 
                 var results = [];
@@ -364,6 +410,10 @@ app.get('/oa3/keys/:bizid/:name/:value/:keytype', function (req, res) {
                 console.log("Connected");
 
                 var sqlCommandText = "SELECT ProductKeyID FROM ProductKeyInfo WHERE " + req.params.name + " = @Value AND ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType) ORDER BY ProductKeyID DESC";
+
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE " + req.params.name + " = @Value AND ProfileID = @BusinessId AND KeyTypeId = @KeyType ORDER BY ProductKeyID DESC";
+                }
 
                 console.log(sqlCommandText);
 
@@ -420,6 +470,10 @@ app.get('/oa3/keys/count/:startkeyid/:endkeyid', function (req, res) {
 
                 var sqlCommandText = "SELECT COUNT(*) FROM ProductKeyInfo WHERE ProductKeyID BETWEEN @StartProductKeyID AND @EndProductKeyID"; 
 
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT COUNT(*) FROM ProductKey WHERE ProductKeyID BETWEEN @StartProductKeyID AND @EndProductKeyID"; 
+                }
+
                 console.log(sqlCommandText);
 
                 var result = -1;
@@ -467,6 +521,10 @@ app.get('/oa3/keys/max/:keycount/:startkeyid', function (req, res) {
 
                 var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID >= @StartProductKeyID ORDER BY ProductKeyID DESC";
 
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKey WHERE ProductKeyID >= @StartProductKeyID ORDER BY ProductKeyID DESC";
+                }
+
                 console.log(sqlCommandText);
 
                 var results = [];
@@ -511,6 +569,10 @@ app.get('/oa3/keys/min/:keycount/:endkeyid', function (req, res) {
                 console.log("Connected");
 
                 var sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID <= @EndProductKeyID ORDER BY ProductKeyID DESC";
+
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT TOP " + req.params.keycount + " ProductKeyID FROM ProductKey WHERE ProductKeyID <= @EndProductKeyID ORDER BY ProductKeyID DESC";
+                }
 
                 console.log(sqlCommandText);
 
@@ -563,7 +625,15 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
 
                 if (Number(keyCount) > 0) {
                     sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
-                }       
+                }
+
+                if (ffkiVersion == 2) {
+                    sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
+
+                    if (Number(keyCount) > 0) {
+                        sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
+                    }
+                }
 
                 if (queryItems != null) {
 
@@ -658,28 +728,3 @@ app.post("/oa3/log/:trsnid", function (req, res) {
         console.log(req.files[0].path);
     });
 });
-
-//app.get('/wds/lookup/:key', function (req, res) {
-//    var redisClient = getRedisClient();
-//    var key = req.params.key;
-
-//    redisClient.select(redisDbIndex, function (err) {
-//        if (err) {
-//            console.log(err);
-//            res.end(err);
-//        }
-//        else {
-//            redisClient.get(key, function (err, result) {
-//                if (err) {
-//                    console.log(err);
-//                    res.end(err);
-//                }
-//                else {
-//                    console.log(result);
-//                    redisClient.end(true);
-//                    res.end(result);
-//                }
-//            });
-//        }
-//    });
-//});

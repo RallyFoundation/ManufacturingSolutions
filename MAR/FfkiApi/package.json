@@ -11,6 +11,7 @@
     "body-parser": "^1.17.2",
     "child_process2": "^2.0.1",
     "cors": "^2.8.4",
+    "elementtree": "^0.1.7",
     "express": "^4.15.3",
     "express-bearer-token": "^2.1.0",
     "jade": "*",
