@@ -3,20 +3,6 @@
   "http-server-port": 9909,
   "web-socket-server-host": "127.0.0.1",
   "web-socket-server-port": 3303,
-  "redis-address": "127.0.0.1",
-  "redis-port": 6379,
-  "redis-password": "",
-  "redis-db-index": 0,
-  "redis-db-index-client-status": 1,
-  "mongodb-url": "mongodb://localhost:27017/mfgcloud",
-  "mongodb-collection-name": "engineering",
-  "mongo-odata-resource-model": {
-    "TransID": "String",
-    "Key": "String",
-    "Time": "String",
-    "Value": "String",
-    "Data": "String"
-  },
   "ffki-version": 2,
   "mssql-connection-config": {
     "server": "localhost",

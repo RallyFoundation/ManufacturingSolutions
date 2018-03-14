@@ -49,14 +49,6 @@ app.use(cors());
 var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var httpServerPort = config.get("app.http-server-port"); //8089;
 var webSocketServerPort = config.get("app.web-socket-server-port");
-//var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
-//var redisPort = config.get("app.redis-port"); //6379;
-//var redisPassword = config.get("app.redis-password"); //"P@ssword1";
-//var redisDbIndex = config.get("app.redis-db-index"); //0;
-//var redisDbIndexClientStatus = config.get("app.redis-db-index-client-status"); //0;
-//var mongoDBUrl = config.get("app.mongodb-url");
-//var mongoDBCollectionName = config.get("app.mongodb-collection-name");
-var mssqlConnectionString = config.get("app.mssql-connection-string");
 var mssqlConnectionConfig = config.get("app.mssql-connection-config");
 var oa3ReportXmlRepository = config.get("app.report-xml-repository");
 var oa3ConfigXmlRepository = config.get("app.config-xml-repository");
@@ -99,6 +91,7 @@ var logUploader = multer({
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var server;
 
 if (enableCpuClustering == true) {
 
@@ -118,7 +111,7 @@ if (enableCpuClustering == true) {
     }
     else {
 
-        var server = app.listen(httpServerPort, function () {
+            server = app.listen(httpServerPort, function () {
             var host = server.address().address;
             var port = server.address().port;
             console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
@@ -132,7 +125,7 @@ if (enableCpuClustering == true) {
     }
 }
 else {
-        var server = app.listen(httpServerPort, function () {
+            server = app.listen(httpServerPort, function () {
             var host = server.address().address;
             var port = server.address().port;
             console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);

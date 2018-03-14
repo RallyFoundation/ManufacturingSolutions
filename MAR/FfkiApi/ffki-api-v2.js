@@ -9,7 +9,6 @@ var edge = require("edge-js");
 
 var assert = require('assert');
 //var bearerToken = require('express-bearer-token');
-//var async = require("async");
 var cluster = require('cluster');
 var os = require('os');
 var cpuCount = os.cpus().length;
@@ -21,10 +20,11 @@ var ElementTree = et.ElementTree;
 var element = et.Element;
 var subElement = et.SubElement;
 
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cors());
 
+var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var httpServerPort = config.get("app.http-server-port"); 
 var mssqlConnectionString = config.get("app.mssql-connection-string");
 var oa3ReportXmlRepository = config.get("app.report-xml-repository");
@@ -87,31 +87,40 @@ var sqlGetKeysByBizID = edge.func('sql', {
 
 
 var http = require('http').Server(app);
+var server;
 
-if (cluster.isMaster) {
+if (enableCpuClustering == true) {
 
-    console.log(`Master ${process.pid} is running`);
+    if (cluster.isMaster) {
 
-    console.log(`Number of CPUs: ${cpuCount}.`);
+        console.log(`Master ${process.pid} is running`);
 
-    for (var i = 0; i < cpuCount; i++) {
-        cluster.fork();
+        console.log(`Number of CPUs: ${cpuCount}.`);
+
+        for (var i = 0; i < cpuCount; i++) {
+            cluster.fork();
+        }
+
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`worker ${worker.process.pid} died`);
+        });
     }
+    else {
+            server = app.listen(httpServerPort, function () {
+            var host = server.address().address;
+            var port = server.address().port;
+            console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
+        });
 
-    cluster.on('exit', (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} died`);
-    });
-}
-else {
-    var server = app.listen(httpServerPort, function () {
+        console.log(`Worker ${process.pid} started`);
+    }
+} else {
+        server = app.listen(httpServerPort, function () {
         var host = server.address().address;
         var port = server.address().port;
         console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
     });
-
-    console.log(`Worker ${process.pid} started`);
 }
-
 
 app.get('/', function (req, res) {
     res.send('Welcome to OA3.0!');
@@ -189,69 +198,6 @@ app.get('/oa3/business/all', function (req, res) {
             }
         });
 
-        //var sqlConn = new Connection(mssqlConnectionConfig);
-
-        //sqlConn.on('connect', function (err) {
-        //    if (err) {
-        //        console.log(err);
-        //    }
-        //    else {
-        //        console.log("Connected");
-
-        //        var sqlCommandText = "SELECT Value.query('/CloudOAConfiguration/BusinessSettings[./CloudOABusinessSetting/IsActive=\"true\"]') AS BusinessSettings FROM Configuration WHERE Name = 'CloudOASettingVersion2'";
-
-        //        if (ffkiVersion == 2) {
-        //            sqlCommandText = "SELECT BusinessID, BusinessName FROM Profile";
-        //        }
-
-        //        console.log(sqlCommandText);
-
-        //        var bizXmlRoot = element('CloudOAConfiguration');
-        //        bizXmlRoot.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        //        bizXmlRoot.set('xmlns:xsd', 'http://www.w3.org/2001/XMLSchema');
-        //        var bizSettings = subElement(bizXmlRoot, 'BusinessSettings');
-
-        //        request = new Request(sqlCommandText, function (err, rowCount) {
-        //            if (err) {
-        //                console.log(err);
-        //            }
-        //            else {
-        //                console.log(rowCount);
-
-        //                if (ffkiVersion == 2) {
-        //                    var etree = new ElementTree(bizXmlRoot);
-        //                    var resultXml = etree.write({ 'xml_declaration': false });
-
-        //                    console.log(resultXml);
-        //                    res.end(resultXml);
-        //                }
-        //            }
-        //        });
-
-        //        request.on('row', function (columns) {
-        //            if (ffkiVersion == 2) {
-        //                var bizSetting = subElement(bizSettings, 'CloudOABusinessSetting');
-        //                var bizId = subElement(bizSetting, 'BusinessId');
-        //                bizId.text = columns[0].value.toString();
-        //                var bizName = subElement(bizSetting, 'BusinessName');
-        //                bizName.text = columns[1].value.toString();
-        //            }
-        //            else {
-        //                columns.forEach(function (column) {
-        //                    if (column.value === null) {
-        //                        console.log('NULL');
-        //                    } else {
-        //                        console.log(column.value);
-        //                        res.end(column.value);
-        //                    }
-        //                });
-        //            }
-        //        });
-
-        //        sqlConn.execSql(request);
-        //    }
-        //});
-
     } catch (err) {
         console.log(err);
     }
@@ -273,61 +219,6 @@ app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
             }
         });
 
-        //var sqlConn = new Connection(mssqlConnectionConfig);
-
-        //sqlConn.on('connect', function (err) {
-        //    if (err) {
-        //        console.log(err);
-        //    }
-        //    else {
-        //        console.log("Connected");
-
-        //        var sqlCommandText = "SELECT DISTINCT " + req.params.name + " FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
-
-        //        if (ffkiVersion == 2) {
-        //            sqlCommandText = "SELECT DISTINCT " + req.params.name + " FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
-        //        }
-
-        //        console.log(sqlCommandText);
-
-        //        var results = [];
-
-        //        request = new Request(sqlCommandText, function (err, rowCount) {
-        //            if (err) {
-        //                console.log(err);
-        //            }
-        //            else {
-        //                console.log(rowCount);
-        //                console.log(JSON.stringify(results));
-        //                res.end(JSON.stringify(results));
-        //            }
-        //        });
-
-        //        request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
-        //        request.addParameter('KeyType', TYPES.Int, req.params.keytype);
-
-        //        request.on('row', function (columns) {
-        //            columns.forEach(function (column) {
-        //                if (column.value === null) {
-        //                    console.log('NULL');
-        //                } else {
-        //                    console.log(column.value);
-        //                    results.push(column.value);
-        //                    console.log(JSON.stringify(results));
-        //                }
-        //            });
-        //        });
-
-        //        //request.on('done', function (rowCount, more) {
-        //        //    console.log(rowCount);
-        //        //    //console.log(JSON.stringify(results));
-        //        //    //res.end(JSON.stringify(results));
-        //        //});
-
-        //        sqlConn.execSql(request);
-        //    }
-        //});
-
     } catch (err) {
         console.log(err);
     }
@@ -348,52 +239,6 @@ app.get('/oa3/sku/', function (req, res) {
             }
         });
 
-        //var sqlConn = new Connection(mssqlConnectionConfig);
-
-        //sqlConn.on('connect', function (err) {
-        //    if (err) {
-        //        console.log(err);
-        //    }
-        //    else {
-        //        console.log("Connected");
-
-        //        var sqlCommandText = "SELECT DISTINCT LicensablePartNumber, LicensableName, SKUID FROM ProductKeyInfo";
-
-        //        if (ffkiVersion == 2) {
-        //            sqlCommandText = "SELECT DISTINCT LicensablePartNumber, LicensableName, SKUID FROM ProductKey";
-        //        }
-
-        //        console.log(sqlCommandText);
-
-        //        var results = [];
-        //        var keyInfo = { LicensablePartNumber: "", LicensableName: "", SKUID: "" };
-
-        //        request = new Request(sqlCommandText, function (err, rowCount) {
-        //            if (err) {
-        //                console.log(err);
-        //            }
-        //            else {
-        //                console.log(rowCount);
-        //                console.log(JSON.stringify(results));
-        //                res.end(JSON.stringify(results));
-        //            }
-        //        });
-
-        //        request.on('row', function (columns) {
-
-        //            keyInfo = { LicensablePartNumber: "", LicensableName: "", SKUID: "" };
-
-        //            keyInfo.LicensablePartNumber = columns[0].value;
-        //            keyInfo.LicensableName = columns[1].value;
-        //            keyInfo.SKUID = columns[2].value;
-
-        //            results.push(keyInfo);
-        //        });
-
-        //        sqlConn.execSql(request);
-        //    }
-        //});
-
     } catch (err) {
         console.log(err);
     }
@@ -402,8 +247,6 @@ app.get('/oa3/sku/', function (req, res) {
 app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
     try {
         console.log(mssqlConnectionString);
-
-        //var sqlConn = new Connection(mssqlConnectionConfig);
 
         var queryItems = req.body;
 
@@ -454,79 +297,6 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
                 console.log("No results");
             }
         });
-
-        //sqlConn.on('connect', function (err) {
-        //    if (err) {
-        //        console.log(err);
-        //    }
-        //    else {
-        //        console.log("Connected");
-
-        //        var sqlCommandText = "SELECT ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
-
-        //        if (Number(keyCount) > 0) {
-        //            sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKeyInfo WHERE ProductKeyID IN (SELECT ProductKeyID FROM KeyInfoEx WHERE CloudOA_BusinessId = @BusinessId AND KeyType = @KeyType)";
-        //        }
-
-        //        if (ffkiVersion == 2) {
-        //            sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
-
-        //            if (Number(keyCount) > 0) {
-        //                sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
-        //            }
-        //        }
-
-        //        if (queryItems != null) {
-
-        //            console.log(JSON.stringify(queryItems));
-
-        //            for (var i = 0; i < queryItems.length; i++) {
-        //                sqlCommandText += " AND " + queryItems[i].name + " = @" + queryItems[i].name;
-        //            }
-        //        }
-
-        //        sqlCommandText += " ORDER BY ProductKeyID DESC";
-
-        //        console.log(sqlCommandText);
-
-        //        var results = [];
-
-        //        request = new Request(sqlCommandText, function (err, rowCount) {
-        //            if (err) {
-        //                console.log(err);
-        //            }
-        //            else {
-        //                console.log(rowCount);
-        //                console.log(JSON.stringify(results));
-        //                res.end(JSON.stringify(results));
-        //            }
-        //        });
-
-        //        request.addParameter('BusinessId', TYPES.NVarChar, req.params.bizid);
-        //        request.addParameter('KeyType', TYPES.Int, req.params.keytype);
-
-        //        if (queryItems != null) {
-        //            for (var i = 0; i < queryItems.length; i++) {
-        //                request.addParameter(queryItems[i].name, TYPES.NVarChar, queryItems[i].value);
-        //            }
-        //        }
-
-        //        request.on('row', function (columns) {
-        //            columns.forEach(function (column) {
-        //                if (column.value === null) {
-        //                    console.log('NULL');
-        //                } else {
-        //                    console.log(column.value);
-        //                    results.push(column.value);
-        //                    //console.log(JSON.stringify(results));
-        //                }
-        //            });
-        //        });
-
-        //        sqlConn.execSql(request);
-        //    }
-        //});
-
     } catch (err) {
         console.log(err);
     }
