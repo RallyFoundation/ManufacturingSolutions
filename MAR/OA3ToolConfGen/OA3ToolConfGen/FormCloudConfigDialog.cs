@@ -117,17 +117,17 @@ namespace OA3ToolConfGen
             //    return;
             //}
 
-            if (String.IsNullOrEmpty(this.textBoxUserName.Text))
-            {
-                MessageBox.Show("User Name for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (String.IsNullOrEmpty(this.textBoxUserName.Text))
+            //{
+            //    MessageBox.Show("User Name for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
-            if (String.IsNullOrEmpty(this.textBoxPassword.Text))
-            {
-                MessageBox.Show("Password for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (String.IsNullOrEmpty(this.textBoxPassword.Text))
+            //{
+            //    MessageBox.Show("Password for FFKI API is required!", "Information Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             try
             {

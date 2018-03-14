@@ -1,4 +1,5 @@
 ﻿{
+  "enable-cpu-clustering": true,
   "http-server-port": 9909,
   "web-socket-server-host": "127.0.0.1",
   "web-socket-server-port": 3303,
@@ -28,6 +29,7 @@
       "instanceName": "MDOS"
     }
   },
+  "mssql-connection-string": "Data Source=.\\MDOS;Initial Catalog=SmartClient;Integrated Security=True",
   "report-xml-repository": "C:\\OA3\\Report",
   "config-xml-repository": "C:\\OA3\\Config",
   "log-repository": "C:\\OA3\\Log"

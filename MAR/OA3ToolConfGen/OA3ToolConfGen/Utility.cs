@@ -120,6 +120,11 @@ namespace OA3ToolConfGen
 
         public static string BuildConnectionString(string ServerName, string DatabaseName, string UserName, string Password)
         {
+            if (String.IsNullOrEmpty(UserName))
+            {
+                return String.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", ServerName, DatabaseName);
+            }
+
             return String.Format("Data Source={0};Initial Catalog={1};User ID={2};Password={3}", ServerName, DatabaseName, UserName, Password);
         }
 
@@ -178,6 +183,11 @@ namespace OA3ToolConfGen
 
         public static string BuildConnectionString(string ServerName, string PortNumber, string DatabaseName, string UserName, string Password)
         {
+            if (String.IsNullOrEmpty(UserName))
+            {
+                return String.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", ServerName, DatabaseName);
+            }
+
             return String.Format("Data Source={0};Port={1};Initial Catalog={2};User ID={3};Password={4}", ServerName, PortNumber, DatabaseName, UserName, Password);
         }
         public static byte[] BinarySerialize(object objectToSerialize)
