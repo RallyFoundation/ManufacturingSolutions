@@ -72,7 +72,7 @@ var sqlGetAllBusiness = edge.func('sql', {
 
 var sqlGetParamValueByParamNameAndBizID = edge.func('sql', {
     connectionString: mssqlConnectionString,
-    source: "SELECT DISTINCT @ParamName FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType"
+    source: "SELECT DISTINCT @ParamName FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType"
 });
 
 var sqlGetSKU = edge.func('sql', {
@@ -82,7 +82,7 @@ var sqlGetSKU = edge.func('sql', {
 
 var sqlGetKeysByBizID = edge.func('sql', {
     connectionString: mssqlConnectionString,
-    source: "SELECT TOP @KeyCount ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType"
+    source: "SELECT TOP @KeyCount ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType"
 });
 
 
@@ -208,11 +208,32 @@ app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
     try {
         console.log(mssqlConnectionString);
 
-        sqlGetParamValueByParamNameAndBizID({ ParamName: req.params.name, BusinessId: req.params.bizid, KeyType: req.params.keytype}, function (error, result) {
+        var paramName = req.params.name;
+
+        var sqlCommandText = "SELECT DISTINCT " + paramName + " FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
+
+        console.log(sqlCommandText);
+
+        sqlGetParamValueByParamNameAndBizID = edge.func('sql', {
+            connectionString: mssqlConnectionString,
+            source: sqlCommandText
+        });
+
+        sqlGetParamValueByParamNameAndBizID({ BusinessId: req.params.bizid, KeyType: req.params.keytype}, function (error, result) {
             if (error) { console.log(error); return; }
             if (result) {
                 console.log(result);
-                res.end(JSON.stringify(result));
+
+                var items = [];
+
+                for (var i = 0; i < result.length; i++) {
+                    items.push(result[i][paramName]);
+                }
+
+                console.log(items);
+                res.end(JSON.stringify(items));
+
+                //res.end(JSON.stringify(result));
             }
             else {
                 console.log("No results");
@@ -259,11 +280,11 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
 
         var numKeyCount = Number(keyCount);
 
-        var sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
+        var sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
 
         if (numKeyCount > 0)
         {
-            sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKey WHERE ProfileID = @BusinessId AND KeyTypeId = @KeyType";
+            sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
         }
 
         if (queryItems != null)
@@ -291,7 +312,17 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
             if (error) { console.log(error); return; }
             if (result) {
                 console.log(result);
-                res.end(JSON.stringify(result));
+
+                var items = [];
+
+                for (var i = 0; i < result.length; i++) {
+                    items.push(result[i].ProductKeyID);
+                }
+
+                console.log(items);
+                res.end(JSON.stringify(items));
+
+                //res.end(JSON.stringify(result));
             }
             else {
                 console.log("No results");
