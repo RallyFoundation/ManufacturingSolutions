@@ -9,8 +9,8 @@
     <Name>ControlScript</Name>
     <PostBuildScript>Copy-Item .\Script ..\bin\Release -Recurse -Force
 Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
-Copy-Item ..\AMIToolKit ..\bin\Release\Module\AMIToolKit -Recurse -Force
-Copy-Item ..\InjectionTool ..\bin\Release\Module\InjectionTool -Recurse -Force
+Copy-Item ..\AMIToolKit ..\bin\Release\Module -Recurse -Force
+Copy-Item ..\InjectionTool ..\bin\Release\Module -Recurse -Force
 Copy-Item "..\Readme.txt" ..\bin\Release -Recurse -Force
 Copy-Item "..\ThirdPartyNotices.txt" ..\bin\Release -Recurse -Force
 Copy-Item  ..\bin\Release\Module\SKULPNMapper\lookup.xml ..\bin\Release\Config -Recurse -Force
