@@ -9,9 +9,9 @@ if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
       $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
    }
 
-   if($RootDir.ToLower().EndsWith("\scripts") -eq $true)
+   if($RootDir.ToLower().EndsWith("\script") -eq $true)
    {
-      $RootDir = $RootDir.Substring(0, ($RootDir.ToLower().LastIndexOf("\scripts")));
+      $RootDir = $RootDir.Substring(0, ($RootDir.ToLower().LastIndexOf("\script")));
    }
 }
 
