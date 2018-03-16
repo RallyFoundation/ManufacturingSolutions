@@ -1,0 +1,245 @@
+AMI ROM Tool - AFUWIN
+
+Description :
+	AMI Firmware Update utility(APTIO) for WINDOWS.
+
+
+Release Date :
+
+
+Source Control Location :
+	SS: Alaska;$/Alaska/ROMUtils/AFU/afuwin/32;
+	SS: AptioV$/AptioV/RomUtils/Afu/AfuWin/32;
+
+Reference Document :	
+	readme.txt
+	readme_afuwin.txt
+	AMI_Aptio_AFU_User_Guide_NDA.pdf
+	
+Known Issues :
+    Use "/Rn" parameter will have no effect or caused an exception error, when 
+    the SMBIOS module version is between "4.6.1_ALPHA_01.26.2_DMIRW_TEST" and 
+    "(INT)4.6.1_ALPHA_01.29_Type39".
+
+Release Notes:
+==============================================================================
+3.05
+	[Ucore2]
+	01.Remove redundant local variable declaration.
+
+	[AFU]
+	01.Add capsule and recovey mode supply UCP control.
+	02.Fix something Rom ID can't find issue.
+	03.OFBD version is 0x210, use /ME and ME not support, AFU can't show error.[EIP119753]
+	04.Recovery mode flash fail issue.[EIP121559]
+	05.Add supply OFBD VERSION 220 ME update.
+	06.Fix EC retry issue.
+
+	[AFU-WIN]
+	01.Fix Windows XP can't run issue.
+	02.Add when flash SPI every erase, write, vertify action need disable keyborad and mouse.[EIP118477]
+
+	[AFUGUI-MFC]
+	01.Revised ¡§GetUserInputPWD¡¨ routine for that if user presses Cancel button to skip checking password, it will exit AFUWINGUI.
+	02.Add DIS status of "Recovery" and Capsule" items support.
+	03.Add "RCButton_BeMaster" token to decide "Recovery" and "Capsule" buttons whether can control other buttons. The token default value is 0.
+	04.Modify the code and add routines are used to adjust the status of buttons on Msgdlg and ChooseDlg.
+	05.Add Simplified Chinese dialogs for WIN8 Simplified Chinese version issue.
+	06.Add /defans command.
+	07.When AUTO mode enable and reboot or shutdown is enable, AFU will not show error warning messages dialog.
+
+	[AFU-Linux]
+	01.Linux Xen kernel, AFU can't get smi port number.[EIP115234]
+==============================================================================
+3.04.03
+	01.Fix OFBD version is 0x210, use /ME and ME not support, AFU can't show error.[EIP119753]
+	02.Fix AFU3.04.02 Recovery mode flash fail issue.[EIP121559]
+	03.Add when flash SPI every erase, write, vertify action need disable keyborad and mouse.[EIP118477]
+	04.[Linux]Fix when os system is Xen, AFU can't get smi port number.[EIP115234]	
+==============================================================================
+3.04.02
+	01.Fix OFBD CFG module /CAF can't run tish command.EIP100649
+	02.Fix OFBD CFG module issue, when file name string is "A", AFU can run /A command.
+	03.Fix APTIO V check ROM ID issue.
+	04.Fix command "/hole:", when secure flash disable, user use /hole: command afu will show error message, error id is 0x18.
+	05.Remove Check PI veriosn.
+	06.Add command "/hole:(SLP2.0 GUID) can update SLP2.0 data.
+	07.[Windows]Modify power button disable time point. now afu is run power button will disable.
+	08.[Windows GUI]Modify first warning dalog box time point.
+	09.[Windows GUI]Fix /CAF can't show process bar.
+	10.[Windows GUI]Fixed that if enabled OEMPWDCK module, AFUWINGUIx64 will fail while keying in password.
+	11.[Windows GUI]Support insensitive UCP default commands.
+	12.[Windows GUI]For cooperating kernel code changes, if auto mode, AFUWINGUI will send UCP default commands to kernel. (Originally, if auto mode, AFUWINGUI doesn't send any commands to kernel).
+	13.[Linux]Add SMI dleay 10ms in SMI 21, 22, 23, 26.
+	14.[Linux]Add disable NMI Watch dog.
+==============================================================================
+3.04.01
+	01.Fix AFU flash me region also with flash main block issue.[EIP106938]
+	02.Fix when bios have not OFBD module ECB check will return error issue.
+	03.Fix when flash in windows platfrom, power button need disable power function.
+==============================================================================
+3.04
+	01.fix linux can't flash me.[EIP100091]
+	02.Fix SLP2.0 flash issue[EIP 97980 and EIP98895]
+	03.Fix Wrong message from AFU when EC update failed.[EIP101619]
+	04.Fix ECX bin file size.
+	05.Add AFU tool support OFBD AFU Default Command Configuration¡§/CAF¡¨ option.[EIP100649]
+	06.Add show on board BIOS and Rom file secure is disable/enable.[EIP97400]
+	07.Add ECB Check.
+==============================================================================
+3.03
+	01.Flash non support secure ROM file issue. [EIP95903]
+	02./ME command fail - When BIOS support MER commands.[EIP95306]
+	03.Fixed SMBIOS data size over a block size issue.
+	04.Fixed OFBDCFG cannot get /r issue.[EIP96286]
+==============================================================================
+3.02
+	01.Support get smi port number from ACPI table.
+	02.Support new secure ROM file image Get capsule header when exist inside in ROM file.
+	03.Support new secure Rom file image Update /ME use the same file.
+	04.Support OFBD default configure for /capsule, /recovery /OA /OAD.
+	05.Support AFUWINGUI.
+	06.Support /A the same and not the same error message.
+	07.Fix Error message. When secure mode not support use /capsule or /recovery will show "unknow command".
+	08.Fix Error message. When secure mode not support use command will show 0x15 error message.
+	09.Fix DMI Data Preserve fail. When DMI Data report size not match.
+	10.Fix DMI Data Preserve fail. When rom block size is 4k.
+	11.Fix DMI Data Preserve fail. When DMI data in NVRAM and use command /b /n /r .
+	12.Fix EC update fail. When Secure mode support and use command /e and /capsule or /recovery.
+	13.Fix EC update fail. When Secure mode support and use only /e command.
+	14.Fix MER update fail.
+	15.Fix open fail file error.
+==============================================================================
+3.01
+	01.Sync to AFU2.39.
+	02.Support Secure Flash /P /B /N preserve romhole and oakey.
+	03.Support OA 3.0 Microsoft requirments. [EIP 77891][EIP 77107]
+	04.Support /GAN hidden parameter.[EIP 75281]
+	05.Support /oemsmi: hidden parameter.
+	06.Support /kn use bin file flash.
+	07.Support /L /Ln parameter.Use update romhole data.(like as /k /kn).
+	08.Base on EIP75281 to create a module which bypasses restored funtions.[EIP 75283]
+	09.Fix Windows 64bit OS driver.
+	10.Fix Write protected function fail issue.[EIP 80549]
+	11.Fix /a opation flashes over existing MDSM data.[EIP 82266]
+	12.Fix smibios data is not preserved.
+	13.Fix can't find two fv romhole.
+	14.Fix /ecx: can't flash.
+	15.Fix error message in AFUWINx64
+==============================================================================
+3.00
+	01.Sync to AFU2.38.
+	02.Support Secure Flash /P /B /N /E.
+	03.Support OAD.
+==============================================================================
+2.39
+	01.Supports new Intel SPS ME Firmware update. [EIP 63481]
+	02.Updated OA3 Key encounter checksum error on ChiefRiver CRB which has other "_FVH" signature 
+	   exist except FV header in BB block.[EIP 67671]
+	03.Afuwin add CheckDriverVersion to avoid BSOD.[EIP 62390]
+==============================================================================
+2.38
+	01. Support PI 1.1 Specification in AFU.[EIP 60166]
+	02. Add the new ROM Hole check rule if hole layout change. [EIP 59260]
+	03. Support new TABLE_INFO structure of SmbiosDMIEdit definition. [EIP 60305]
+	04. Supports Shadow Mode Flash.
+	05. Supports get project length of BIOS from SMI 0x25.
+	06. AFU show the error message and stop the flash procedure when BIOS has more than one FFS/OEM Hole's GUID is the same.[EIP 61679]
+	07. Fixed the issue that USB keyboard can't work after checking password.
+	08. Support the OA key data update, when it is stored in the NCB. [EIP 58139]
+	09. Add new SMI call to trigger MSDN table creation, when OA3.0 Key has been flashed. [EIP 60452]
+	10. Support to update ME firmware.[EIP 61275]
+	11. Add the implementation of saving and restoring rbx when call PortWriteByte in AFU driver for Windows x64.[EIP 60452]
+	12. Merge the changes code from AMISCE driver to AFU.[EIP 60452] 
+==============================================================================
+2.37
+	01. Support Max of 16 Non-critical block(NCB+RomHole) update.[EIP 52963] 
+	02. Increase the SMI check mechanism to prevent the SMI loss problem.[EIP 56367] 
+	03. Improvement the ME structure to support new ME update rule. [EIP 52968]
+	04. Changed the search priority of DMI data to avoid waste many time to search the wrong place. [EIP 53636]
+	05. Fixed the ROM Image path contains the space would be caused the AFU hang up or display unknown command message. [EIP 57828]
+==============================================================================
+2.36
+	01.Fixed the issue that AFU will output error message and skip OA3.0 key update if set 'DEBUG_MODE' token enabled.[EIP 50825][EIP 50911]
+	02.Fixed the issue that System hangs up when AFU flashing BIOS with "/B" command after disabling it in BIOS.[EIP 51229]
+	03.Implement clear event log function into Aptio AFU utilities.[EIP 51076]
+	04.Reset retry count.
+==============================================================================
+2.35
+	01.Supports AMIUCP new commands status setting. [EIP 40002]
+	02.Add a new hidden command parameter "/SANTA". [EIP 42965]
+	03.Remove AFU its EC error message, when BIOS has reported the EC error message for AFU. [EIP 45928]
+	04.Fixed the exception error when FV block size is less 64KB. [EIP 48906]
+	05.Add a new command parameter "/A" according to OA 3.0 spec to support OEM Activation Key update.[49084]
+	06.Adjust the ME block info check rule.
+==============================================================================
+2.34
+	01.Modified the /CMD: command to sync with OEMCMD command's behavior. [EIP 43015]
+	02.Modified NVRAM data preserve function of OFBD invoke sequence to avoid caused BIOS flash failed, 
+	   when issued /R command and BIOS supports this feature. [EIP 41769]
+==============================================================================
+2.33
+	01.Add a new command line "/CAF" supports Main BIOS, Boot Block, Share EC and NCB data comparison.[EIP 35966]
+	02.Supports Intel AT 2.0 specification. [EIP 40463]
+	03.Add a new command line "/CMD:" to support the OEMCMD module¡¯s new status. [EIP 40787]
+	04.Fixed the flash hang up issue of AFU, when BIOS has share EC firmware and its SMIFlash module version is 4.6.3.6_SMIFLASH_13 or later 	   version. (Swap the GetFlashInfo and InitFlashIfc invoke sequence.)
+	05.Add a new command line "/HOLEOUT:" supports specific ROM Hole data dump according to given GUID.[EIP 39508]
+	06.Add Driver extract support.
+==============================================================================
+2.32
+	01. Add a new command line "/OEMCMD:" to support the OEMCMD of OFBD module.[35966]
+	02. Change the /ECX command usage from xxx.rom /ECX to /ECX:xxx.rom and remove the auto shutdown action.
+	03. Add the Erase/Verify/Retry procedure during the EC firmware updating.[36765]
+	04. Changed the memory allocate method to avoid memory allocate failure, when use it under Compal's PXE Network booting DOS environment.
+	05. Fixed the "FFS checksums" is bad problem, when booting with HIMEM.SYS installed.
+	06. Change /R command reserve DMI data procedure, if DMI is stored in FV_MAIN or FV_BB or NVRAM.[37169]
+	07. Add new feature to support set/cancel commands by OFBD.[37411]
+	08. Change the shutdown/reboot method and display the warning message before windows start to shutdown/reboot the system.[37497]
+==============================================================================
+2.31a
+	1.Signed amifldrv32.sys.
+==============================================================================
+2.31
+	1.Support to show RomHole OEM message.
+	2.Support to flash NCB with NCB bin file.
+	3.Support to flash share EC with EC bin file.
+	4.Disable the hot key "Windows + L".
+==============================================================================
+2.30	
+	1.Add the feature of validating Rom File Checksum.[EIP24381]
+	2.Fix a issue that NCB type must be >= 0x80 instead of 80.
+	3.Bug Fix:Cann't flash ME correctly. 
+	4.Bug Fix:Cann't run normally under Windows 7 x64 after add rom file and default command by AMIUCP. 
+	5.Support to update non EC-share BIOS when it isn't AMI EC Firmware.[EIP31739]
+==============================================================================
+2.28
+	1. Fix the issue that AFU stops flashing when it cannot find ROM ID in system ROM.
+==============================================================================
+2.27
+	1.ROMID and Password check by AFU before flashing BIOS.[EIP14374][EIP19375] 
+	2.AFU keep BIOS last setting after flashing BIOS.[EIP19257] 
+	3.Do NVRAM flashing after main BIOS being programmed.[EIP19890]
+	4.AFU support "$ECB" table in E000.[EIP19891] 
+	5.AFU support Intel ME flash.[EIP20087] 
+	6.AFU Support Standalong EC firmware Flash.[EIP12739]
+	7.AFU support add rom file name by AMIUCP @CMD. 
+==============================================================================
+2.26
+	1.Bug Fix:Afu cann¡¯t transfer enough buffer to BLOCK DESCRIPTION. [EIP 18348] 
+	2.Add a new command [/hole:](update specific rom hole according to romhole GUID).[EIP 18041]
+==============================================================================
+2.25	
+	1.EIP 13230:To support combined utility on afudos and afuwin,and add amiucp support.
+	2.EIP 13960:Update the driver amifldrv64.sys.
+	3.support /s as a stand along command.
+	4.Modify help message of /R command. [EIP15239]. 
+	5./u command will not display ROMID of specified file unless it is compatible with SUT.[EIP15202]. 
+	6.Adding warning message when /O command overwrites existing files.[EIP15196]. 
+	7.when BIOS has two fv_bb or fv_main, Aptio AFU tool can not update ROM hole by "/K0" option.[ EIP15980]. 
+	8.Make sure AFU of Aptio version clears upper 24 bits of EAX before issuing swSMI to flash.[ EIP16388].
+	9.Add UAC support.[EIP15602]. 
+	10.Request AFUWIN to prevent power button shutdown.
+==============================================================================
+2.23
+	1.Lock the keyboard when programming under Windows.
+	2.Add new options /Q,/D,/Shutdown,/MAKEDRV,/Retry,/Rn for AFUAPTIO.

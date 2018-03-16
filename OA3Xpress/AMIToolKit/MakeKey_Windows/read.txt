@@ -1,0 +1,22 @@
+1、准备文件(.xml,afuefi.efi,oa3tool.exe,.cfg)
+    配置.cfg文件和XML一致
+2、打开命令行窗口。运行以下命令：
+     d：，cd +空格+指定文件夹名
+
+    oa3tool.exe /Assemble /Configfile=oa3tool.cfg
+    将会生成配置文件中定义的“OA3.bin”文件。
+
+3、使用您自己的导入工具将“OA3.bin”中包含的密钥信息导入 BIOS 中。
+   开机过程中按F7
+   在 Shell下运行 afuefi.efi /Aoa3maker.bin  (/A和oa3maker.bin之间不能有空格, bin文件名可以自定义)
+
+4、重启机器
+   在产品机器上运行以下命令。
+
+    oa3tool.exe /Report /Configfile=oa3tool.cfg
+
+     将会生成配置文件中定义的“OA3_OUT.xml”文件。
+5、报告OA3_OUT.xml
+
+
+

@@ -1,0 +1,61 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6CAFC0C6-A428-4d30-A9F9-700E829FEA51</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>ControlScript</Name>
+    <PostBuildScript>Copy-Item .\Script ..\bin\Release -Recurse -Force
+Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
+Copy-Item ..\AMIToolKit ..\bin\Release\Module\AMIToolKit -Recurse -Force
+Copy-Item ..\InjectionTool ..\bin\Release\Module\InjectionTool -Recurse -Force
+Copy-Item "..\Readme.txt" ..\bin\Release -Recurse -Force
+Copy-Item "..\ThirdPartyNotices.txt" ..\bin\Release -Recurse -Force
+Copy-Item  ..\bin\Release\Module\SKULPNMapper\lookup.xml ..\bin\Release\Config -Recurse -Force
+Remove-Item ..\bin\Release\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\PSDPKSNBinder\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\OA3ToolConfGen\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\SKULPNMapper\*.pdb -Recurse -Force</PostBuildScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Script\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Script\erase.ps1" />
+    <Compile Include="Script\run-file-based-mac.ps1" />
+    <Compile Include="Script\run-file-based-sn-bios.ps1" />
+    <Compile Include="Script\run-file-based-sn-cloud.ps1" />
+    <Compile Include="Script\run-file-based.ps1" />
+    <Compile Include="Script\run-mar.ps1" />
+    <Compile Include="Script\run-server-based-mac-cloud.ps1" />
+    <Compile Include="Script\run-server-based-mac.ps1" />
+    <Compile Include="Script\run-server-based-sn-bios.ps1" />
+    <Compile Include="Script\run-server-based-sn-cloud.ps1" />
+    <Compile Include="Script\run-server-based.ps1" />
+    <Compile Include="Script\run-server.ps1" />
+    <Compile Include="Script\run.ps1" />
+    <Compile Include="Script\validate.ps1" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="Build" />
+  <Import Project="$(MSBuildExtensionsPath)\PowerShell Tools for Visual Studio\PowerShellTools.targets" Condition="Exists('$(MSBuildExtensionsPath)\PowerShell Tools for Visual Studio\PowerShellTools.targets')" />
+</Project>

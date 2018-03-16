@@ -1,0 +1,22 @@
+﻿{
+  "enable-cpu-clustering": true,
+  "http-server-port": 9909,
+  "web-socket-server-host": "127.0.0.1",
+  "web-socket-server-port": 3303,
+  "ffki-version": 2,
+  "mssql-connection-config": {
+    "server": "localhost",
+    "userName": "sa",
+    "password": "123",
+    "port": 1433,
+    "options": {
+      "database": "SmartClient",
+      "truestedConnection": true,
+      "instanceName": "MDOS"
+    }
+  },
+  "mssql-connection-string": "Data Source=.\\MDOS;Initial Catalog=SmartClient;Integrated Security=True",
+  "report-xml-repository": "C:\\OA3\\Report",
+  "config-xml-repository": "C:\\OA3\\Config",
+  "log-repository": "C:\\OA3\\Log"
+}
