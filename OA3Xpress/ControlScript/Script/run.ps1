@@ -259,7 +259,7 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
    {
       #Import-Module (Get-Item -Path "..\..\Module\PSDPKSNBinder\PowerShellOA3DPKSNBinder.dll").FullName;
 
-	  Import-Module $RootDir + "\Module\PSDPKSNBinder\PowerShellOA3DPKSNBinder.dll";
+	  Import-Module ($RootDir + "\Module\PSDPKSNBinder\PowerShellOA3DPKSNBinder.dll");
 
       $ProductKeyInfo = [xml](Get-Content -Path (Get-Item -Path $OA3OutputXmlFilePath).FullName); 
 
@@ -269,7 +269,7 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
       {
          #$PairID = Add-DPKIDSNBinding -ProductKeyID $ProductKeyID -SerialNumber $SerialNumber -TransactionID $TransactionID -PersistencyMode FileSystemXML -FilePath (Get-Item -Path "..\..\DPKID-SN.xml").FullName;
 
-		  $PairID = Add-DPKIDSNBinding -ProductKeyID $ProductKeyID -SerialNumber $SerialNumber -TransactionID $TransactionID -PersistencyMode FileSystemXML -FilePath ($RootDir + "\DPKID-SN.xml");
+		 $PairID = Add-DPKIDSNBinding -ProductKeyID $ProductKeyID -SerialNumber $SerialNumber -TransactionID $TransactionID -PersistencyMode FileSystemXML -FilePath ($RootDir + "\DPKID-SN.xml");
 
          $Message = [System.String]::Format("Pair created, Product Key ID: {0}, Serial Number: {1}, Pair ID: {2}, {3}", $ProductKeyID, $SerialNumber, $PairID, [System.DateTime]::Now);
          $Message;
