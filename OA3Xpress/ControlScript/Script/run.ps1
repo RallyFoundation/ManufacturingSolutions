@@ -274,25 +274,6 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
          $Message = [System.String]::Format("Pair created, Product Key ID: {0}, Serial Number: {1}, Pair ID: {2}, {3}", $ProductKeyID, $SerialNumber, $PairID, [System.DateTime]::Now);
          $Message;
          $Message | Out-File -FilePath $LogPath -Append;
-
-         #$Message = [System.String]::Format("Shutting down..., {0}", [System.DateTime]::Now);
-
-         $Host.UI.RawUI.BackgroundColor = "Green";
-         $Host.UI.RawUI.ForegroundColor = "Black";
-         $Message = "OA3.0 process completed successfully!";
-         $Message;
-         $Message | Out-File -FilePath $LogPath -Append;
-
-         #& ("wpeutil") @("shutdown");
-
-         [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms");
-
-         $DialogResult = [System.Windows.Forms.MessageBox]::Show("OA3.0 process completed successfully! Shutdown unit now?" , "Success" , 4);
-
-         if($DialogResult -eq "YES")
-         {
-            Stop-Computer -ComputerName "localhost";
-         }
       }
       else
       {
@@ -312,3 +293,74 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
 } 
 
 
+#Uploading result, config and log files to FFKI API (if configured as enabled)
+try
+{
+	[xml]$FFKIAPISettings = Get-Content -Path ($RootDir + "\Config\ffki-api-config.xml") -Encoding UTF8;
+
+	$FFKIAPISettings;
+
+	if(($FFKIAPISettings.settings.enabled -eq "true") -or ($FFKIAPISettings.settings.enabled -eq "1"))
+	{
+		[System.String]$FFKIAPIServicePoint = $FFKIAPISettings.settings.servicePoint;
+
+		if($FFKIAPIServicePoint.EndsWith("/") -eq $false)
+		{
+		   $FFKIAPIServicePoint += "/";
+		}
+
+		$FFKIAPIServicePoint;
+
+		$Result = Invoke-RestMethod -Method Get -Uri $FFKIAPIServicePoint;
+
+		$Result;
+
+		if($Result -eq "Welcome to OA3.0!")
+		{
+			[System.Net.WebClient]$webClient = New-Object -TypeName System.Net.WebClient;
+
+			$FFKIAPIReportUrl = ($FFKIAPIServicePoint + "OA3/Report/");
+
+			$FFKIAPIConfigUrl = ($FFKIAPIServicePoint + "OA3/Config/");
+
+			$FFKIAPILogUrl = ($FFKIAPIServicePoint + "OA3/Log/" + $TransactionID);
+
+			$webClient.UploadFileAsync($FFKIAPIReportUrl, $OA3OutputXmlFilePath);
+
+			$webClient.UploadFileAsync($FFKIAPIConfigUrl, $OA3OutputConfigFilePath);
+
+			$webClient.UploadFileAsync($FFKIAPILogUrl, $OA3OutputTraceFilePath);
+
+			$webClient.UploadFileAsync($FFKIAPILogUrl, $OA3OutputHWDecodeFilePath);
+
+			$webClient.UploadFileAsync($FFKIAPILogUrl, $LogPath);
+		}
+	}
+}
+catch [System.Exception]
+{
+	$Message = $Error[0].Exception;
+    $Message;
+    $Message | Out-File -FilePath $LogPath -Append;
+}
+
+
+#Shutting down machine
+#$Message = [System.String]::Format("Shutting down..., {0}", [System.DateTime]::Now);
+
+$Host.UI.RawUI.BackgroundColor = "Green";
+$Host.UI.RawUI.ForegroundColor = "Black";
+$Message = "OA3.0 process completed successfully!";
+$Message;
+$Message | Out-File -FilePath $LogPath -Append;
+
+#& ("wpeutil") @("shutdown");
+
+[System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms");
+
+$DialogResult = [System.Windows.Forms.MessageBox]::Show("OA3.0 process completed successfully! Shutdown unit now?" , "Success" , 4);
+
+if($DialogResult -eq "YES")
+{
+    Stop-Computer -ComputerName "localhost";
+}
