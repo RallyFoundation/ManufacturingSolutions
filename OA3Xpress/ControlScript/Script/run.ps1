@@ -325,15 +325,15 @@ try
 
 			$FFKIAPILogUrl = ($FFKIAPIServicePoint + "OA3/Log/" + $TransactionID);
 
-			$webClient.UploadFileAsync($FFKIAPIReportUrl, $OA3OutputXmlFilePath);
+			$webClient.UploadFile($FFKIAPIReportUrl, $OA3OutputXmlFilePath);
 
-			$webClient.UploadFileAsync($FFKIAPIConfigUrl, $OA3OutputConfigFilePath);
+			$webClient.UploadFile($FFKIAPIConfigUrl, $OA3OutputConfigFilePath);
 
-			$webClient.UploadFileAsync($FFKIAPILogUrl, $OA3OutputTraceFilePath);
+			$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputTraceFilePath);
 
-			$webClient.UploadFileAsync($FFKIAPILogUrl, $OA3OutputHWDecodeFilePath);
+			$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputHWDecodeFilePath);
 
-			$webClient.UploadFileAsync($FFKIAPILogUrl, $LogPath);
+			$webClient.UploadFile($FFKIAPILogUrl, $LogPath);
 		}
 	}
 }
