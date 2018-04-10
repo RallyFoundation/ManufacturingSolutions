@@ -583,13 +583,13 @@ try
 
 			$FFKIAPIReportUrl = ($FFKIAPIServicePoint + "OA3/Report/");
 
-			$FFKIAPIConfigUrl = ($FFKIAPIServicePoint + "OA3/Config/");
+			#$FFKIAPIConfigUrl = ($FFKIAPIServicePoint + "OA3/Config/");
 
 			#$FFKIAPILogUrl = ($FFKIAPIServicePoint + "OA3/Log/" + $TransactionID);
 
-			$webClient.UploadFile($FFKIAPIReportUrl, $OA3OutputXmlFilePath);
+			$webClient.UploadFileAsync($FFKIAPIReportUrl, $OA3OutputXmlFilePath);
 
-			$webClient.UploadFile($FFKIAPIConfigUrl, $OA3ToolConfigurationFilePath);
+			#$webClient.UploadFile($FFKIAPIConfigUrl, $OA3ToolConfigurationFilePath);
 
 			#$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputTraceFilePath);
 
