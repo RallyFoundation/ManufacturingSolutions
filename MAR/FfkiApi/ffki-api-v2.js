@@ -135,6 +135,8 @@ app.post("/oa3/report/", function (req, res) {
         }
 
         console.log(req.files[0].path);
+
+        res.end();
     });
 });
 
@@ -147,6 +149,8 @@ app.post("/oa3/config/", function (req, res) {
         }
 
         console.log(req.files[0].path);
+
+        res.end();
     });
 });
 
@@ -161,6 +165,8 @@ app.post("/oa3/log/:trsnid", function (req, res) {
 
         console.log(req.params.trsnid);
         console.log(req.files[0].path);
+
+        res.end();
     });
 });
 
