@@ -901,6 +901,8 @@ app.post("/wds/imagefile/install/", function (req, res) {
 
         console.log(req.files[0].path);
 
+        res.end();
+
         //req.file = req.files[0];
         //var tmp_path = req.file.path;
         //console.log(tmp_path);
@@ -940,6 +942,8 @@ app.post("/wds/imagefile/boot/", function (req, res) {
 
         console.log(req.files[0].path);
 
+        res.end();
+
         //req.file = req.files[0];
         //var tmp_path = req.file.path;
         //console.log(tmp_path);
@@ -977,6 +981,8 @@ app.post("/wds/imagefile/ffu/", function (req, res) {
         }
 
         console.log(req.files[0].path);
+
+        res.end();
 
         //req.file = req.files[0];
         //var tmp_path = req.file.path;
@@ -1017,6 +1023,8 @@ app.post("/wds/logfile/:trsnid", function (req, res) {
 
         console.log(req.params.trsnid);
         console.log(req.files[0].path);
+
+        res.end();
     });
 });
 
