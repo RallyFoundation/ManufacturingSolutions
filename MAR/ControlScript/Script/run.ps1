@@ -591,9 +591,17 @@ try
 
 			$webClient.UploadFile($FFKIAPIConfigUrl, $OA3ToolConfigurationFilePath);
 
+			$webClient.UploadFile($FFKIAPIConfigUrl, ($RootDir + "\Input\" + $TransactionID + "_server.cfg"));
+
 			#$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputTraceFilePath);
 
 			#$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputHWDecodeFilePath);
+
+			$webClient.UploadFile($FFKIAPILogUrl, ($LogPath + "\" + $TransactionID + "-oa3tool-assemble.log"));
+
+			$webClient.UploadFile($FFKIAPILogUrl, ($LogPath + "\" + $TransactionID + "-oa3tool-report.log"));
+
+			$webClient.UploadFile($FFKIAPILogUrl, ($OA3OutputXmlFilePath + ".log.xml"));
 
 			$webClient.UploadFile($FFKIAPILogUrl, ($LogPath + "\production-log.log"));
 		}
