@@ -283,9 +283,9 @@ namespace OA3ToolConfGen
                 string url = this.Settings[ModuleConfiguration.AppStateKey_CloudServicePoint].ToString();
                 string userName = this.Settings[ModuleConfiguration.AppStateKey_CloudUserName].ToString();
                 string password = this.Settings[ModuleConfiguration.AppStateKey_CloudPassword].ToString();
-                string dbConnectionString = ModuleConfiguration.GetDBConnectionString(url, userName, password, this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID);
+                //string dbConnectionString = ModuleConfiguration.GetDBConnectionString(url, userName, password, this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID);
 
-                this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] = dbConnectionString;
+                //this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] = dbConnectionString;
             }
             catch (Exception ex)
             {
@@ -720,26 +720,31 @@ namespace OA3ToolConfGen
         private void textBoxCloudConfigurationID_Validated(object sender, EventArgs e)
         {
             this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] = this.textBoxCloudConfigurationID.Text;
+            this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID = this.textBoxCloudConfigurationID.Text;
         }
 
         private void textBoxKPSAddress_Validated(object sender, EventArgs e)
         {
             ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).ServerBased.KeyProviderServerLocation.IPAddress = this.textBoxKPSAddress.Text;
+            this.OA3ToolConfiguration.ServerBased.KeyProviderServerLocation.IPAddress = this.textBoxKPSAddress.Text;
         }
 
         private void textBoxKeyProviderServicePortNumber_Validated(object sender, EventArgs e)
         {
             ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).ServerBased.KeyProviderServerLocation.EndPoint = this.textBoxKeyProviderServicePortNumber.Text;
+            this.OA3ToolConfiguration.ServerBased.KeyProviderServerLocation.EndPoint = this.textBoxKeyProviderServicePortNumber.Text;
         }
 
         private void textBoxBinFileOutputPath_Validated(object sender, EventArgs e)
         {
             ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).OutputData.AssembledBinaryFile = this.textBoxBinFileOutputPath.Text;
+            this.OA3ToolConfiguration.OutputData.AssembledBinaryFile = this.textBoxBinFileOutputPath.Text;
         }
 
         private void textBoxXMLResultFileOutputPath_Validated(object sender, EventArgs e)
         {
             ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).OutputData.ReportedXMLFile = this.textBoxXMLResultFileOutputPath.Text;
+            this.OA3ToolConfiguration.OutputData.ReportedXMLFile = this.textBoxXMLResultFileOutputPath.Text;
         }
     }
 }
