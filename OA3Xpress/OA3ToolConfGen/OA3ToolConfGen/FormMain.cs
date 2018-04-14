@@ -458,10 +458,10 @@ namespace OA3ToolConfGen
             {
                 this.openConfig(this.currentFilePath);
 
-                if ((this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] == null) || (this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] == ""))
-                {
-                    this.buttonMore_Click(sender, e);
-                }
+                //if ((this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] == null) || (this.Settings[ModuleConfiguration.AppStateKey_DBConnectionString] == ""))
+                //{
+                //    this.buttonMore_Click(sender, e);
+                //}
             }
         }
 
