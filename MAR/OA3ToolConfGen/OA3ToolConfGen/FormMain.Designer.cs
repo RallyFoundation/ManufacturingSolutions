@@ -340,6 +340,7 @@
             this.textBoxXMLResultFileOutputPath.Name = "textBoxXMLResultFileOutputPath";
             this.textBoxXMLResultFileOutputPath.Size = new System.Drawing.Size(193, 20);
             this.textBoxXMLResultFileOutputPath.TabIndex = 10;
+            this.textBoxXMLResultFileOutputPath.Validated += new System.EventHandler(this.textBoxXMLResultFileOutputPath_Validated);
             // 
             // labelXMLResultFileOutputPath
             // 
@@ -357,6 +358,7 @@
             this.textBoxBinFileOutputPath.Name = "textBoxBinFileOutputPath";
             this.textBoxBinFileOutputPath.Size = new System.Drawing.Size(193, 20);
             this.textBoxBinFileOutputPath.TabIndex = 8;
+            this.textBoxBinFileOutputPath.Validated += new System.EventHandler(this.textBoxBinFileOutputPath_Validated);
             // 
             // labelBinFileOuputPath
             // 
@@ -384,6 +386,7 @@
             this.textBoxCloudConfigurationID.Name = "textBoxCloudConfigurationID";
             this.textBoxCloudConfigurationID.Size = new System.Drawing.Size(193, 20);
             this.textBoxCloudConfigurationID.TabIndex = 5;
+            this.textBoxCloudConfigurationID.Validated += new System.EventHandler(this.textBoxCloudConfigurationID_Validated);
             // 
             // labelCloudConfigurationID
             // 
@@ -401,6 +404,7 @@
             this.textBoxKeyProviderServicePortNumber.Name = "textBoxKeyProviderServicePortNumber";
             this.textBoxKeyProviderServicePortNumber.Size = new System.Drawing.Size(193, 20);
             this.textBoxKeyProviderServicePortNumber.TabIndex = 3;
+            this.textBoxKeyProviderServicePortNumber.Validated += new System.EventHandler(this.textBoxKeyProviderServicePortNumber_Validated);
             // 
             // labelKPSPortNumber
             // 
@@ -418,6 +422,7 @@
             this.textBoxKPSAddress.Name = "textBoxKPSAddress";
             this.textBoxKPSAddress.Size = new System.Drawing.Size(193, 20);
             this.textBoxKPSAddress.TabIndex = 1;
+            this.textBoxKPSAddress.Validated += new System.EventHandler(this.textBoxKPSAddress_Validated);
             // 
             // labelKPSAddress
             // 
@@ -624,12 +629,13 @@
             // 
             // ucProductKeyIDRange
             // 
+            this.ucProductKeyIDRange.AutoSize = true;
             this.ucProductKeyIDRange.ConfigurationID = null;
             this.ucProductKeyIDRange.Enabled = false;
             this.ucProductKeyIDRange.FFKIAPIUrl = null;
             this.ucProductKeyIDRange.Location = new System.Drawing.Point(19, 41);
             this.ucProductKeyIDRange.Name = "ucProductKeyIDRange";
-            this.ucProductKeyIDRange.Size = new System.Drawing.Size(388, 213);
+            this.ucProductKeyIDRange.Size = new System.Drawing.Size(388, 401);
             this.ucProductKeyIDRange.TabIndex = 0;
             // 
             // tabPagePreview
@@ -692,7 +698,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "FormMain";
-            this.Text = "OA3Tool Configuration Generator - CSI MDOS Client (v1.3) Special Edition";
+            this.Text = "OA3Tool Configuration Generator";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);

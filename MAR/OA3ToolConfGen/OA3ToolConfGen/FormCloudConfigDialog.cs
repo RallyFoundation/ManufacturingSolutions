@@ -66,24 +66,24 @@ namespace OA3ToolConfGen
 
                 OA3ToolConfiguration oa3Config = this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] as OA3ToolConfiguration;
 
-                if (oa3Config == null)
-                {
-                    oa3Config = new OA3ToolConfiguration();
-                }
+                //if (oa3Config == null)
+                //{
+                //    oa3Config = new OA3ToolConfiguration();
+                //}
 
-                if (oa3Config.ServerBased == null)
-                {
-                    oa3Config.ServerBased = new OA3ServerBased();
-                }
+                //if (oa3Config.ServerBased == null)
+                //{
+                //    oa3Config.ServerBased = new OA3ServerBased();
+                //}
 
-                if (oa3Config.ServerBased.Parameters == null)
-                {
-                    oa3Config.ServerBased.Parameters = new OA3ServerBasedParameters();
-                }
+                //if (oa3Config.ServerBased.Parameters == null)
+                //{
+                //    oa3Config.ServerBased.Parameters = new OA3ServerBasedParameters();
+                //}
 
                 oa3Config.ServerBased.Parameters.CloudConfigurationID = ffConfig.ID;
 
-                this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] = oa3Config;
+                //this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] = oa3Config;
             }
 
             this.Settings[ModuleConfiguration.AppStateKey_CloudServicePoint] = this.textBoxDISConfiguraitonCloudUrl.Text;
