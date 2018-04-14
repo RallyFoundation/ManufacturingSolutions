@@ -37,7 +37,15 @@ namespace OA3ToolConfGen
 
         private string currentFilePath;
 
-        protected OA3ToolConfiguration OA3ToolConfiguration = new OA3ToolConfiguration();
+        protected OA3ToolConfiguration OA3ToolConfiguration = new OA3ToolConfiguration()
+        {
+            ServerBased = new OA3ServerBased()
+            {
+                KeyProviderServerLocation = new OA3ServerBasedKeyProviderServerLocation() { Options = new OA3ServerBasedOptions() },
+                Parameters = new OA3ServerBasedParameters() { }
+            },
+            OutputData = new OA3OutputData() { }
+        };
 
         public Dictionary<string, object> Settings = new Dictionary<string, object>() 
         {
@@ -48,7 +56,7 @@ namespace OA3ToolConfGen
             //{ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
             {ModuleConfiguration.AppStateKey_CloudUserName, ModuleConfiguration.Configuration_Database_Username},
             {ModuleConfiguration.AppStateKey_CloudPassword, ModuleConfiguration.Configuration_Database_Password},
-            {ModuleConfiguration.AppStateKey_OA3ToolConfiguration, null},
+            {ModuleConfiguration.AppStateKey_OA3ToolConfiguration, new OA3ToolConfiguration(){ ServerBased = new OA3ServerBased(){ KeyProviderServerLocation = new OA3ServerBasedKeyProviderServerLocation(){ Options = new OA3ServerBasedOptions() }, Parameters = new OA3ServerBasedParameters(){ } }, OutputData = new OA3OutputData(){ } } },
             {ModuleConfiguration.AppStateKey_CloudConfigurationSets, null},
             //{ModuleConfiguration.AppStateKey_CloudClientDBName, "MDOSKeyStore_CloudOA"},
             {ModuleConfiguration.AppStateKey_CloudClientDBName, ModuleConfiguration.Configuration_Database_Name},
@@ -477,7 +485,7 @@ namespace OA3ToolConfGen
 
                 if (this.Settings != null)
                 {
-                    this.OA3ToolConfiguration = this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] as OA3ToolConfiguration;
+                    this.OA3ToolConfiguration.ServerBased.Parameters.CloudConfigurationID = (this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration] as OA3ToolConfiguration).ServerBased.Parameters.CloudConfigurationID;
                 }
 
                 this.setControls();
@@ -631,6 +639,10 @@ namespace OA3ToolConfGen
             {
                 this.webBrowserCloud.DocumentText = this.getCloudConfigSetsXml();
             }
+            else if (this.tabControlMain.SelectedTab == this.tabPageBasic)
+            {
+                this.setOA3ToolConfiguration();
+            }
         }
 
         private void toolStripMenuItemSaveAs_Click(object sender, EventArgs e)
@@ -703,6 +715,31 @@ namespace OA3ToolConfGen
             {
                 ModuleConfiguration.KeyTypeID = 4;
             }
+        }
+
+        private void textBoxCloudConfigurationID_Validated(object sender, EventArgs e)
+        {
+            this.Settings[ModuleConfiguration.AppStateKey_CloudConfigurationID] = this.textBoxCloudConfigurationID.Text;
+        }
+
+        private void textBoxKPSAddress_Validated(object sender, EventArgs e)
+        {
+            ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).ServerBased.KeyProviderServerLocation.IPAddress = this.textBoxKPSAddress.Text;
+        }
+
+        private void textBoxKeyProviderServicePortNumber_Validated(object sender, EventArgs e)
+        {
+            ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).ServerBased.KeyProviderServerLocation.EndPoint = this.textBoxKeyProviderServicePortNumber.Text;
+        }
+
+        private void textBoxBinFileOutputPath_Validated(object sender, EventArgs e)
+        {
+            ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).OutputData.AssembledBinaryFile = this.textBoxBinFileOutputPath.Text;
+        }
+
+        private void textBoxXMLResultFileOutputPath_Validated(object sender, EventArgs e)
+        {
+            ((OA3ToolConfiguration)(this.Settings[ModuleConfiguration.AppStateKey_OA3ToolConfiguration])).OutputData.ReportedXMLFile = this.textBoxXMLResultFileOutputPath.Text;
         }
     }
 }
