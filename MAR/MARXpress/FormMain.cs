@@ -99,9 +99,16 @@ namespace MARXpress
         private void metroTileConfigure_Click(object sender, EventArgs e)
         {
             string oa3ToolConfGenFullPath = this.getFullPath(this.OA3ToolConfGenPath);
-            string oa3ToolConfFullPath = this.getFullPath(this.OA3ToolConfPath);
 
-            Utility.StartProcess(oa3ToolConfGenFullPath, oa3ToolConfFullPath, true, true);
+            if (!String.IsNullOrEmpty(this.OA3ToolConfPath))
+            {
+                string oa3ToolConfFullPath = this.getFullPath(this.OA3ToolConfPath);
+                Utility.StartProcess(oa3ToolConfGenFullPath, oa3ToolConfFullPath, true, true);
+            }
+            else
+            {
+                Utility.StartProcess(oa3ToolConfGenFullPath, null, true, true);
+            }          
         }
 
         private void metroTileStart_Click(object sender, EventArgs e)

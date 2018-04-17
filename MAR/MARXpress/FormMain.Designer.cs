@@ -38,7 +38,7 @@
             // 
             this.metroTileConfigure.Location = new System.Drawing.Point(23, 198);
             this.metroTileConfigure.Name = "metroTileConfigure";
-            this.metroTileConfigure.Size = new System.Drawing.Size(156, 111);
+            this.metroTileConfigure.Size = new System.Drawing.Size(329, 111);
             this.metroTileConfigure.Style = MetroFramework.MetroColorStyle.Orange;
             this.metroTileConfigure.TabIndex = 3;
             this.metroTileConfigure.Text = "Configure \r\nOA3Tool";
@@ -71,6 +71,7 @@
             this.metroTileConfigureLookup.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileConfigureLookup.TileTextFontSize = MetroFramework.MetroTileTextSize.Tall;
             this.metroTileConfigureLookup.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+            this.metroTileConfigureLookup.Visible = false;
             this.metroTileConfigureLookup.Click += new System.EventHandler(this.metroTileConfigureLookup_Click);
             // 
             // FormMain

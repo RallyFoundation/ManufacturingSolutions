@@ -68,7 +68,32 @@ namespace OA3ToolConfGen
 
         public static int KeyTypeID = 1;
 
+        public static string DefaultOA3ToolConfigFilePath = null;
+
+        public static string DefaultFFKIAPIUrl = "http://my-ffki-server:9909/";
+
         public static bool ShowConfigurationsFromServer = true;//false;
+
+        public static bool ShowOHRSetting = true;
+
+        public static bool ShowPromoCodeSetting = true;
+
+        public static bool ShowDPKIDRangeSetting = true;
+
+        public static void InitSettings()
+        {
+           string showCloudSettingsVal = System.Configuration.ConfigurationManager.AppSettings.Get("ShowCloudSettings");
+           string showOHRSettingsVal = System.Configuration.ConfigurationManager.AppSettings.Get("ShowOHRSettings");
+           string showPromoCodeSettingsVal = System.Configuration.ConfigurationManager.AppSettings.Get("ShowPromoCodeSettings");
+           string showDPKIDRangeSettingsVal = System.Configuration.ConfigurationManager.AppSettings.Get("ShowDPKIDRangeSettings");
+
+           ModuleConfiguration.ShowConfigurationsFromServer = String.IsNullOrEmpty(showCloudSettingsVal) || (showCloudSettingsVal.ToLower() == "true") || (showCloudSettingsVal == "1");
+           ModuleConfiguration.ShowDPKIDRangeSetting = String.IsNullOrEmpty(showDPKIDRangeSettingsVal) || (showDPKIDRangeSettingsVal.ToLower() == "true") || (showDPKIDRangeSettingsVal == "1");
+           ModuleConfiguration.ShowPromoCodeSetting = String.IsNullOrEmpty(showPromoCodeSettingsVal) || (showPromoCodeSettingsVal.ToLower() == "true") || (showPromoCodeSettingsVal == "1");
+           ModuleConfiguration.ShowOHRSetting = String.IsNullOrEmpty(showOHRSettingsVal) || (showOHRSettingsVal.ToLower() == "true") || (showOHRSettingsVal == "1");
+
+           ModuleConfiguration.DefaultOA3ToolConfigFilePath = System.Configuration.ConfigurationManager.AppSettings.Get("DefaultOA3ToolConfigPath");
+        }
 
         public static Customer[] GetFactoryFloorConfigurationSets(string ServicePoint, string UserName, string Password) 
         {
