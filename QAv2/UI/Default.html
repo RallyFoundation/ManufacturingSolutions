@@ -1,0 +1,562 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Validation Result</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.min.css" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-mocks.js"></script>
+    <script src="Scripts/angular-aria.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-cookies.min.js"></script>
+    <script src="Scripts/angular-loader.js"></script>
+    <script src="Scripts/angular-loader.min.js"></script>
+    <script src="Scripts/angular-message-format.js"></script>
+    <script src="Scripts/angular-message-format.min.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-scenario.js"></script>
+    <script src="Scripts/angular-touch.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    <script src="Scripts/ngDialog.js"></script>
+    <script src="Scripts/ngDialog.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="data.json"></script>
+    <script src="config.json"></script>
+</head>
+<body ng-app="HQATool">
+    <div ng-controller="ValidationSummaryController" ng-init="setTitle()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="saveZip()">Download Zip</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="showLog()">View Log</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-show="mode == 'Online'" ng-click="showTrace()">View Trace</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-show="mode == 'Online'" ng-click="showMonitorDump()">View Monitor Dump</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-show="mode == 'Online'" ng-click="showSMBIOSDump()">View SMBIOS Dump</a>
+        </p>
+        <hr />
+        <p style="font-weight:bolder;font-size:x-large;font-family:Arial">
+            Total Result:
+            <Span ng-style="(totalFailureCount == 0 && {'background-color': 'forestgreen'}) || ((totalFailureCount > 0) && {'background-color': 'red'})">
+                {{getTotalResultLabelText()}}
+            </Span>
+        </p>
+        <hr />
+        <ul>
+            <li>
+                <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">System Info: {{getSubResultSystemInfo()}}</p>
+                <ul>
+                    <content>
+                        <table class="table">
+                            <tr ng-hide="testItems.ProductKeyID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProductKeyID)}" ng-mouseover="onMouseOver(testItems.ProductKeyID)" ng-mouseleave="onMouseLeave(testItems.ProductKeyID)" ng-click="showDetailDialog('ProductKeyID', 'template-detail-expected-value.html')">
+                                <td>Product Key ID: </td>
+                                <td>{{testItems.ProductKeyID.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.OSType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseover="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
+                                <td>OS Type: </td>
+                                <td>{{testItems.OSType.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.OSType == null || testItems.OSType.Detail == null || testItems.OSType.Detail.OSBuild == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OSType)}" ng-mouseover="onMouseOver(testItems.OSType)" ng-mouseleave="onMouseLeave(testItems.OSType)" ng-click="showDetailDialog('OSType', 'template-detail-expected-value.html')">
+                                <td>OS Build Number: </td>
+                                <td>{{testItems.OSType.Detail.OSBuild}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.NIC == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.NIC)}" ng-mouseover="onMouseOver(testItems.NIC)" ng-mouseleave="onMouseLeave(testItems.NIC)" ng-click="showDetailDialog('NIC', 'template-detail-min-count.html')">
+                                <td>MAC Address: </td>
+                                <td>({{testItems.NIC.Value}})</td>
+                            </tr>
+                            <tr ng-hide="testItems.OA3Tool == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OA3Tool)}" ng-mouseover="onMouseOver(testItems.OA3Tool)" ng-mouseleave="onMouseLeave(testItems.OA3Tool)" ng-click="showDetailDialog('OA3Tool', 'template-detail-expected-value.html')">
+                                <td>OA3Tool: </td>
+                                <td>{{testItems.OA3Tool.Value}}</td>
+                            </tr>
+                        </table>
+                    </content>
+                </ul>
+            </li>
+            <li>
+                <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Hardware-Based Price Fields: {{getSubResultHardwareBasedPriceFields()}}</p>
+                <ul>
+                    <content>
+                        <table class="table">
+                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseover="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
+                                <td>ChassisType: </td>
+                                <td>{{testItems.ChassisType.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.ProcessorModel == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorModel)}" ng-mouseover="onMouseOver(testItems.ProcessorModel)" ng-mouseleave="onMouseLeave(testItems.ProcessorModel)" ng-click="showDetailDialog('ProcessorModel', 'template-detail-expected-value.html')">
+                                <td>ProcessorModel: </td>
+                                <td>{{testItems.ProcessorModel.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.TotalPhysicalRAM == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.TotalPhysicalRAM)}" ng-mouseover="onMouseOver(testItems.TotalPhysicalRAM)" ng-mouseleave="onMouseLeave(testItems.TotalPhysicalRAM)" ng-click="showDetailDialog('TotalPhysicalRAM', 'template-detail-min-max.html')">
+                                <td>TotalPhysicalRAM: </td>
+                                <td>{{testItems.TotalPhysicalRAM.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.PrimaryDiskType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskType)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskType)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskType)" ng-click="showDetailDialog('PrimaryDiskType', 'template-detail-expected-unexpected.html')">
+                                <td>PrimaryDiskType: </td>
+                                <td>{{testItems.PrimaryDiskType.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.PrimaryDiskTotalCapacity == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskTotalCapacity)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskTotalCapacity)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskTotalCapacity)" ng-click="showDetailDialog('PrimaryDiskTotalCapacity', 'template-detail-min-max.html')">
+                                <td>PrimaryDiskTotalCapacity: </td>
+                                <td>{{testItems.PrimaryDiskTotalCapacity.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplayResolutionHorizontal == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionHorizontal)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionHorizontal)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionHorizontal)" ng-click="showDetailDialog('DisplayResolutionHorizontal', 'template-detail-min-max-chassis.html')">
+                                <td>DisplayResolutionHorizontal: </td>
+                                <td>{{testItems.DisplayResolutionHorizontal.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplayResolutionVertical == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionVertical)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionVertical)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionVertical)" ng-click="showDetailDialog('DisplayResolutionVertical', 'template-detail-min-max-chassis.html')">
+                                <td>DisplayResolutionVertical: </td>
+                                <td>{{testItems.DisplayResolutionVertical.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplaySizePhysicalH == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalH)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalH)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalH)" ng-click="showDetailDialog('DisplaySizePhysicalH', 'template-detail-min-max-chassis.html')">
+                                <td>DisplaySizePhysicalH: </td>
+                                <td>{{testItems.DisplaySizePhysicalH.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplaySizePhysicalY == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalY)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalY)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalY)" ng-click="showDetailDialog('DisplaySizePhysicalY', 'template-detail-min-max-chassis.html')">
+                                <td>DisplaySizePhysicalY: </td>
+                                <td>{{testItems.DisplaySizePhysicalY.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DigitizerSupportID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DigitizerSupportID)}" ng-mouseover="onMouseOver(testItems.DigitizerSupportID)" ng-mouseleave="onMouseLeave(testItems.DigitizerSupportID)" ng-click="showDetailDialog('DigitizerSupportID', 'template-detail-expected-unexpected.html')">
+                                <td>DigitizerSupportID: </td>
+                                <td>{{testItems.DigitizerSupportID.Value}}</td>
+                            </tr>
+                        </table>
+                    </content>
+                </ul>
+            </li>
+            <li>
+                <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Smbios Fields: {{getSubResultSmbiosFields()}}</p>
+                <ul>
+                    <content>
+                        <table class="table">
+                            <tr ng-hide="testItems.ChassisType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ChassisType)}" ng-mouseover="onMouseOver(testItems.ChassisType)" ng-mouseleave="onMouseLeave(testItems.ChassisType)" ng-click="showDetailDialog('ChassisType', 'template-detail-expected-unexpected.html')">
+                                <td>ChassisType: </td>
+                                <td>{{testItems.ChassisType.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosSystemManufacturer == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemManufacturer)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemManufacturer)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemManufacturer)" ng-click="showDetailDialog('SmbiosSystemManufacturer', 'template-detail-min-max.html')">
+                                <td>SmbiosSystemManufacturer: </td>
+                                <td>{{testItems.SmbiosSystemManufacturer.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosSystemFamily == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemFamily)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemFamily)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemFamily)" ng-click="showDetailDialog('SmbiosSystemFamily', 'template-detail-min-max.html')">
+                                <td>SmbiosSystemFamily: </td>
+                                <td>{{testItems.SmbiosSystemFamily.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosSystemProductName == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemProductName)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemProductName)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemProductName)" ng-click="showDetailDialog('SmbiosSystemProductName', 'template-detail-min-max.html')">
+                                <td>SmbiosSystemProductName: </td>
+                                <td>{{testItems.SmbiosSystemProductName.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosBoardProduct == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosBoardProduct)}" ng-mouseover="onMouseOver(testItems.SmbiosBoardProduct)" ng-mouseleave="onMouseLeave(testItems.SmbiosBoardProduct)" ng-click="showDetailDialog('SmbiosBoardProduct', 'template-detail-min-max.html')">
+                                <td>SmbiosBoardProduct: </td>
+                                <td>{{testItems.SmbiosBoardProduct.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosSkuNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSkuNumber)}" ng-mouseover="onMouseOver(testItems.SmbiosSkuNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSkuNumber)" ng-click="showDetailDialog('SmbiosSkuNumber', 'template-detail-min-max.html')">
+                                <td>SmbiosSkuNumber: </td>
+                                <td>{{testItems.SmbiosSkuNumber.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosSystemSerialNumber == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosSystemSerialNumber)}" ng-mouseover="onMouseOver(testItems.SmbiosSystemSerialNumber)" ng-mouseleave="onMouseLeave(testItems.SmbiosSystemSerialNumber)" ng-click="showDetailDialog('SmbiosSystemSerialNumber', 'template-detail-min-max.html')">
+                                <td>SmbiosSystemSerialNumber: </td>
+                                <td>{{testItems.SmbiosSystemSerialNumber.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosUuid == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosUuid)}" ng-mouseover="onMouseOver(testItems.SmbiosUuid)" ng-mouseleave="onMouseLeave(testItems.SmbiosUuid)" ng-click="showDetailDialog('SmbiosUuid', 'template-detail-min-max.html')">
+                                <td>SmbiosUuid: </td>
+                                <td>{{testItems.SmbiosUuid.Value}}</td>
+                            </tr>
+                        </table> 
+                    </content>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationSummaryController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.testItems = AppData.TestItems;
+
+            $scope.totalFailureCount = -1;
+
+            $scope.currentTestItemName = "";
+
+            $scope.currentDetailKeyValues = [];
+
+            $scope.zipArchiveFileName = settings.ZipFilePath;
+
+            $scope.logFileName = settings.LogFilePath;
+
+            $scope.traceXmlFileName = settings.TraceXmlOutputPath != undefined ? settings.TraceXmlOutputPath : null;
+
+            $scope.monitorDumpFileName = settings.MonitorDumpPath != undefined ? settings.MonitorDumpPath : null;
+
+            $scope.smbiosDumpFileName = settings.SMBIOSDumpPath != undefined ? settings.SMBIOSDumpPath : null;
+
+            $scope.transactionId = settings.TransactionID;
+
+            $scope.productKeyId = settings.ProductKeyID;
+
+            $scope.rootDir = settings.RootDir;
+
+            $scope.mode = settings.Mode;
+
+            $scope.setTitle = function ()
+            {
+                document.title += " - " + $scope.transactionId + " - " + $scope.productKeyId;
+            };
+
+            $scope.setCurrentDetailKeyValues = function (detailObject) {
+
+                $scope.currentDetailKeyValues.splice(0, $scope.currentDetailKeyValues.length);
+
+                if (($scope.testItems[$scope.currentTestItemName].Detail != undefined) && ($scope.testItems[$scope.currentTestItemName].Detail != null)) {
+                    for (var prop in detailObject) {
+                        $scope.currentDetailKeyValues.push({ "Key": prop, "Value": detailObject[prop] });
+                    }
+                }
+            };
+
+            $scope.onMouseOver = function (model) {
+                model.IsInFocus = true;
+            };
+
+            $scope.onMouseLeave = function (model) {
+                model.IsInFocus = false;
+            };
+
+            $scope.getBackgroundColorByModel = function (model) {
+
+                var result = model.Result;
+                var isInFocus = model.IsInFocus;
+
+                if (result == "Failed" && !isInFocus) {
+                    return "red";
+                }
+                else if (result == "Failed" && isInFocus) {
+                    return "orange";
+                }
+                else if (isInFocus) {
+                    return "lightblue";
+                }
+                else { return null; }
+            };
+
+            $scope.getBackgroundColorByResult = function (result)
+            {
+                if (result == "Failed") {
+                    return "red";
+                }
+                else { return null; }
+            };
+
+            $scope.getTotalResultLabelText = function ()
+            {
+                var itemArray = [];
+
+                for (var prop in $scope.testItems) {
+                    if (($scope.testItems[prop] != null) && ($scope.testItems[prop].Result != undefined) && ($scope.testItems[prop].Result != null)) {
+                        itemArray.push($scope.testItems[prop].Result.toString());
+                    }     
+                }
+
+                var failureCount = $scope.getFailureCount(itemArray);
+
+                $scope.totalFailureCount = failureCount;
+
+                if (failureCount <= 0) {
+                    return "Passed";
+                }
+                else if (failureCount == 1) {
+                    return "1 Field Failed";
+                }
+                else {
+                    return failureCount.toString() + " Fields Failed"
+                }
+            };
+
+            $scope.getSubResultSystemInfo = function () {
+                var itemArray = [];
+
+                if ($scope.testItems.ProductKeyID != null) {
+                    itemArray.push($scope.testItems.ProductKeyID.Result);
+                }
+                
+                if ($scope.testItems.OSType != null) {
+                    itemArray.push($scope.testItems.OSType.Result);
+                }
+
+                if ($scope.testItems.NIC != null) {
+                    itemArray.push($scope.testItems.NIC.Result);
+                }
+
+                if ($scope.testItems.OA3Tool != null) {
+                    itemArray.push($scope.testItems.OA3Tool.Result);
+                }
+                
+                var failureCount = $scope.getFailureCount(itemArray);
+
+                return failureCount <= 0 ? "Passed" : "Failed";
+            };
+
+            $scope.getSubResultSmbiosFields = function () {
+                var itemArray = [];
+
+                if ($scope.testItems.ChassisType != null) {
+                    itemArray.push($scope.testItems.ChassisType.Result);
+                }
+                
+                if ($scope.testItems.SmbiosSystemManufacturer != null) {
+                    itemArray.push($scope.testItems.SmbiosSystemManufacturer.Result);
+                }
+                
+                if ($scope.testItems.SmbiosSystemFamily != null) {
+                    itemArray.push($scope.testItems.SmbiosSystemFamily.Result);
+                }
+                
+                if ($scope.testItems.SmbiosSystemProductName != null) {
+                    itemArray.push($scope.testItems.SmbiosSystemProductName.Result);
+                }
+                
+                if ($scope.testItems.SmbiosBoardProduct != null) {
+                    itemArray.push($scope.testItems.SmbiosBoardProduct.Result);
+                }
+                
+                if ($scope.testItems.SmbiosSkuNumber != null) {
+                    itemArray.push($scope.testItems.SmbiosSkuNumber.Result);
+                }
+                
+                if ($scope.testItems.SmbiosSystemSerialNumber != null) {
+                    itemArray.push($scope.testItems.SmbiosSystemSerialNumber.Result);
+                }
+                
+                if ($scope.testItems.SmbiosUuid != null) {
+                    itemArray.push($scope.testItems.SmbiosUuid.Result);
+                }
+                
+                var failureCount = $scope.getFailureCount(itemArray);
+
+                return failureCount <= 0 ? "Passed" : "Failed";
+            };
+
+            $scope.getSubResultHardwareBasedPriceFields = function () {
+                var itemArray = [];
+
+                if ($scope.testItems.ChassisType != null) {
+                    itemArray.push($scope.testItems.ChassisType.Result);
+                }
+                
+                if ($scope.testItems.ProcessorModel != null) {
+                    itemArray.push($scope.testItems.ProcessorModel.Result);
+                }
+                
+                if ($scope.testItems.TotalPhysicalRAM != null) {
+                    itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                }
+                
+                if ($scope.testItems.PrimaryDiskType != null) {
+                    itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                }
+                
+                if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                    itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                }
+                
+                if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                    itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                }
+                
+                if ($scope.testItems.DisplayResolutionVertical != null) {
+                    itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                }
+                
+                if ($scope.testItems.DisplaySizePhysicalH != null) {
+                    itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                }
+                
+                if ($scope.testItems.DisplaySizePhysicalY != null) {
+                    itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                }
+                
+                if ($scope.testItems.DigitizerSupportID != null) {
+                    itemArray.push($scope.testItems.DigitizerSupportID.Result);
+                }   
+
+                var failureCount = $scope.getFailureCount(itemArray);
+
+                return failureCount <= 0 ? "Passed" : "Failed";
+            };
+
+            $scope.getFailureCount = function (itemArray) {
+                var failureCount = 0;
+
+                for (var i = 0; i < itemArray.length; i++) {
+                    if (itemArray[i].toString().toLowerCase() == "failed"){
+                        failureCount++;
+                    }
+                }
+
+                return failureCount;
+            };
+
+            $scope.getValueLength = function (value){
+                return String(value).length;
+            };
+
+            $scope.saveZip = function () {
+                //alert($scope.zipArchiveFileName);
+                event = new MessageEvent("SaveFile", { "view": window, "bubbles": false, "cancelable": true, 'data': $scope.zipArchiveFileName});
+                document.dispatchEvent(event);
+            };
+
+            $scope.showLog = function () {
+                //alert($scope.logFileName);
+                event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.logFileName)});
+                document.dispatchEvent(event);
+            };
+
+            $scope.showTrace = function () {
+                //alert($scope.logFileName);
+                event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.traceXmlFileName) });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showMonitorDump = function () {
+                //alert($scope.logFileName);
+                event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.monitorDumpFileName) });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showSMBIOSDump = function () {
+                //alert($scope.logFileName);
+                event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.smbiosDumpFileName) });
+                document.dispatchEvent(event);
+            };
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/theme/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.showDetailDialog = function (testItemName, templateName) {
+
+                $scope.currentTestItemName = testItemName;
+
+                if ($scope.testItems[$scope.currentTestItemName] != null) {
+
+                    $scope.setCurrentDetailKeyValues($scope.testItems[$scope.currentTestItemName].Detail);
+
+                    $scope.currentDialog = ngDialog.open({
+                        scope: $scope,
+                        className: 'ngdialog-theme-default',
+                        template: templateName,
+                        //plain: true,
+                        showClose: true,
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        width: 500,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    });
+                }
+            };
+        });
+    </script>
+</body>
+</html>

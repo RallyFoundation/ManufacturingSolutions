@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Validation Rule Configuration</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.min.css" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-mocks.js"></script>
+    <script src="Scripts/angular-aria.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-cookies.min.js"></script>
+    <script src="Scripts/angular-loader.js"></script>
+    <script src="Scripts/angular-loader.min.js"></script>
+    <script src="Scripts/angular-message-format.js"></script>
+    <script src="Scripts/angular-message-format.min.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-scenario.js"></script>
+    <script src="Scripts/angular-touch.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    <script src="Scripts/ngDialog.js"></script>
+    <script src="Scripts/ngDialog.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="../rule.json"></script>
+</head>
+<body ng-app="HQATool">
+    <div ng-controller="ValidationRuleConfigController" ng-init="loadData()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>
+        </p>
+        <!--<p style="font-weight:bolder;font-size:x-large;font-family:Arial">
+            Validation Rule
+        </p>-->
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Field Name</th>
+                <th>Rule Type</th>
+                <th>Field Value</th>
+            </tr>
+            <tr ng-repeat="ruleItem in ruleItems">
+                <td>
+                    <input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />
+                </td>
+                <td>
+                    <input type="text" ng-model="ruleItem.FieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                </td>
+                <td>
+                    <select ng-model="ruleItem.RuleType" class="form-control">
+                        <option value="EqualTo">Equal To</option>
+                        <option value="NotEqualTo">Not Equal To</option>
+                        <option value="InRange">In Range</option>
+                        <option value="OutOfRange">Out Of Range</option>
+                        <option value="InAndOutOfRange">In And Out Of Range</option>
+                        <option value="StringLength">String Length</option>
+                        <option value="Min">Min</option>
+                        <option value="Max">Max</option>
+                        <option value="MinAndMax">Min And Max</option>
+                        <option value="NotNull">Not Null</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" ng-model="ruleItem.FieldValue" ng-show="(ruleItem.RuleType != 'NotNull')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                    <input type="text" ng-model="ruleItem.FieldAltValue" ng-show="(ruleItem.RuleType == 'InAndOutOfRange') || (ruleItem.RuleType == 'StringLength') || (ruleItem.RuleType == 'MinAndMax')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationRuleConfigController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.ruleItems = [];
+
+            $scope.currentRuleItemIndex = -1;
+
+            $scope.currentRuleItemName = "";
+
+            $scope.currentRuleItem = null;
+
+            $scope.getValueLength = function (value){
+                return String(value).length;
+            };
+
+            $scope.loadData = function () {
+                if ((settings != null) && (settings.length > 0)) {
+                    for (var i = 0; i < settings.length; i++) {
+                        $scope.ruleItems.push(settings[i]);
+                    }
+                }
+            };
+
+            $scope.setCurrentRuleItemIndex = function (index) {
+                $scope.currentRuleItemIndex = index;
+            };
+
+            $scope.addRule = function () {
+                $scope.ruleItems.push(
+                    {
+                        FieldName: "",
+                        RuleType: "EqualTo",
+                        FieldValue: null,
+                        FieldAltValue: null
+                    }
+                );
+            };
+
+            $scope.removeRule = function () {
+                if ($scope.currentRuleItemIndex >= 0) {
+                    $scope.ruleItems.splice($scope.currentRuleItemIndex, 1);
+                    $scope.setCurrentRuleItemIndex(-1);
+                }
+            };
+
+            $scope.saveRuleConfig = function () {
+                var fileInfo = { Path: "", Content: "" };
+
+                fileInfo.Path = "rule.json";
+                fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+
+                var fileInfoJson = JSON.stringify(fileInfo);
+
+                event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                document.dispatchEvent(event);
+            };
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/theme/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
+            //$scope.showDetailDialog = function (ruleItemName, templateName) {
+
+            //    $scope.currentRuleItemName = ruleItemName;
+
+            //    if ($scope.ruleItems[$scope.currentRuleItemName] != null) {
+
+            //        $scope.setCurrentDetailKeyValues($scope.ruleItems[$scope.currentRuleItemName].Detail);
+
+            //        $scope.currentDialog = ngDialog.open({
+            //            scope: $scope,
+            //            className: 'ngdialog-theme-default',
+            //            template: templateName,
+            //            //plain: true,
+            //            showClose: true,
+            //            closeByDocument: false,
+            //            closeByEscape: false,
+            //            width: 500,
+            //            preCloseCallback: function (value) {
+            //                return true;
+            //            }
+            //        });
+            //    }
+            //};
+        });
+    </script>
+</body>
+</html>

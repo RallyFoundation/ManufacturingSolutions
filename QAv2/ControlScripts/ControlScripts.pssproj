@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6CAFC0C6-A428-4d30-A9F9-700E829FEA51</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>ControlScripts</Name>
+    <PostBuildScript>Copy-Item .\Script ..\bin\Release -Recurse -Force
+Copy-Item .\Dump ..\bin\Release\Module -Recurse -Force
+Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
+#Copy-Item "..\HQA Tool Version 1.0.txt" ..\bin\Release -Recurse -Force
+#Copy-Item "..\HQA Tool Third Party Notices.txt" ..\bin\Release -Recurse -Force
+#Copy-Item "..\Microsoft HQA Tool EULA.docx" ..\bin\Release -Recurse -Force
+New-Item -Path ..\bin\Release\Module -Name XsltExtension -Type Directory -Force
+Copy-Item ..\bin\Release\BusinessRule.dll  ..\bin\Release\Module\XsltExtension\BusinessRule.dll -Force
+Remove-Item ..\bin\Release\*.pdb -Force
+Remove-Item ..\bin\Release\*.dll -Force
+Remove-Item ..\bin\Release\Module\DataProcessing\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\UI\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\UI\Views\*.pdb -Force
+Remove-Item ..\bin\Release\Module\UI\Views\*.dll -Force</PostBuildScript>
+    <PackageEntryPoint>Script\validate-online.ps1</PackageEntryPoint>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Dump\MonitorSize.ps1" />
+    <Compile Include="Dump\SMBIOS-Dump.ps1" />
+    <Compile Include="Script\validate-offline.ps1" />
+    <Compile Include="Script\validate-online.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InvokeOffline.cmd" />
+    <Content Include="offline.cmd" />
+    <Content Include="online.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dump\" />
+    <Folder Include="Script\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="Build" />
+  <Import Project="$(MSBuildExtensionsPath)\PowerShell Tools for Visual Studio\PowerShellTools.targets" Condition="Exists('$(MSBuildExtensionsPath)\PowerShell Tools for Visual Studio\PowerShellTools.targets')" />
+</Project>
