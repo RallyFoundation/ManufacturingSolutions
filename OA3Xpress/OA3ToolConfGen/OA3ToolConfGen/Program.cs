@@ -18,7 +18,31 @@ namespace OA3ToolConfGen
 
             if ((args != null) && (args.Length > 0))
             {
-                Application.Run(new FormMain(args[0]));
+                if (args.Length == 1)
+                {
+                    Application.Run(new FormMain(args[0]));
+                }
+                else
+                {
+                    string path = "";
+
+                    for (int i = 0; i < args.Length; i++)
+                    {
+                        if (args[i].StartsWith("/") && args[i].Contains(":"))
+                        {
+                            break;
+                        }
+
+                        path += args[i];
+
+                        if (i != (args.Length - 1))
+                        {
+                            path += " ";
+                        }
+                    }
+
+                    Application.Run(new FormMain(path));
+                }
             }
             else
             {

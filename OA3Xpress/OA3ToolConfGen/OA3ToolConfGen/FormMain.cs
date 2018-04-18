@@ -18,9 +18,39 @@ namespace OA3ToolConfGen
         {
             InitializeComponent();
 
+            ModuleConfiguration.InitSettings();
+
             if (!ModuleConfiguration.ShowConfigurationsFromServer)
             {
                 this.tabControlMain.Controls.Remove(this.tabPageCloud);
+            }
+
+            if (!ModuleConfiguration.ShowDPKIDRangeSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageProductKeyIDRange);
+            }
+
+            if (!ModuleConfiguration.ShowPromoCodeSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPagePromoCode);
+            }
+
+            if (!ModuleConfiguration.ShowOHRSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageOHR);
+            }
+
+            if (!String.IsNullOrEmpty(ModuleConfiguration.DefaultOA3ToolConfigFilePath))
+            {
+                try
+                {
+                    string fullPath = System.IO.Path.GetFullPath(ModuleConfiguration.DefaultOA3ToolConfigFilePath);
+                    this.currentFilePath = fullPath;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 
@@ -29,10 +59,27 @@ namespace OA3ToolConfGen
             this.currentFilePath = ConfigFilePath;
             InitializeComponent();
 
+            ModuleConfiguration.InitSettings();
+
             if (!ModuleConfiguration.ShowConfigurationsFromServer)
             {
                 this.tabControlMain.Controls.Remove(this.tabPageCloud);
-            }    
+            }
+
+            if (!ModuleConfiguration.ShowDPKIDRangeSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageProductKeyIDRange);
+            }
+
+            if (!ModuleConfiguration.ShowPromoCodeSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPagePromoCode);
+            }
+
+            if (!ModuleConfiguration.ShowOHRSetting)
+            {
+                this.tabControlMain.Controls.Remove(this.tabPageOHR);
+            }
         }
 
         private string currentFilePath;
@@ -51,7 +98,7 @@ namespace OA3ToolConfGen
         {
             {ModuleConfiguration.AppStateKey_DBConnectionString, ""},
             {ModuleConfiguration.AppStateKey_CloudConfigurationID, ""},
-            {ModuleConfiguration.AppStateKey_CloudServicePoint, ""},
+            {ModuleConfiguration.AppStateKey_CloudServicePoint, ModuleConfiguration.DefaultFFKIAPIUrl},
             //{ModuleConfiguration.AppStateKey_CloudUserName, "MDOS"},
             //{ModuleConfiguration.AppStateKey_CloudPassword, "D!S@OMSG.msft"},
             {ModuleConfiguration.AppStateKey_CloudUserName, ModuleConfiguration.Configuration_Database_Username},
