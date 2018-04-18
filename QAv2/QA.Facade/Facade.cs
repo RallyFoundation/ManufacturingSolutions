@@ -9,6 +9,7 @@ using QA.Core;
 using QA.Parser;
 using QA.Rule;
 using QA.Utility;
+using QA.Model;
 
 namespace QA.Facade
 {
@@ -24,19 +25,66 @@ namespace QA.Facade
         {
             string ruleConfPath = Global.DefaultRuleConfigPath;
 
-            XmlDocument xmlDocument = new XmlDocument();
+            //XmlDocument xmlDocument = new XmlDocument();
 
-            xmlDocument.Load(ruleConfPath);
+            //xmlDocument.Load(ruleConfPath);
 
-            List<IRule> rules = XmlUtility.XmlDeserialize(xmlDocument.InnerXml, typeof(List<IRule>), new Type[] {typeof(EqualToRule), typeof(NotEqualToRule), typeof(NotNullRule), typeof(MaxRule), typeof(MinRule), typeof(MinAndMaxRule), typeof(StringLengthRule), typeof(InRangeRule), typeof(OutOfRangeRule), typeof(InAndOutOfRangeRule) }, "utf-8") as List<IRule>;
+            //List<IRule> rules = XmlUtility.XmlDeserialize(xmlDocument.InnerXml, typeof(List<IRule>), new Type[] {typeof(EqualToRule), typeof(NotEqualToRule), typeof(NotNullRule), typeof(MaxRule), typeof(MinRule), typeof(MinAndMaxRule), typeof(StringLengthRule), typeof(InRangeRule), typeof(OutOfRangeRule), typeof(InAndOutOfRangeRule) }, "utf-8") as List<IRule>;
 
-            if (rules != null)
+            //if (rules != null)
+            //{
+            //    Rules = new Dictionary<string, IRule>();
+
+            //    foreach (var rule in rules)
+            //    {
+            //        Rules.Add(rule.FieldName, rule);
+            //    }
+            //}
+
+            IParser validationRuleJsonParser = new ValidationRuleConfigurationJsonParser();
+
+            byte[] ruleBytes = new byte[1024];
+
+            using (FileStream stream = new FileStream(ruleConfPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                Rules = new Dictionary<string, IRule>();
+                ruleBytes = new byte[stream.Length];
+                stream.Read(ruleBytes, 0, ((int)(stream.Length)));
+            }
 
-                foreach (var rule in rules)
+             ValidationRuleItem[] ruleItems = validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
+
+            if (ruleItems != null)
+            {
+                for (int i = 0; i < ruleItems.Length; i++)
                 {
-                    Rules.Add(rule.FieldName, rule);
+                    if (ruleItems[i] != null)
+                    {
+                        switch (ruleItems[i].RuleType)
+                        {
+                            case RuleType.EqualTo:
+                                break;
+                            case RuleType.NotEqualTo:
+                                break;
+                            case RuleType.InRange:
+                                break;
+                            case RuleType.OutOfRange:
+                                break;
+                            case RuleType.InAndOutOfRange:
+                                break;
+                            case RuleType.StringLength:
+                                break;
+                            case RuleType.Min:
+                                break;
+                            case RuleType.Max:
+                                break;
+                            case RuleType.MinAndMax:
+                                break;
+                            case RuleType.NotNull:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }

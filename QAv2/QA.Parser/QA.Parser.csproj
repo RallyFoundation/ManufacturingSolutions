@@ -42,11 +42,20 @@
   <ItemGroup>
     <Compile Include="Decoded4KHHXmlParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationRuleConfigurationJsonParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QA.Core\QA.Core.csproj">
       <Project>{992d7932-3d88-4b40-af68-6e6750b86a00}</Project>
       <Name>QA.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QA.Model\QA.Model.csproj">
+      <Project>{194e20d0-04fe-4ce2-b8b1-3f2d83ea515f}</Project>
+      <Name>QA.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3a2259d1-b0b2-49f0-a288-4d9834ecc6d3}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
