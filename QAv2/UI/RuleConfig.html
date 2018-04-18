@@ -38,7 +38,7 @@
     <script src="Scripts/ngDialog.js"></script>
     <script src="Scripts/ngDialog.min.js"></script>
     <script src="Scripts/app.js"></script>
-    <script src="../rule.json"></script>
+    <script src="../../../Config/rule.json"></script>
 </head>
 <body ng-app="HQATool">
     <div ng-controller="ValidationRuleConfigController" ng-init="loadData()">
@@ -174,9 +174,13 @@
             };
 
             $scope.addRule = function () {
+
+                var ruleId = createGuid();
+
                 $scope.ruleItems.push(
                     {
-                        FieldName: "",
+                        id: ruleId,
+                        FieldName: "Field-" + ruleId,
                         RuleType: "EqualTo",
                         FieldValue: null,
                         FieldAltValue: null
@@ -194,7 +198,7 @@
             $scope.saveRuleConfig = function () {
                 var fileInfo = { Path: "", Content: "" };
 
-                fileInfo.Path = "rule.json";
+                fileInfo.Path = "..\\..\\Config\\rule.json";
                 fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
 
                 var fileInfoJson = JSON.stringify(fileInfo);

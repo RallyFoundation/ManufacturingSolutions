@@ -145,15 +145,17 @@ namespace WebViewPlus
                 } 
             }
 
-            if (!Path.IsPathRooted(fileInfo.Path))
-            {
-                if (!fileInfo.Path.StartsWith("\\"))
-                {
-                    fileInfo.Path = "\\" + fileInfo.Path;
-                }
+            fileInfo.Path = Path.GetFullPath(fileInfo.Path);
 
-                fileInfo.Path = appRootDir + fileInfo.Path;
-            }
+            //if (!Path.IsPathRooted(fileInfo.Path))
+            //{
+            //    if (!fileInfo.Path.StartsWith("\\"))
+            //    {
+            //        fileInfo.Path = "\\" + fileInfo.Path;
+            //    }
+
+            //    fileInfo.Path = appRootDir + fileInfo.Path;
+            //}
 
             using (FileStream fileStream = new FileStream(fileInfo.Path, FileMode.Create, FileAccess.Write, FileShare.Write))
             {
@@ -202,7 +204,7 @@ namespace WebViewPlus
 
         private void runApp(string param)
         {
-            string[] parameters = param.Split(new string[] { "|"}, StringSplitOptions.None);
+            string[] parameters = param.Split(new string[] {"|"}, StringSplitOptions.None);
             string appName = parameters[0], args = parameters[1];
             Utility.StartProcess(appName, args, true, false);
         }
