@@ -45,42 +45,147 @@ namespace QA.Facade
 
             byte[] ruleBytes = new byte[1024];
 
+            string ruleString = "";
+
             using (FileStream stream = new FileStream(ruleConfPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                ruleBytes = new byte[stream.Length];
-                stream.Read(ruleBytes, 0, ((int)(stream.Length)));
+                //ruleBytes = new byte[stream.Length];
+                //stream.Read(ruleBytes, 0, ((int)(stream.Length)));
+
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    ruleString = reader.ReadToEnd();
+                }
             }
 
-             ValidationRuleItem[] ruleItems = validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
+            ruleString = ruleString.Substring(ruleString.IndexOf("["), (ruleString.LastIndexOf("]") + 1));
+
+            ruleBytes = Encoding.UTF8.GetBytes(ruleString);
+
+            ValidationRuleItem[] ruleItems = validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
 
             if (ruleItems != null)
             {
+                Rules = new Dictionary<string, IRule>();
+
                 for (int i = 0; i < ruleItems.Length; i++)
                 {
-                    if (ruleItems[i] != null)
+                    if ((ruleItems[i] != null) && (!Rules.ContainsKey(ruleItems[i].FiledName)))
                     {
                         switch (ruleItems[i].RuleType)
                         {
                             case RuleType.EqualTo:
-                                break;
+                                {
+                                    EqualToRule rule = new EqualToRule(){
+                                        FieldName = ruleItems[i].FiledName,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString()
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+
+                                    break;
+                                }
                             case RuleType.NotEqualTo:
-                                break;
+                                {
+                                    NotEqualToRule rule = new NotEqualToRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        UnexpectedValue = ruleItems[i].FieldValue.ToString()
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.InRange:
-                                break;
+                                {
+                                    InRangeRule rule = new InRangeRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        ExpectedValueRange = ruleItems[i].FieldValue as string[]
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.OutOfRange:
-                                break;
+                                {
+                                    OutOfRangeRule rule = new OutOfRangeRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        UnexpectedValueRange = ruleItems[i].FieldAltValue as string[]
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.InAndOutOfRange:
-                                break;
+                                {
+                                    InAndOutOfRangeRule rule = new InAndOutOfRangeRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        ExpectedValueRange = ruleItems[i].FieldValue as string[],
+                                        UnexpectedValueRange = ruleItems[i].FieldAltValue as string[]
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.StringLength:
-                                break;
+                                {
+                                    StringLengthRule rule = new StringLengthRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        MinValue = (int)(ruleItems[i].FieldValue),
+                                        MaxValue = (int)(ruleItems[i].FieldAltValue)
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.Min:
-                                break;
+                                {
+                                    MinRule rule = new MinRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        MinValue = (int)(ruleItems[i].FieldValue)
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.Max:
-                                break;
+                                {
+                                    MaxRule rule = new MaxRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        MaxValue = (int)(ruleItems[i].FieldValue)
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.MinAndMax:
-                                break;
+                                {
+                                    MinAndMaxRule rule = new MinAndMaxRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName,
+                                        MinValue = (int)(ruleItems[i].FieldValue),
+                                        MaxValue = (int)(ruleItems[i].FieldAltValue)
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             case RuleType.NotNull:
-                                break;
+                                {
+                                    NotNullRule rule = new NotNullRule()
+                                    {
+                                        FieldName = ruleItems[i].FiledName
+                                    };
+
+                                    Rules.Add(rule.FieldName, rule);
+                                    break;
+                                }
                             default:
                                 break;
                         }
