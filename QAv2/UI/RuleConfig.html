@@ -124,8 +124,36 @@
                             </table>
                         </div>
                         <div ng-switch-when="InAndOutOfRange">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" />
-                            <input type="text" ng-model="ruleItem.FieldAltValue" class="form-control" />
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemFieldValue($index, $event)" class="form-control" />
+                                        <table>
+                                            <tr ng-repeat="val in ruleItem.FieldValue">
+                                                <td>
+                                                    {{val}}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldValue, $index)">Remove</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemFieldAltValue($index, $event)" class="form-control" />
+                                        <table>
+                                            <tr ng-repeat="val in ruleItem.FieldAltValue">
+                                                <td>
+                                                    {{val}}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldAltValue, $index)">Remove</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <div ng-switch-when="StringLength">
                             <input type="number" ng-model="ruleItem.FieldValue" class="form-control" maxlength="20" />
