@@ -98,23 +98,27 @@
                             <input type="number" ng-model="ruleItem.FieldValue" class="form-control" maxlength="20" />
                         </div>
                         <div ng-switch-when="InRange">
-                            <input type="text" ng-model="ruleItem.FieldValue" ng-list="|" class="form-control" />
-                            <!--<pre>{{ruleItem.FieldValue}}</pre>-->
+                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemFieldValue($index, $event)" class="form-control" />
                             <table>
                                 <tr ng-repeat="val in ruleItem.FieldValue">
                                     <td>
                                         {{val}}
                                     </td>
+                                    <td>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldValue, $index)">Remove</a>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                         <div ng-switch-when="OutOfRange">
-                            <input type="text" ng-model="ruleItem.FieldValue" ng-list="|" class="form-control" />
-                            <!--<pre>{{ruleItem.FieldValue}}</pre>-->
+                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemFieldAltValue($index, $event)" class="form-control" />
                             <table>
-                                <tr ng-repeat="val in ruleItem.FieldValue">
+                                <tr ng-repeat="val in ruleItem.FieldAltValue">
                                     <td>
                                         {{val}}
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldAltValue, $index)">Remove</a>
                                     </td>
                                 </tr>
                             </table>
@@ -240,6 +244,53 @@
                 if ($scope.currentRuleItemIndex >= 0) {
                     $scope.ruleItems.splice($scope.currentRuleItemIndex, 1);
                     $scope.setCurrentRuleItemIndex(-1);
+                }
+            };
+
+            $scope.removeValue = function (array, index) {
+                if ((array != null) && (index >= 0)) {
+                    array.splice(index, 1);
+                }
+            };
+
+            //$scope.addValue = function (array, refObj, currentInputFieldName, event) {
+            //    if (event.keyCode == "13") {
+            //        if (array == null) {
+            //            array = [];
+            //        }
+
+            //        if (array.indexOf(refObj[currentInputFieldName]) < 0) {
+            //            array.push(refObj[currentInputFieldName]);
+            //            refObj[currentInputFieldName] = null;
+            //        }
+            //    }
+            //};
+
+            $scope.setRuleItemFieldValue = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].FieldValue == null) {
+                        $scope.ruleItems[index].FieldValue = [];
+                    }
+
+                    if ($scope.ruleItems[index].FieldValue.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].FieldValue.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }            
+                }
+            };
+
+            $scope.setRuleItemFieldAltValue = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].FieldAltValue == null) {
+                        $scope.ruleItems[index].FieldAltValue = [];
+                    }
+
+                    if ($scope.ruleItems[index].FieldAltValue.indexOf($scope.ruleItems[index].currentInputAltValue) < 0) {
+                        $scope.ruleItems[index].FieldAltValue.push($scope.ruleItems[index].currentInputAltValue);
+
+                        $scope.ruleItems[index].currentInputAltValue = null;
+                    }
                 }
             };
 
