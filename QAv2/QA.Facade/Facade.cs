@@ -21,7 +21,7 @@ namespace QA.Facade
 
         public static Dictionary<string, bool> Result;
 
-        public void InitializeRules()
+        public static void InitializeRules()
         {
             string ruleConfPath = Global.DefaultRuleConfigPath;
 
@@ -194,7 +194,7 @@ namespace QA.Facade
             }
         }
 
-        public void InstantiateInputData()
+        public static void InstantiateInputData()
         {
             string data;
 
@@ -211,7 +211,7 @@ namespace QA.Facade
             Data = parser.Parse(data) as Dictionary<string, object>;
         }
 
-        public void ValidateData()
+        public static void ValidateData()
         {
             if ((Data != null) && (Rules != null))
             {

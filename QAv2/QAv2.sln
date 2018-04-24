@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.Facade", "QA.Facade\QA.F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.UI.RuleConfiguration", "QA.UI.RuleConfiguration\QA.UI.RuleConfiguration.csproj", "{37809DB4-5D69-431A-BFD0-FA4F7241D2CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.PowerShell.Validation", "QA.PowerShell.Validation\QA.PowerShell.Validation.csproj", "{C0623338-B1CD-4745-B066-E9644D762366}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{37809DB4-5D69-431A-BFD0-FA4F7241D2CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37809DB4-5D69-431A-BFD0-FA4F7241D2CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37809DB4-5D69-431A-BFD0-FA4F7241D2CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0623338-B1CD-4745-B066-E9644D762366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0623338-B1CD-4745-B066-E9644D762366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0623338-B1CD-4745-B066-E9644D762366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0623338-B1CD-4745-B066-E9644D762366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
