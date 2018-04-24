@@ -8,8 +8,8 @@ using QA.Utility;
 
 namespace PowerShellDataProcessing
 {
-    [Cmdlet("Do", "XsltTransformation")]
-    public class DoXsltTransformationCommand : Cmdlet
+    [Cmdlet(VerbsCommon.New, "XsltTransformation")]
+    public class NewXsltTransformationCommand : Cmdlet
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The content of the xml document to be transformed.")]
         public string XmlString { get; set; }

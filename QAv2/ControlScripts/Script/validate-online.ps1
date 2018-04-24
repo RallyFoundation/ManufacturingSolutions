@@ -319,7 +319,7 @@ try
     [xml]$ReportXml = Get-Content -Path $ReportFilePath -Encoding UTF8;
     [xml]$SchemaXml = Get-Content -Path $OA3ReportXmlSchemaPath -Encoding UTF8;
 
-    [xml]$SchemaValidationResult = Do-XmlSchemaValidation -XmlString $ReportXml.InnerXml -XmlSchemaString $SchemaXml.InnerXml -OutputFormat "xml";
+    [xml]$SchemaValidationResult = New-XmlSchemaValidation -XmlString $ReportXml.InnerXml -XmlSchemaString $SchemaXml.InnerXml -OutputFormat "xml";
 
     $SchemaValidationResult.validationResult.errorCount;
     $SchemaValidationResult.validationResult.errorMessage;
@@ -497,7 +497,7 @@ $XsltArgs.Add("transactionId", $TransactionID);
 $XsltArgs.Add("productKeyId", $ProductKeyID);
 $XsltArgs.Add("mode", "online");
 
-$ResultHtml = Do-XsltTransformation -XmlString $ResultXml.InnerXml -XsltPath $XsltHtmlPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
+$ResultHtml = New-XsltTransformation -XmlString $ResultXml.InnerXml -XsltPath $XsltHtmlPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
 $ResultHtml | Out-File -Encoding utf8 -FilePath $ResultHtmlFilePath -Force;
 
 $SMBInfo = Get-WmiObject MSSmBios_RawSMBiosTables -Namespace Root\Wmi;

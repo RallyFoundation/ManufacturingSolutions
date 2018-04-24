@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DoBinarySerializationCommand.cs" />
-    <Compile Include="DoXmlSchemaValidationCommand.cs" />
+    <Compile Include="NewBinarySerializationCommand.cs" />
+    <Compile Include="NewXmlSchemaValidationCommand.cs" />
     <Compile Include="FormReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,7 +60,7 @@
     <Compile Include="GetJsonFromObjectCommand.cs" />
     <Compile Include="GetObjcetFromBinaryDeserialization.cs" />
     <Compile Include="NewZipCommand.cs" />
-    <Compile Include="DoXsltTransformationCommand.cs" />
+    <Compile Include="NewXsltTransformationCommand.cs" />
     <Compile Include="FormGetInputPath.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,8 +9,8 @@ using QA.Utility;
 
 namespace PowerShellDataProcessing
 {
-    [Cmdlet("Do", "BinarySerialization")]
-    public class DoBinarySerializationCommand : Cmdlet
+    [Cmdlet(VerbsCommon.New, "BinarySerialization")]
+    public class NewBinarySerializationCommand : Cmdlet
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The instance of the objcet to serialize.")]
         public object ObjectInstance { get; set; }

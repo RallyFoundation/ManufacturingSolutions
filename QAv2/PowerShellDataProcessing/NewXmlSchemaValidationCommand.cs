@@ -8,8 +8,8 @@ using QA.Utility;
 
 namespace PowerShellDataProcessing
 {
-    [Cmdlet("Do", "XmlSchemaValidation")]
-    public class DoXmlSchemaValidationCommand : Cmdlet
+    [Cmdlet(VerbsCommon.New, "XmlSchemaValidation")]
+    public class NewXmlSchemaValidationCommand : Cmdlet
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The content of the xml document to be validated.")]
         public string XmlString { get; set; }
