@@ -58,7 +58,9 @@ namespace QA.Facade
                 }
             }
 
-            ruleString = ruleString.Substring(ruleString.IndexOf("["), (ruleString.LastIndexOf("]") + 1));
+            ruleString = ruleString.Substring(ruleString.IndexOf("["));
+
+            ruleString = ruleString.Substring(0, (ruleString.LastIndexOf("]") + 1));
 
             ruleBytes = Encoding.UTF8.GetBytes(ruleString);
 

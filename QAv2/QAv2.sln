@@ -42,6 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.UI.RuleConfiguration", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.PowerShell.Validation", "QA.PowerShell.Validation\QA.PowerShell.Validation.csproj", "{C0623338-B1CD-4745-B066-E9644D762366}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{82606934-6457-4084-8994-D42CCEDDF257}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest-QA.Facade", "UnitTest\UnitTest-QA.Facade\UnitTest-QA.Facade.csproj", "{F82CA564-1AAB-453F-946A-650FCFDDD8F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,9 +112,16 @@ Global
 		{C0623338-B1CD-4745-B066-E9644D762366}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0623338-B1CD-4745-B066-E9644D762366}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0623338-B1CD-4745-B066-E9644D762366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F82CA564-1AAB-453F-946A-650FCFDDD8F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82CA564-1AAB-453F-946A-650FCFDDD8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82CA564-1AAB-453F-946A-650FCFDDD8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82CA564-1AAB-453F-946A-650FCFDDD8F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F82CA564-1AAB-453F-946A-650FCFDDD8F5} = {82606934-6457-4084-8994-D42CCEDDF257}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9AD49F34-6EDE-4011-9DE1-24662D34812F}
