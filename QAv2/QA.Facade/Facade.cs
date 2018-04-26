@@ -105,7 +105,7 @@ namespace QA.Facade
                                     InRangeRule rule = new InRangeRule()
                                     {
                                         FieldName = ruleItems[i].FieldName,
-                                        ExpectedValueRange = ruleItems[i].FieldValue as string[]
+                                        ExpectedValueRange = ruleItems[i].ExpectedValues
                                     };
 
                                     Rules.Add(rule.FieldName, rule);
@@ -116,7 +116,7 @@ namespace QA.Facade
                                     OutOfRangeRule rule = new OutOfRangeRule()
                                     {
                                         FieldName = ruleItems[i].FieldName,
-                                        UnexpectedValueRange = ruleItems[i].FieldAltValue as string[]
+                                        UnexpectedValueRange = ruleItems[i].UnexpectedValues
                                     };
 
                                     Rules.Add(rule.FieldName, rule);
@@ -127,8 +127,8 @@ namespace QA.Facade
                                     InAndOutOfRangeRule rule = new InAndOutOfRangeRule()
                                     {
                                         FieldName = ruleItems[i].FieldName,
-                                        ExpectedValueRange = ruleItems[i].FieldValue as string[],
-                                        UnexpectedValueRange = ruleItems[i].FieldAltValue as string[]
+                                        ExpectedValueRange = ruleItems[i].ExpectedValues,
+                                        UnexpectedValueRange = ruleItems[i].UnexpectedValues
                                     };
 
                                     Rules.Add(rule.FieldName, rule);

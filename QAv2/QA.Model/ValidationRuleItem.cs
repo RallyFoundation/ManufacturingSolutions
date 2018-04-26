@@ -27,5 +27,21 @@ namespace QA.Model
         [DataMember(Name = "FieldAltValue")]
         [JsonProperty("FieldAltValue")]
         public object FieldAltValue { get; set; }
+
+        [DataMember(Name = "MinValue")]
+        [JsonProperty("MinValue")]
+        public int MinValue { get; set; }
+
+        [DataMember(Name = "MaxValue")]
+        [JsonProperty("MaxValue")]
+        public int MaxValue { get; set; }
+
+        [DataMember(Name = "ExpectedValues")]
+        [JsonProperty("ExpectedValues")]
+        public string[] ExpectedValues { get; set; }
+
+        [DataMember(Name = "UnexpectedValues")]
+        [JsonProperty("UnexpectedValues")]
+        public string[] UnexpectedValues { get; set; }
     }
 }

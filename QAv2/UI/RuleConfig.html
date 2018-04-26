@@ -98,27 +98,27 @@
                             <input type="number" ng-model="ruleItem.FieldValue" class="form-control" maxlength="20" />
                         </div>
                         <div ng-switch-when="InRange">
-                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemFieldValue($index, $event)" class="form-control" />
+                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" />
                             <table>
-                                <tr ng-repeat="val in ruleItem.FieldValue">
+                                <tr ng-repeat="val in ruleItem.ExpectedValues">
                                     <td>
                                         {{val}}
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldValue, $index)">Remove</a>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div ng-switch-when="OutOfRange">
-                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemFieldAltValue($index, $event)" class="form-control" />
+                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" />
                             <table>
-                                <tr ng-repeat="val in ruleItem.FieldAltValue">
+                                <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                     <td>
                                         {{val}}
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldAltValue, $index)">Remove</a>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
                                     </td>
                                 </tr>
                             </table>
@@ -127,27 +127,27 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemFieldValue($index, $event)" class="form-control" />
+                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" />
                                         <table>
-                                            <tr ng-repeat="val in ruleItem.FieldValue">
+                                            <tr ng-repeat="val in ruleItem.ExpectedValues">
                                                 <td>
                                                     {{val}}
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldValue, $index)">Remove</a>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemFieldAltValue($index, $event)" class="form-control" />
+                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" />
                                         <table>
-                                            <tr ng-repeat="val in ruleItem.FieldAltValue">
+                                            <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                                 <td>
                                                     {{val}}
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.FieldAltValue, $index)">Remove</a>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -263,7 +263,9 @@
                         FieldName: "Field-" + ruleId,
                         RuleType: "EqualTo",
                         FieldValue: null,
-                        FieldAltValue: null
+                        FieldAltValue: null,
+                        ExpectedValues: null,
+                        UnexpectedValues: null
                     }
                 );
             };
@@ -294,28 +296,28 @@
             //    }
             //};
 
-            $scope.setRuleItemFieldValue = function (index, event) {
+            $scope.setRuleItemExpectedValues = function (index, event) {
                 if (event.keyCode == "13") {
-                    if ($scope.ruleItems[index].FieldValue == null) {
-                        $scope.ruleItems[index].FieldValue = [];
+                    if ($scope.ruleItems[index].ExpectedValues == null) {
+                        $scope.ruleItems[index].ExpectedValues = [];
                     }
 
-                    if ($scope.ruleItems[index].FieldValue.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
-                        $scope.ruleItems[index].FieldValue.push($scope.ruleItems[index].currentInputValue);
+                    if ($scope.ruleItems[index].ExpectedValues.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].ExpectedValues.push($scope.ruleItems[index].currentInputValue);
 
                         $scope.ruleItems[index].currentInputValue = null;
                     }            
                 }
             };
 
-            $scope.setRuleItemFieldAltValue = function (index, event) {
+            $scope.setRuleItemUnexpectedValues = function (index, event) {
                 if (event.keyCode == "13") {
-                    if ($scope.ruleItems[index].FieldAltValue == null) {
-                        $scope.ruleItems[index].FieldAltValue = [];
+                    if ($scope.ruleItems[index].UnexpectedValues == null) {
+                        $scope.ruleItems[index].UnexpectedValues = [];
                     }
 
-                    if ($scope.ruleItems[index].FieldAltValue.indexOf($scope.ruleItems[index].currentInputAltValue) < 0) {
-                        $scope.ruleItems[index].FieldAltValue.push($scope.ruleItems[index].currentInputAltValue);
+                    if ($scope.ruleItems[index].UnexpectedValues.indexOf($scope.ruleItems[index].currentInputAltValue) < 0) {
+                        $scope.ruleItems[index].UnexpectedValues.push($scope.ruleItems[index].currentInputAltValue);
 
                         $scope.ruleItems[index].currentInputAltValue = null;
                     }
