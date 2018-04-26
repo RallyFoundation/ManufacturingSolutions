@@ -11,10 +11,32 @@ namespace UnitTest_QA.Facade
     {
         static void Main(string[] args)
         {
-            Global.DefaultDataPath = "oa3.Report.xml";
+            Global.DefaultDataPath = "decode.xml";
             Global.DefaultRuleConfigPath = "rule.json";
 
             QA.Facade.Facade.InitializeRules();
+
+            if (QA.Facade.Facade.Rules != null)
+            {
+                foreach (string key in QA.Facade.Facade.Rules.Keys)
+                {
+                    Console.WriteLine(key);
+                }
+            }
+
+            QA.Facade.Facade.InstantiateInputData();
+
+            if (QA.Facade.Facade.Data != null)
+            {
+                foreach (string key in QA.Facade.Facade.Data.Keys)
+                {
+                    Console.WriteLine(key);
+                }
+            }
+
+            Console.WriteLine("Ready.");
+
+            Console.Read();
         }
     }
 }

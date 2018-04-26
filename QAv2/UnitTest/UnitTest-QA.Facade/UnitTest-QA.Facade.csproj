@@ -52,13 +52,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\QA.Core\QA.Core.csproj">
+      <Project>{992d7932-3d88-4b40-af68-6e6750b86a00}</Project>
+      <Name>QA.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\QA.Facade\QA.Facade.csproj">
       <Project>{ac754246-557e-4e39-a12c-d630561e8756}</Project>
       <Name>QA.Facade</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="oa3.Report.xml">
+    <Content Include="decode.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

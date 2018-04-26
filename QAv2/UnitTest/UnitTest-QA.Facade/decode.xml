@@ -1,0 +1,58 @@
+﻿<?xml version="1.0"?>
+<HardwareReport>
+	<HardwareInventory>
+		<p n="ProductKeyID" v="3423327065671" />
+		<p n="ProductKeyPkPn" v="[TH]X20-23530" />
+		<p n="ToolVersion" v="3" />
+		<p n="HardwareInventoryVersion" v="131" />
+		<p n="ToolBuild" v="10.0.16288.1" />
+		<p n="OSType" v="FullOS" />
+		<p n="OsCpuArchitecture" v="x64" />
+		<p n="OsBuild" v="10.0.16299.64" />
+		<p n="OsSystemTime" v="2017-12-02T21:29:14Z" />
+		<p n="OsLocalTime" v="2017-12-04T03:29:14+30:00" />
+		<p n="ProcessorModel" v="Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz" />
+		<p n="ProcessorPackages" v="1" />
+		<p n="ProcessorThreads" v="4" />
+		<p n="ProcessorCores" v="2" />
+		<p n="ProcessorHyperThreading" v="true" />
+		<p n="SmbiosRamArrayCount" v="1" />
+		<p n="SmbiosRamSlots" v="2" />
+		<p n="SmbiosRamErrorCorrection" v="None" />
+		<p n="SmbiosRamMaximumCapacity" v="16" />
+		<p n="TotalPhysicalRAM" v="8" />
+		<p n="SmbiosFirmwareVendor" v="LENOVO" />
+		<p n="SmbiosSystemManufacturer" v="LENOVO" />
+		<p n="SmbiosSystemProductName" v="20FNA06ACD" />
+		<p n="SmbiosSystemSerialNumber" v="PC0GLE1C" />
+		<p n="SmbiosUuid" v="fd0cf8cc-21bf-11b2-a85c-f07eda1d882d" />
+		<p n="SmbiosSkuNumber" v="LENOVO_MT_20FN_BU_Think_FM_ThinkPad T460" />
+		<p n="SmbiosSystemFamily" v="ThinkPad T460" />
+		<p n="SmbiosSystemVersion" v="ThinkPad T460" />
+		<p n="SmbiosBoardManufacturer" v="LENOVO" />
+		<p n="SmbiosBoardProduct" v="20FNA06ACD" />
+		<p n="SmbiosBoardVersion" v="SDK0K09938 WIN" />
+		<p n="ChassisType" v="0x0A" />
+		<p n="InternalDiskCount" v="1" />
+		<p n="DeviceNumber" v="0" />
+		<p n="PrimaryDiskTotalCapacity" v="500" />
+		<p n="PrimaryDiskType" v="HDD" />
+		<p n="DiskSerialNumber" v="            W62EYTLV|ST500LM021-1KJ152|" />
+		<p n="PhysicalMedium" v="802_3" />
+		<p n="MacAddress" v="C8:5B:76:81:E4:97" />
+		<p n="PhysicalMedium" v="Native802_11" />
+		<p n="MacAddress" v="B8:8A:60:BC:D5:BD" />
+		<p n="PhysicalMedium" v="Bluetooth" />
+		<p n="MacAddress" v="B8:8A:60:BC:D5:C1" />
+		<p n="DisplayResolutionHorizontal" v="1366" />
+		<p n="DisplayResolutionVertical" v="768" />
+		<p n="DisplaySizePhysicalH" v="309" />
+		<p n="DisplaySizePhysicalY " v="174" />
+		<p n="DigitizerSupportID" v="(null)" />
+		<p n="PowerPlatformRole" v="Mobile" />
+		<p n="Status" v="0x00000000" />
+		<p n="OfflineDeviceIdType" v="REGISTRY_VARIABLE_RANDOMSEED" />
+		<p n="OfflineDeviceId" v="LKbPDiX/WKvcJ6P0ElUaiCshqpdcL4e/KBCBhNV7Kk4=" />
+		<p n="DiskSSNKernel" v="            W62EYTLV|ST500LM021-1KJ152|" />
+	</HardwareInventory>
+</HardwareReport>

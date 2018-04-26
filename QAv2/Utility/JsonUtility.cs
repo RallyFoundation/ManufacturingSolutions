@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Xml;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace QA.Utility
 {
@@ -108,6 +110,49 @@ namespace QA.Utility
             }
 
             return returnObject;
+        }
+
+        public static object GetObjectFromJson(string jsonString, Type objectType, bool shouldConvertToJsonString, string startChar="{", string endChar="}")
+        {
+            string jsonValue = shouldConvertToJsonString ? JsonConvert.ToString(jsonString) : jsonString;
+
+            jsonValue = jsonValue.Substring(jsonValue.IndexOf(startChar));
+            jsonValue = jsonValue.Substring(0, (jsonValue.LastIndexOf(endChar) + 1));
+
+            JsonSerializer serializer = new JsonSerializer();
+            JsonTextReader reader = new JsonTextReader(new StringReader(jsonValue));
+            Object jsonObject = serializer.Deserialize(reader, objectType);
+
+            return jsonObject;
+        }
+
+        public static string GetJsonFromObject(object objectInstance, Type objectType)
+        {
+            string jsonValue = "";
+
+            JsonSerializer serializer = new JsonSerializer();
+
+            using (StringWriter stringWriter = new StringWriter())
+            {
+                using (JsonTextWriter writer = new JsonTextWriter(stringWriter))
+                {
+                    serializer.Serialize(stringWriter, objectInstance, objectType);
+                }
+
+                jsonValue = stringWriter.ToString();
+            }
+
+            return jsonValue;
+        }
+
+        public static string GetJsonFromXml(string xmlString, bool shouldIndent, bool shouldOmitRoot)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlString);
+
+            string jsonValue = JsonConvert.SerializeXmlNode(xmlDoc, (shouldIndent ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None), shouldOmitRoot);
+
+            return jsonValue;
         }
     }
 }

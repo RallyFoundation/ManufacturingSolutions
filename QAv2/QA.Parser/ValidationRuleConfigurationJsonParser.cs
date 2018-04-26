@@ -19,7 +19,11 @@ namespace QA.Parser
 
             if ((bytes != null) && (bytes.Length > 0))
             {
-               returnValue = JsonUtility.JsonDeserialize(bytes, typeof(ValidationRuleItem[]), new Type[] {typeof(ValidationRuleItem)}, "root") as ValidationRuleItem[];
+                //returnValue = JsonUtility.JsonDeserialize(bytes, typeof(ValidationRuleItem[]), new Type[] {typeof(ValidationRuleItem), typeof(Int32)}, "root") as ValidationRuleItem[];
+
+                string jsonString = Encoding.UTF8.GetString(bytes);
+
+                returnValue = JsonUtility.GetObjectFromJson(jsonString, typeof(ValidationRuleItem[]), false, "[", "]") as ValidationRuleItem[];
             }
 
             return returnValue;
