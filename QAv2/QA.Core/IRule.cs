@@ -10,6 +10,8 @@ namespace QA.Core
     {
         string FieldName { get; set; }
 
+        string GroupName { get; set; }
+
         bool Check(IDictionary<string, object> Pairs);
     }
 }

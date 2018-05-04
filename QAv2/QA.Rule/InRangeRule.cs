@@ -11,6 +11,8 @@ namespace QA.Rule
     {
         public string FieldName { get; set; }
 
+        public string GroupName { get; set; }
+
         public string[] ExpectedValueRange { get; set; }
 
         public bool Check(IDictionary<string, object> Pairs)

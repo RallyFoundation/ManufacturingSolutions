@@ -12,9 +12,13 @@ namespace QA.Model
     [JsonObject]
     public class ValidationRuleItem
     {
-        [DataMember(Name = "FiledName")]
+        [DataMember(Name = "FieldName")]
         [JsonProperty("FieldName")]
         public string FieldName { get; set; }
+
+        [DataMember(Name = "GroupName")]
+        [JsonProperty("GroupName")]
+        public string GroupName { get; set; }
 
         [DataMember(Name ="RuleType")]
         [JsonProperty("RuleType")]

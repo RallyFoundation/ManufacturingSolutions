@@ -11,6 +11,8 @@ namespace QA.Rule
     {
         public string FieldName { get; set; }
 
+        public string GroupName { get; set; }
+
         public int MinValue { get; set; }
 
         public int MaxValue { get; set; }
