@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.IO;
+using System.Xml;
 using MetroFramework.Forms;
 
 namespace MARXpress
@@ -19,6 +21,8 @@ namespace MARXpress
             InitializeComponent();
 
             this.loadAppConfigs();
+
+            this.loadUiLayoutConfigs();
         }
 
         private string OA3StartScriptPath;
@@ -66,6 +70,48 @@ namespace MARXpress
         //            break;
         //    }
         //}
+
+        private void loadUiLayoutConfigs()
+        {
+            string configPath = "Config\\ui-layout.xml";
+
+            if (File.Exists(configPath))
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(configPath);
+                Window window = Utility.XmlDeserialize(xml.InnerXml, typeof(Window), new Type[] { typeof(Tile[]), typeof(Tile) }, "utf-8") as Window;
+
+                if (window != null)
+                {
+                    this.Height = window.Height;
+                    this.Width = window.Width;
+                    this.Text = window.Text;
+
+                    if (window.Tiles != null)
+                    {
+                        Control control = null;
+
+                        Control[] children = null;
+
+                        foreach (var tile in window.Tiles)
+                        {
+                            children = (this.Controls.Find(tile.Name, true) as Control[]);
+
+                            if ((children != null) && (children.Length > 0))
+                            {
+                                control = children[0];
+
+                                control.Height = tile.Height;
+                                control.Width = tile.Width;
+                                control.Visible = tile.Visible;
+                                control.Location = new Point(tile.X, tile.Y);
+                                control.Text = tile.Text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private string getFullPath(string relativePath)
         {

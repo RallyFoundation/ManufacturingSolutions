@@ -38,6 +38,7 @@ Remove-Item ..\bin\Release\Module\SKULPNMapper\*.pdb -Recurse -Force</PostBuildS
     <Folder Include="Script\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Script\run-filebased.ps1" />
     <Compile Include="Script\run.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
