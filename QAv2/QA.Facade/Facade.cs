@@ -19,7 +19,9 @@ namespace QA.Facade
 
         public static Dictionary<string, object> Data;
 
-        public static Dictionary<string, bool> Result;
+        public static Dictionary<string, bool> Results;
+
+        public static List<Result> ResultDetails;
 
         public static void InitializeRules()
         {
@@ -377,9 +379,12 @@ namespace QA.Facade
         {
             if ((Data != null) && (Rules != null))
             {
-                Result = new Dictionary<string, bool>();
+                Results = new Dictionary<string, bool>();
+                ResultDetails = new List<Model.Result>();
 
                 bool result;
+
+                object resultDetail = null;
 
                 //foreach (string key in Data.Keys)
                 //{
@@ -393,16 +398,18 @@ namespace QA.Facade
                     {
                         foreach (IRule rule in Rules[field][group])
                         {
-                           result = rule.Check(Data);
+                            result = rule.Check(Data, out resultDetail);
 
-                            if (!Result.ContainsKey(field))
+                            if (!Results.ContainsKey(field))
                             {
-                                Result.Add(field, result);
+                                Results.Add(field, result);
                             }
                             else
                             {
-                                Result[field] = result;
+                                Results[field] = result;
                             }
+
+                            ResultDetails.Add((resultDetail as Result));
 
                             if (result == false)
                             {

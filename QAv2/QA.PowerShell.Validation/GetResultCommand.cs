@@ -15,7 +15,7 @@ namespace QA.PowerShell.Validation
         {
             Facade.Facade.ValidateData();
 
-            this.WriteObject(Facade.Facade.Result);
+            this.WriteObject(Facade.Facade.Results);
         }
     }
 }

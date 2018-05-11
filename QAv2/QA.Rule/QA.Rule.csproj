@@ -57,6 +57,10 @@
       <Project>{992d7932-3d88-4b40-af68-6e6750b86a00}</Project>
       <Name>QA.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QA.Model\QA.Model.csproj">
+      <Project>{194e20d0-04fe-4ce2-b8b1-3f2d83ea515f}</Project>
+      <Name>QA.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

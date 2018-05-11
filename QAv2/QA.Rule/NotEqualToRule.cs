@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QA.Core;
+using QA.Model;
 
 namespace QA.Rule
 {
@@ -15,21 +16,33 @@ namespace QA.Rule
 
         public string UnexpectedValue { get; set; }
 
-        public bool Check(IDictionary<string, object> Pairs)
+        public bool Check(IDictionary<string, object> Pairs, out object Result)
         {
+            Result result = new Result()
+            {
+                FieldName = FieldName,
+                RuleType = RuleType.NotEqualTo
+            };
+
+            Result = result;
+
             try
             {
                 if (Pairs == null)
                 {
+                    result.IsPassed = false;
                     return false;
                 }
 
                 if (!Pairs.ContainsKey(FieldName))
                 {
+                    result.IsPassed = false;
                     return false;
                 }
 
-                return ((string)Pairs[FieldName] != UnexpectedValue);
+                result.FieldValue = Pairs[FieldName];
+                result.IsPassed = ((string)Pairs[FieldName] != UnexpectedValue);
+                return result.IsPassed;
             }
             catch (Exception ex)
             {

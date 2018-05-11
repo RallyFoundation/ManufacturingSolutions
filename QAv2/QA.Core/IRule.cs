@@ -12,6 +12,6 @@ namespace QA.Core
 
         string GroupName { get; set; }
 
-        bool Check(IDictionary<string, object> Pairs);
+        bool Check(IDictionary<string, object> Pairs, out object Result);
     }
 }
