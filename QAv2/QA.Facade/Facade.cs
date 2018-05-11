@@ -404,17 +404,17 @@ namespace QA.Facade
                             {
                                 Results.Add(field, result);
                             }
-                            else
+                            else if(result == false)
                             {
                                 Results[field] = result;
                             }
 
                             ResultDetails.Add((resultDetail as Result));
 
-                            if (result == false)
-                            {
-                                break;
-                            }
+                            //if (result == false)
+                            //{
+                            //    break;
+                            //}
                         }
                     }
                 }
