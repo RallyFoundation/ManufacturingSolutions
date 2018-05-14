@@ -544,6 +544,15 @@ $ProductKeyID = $ProductKeyInfo.Key.ProductKeyID;
 $OA3ToolOutputXmlArchivePath = ($DPKOutputFilePath  + $ProductKeyID + ".report.xml");
 Copy-Item -Path $OA3OutputXmlFilePath -Destination $OA3ToolOutputXmlArchivePath -Force;
 
+$NewDPKInputFileName = $DPKFilePath + ".bak";
+$NewDPKOutputFileName = $OA3OutputXmlFilePath + ".bak";
+
+#Renames the current DPK input xml in the folder that contains the DPK xml files exported from FFKI to be ended with ".bak"
+Rename-Item $DPKFilePath -NewName $NewDPKInputFileName;
+
+#Renames the current DPK output xml in the folder that contains the DPK xml files exported from FFKI to be ended with ".bak"
+Rename-Item $OA3OutputXmlFilePath -NewName $NewDPKOutputFileName;
+
 $Message = [System.String]::Format("Finish processing '{0}', {1}", $DPKFilePath, [System.DateTime]::Now);
 $Message;
 $Message | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
@@ -557,7 +566,9 @@ if([System.String]::IsNullOrEmpty($SerialNumber) -eq $false)
    {
       Import-Module ($RootDir + "\Module\PSDPKSNBinder\PowerShellOA3DPKSNBinder.dll");
 
-      [xml]$ProductKeyInfo = [xml](Get-Content -Path $OA3OutputXmlFilePath); 
+      #[xml]$ProductKeyInfo = [xml](Get-Content -Path $OA3OutputXmlFilePath); 
+
+	  [xml]$ProductKeyInfo = [xml](Get-Content -Path $OA3ToolOutputXmlArchivePath); 
 
       $ProductKeyID = $ProductKeyInfo.Key.ProductKeyID;
 
