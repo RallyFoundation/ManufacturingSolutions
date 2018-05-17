@@ -85,6 +85,11 @@ var sqlGetKeysByBizID = edge.func('sql', {
     source: "SELECT TOP @KeyCount ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType"
 });
 
+var sqlSetSNByKeyID = edge.func('sql', {
+    connectionString: mssqlConnectionString,
+    source: "UPDATE ProductKeyInfo SET SerialNumber = @SerialNumber WHERE ProductKeyID = @ProductKeyID"
+});
+
 
 var http = require('http').Server(app);
 var server;
@@ -329,6 +334,35 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
                 res.end(JSON.stringify(items));
 
                 //res.end(JSON.stringify(result));
+            }
+            else {
+                console.log("No results");
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.post("/oa3/sn/", function (req, res) {
+    try {
+        console.log(mssqlConnectionString);
+
+        var queryItems = req.body;
+
+        var sqlParams = {
+            SerialNumber: queryItems.sn,
+            ProductKeyID: queryItems.keyid
+        };
+
+        console.log(sqlParams);
+
+        sqlSetSNByKeyID(sqlParams, function (error, result) {
+            if (error) { console.log(error); return; }
+            if (result) {
+                console.log(result);
+
+                res.end(JSON.stringify(result));
             }
             else {
                 console.log("No results");
