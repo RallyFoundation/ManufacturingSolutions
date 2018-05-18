@@ -82,12 +82,17 @@ var sqlGetSKU = edge.func('sql', {
 
 var sqlGetKeysByBizID = edge.func('sql', {
     connectionString: mssqlConnectionString,
-    source: "SELECT TOP @KeyCount ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType"
+    source: "SELECT TOP @KeyCount MSFTProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType"
 });
 
 var sqlSetSNByKeyID = edge.func('sql', {
     connectionString: mssqlConnectionString,
-    source: "UPDATE ProductKeyInfo SET SerialNumber = @SerialNumber WHERE ProductKeyID = @ProductKeyID"
+    source: "UPDATE ProductKeyInfo SET SerialNumber = @SerialNumber WHERE ProductKeyID IN (SELECT ProductKeyID FROM ProductKey WHERE MSFTProductKeyID = @ProductKeyID)"
+});
+
+var sqlSetOPNByKeyID = edge.func('sql', {
+    connectionString: mssqlConnectionString,
+    source: "UPDATE ProductKey SET OEMPartNumber = @OEMPartNumber WHERE MSFTProductKeyID = @ProductKeyID"
 });
 
 
@@ -206,11 +211,12 @@ app.get('/oa3/business/all', function (req, res) {
             }
             else {
                 console.log("No results");
+                res.end();
             }
         });
-
     } catch (err) {
         console.log(err);
+        res.end(err);
     }
 });
 
@@ -248,11 +254,12 @@ app.get('/oa3/parameter/:bizid/:name/:keytype', function (req, res) {
             }
             else {
                 console.log("No results");
+                res.end();
             }
         });
-
     } catch (err) {
         console.log(err);
+        res.end(err);
     }
 });
 
@@ -268,11 +275,12 @@ app.get('/oa3/sku/', function (req, res) {
             }
             else {
                 console.log("No results");
+                res.end();
             }
         });
-
     } catch (err) {
         console.log(err);
+        res.end(err);
     }
 });
 
@@ -291,11 +299,11 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
 
         var numKeyCount = Number(keyCount);
 
-        var sqlCommandText = "SELECT ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
+        var sqlCommandText = "SELECT MSFTProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
 
         if (numKeyCount > 0)
         {
-            sqlCommandText = "SELECT TOP " + keyCount + " ProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
+            sqlCommandText = "SELECT TOP " + keyCount + " MSFTProductKeyID FROM ProductKey WHERE ProfileID IN (SELECT ProfileID FROM Profile WHERE BusinessID = @BusinessId) AND KeyTypeId = @KeyType";
         }
 
         if (queryItems != null)
@@ -308,7 +316,7 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
             }
         }
 
-        sqlCommandText += " ORDER BY ProductKeyID DESC";
+        sqlCommandText += " ORDER BY MSFTProductKeyID DESC";
 
         console.log(sqlCommandText);
 
@@ -327,7 +335,7 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
                 var items = [];
 
                 for (var i = 0; i < result.length; i++) {
-                    items.push(result[i].ProductKeyID);
+                    items.push(result[i].MSFTProductKeyID);
                 }
 
                 console.log(items);
@@ -337,10 +345,12 @@ app.post("/oa3/keys/query/:keycount/:bizid/:keytype", function (req, res) {
             }
             else {
                 console.log("No results");
+                res.end();
             }
         });
     } catch (err) {
         console.log(err);
+        res.end(err);
     }
 });
 
@@ -362,13 +372,56 @@ app.post("/oa3/sn/", function (req, res) {
             if (result) {
                 console.log(result);
 
-                res.end(JSON.stringify(result));
+                if (Number(result) == 1) {
+                    res.end(sqlParams.ProductKeyID);
+                }
+                else {
+                    res.end(JSON.stringify(result));
+                }
             }
             else {
                 console.log("No results");
+                res.end();
             }
         });
     } catch (err) {
         console.log(err);
+        res.end(err);
+    }
+});
+
+app.post("/oa3/opn/", function (req, res) {
+    try {
+        console.log(mssqlConnectionString);
+
+        var queryItems = req.body;
+
+        var sqlParams = {
+            OEMPartNumber: queryItems.opn,
+            ProductKeyID: queryItems.keyid
+        };
+
+        console.log(sqlParams);
+
+        sqlSetOPNByKeyID(sqlParams, function (error, result) {
+            if (error) { console.log(error); return; }
+            if (result) {
+                console.log(result);
+
+                if (Number(result) == 1) {
+                    res.end(sqlParams.ProductKeyID);
+                }
+                else {
+                    res.end(JSON.stringify(result));
+                }
+            }
+            else {
+                console.log("No results");
+                res.end();
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.end(err);
     }
 });
