@@ -394,29 +394,35 @@ namespace QA.Facade
 
                 foreach (string field in Data.Keys)
                 {
-                    foreach (string group in Rules[field].Keys)
+                    if (Rules.ContainsKey(field))
                     {
-                        foreach (IRule rule in Rules[field][group])
+                        foreach (string group in Rules[field].Keys)
                         {
-                            result = rule.Check(Data, out resultDetail);
-
-                            if (!Results.ContainsKey(field))
+                            if (Rules[field].ContainsKey(group))
                             {
-                                Results.Add(field, result);
-                            }
-                            else if(result == false)
-                            {
-                                Results[field] = result;
-                            }
+                                foreach (IRule rule in Rules[field][group])
+                                {
+                                    result = rule.Check(Data, out resultDetail);
 
-                            ResultDetails.Add((resultDetail as Result));
+                                    if (!Results.ContainsKey(field))
+                                    {
+                                        Results.Add(field, result);
+                                    }
+                                    else if (result == false)
+                                    {
+                                        Results[field] = result;
+                                    }
 
-                            //if (result == false)
-                            //{
-                            //    break;
-                            //}
+                                    ResultDetails.Add((resultDetail as Result));
+
+                                    //if (result == false)
+                                    //{
+                                    //    break;
+                                    //}
+                                }
+                            }                          
                         }
-                    }
+                    }             
                 }
             }
         }

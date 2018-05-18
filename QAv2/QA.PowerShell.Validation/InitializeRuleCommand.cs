@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using QA.Facade;
+using QA.Core;
 
 namespace QA.PowerShell.Validation
 {
@@ -23,6 +24,8 @@ namespace QA.PowerShell.Validation
             }
 
             Facade.Facade.InitializeRules();
+
+            this.WriteObject(Facade.Facade.Rules);
         }
     }
 }

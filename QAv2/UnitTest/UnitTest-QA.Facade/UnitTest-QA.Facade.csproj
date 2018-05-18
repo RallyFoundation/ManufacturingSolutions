@@ -60,6 +60,10 @@
       <Project>{ac754246-557e-4e39-a12c-d630561e8756}</Project>
       <Name>QA.Facade</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\QA.Model\QA.Model.csproj">
+      <Project>{194e20d0-04fe-4ce2-b8b1-3f2d83ea515f}</Project>
+      <Name>QA.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="decode.xml">

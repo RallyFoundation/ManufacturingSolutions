@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QA.Facade;
+using QA.Model;
 
 namespace UnitTest_QA.Facade
 {
@@ -31,6 +32,16 @@ namespace UnitTest_QA.Facade
                 foreach (string key in QA.Facade.Facade.Data.Keys)
                 {
                     Console.WriteLine(key);
+                }
+            }
+
+            QA.Facade.Facade.ValidateData();
+
+            if (QA.Facade.Facade.ResultDetails != null)
+            {
+                foreach (var result in QA.Facade.Facade.ResultDetails)
+                {
+                    Console.WriteLine(String.Format("{0}:{1}:{2}:{3}", result.FieldName, result.FieldValue, result.RuleType, result.IsPassed));
                 }
             }
 
