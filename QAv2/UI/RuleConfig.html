@@ -59,6 +59,7 @@
             <tr>
                 <th></th>
                 <th>Field Name</th>
+                <th>Group Name</th>
                 <th>Rule Type</th>
                 <th>Field Value</th>
             </tr>
@@ -68,6 +69,9 @@
                 </td>
                 <td>
                     <input type="text" ng-model="ruleItem.FieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                </td>
+                <td>
+                    <input type="text" ng-model="ruleItem.GroupName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                 </td>
                 <td>
                     <select ng-model="ruleItem.RuleType" class="form-control">
@@ -261,6 +265,7 @@
                     {
                         id: ruleId,
                         FieldName: "Field-" + ruleId,
+                        GroupName: "DEFAULT",
                         RuleType: "EqualTo",
                         FieldValue: null,
                         FieldAltValue: null,
