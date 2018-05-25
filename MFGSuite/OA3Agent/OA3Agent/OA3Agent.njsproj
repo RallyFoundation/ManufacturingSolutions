@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>wds-api.js</StartupFile>
+    <StartupFile>log-monitor.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,6 +34,9 @@
     <Compile Include="app.js" />
     <Compile Include="file-api.js" />
     <Compile Include="forwarder.js" />
+    <Compile Include="log-monitor.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="mongo-rest.js" />
     <Compile Include="powershell.js" />
     <Compile Include="routes\index.js" />
