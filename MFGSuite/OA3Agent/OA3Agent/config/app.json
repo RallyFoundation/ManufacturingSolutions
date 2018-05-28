@@ -20,5 +20,6 @@
   "install-image-repository": "D:\\WDS-Images\\Install",
   "boot-image-repository": "D:\\WDS-Images\\Boot",
   "ffu-image-repository": "D:\\WDS-Images\\FFU",
-  "log-repository": "D:\\WDS-Images\\Log"
+  "log-repository": "D:\\WDS-Images\\Log",
+  "log-keywords": "error|exception|failed|failure|cannot|Error|Exception|Failed|Failure|Cannot"
 }

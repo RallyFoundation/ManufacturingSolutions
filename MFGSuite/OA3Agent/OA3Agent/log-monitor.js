@@ -2,8 +2,29 @@
 var config = require("nodejs-config")(__dirname);
 var fs = require("fs");
 var csv = require("fast-csv");
+//var io = require('socket.io-client');
+//var socket = io.connect((webSocketServerHost + ':' + webSocketServerPort), { reconnect: true });
+
+//socket.on('connect', function (socket) {
+//    console.log('Connected!');
+//});
+
+var webSocketServerHost = config.get("app.web-socket-server-host");
+var webSocketServerPort = config.get("app.web-socket-server-port");
+
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+http.listen(webSocketServerPort, function () {
+    console.log("Web Socket server is running, listening on port \"" + webSocketServerPort + "\"...");
+});
+
 
 var logRepository = config.get("app.log-repository");
+var logKeywords = config.get("app.log-keywords");
+var logKeywordRegPattern = new RegExp(logKeywords, "g");
 
 
 // Initialize watcher.
@@ -25,7 +46,12 @@ var parseLog = function (path) {
 
     csv.fromStream(stream, { ignoreEmpty: true })
         .on("data", function (data) {
-            console.log(data);
+            if (logKeywordRegPattern.test(data[1])) {
+                console.log(data);
+                console.log(path);
+                io.emit("msg:logm", path);
+            }
+            //console.log(data);
         })
         .on("end", function () {
             console.log("done");
