@@ -165,6 +165,12 @@ io.on("connection", function (socket) {
         io.emit("msg:msgrly", data);
     });
 
+    socket.on("msg:logm", function (data) {
+        //persistData(data);
+        console.log(data);
+        io.emit("msg:logmfr", data);
+    });
+
     //socket.on("msg:cltstat", function (data) {
 
     //    var ipAddress = socket.handshake.address;

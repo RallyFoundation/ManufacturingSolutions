@@ -64,7 +64,7 @@
                 <th>Image</th>
                 <th>Staus</th>
             </tr>
-            <tr ng-repeat="wdsClient in wdsClients">
+            <tr ng-repeat="wdsClient in wdsClients" ng-style="{'background-color': getBackgroundColorByModel(wdsClient)}">
                 <td>{{wdsClient.Key}}</td>
                 <td>{{wdsClient.TransID}}</td>
                 <td>{{wdsClient.Data}}</td>
@@ -161,6 +161,14 @@
 
             $scope.hideProgress = function () {
                 ngDialog.closeAll();
+            };
+
+            $scope.getBackgroundColorByModel = function (model) {
+
+                if (model.HasError == true) {
+                    return "red";
+                }
+                else { return null; }
             };
 
             $scope.getWdsClients = function ()
@@ -284,6 +292,35 @@
                     } else {
                         $scope.wdsClients.push(obj);
                     }
+                }
+
+                document.getElementById("btn_RefreshMdl").click();
+            });
+
+            $scope.socket.on("msg:logmfr", function (obj) {
+
+                //$scope.wdsClients.push(obj);
+
+                if (obj) {
+                    if ($scope.wdsClients.length > 0) {
+                        var isNewObj = true;
+
+                        for (var i = 0; i < $scope.wdsClients.length; i++) {
+                            if ($scope.wdsClients[i].TransID = obj.TransID) {
+                                $scope.wdsClients[i].HasError = true;
+                                $scope.wdsClients[i].ErrorDetail = obj.ErrorDetail;
+                                //isNewObj = false;
+                                break;
+                            }
+                        }
+
+                        //if (isNewObj == true) {
+                        //    $scope.wdsClients.push(obj);
+                        //}
+                    }
+                    //else {
+                    //    $scope.wdsClients.push(obj);
+                    //}
                 }
 
                 document.getElementById("btn_RefreshMdl").click();
