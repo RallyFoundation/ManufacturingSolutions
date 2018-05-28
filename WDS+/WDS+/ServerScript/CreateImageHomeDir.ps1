@@ -1,11 +1,11 @@
-﻿mkdir D:\WDS-Images\Install\
-mkdir D:\WDS-Images\Boot\
-mkdir D:\WDS-Images\FFU\
-mkdir D:\WDS-Images\Test\
-mkdir D:\WDS-Images\Log\
+﻿mkdir C:\WDS-Images\Install\
+mkdir C:\WDS-Images\Boot\
+mkdir C:\WDS-Images\FFU\
+mkdir C:\WDS-Images\Test\
+mkdir C:\WDS-Images\Log\
 
 
-$ImagePath = "D:\WDS-Images";
+$ImagePath = "C:\WDS-Images";
 $ShareName = "WDS-Images";
 $ShareType = 0;
 $WMIObj = [wmiClass] 'Win32_share';

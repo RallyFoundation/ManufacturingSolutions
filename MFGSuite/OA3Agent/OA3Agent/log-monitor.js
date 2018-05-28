@@ -1,4 +1,4 @@
-﻿var chokidar = require('chokidar');
+﻿var chokidar = require("chokidar");
 var config = require("nodejs-config")(__dirname);
 var fs = require("fs");
 var csv = require("fast-csv");
@@ -8,11 +8,12 @@ var logKeywords = config.get("app.log-keywords");
 var webSocketServerHost = config.get("app.web-socket-server-host");
 var webSocketServerPort = config.get("app.web-socket-server-port");
 
-var io = require('socket.io-client');
-var socket = io.connect((webSocketServerHost + ':' + webSocketServerPort), { reconnect: false });
+var io = require("socket.io-client");
 
-socket.on('connect', function (socket) {
-    console.log('Connected!');
+var socket = io.connect(("http://" + webSocketServerHost + ":" + webSocketServerPort), { reconnect: true });
+
+socket.on("connect", function (socket) {
+    console.log("Connected!");
 });
 
 //var express = require('express');
