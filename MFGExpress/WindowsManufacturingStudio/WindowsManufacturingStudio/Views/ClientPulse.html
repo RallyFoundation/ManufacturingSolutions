@@ -306,7 +306,7 @@
                         var isNewObj = true;
 
                         for (var i = 0; i < $scope.wdsClients.length; i++) {
-                            if ($scope.wdsClients[i].TransID = obj.TransID) {
+                            if ($scope.wdsClients[i].TransID == obj.TransID) {
                                 $scope.wdsClients[i].HasError = true;
                                 $scope.wdsClients[i].ErrorDetail = obj.ErrorDetail;
                                 //isNewObj = false;

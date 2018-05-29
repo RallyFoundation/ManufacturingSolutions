@@ -45,8 +45,11 @@ var parseLog = function (path) {
 
     console.log(path);
 
-    var transId = path.substring((path.lastIndexOf("_") + 1));
-    transId = transId.substring(0, transId.lastIndexOf("."));
+    //var transId = path.substring((path.lastIndexOf("_") + 1));
+    //transId = transId.substring(0, transId.lastIndexOf("."));
+
+    var transId = path.substring((path.lastIndexOf("\\") + 1));
+    transId = transId.substring(0, transId.lastIndexOf("_"));
 
     console.log(transId);
 
@@ -71,8 +74,8 @@ var parseLog = function (path) {
 
 // Add event listeners.
 watcher
-    //.on('add', path => parseLog(path))
-    .on('change', path => parseLog(path))
+    .on('add', path => parseLog(path))
+    //.on('change', path => parseLog(path))
     //.on('unlink', path => log(`File ${path} has been removed`));
 
 
