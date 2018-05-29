@@ -64,7 +64,7 @@
                 <th>Image</th>
                 <th>Staus</th>
             </tr>
-            <tr ng-repeat="wdsClient in wdsClients" ng-style="{'background-color': getBackgroundColorByModel(wdsClient)}">
+            <tr ng-repeat="wdsClient in wdsClients" ng-style="{'background-color': getBackgroundColorByModel(wdsClient)}" ng-click="showErrorDetailDialog(wdsClient)">
                 <td>{{wdsClient.Key}}</td>
                 <td>{{wdsClient.TransID}}</td>
                 <td>{{wdsClient.Data}}</td>
@@ -137,6 +137,8 @@
             $scope.socket = io.connect(settings.WebSocketUrl);
 
             $scope.wdsClients = [];
+
+            $scope.currentErrorDetails = [];
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
@@ -265,6 +267,35 @@
                 }   
             };
 
+            $scope.showErrorDetailDialog = function (wdsClient) {
+
+                if ((wdsClient.HasError == true) && (wdsClient.ErrorDetails != null)) {
+                    $scope.currentErrorDetails.splice(0);
+
+                    for (var i = 0; i < wdsClient.ErrorDetails.length; i++) {
+                        $scope.currentErrorDetails.push(wdsClient.ErrorDetails[i]);
+                    }
+
+                    $scope.currentDialog = ngDialog.open({
+                        scope: $scope,
+                        className: 'ngdialog-theme-default',
+                        template: 'error-detail-template.html',
+                        //plain: true,
+                        showClose: true,
+                        closeByDocument: false,
+                        closeByEscape: false,
+                        width: 640,
+                        preCloseCallback: function (value) {
+                            return true;
+                        }
+                    });
+                }
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
             $scope.refreshModel = function () { };
 
             $scope.socket.on("msg:clientStat", function (obj) {
@@ -308,7 +339,13 @@
                         for (var i = 0; i < $scope.wdsClients.length; i++) {
                             if ($scope.wdsClients[i].TransID == obj.TransID) {
                                 $scope.wdsClients[i].HasError = true;
-                                $scope.wdsClients[i].ErrorDetail = obj.ErrorDetail;
+
+                                if (!$scope.wdsClients[i].ErrorDetails)
+                                {
+                                    $scope.wdsClients[i].ErrorDetails = [];
+                                }
+
+                                $scope.wdsClients[i].ErrorDetails.push({ TransID: obj.TransID, LogPath: obj.LogPath, Time: obj.ErrorDetail.Time, Event: obj.ErrorDetail.Event });
                                 //isNewObj = false;
                                 break;
                             }

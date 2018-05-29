@@ -1,0 +1,19 @@
+﻿<div>
+    <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">{{currentErrorDetails[0].TransID}}</p>
+    <br />
+    <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">{{currentErrorDetails[0].LogPath}}</p>
+    <br />
+    <table class="table">
+        <tr>
+            <th>Time</th>
+            <th>Event</th>
+        </tr>
+        <tr ng-repeat="errorDetail in currentErrorDetails">
+            <td>{{errorDetail.Time}}</td>
+            <td>{{errorDetail.Event}}</td>
+        </tr>
+    </table>
+    <p style="text-align:center">
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeDialog()">Go Back</a>
+    </p>
+</div>
