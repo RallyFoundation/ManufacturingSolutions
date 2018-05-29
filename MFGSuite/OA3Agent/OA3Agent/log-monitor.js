@@ -43,15 +43,24 @@ var parseLog = function (path) {
     //log(`File ${path} has been added`);
     //log(`File ${path} has been changed`);
 
+    console.log(path);
+
+    var transId = path.substring((path.lastIndexOf("_") + 1));
+    transId = transId.substring(0, transId.lastIndexOf("."));
+
+    console.log(transId);
+
     var stream = fs.createReadStream(path);
 
     csv.fromStream(stream, { ignoreEmpty: true })
         .on("data", function (data) {
             if (logKeywordRegPattern.test(data[1])) {
-                console.log(data);
-                console.log(path);
+                //console.log(data);         
                 //io.emit("msg:logm", path);
-                socket.emit("msg:logm", path);
+
+                var msg = { TransID: transId, ErrorDetail: { Time: data[0], Event: data[1] }, LogPath: path };
+                console.log(msg);
+                socket.emit("msg:logm", msg);
             }
             //console.log(data);
         })
