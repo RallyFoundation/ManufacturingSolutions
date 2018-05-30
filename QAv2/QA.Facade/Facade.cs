@@ -184,6 +184,17 @@ namespace QA.Facade
                                     };
                                     break;
                                 }
+                            case RuleType.Reference:
+                                {
+                                    rule = new ReferenceRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        ReferenceFieldName = ruleItems[i].ReferenceFieldName,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString()
+                                    };
+                                    break;
+                                }
                             default:
                                 break;
                         }

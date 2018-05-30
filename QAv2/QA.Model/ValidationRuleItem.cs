@@ -16,6 +16,10 @@ namespace QA.Model
         [JsonProperty("FieldName")]
         public string FieldName { get; set; }
 
+        [DataMember(Name = "ReferenceFieldName")]
+        [JsonProperty("ReferenceFieldName")]
+        public string ReferenceFieldName { get; set; }
+
         [DataMember(Name = "GroupName")]
         [JsonProperty("GroupName")]
         public string GroupName { get; set; }

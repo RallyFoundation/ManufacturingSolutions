@@ -17,6 +17,7 @@ namespace QA.Model
         Min = 6,
         Max = 7,
         MinAndMax = 8,
-        NotNull = 9
+        NotNull = 9,
+        Reference = 10
     }
 }

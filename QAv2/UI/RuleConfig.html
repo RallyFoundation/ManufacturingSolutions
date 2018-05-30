@@ -95,6 +95,10 @@
                         <div ng-switch-when="NotEqualTo">
                             <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                         </div>
+                        <div ng-switch-when="Reference">
+                            <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                        </div>
                         <div ng-switch-when="Min">
                             <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
                         </div>

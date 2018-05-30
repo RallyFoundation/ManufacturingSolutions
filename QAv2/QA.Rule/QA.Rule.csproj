@@ -50,6 +50,7 @@
     <Compile Include="NotNullRule.cs" />
     <Compile Include="OutOfRangeRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceRule.cs" />
     <Compile Include="StringLengthRule.cs" />
   </ItemGroup>
   <ItemGroup>
