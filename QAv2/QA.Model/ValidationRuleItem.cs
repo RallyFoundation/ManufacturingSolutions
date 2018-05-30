@@ -51,5 +51,13 @@ namespace QA.Model
         [DataMember(Name = "UnexpectedValues")]
         [JsonProperty("UnexpectedValues")]
         public string[] UnexpectedValues { get; set; }
+
+        [DataMember(Name = "SequenceSeparator")]
+        [JsonProperty("SequenceSeparator")]
+        public string SequenceSeparator { get; set; }
+
+        [DataMember(Name = "SequenceIndex")]
+        [JsonProperty("SequenceIndex")]
+        public int SequenceIndex { get; set; }
     }
 }

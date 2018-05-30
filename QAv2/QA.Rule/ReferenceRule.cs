@@ -20,7 +20,7 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.EqualTo
+                RuleType = RuleType.Reference
             };
 
             Result = result;

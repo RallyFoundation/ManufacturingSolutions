@@ -18,6 +18,7 @@ namespace QA.Model
         Max = 7,
         MinAndMax = 8,
         NotNull = 9,
-        Reference = 10
+        Reference = 10,
+        NumberSequenceComparison = 11
     }
 }

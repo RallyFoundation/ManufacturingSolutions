@@ -195,6 +195,18 @@ namespace QA.Facade
                                     };
                                     break;
                                 }
+                            case RuleType.NumberSequenceComparison:
+                                {
+                                    rule = new NumberSequenceComparisonRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        Separator = ruleItems[i].SequenceSeparator,
+                                        Index = ruleItems[i].SequenceIndex,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString()
+                                    };
+                                    break;
+                                }
                             default:
                                 break;
                         }
