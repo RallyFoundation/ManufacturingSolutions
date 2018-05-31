@@ -21,7 +21,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.NotNull
+                RuleType = RuleType.NotNull,
+                RuleInstance = this
             };
 
             Result = result;

@@ -24,7 +24,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.StringLength
+                RuleType = RuleType.StringLength,
+                RuleInstance = this
             };
 
             Result = result;

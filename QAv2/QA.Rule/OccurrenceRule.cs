@@ -22,7 +22,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.Occurrence
+                RuleType = RuleType.Occurrence,
+                RuleInstance = this
             };
 
             Result = result;

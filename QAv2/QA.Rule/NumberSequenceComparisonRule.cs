@@ -23,7 +23,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.NumberSequenceComparison
+                RuleType = RuleType.NumberSequenceComparison,
+                RuleInstance = this
             };
 
             Result = result;

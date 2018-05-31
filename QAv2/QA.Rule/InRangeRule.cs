@@ -23,7 +23,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.InRange
+                RuleType = RuleType.InRange,
+                RuleInstance = this
             };
 
             Result = result;

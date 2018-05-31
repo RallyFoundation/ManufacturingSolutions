@@ -450,8 +450,11 @@ namespace QA.Facade
                                         Results[field] = result;
                                     }
 
-                                    ResultDetails.Add((resultDetail as Result));
-
+                                    if (resultDetail != null)
+                                    {
+                                        ResultDetails.Add((resultDetail as Result));
+                                    }
+                                    
                                     //if (result == false)
                                     //{
                                     //    break;

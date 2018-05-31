@@ -22,7 +22,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.OutOfRange
+                RuleType = RuleType.OutOfRange,
+                RuleInstance = this
             };
 
             Result = result;

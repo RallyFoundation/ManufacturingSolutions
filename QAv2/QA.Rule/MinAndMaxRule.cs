@@ -24,7 +24,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.MinAndMax
+                RuleType = RuleType.MinAndMax,
+                RuleInstance = this
             };
 
             Result = result;

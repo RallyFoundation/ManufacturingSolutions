@@ -12,6 +12,8 @@ namespace QA.Model
 
         public RuleType RuleType { get; set; }
 
+        public object RuleInstance { get; set; }
+
         public object FieldValue { get; set; }
 
         public bool IsPassed { get; set; }

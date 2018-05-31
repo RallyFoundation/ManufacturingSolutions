@@ -23,7 +23,8 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.NotEqualTo
+                RuleType = RuleType.NotEqualTo,
+                RuleInstance = this
             };
 
             Result = result;
