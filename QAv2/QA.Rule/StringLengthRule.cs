@@ -17,6 +17,7 @@ namespace QA.Rule
         public int MinValue { get; set; }
 
         public int MaxValue { get; set; }
+        public string[] QuotedFields { get; set; }
 
         public bool Check(IDictionary<string, object> Pairs, out object Result)
         {
@@ -44,6 +45,20 @@ namespace QA.Rule
 
                 result.FieldValue = Pairs[FieldName];
                 result.IsPassed = (((string)Pairs[FieldName]).Length <= MaxValue) && (((string)Pairs[FieldName]).Length >= MinValue);
+
+                if (QuotedFields != null)
+                {
+                    result.Description = new Dictionary<string, object>();
+
+                    foreach (string field in QuotedFields)
+                    {
+                        if (Pairs.ContainsKey(field))
+                        {
+                            (result.Description as Dictionary<string, object>).Add(field, Pairs[field]);
+                        }
+                    }
+                }
+
                 return result.IsPassed;
             }
             catch (Exception ex)

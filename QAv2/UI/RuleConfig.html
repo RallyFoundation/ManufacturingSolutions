@@ -62,6 +62,7 @@
                 <th>Group Name</th>
                 <th>Rule Type</th>
                 <th>Field Value</th>
+                <th>Quoted Fields</th>
             </tr>
             <tr ng-repeat="ruleItem in ruleItems">
                 <td>
@@ -87,6 +88,7 @@
                         <option value="MinAndMax">Min And Max</option>
                         <option value="NotNull">Not Null</option>
                         <option value="NumberSequenceComparison">Number Sequence Comparison</option>
+                        <option value="Occurrence">Occurrence</option>
                     </select>
                 </td>
                 <td>
@@ -178,9 +180,26 @@
                             <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
                             <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
                         </div>
+                        <div ng-switch-when="Occurrence">
+                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
+                        </div>
                     </div>
                     <!--<input type="text" ng-model="ruleItem.FieldValue" ng-show="(ruleItem.RuleType != 'NotNull')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                     <input type="text" ng-model="ruleItem.FieldAltValue" ng-show="(ruleItem.RuleType == 'InAndOutOfRange') || (ruleItem.RuleType == 'StringLength') || (ruleItem.RuleType == 'MinAndMax')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />-->
+                </td>
+                <td>
+                    <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" />
+                    <table>
+                        <tr ng-repeat="val in ruleItem.QuotedFields">
+                            <td>
+                                {{val}}
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.QuotedFields, $index)">Remove</a>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -313,6 +332,20 @@
             //        }
             //    }
             //};
+
+            $scope.setRuleItemQuotedFields = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].QuotedFields == null) {
+                        $scope.ruleItems[index].QuotedFields = [];
+                    }
+
+                    if ($scope.ruleItems[index].QuotedFields.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].QuotedFields.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }
+                }
+            };
 
             $scope.setRuleItemExpectedValues = function (index, event) {
                 if (event.keyCode == "13") {

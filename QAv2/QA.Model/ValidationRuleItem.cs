@@ -59,5 +59,9 @@ namespace QA.Model
         [DataMember(Name = "SequenceIndex")]
         [JsonProperty("SequenceIndex")]
         public int SequenceIndex { get; set; }
+
+        [DataMember(Name = "QuotedFields")]
+        [JsonProperty("QuotedFields")]
+        public string[] QuotedFields { get; set; }
     }
 }

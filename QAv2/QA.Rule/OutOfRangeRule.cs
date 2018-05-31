@@ -15,6 +15,7 @@ namespace QA.Rule
         public string GroupName { get; set; }
 
         public string[] UnexpectedValueRange { get; set; }
+        public string[] QuotedFields { get; set; }
 
         public bool Check(IDictionary<string, object> Pairs, out object Result)
         {
@@ -42,6 +43,20 @@ namespace QA.Rule
 
                 result.FieldValue = Pairs[FieldName];
                 result.IsPassed = !UnexpectedValueRange.Contains((string)Pairs[FieldName]);
+
+                if (QuotedFields != null)
+                {
+                    result.Description = new Dictionary<string, object>();
+
+                    foreach (string field in QuotedFields)
+                    {
+                        if (Pairs.ContainsKey(field))
+                        {
+                            (result.Description as Dictionary<string, object>).Add(field, Pairs[field]);
+                        }
+                    }
+                }
+
                 return result.IsPassed;
             }
             catch (Exception ex)

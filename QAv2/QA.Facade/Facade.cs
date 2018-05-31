@@ -207,12 +207,26 @@ namespace QA.Facade
                                     };
                                     break;
                                 }
+                            case RuleType.Occurrence:
+                                {
+                                    rule = new OccurrenceRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        MinValue = ruleItems[i].MinValue,
+                                        MaxValue = ruleItems[i].MaxValue,
+                                    };
+
+                                    break;
+                                }
                             default:
                                 break;
                         }
 
                         if (rule != null)
                         {
+                            rule.QuotedFields = ruleItems[i].QuotedFields;
+
                             if (!Rules.ContainsKey(rule.FieldName))
                             {
                                 Rules.Add(rule.FieldName, new Dictionary<string, List<IRule>>()

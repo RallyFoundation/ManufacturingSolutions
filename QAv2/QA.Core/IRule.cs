@@ -12,6 +12,8 @@ namespace QA.Core
 
         string GroupName { get; set; }
 
+        string[] QuotedFields { get; set; }
+
         bool Check(IDictionary<string, object> Pairs, out object Result);
     }
 }
