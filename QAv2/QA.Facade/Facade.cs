@@ -21,7 +21,7 @@ namespace QA.Facade
 
         public static Dictionary<string, bool> Results;
 
-        public static List<Result> ResultDetails;
+        public static Dictionary<string, List<Result>> ResultDetails;
 
         public static void InitializeRules()
         {
@@ -417,7 +417,7 @@ namespace QA.Facade
             if ((Data != null) && (Rules != null))
             {
                 Results = new Dictionary<string, bool>();
-                ResultDetails = new List<Model.Result>();
+                ResultDetails = new Dictionary<string, List<Result>>();
 
                 bool result;
 
@@ -450,9 +450,14 @@ namespace QA.Facade
                                         Results[field] = result;
                                     }
 
+                                    if (!ResultDetails.ContainsKey(field))
+                                    {
+                                        ResultDetails.Add(field, new List<Result>());
+                                    }
+
                                     if (resultDetail != null)
                                     {
-                                        ResultDetails.Add((resultDetail as Result));
+                                        ResultDetails[field].Add((resultDetail as Result));
                                     }
                                     
                                     //if (result == false)

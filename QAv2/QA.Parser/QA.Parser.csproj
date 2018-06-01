@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Decoded4KHHXmlParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationResultObjectToXmlConverter.cs" />
     <Compile Include="ValidationRuleConfigurationJsonParser.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,13 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.NotNull,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.NotNull,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

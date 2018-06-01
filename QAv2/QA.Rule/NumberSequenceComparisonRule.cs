@@ -24,7 +24,16 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.NumberSequenceComparison,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.NumberSequenceComparison,
+                    SequenceIndex = Index,
+                    SequenceSeparator = Separator,
+                    FieldValue = ExpectedValue,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

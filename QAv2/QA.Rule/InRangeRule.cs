@@ -24,7 +24,14 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.InRange,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.InRange,
+                    ExpectedValues = ExpectedValueRange,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

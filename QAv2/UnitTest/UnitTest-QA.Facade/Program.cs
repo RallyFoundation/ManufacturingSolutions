@@ -39,10 +39,20 @@ namespace UnitTest_QA.Facade
 
             if (QA.Facade.Facade.ResultDetails != null)
             {
-                foreach (var result in QA.Facade.Facade.ResultDetails)
+                //foreach (var result in QA.Facade.Facade.ResultDetails)
+                //{
+                //    Console.WriteLine(String.Format("{0}:{1}:{2}:{3}", result.FieldName, result.FieldValue, result.RuleType, result.IsPassed));
+                //}
+
+                foreach (var key in QA.Facade.Facade.ResultDetails.Keys)
                 {
-                    Console.WriteLine(String.Format("{0}:{1}:{2}:{3}", result.FieldName, result.FieldValue, result.RuleType, result.IsPassed));
+                    foreach (var result in QA.Facade.Facade.ResultDetails[key])
+                    {
+                        Console.WriteLine(String.Format("{0}:{1}:{2}:{3}", result.FieldName, result.FieldValue, result.RuleType, result.IsPassed));
+                    }
                 }
+
+                
             }
 
             Console.WriteLine("Ready.");

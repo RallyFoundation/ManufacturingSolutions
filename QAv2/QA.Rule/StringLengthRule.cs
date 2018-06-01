@@ -25,7 +25,15 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.StringLength,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.StringLength,
+                    MaxValue = MaxValue,
+                    MinValue = MinValue,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

@@ -24,7 +24,14 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.NotEqualTo,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.NotEqualTo,
+                    FieldValue = UnexpectedValue,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

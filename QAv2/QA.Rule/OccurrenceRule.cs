@@ -23,7 +23,15 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.Occurrence,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.Occurrence,
+                    MaxValue = MaxValue,
+                    MinValue = MinValue,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;

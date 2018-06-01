@@ -474,13 +474,14 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 
 Initialize-Rule -Path ($RootDir + "\Config\rule.json");
 Initialize-Data -Path $DecodeFilePath;
-Get-Result;
+
+$ResultJson = Get-Result | ConvertTo-Json;
 
 [xml]$ResultXml;
 
-$ResultXml.InnerXml | Out-File -Encoding utf8 -FilePath $ResultXmlFilePath -Force;
+#$ResultXml.InnerXml | Out-File -Encoding utf8 -FilePath $ResultXmlFilePath -Force;
 
-$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
+#$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
 $ResultJson | Out-File -Encoding utf8 -FilePath $ResultJsonFilePath -Force;
 
 #if(($ResultXml.TestItems.TotalPhysicalRAM.Result -eq "Failed") -or ($ResultXml.TestItems.PrimaryDiskTotalCapacity.Result -eq "Failed"))

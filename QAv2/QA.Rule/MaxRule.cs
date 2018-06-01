@@ -24,7 +24,14 @@ namespace QA.Rule
             {
                 FieldName = FieldName,
                 RuleType = RuleType.Max,
-                RuleInstance = this
+                RuleInstance = new ValidationRuleItem()
+                {
+                    FieldName = FieldName,
+                    GroupName = GroupName,
+                    RuleType = RuleType.Max,
+                    MaxValue = MaxValue,
+                    QuotedFields = QuotedFields
+                }
             };
 
             Result = result;
