@@ -212,7 +212,7 @@ namespace QA.Parser
 
                         if ((result.Description != null) && (result.Description is IDictionary<string, object>))
                         {
-                            resultDescription = (resultDescription as IDictionary<string, object>);
+                            resultDescription = (result.Description as IDictionary<string, object>);
 
                             foreach (string key in resultDescription.Keys)
                             {

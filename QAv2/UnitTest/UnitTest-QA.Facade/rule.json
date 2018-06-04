@@ -1,6 +1,6 @@
 Settings= {
   "Data": [
-    
+
     {
       "id": "f6bf0f53-d68f-4c4b-b945-f1659c96c2f7",
       "FieldName": "SmbiosSystemManufacturer",
@@ -129,6 +129,21 @@ Settings= {
       "FieldValue": 1,
       "FieldAltValue": 65536,
       "$$hashKey": "object:73"
+    },
+    {
+      "id": "55fa94c3-8f94-4622-b4dd-a4caeff96184",
+      "FieldName": "OSType",
+      "GroupName": "DEFAULT",
+      "RuleType": "EqualTo",
+      "FieldValue": "FullOS",
+      "FieldAltValue": null,
+      "MinValue": -1,
+      "MaxValue": -1,
+      "ExpectedValues": null,
+      "UnexpectedValues": null,
+      "QuotedFields": [ "OsBuild" ],
+      "$$hashKey": "object:49",
+      "currentInputValue": null
     }
   ]
 };
