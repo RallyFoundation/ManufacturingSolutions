@@ -16,7 +16,7 @@ namespace QA.Parser
         {
             string resultXml = "<TestItems />";
 
-            if (Data == null || (!(Data is IDictionary<string, ICollection<Result>>)))
+            if (Data == null || (!(Data is object[])))
             {
                 return null;
             }
@@ -27,13 +27,15 @@ namespace QA.Parser
 
             IDictionary<string, bool> resultSummary = (Data as object[])[0] as IDictionary<string, bool>;
 
-            IDictionary<string, IList<Result>> resultObjects = ((Data as object[])[1] as IDictionary<string, IList<Result>>);
+            IDictionary<string, List<Result>> resultObjects = ((Data as object[])[1] as IDictionary<string, List<Result>>);
 
             IDictionary<string, object> resultDescription = null;
 
             ValidationRuleItem rule = null;
 
             Result result = null;
+
+            string[] valueRange = null;
 
             using (StringWriter stringWriter = new StringWriter())
             {
@@ -55,7 +57,6 @@ namespace QA.Parser
                     //Result
                     xmlWriter.WriteElementString("Result", resultSummary[fieldName].ToString());
 
-
                     for (int i = 0; i < resultObjects[fieldName].Count; i++)
                     {
                         result = resultObjects[fieldName][i];
@@ -75,27 +76,127 @@ namespace QA.Parser
                                     break;
                                 }
                             case RuleType.InRange:
-                                break;
+                                {
+                                    valueRange = rule.ExpectedValues;
+
+                                    if ((valueRange != null) && (valueRange.Length > 0))
+                                    {
+                                        xmlWriter.WriteStartElement("Expected");
+                                        for (int j = 0; j < valueRange.Length; j++)
+                                        {
+                                            xmlWriter.WriteString(valueRange[j].ToString());
+
+                                            if (j != (valueRange.Length - 1))
+                                            {
+                                                xmlWriter.WriteString(",");
+                                            }
+                                        }
+                                        xmlWriter.WriteEndElement();
+                                    }
+
+                                    break;
+                                }
                             case RuleType.OutOfRange:
-                                break;
+                                {
+                                    valueRange = rule.UnexpectedValues;
+
+                                    if ((valueRange != null) && (valueRange.Length > 0))
+                                    {
+                                        xmlWriter.WriteStartElement("Unexpected");
+                                        for (int j = 0; j < valueRange.Length; j++)
+                                        {
+                                            xmlWriter.WriteString(valueRange[j].ToString());
+
+                                            if (j != (valueRange.Length - 1))
+                                            {
+                                                xmlWriter.WriteString(",");
+                                            }
+                                        }
+                                        xmlWriter.WriteEndElement();
+                                    }
+                                    break;
+                                }
                             case RuleType.InAndOutOfRange:
-                                break;
+                                {
+                                    valueRange = rule.ExpectedValues;
+
+                                    if ((valueRange != null) && (valueRange.Length > 0))
+                                    {
+                                        xmlWriter.WriteStartElement("Expected");
+                                        for (int j = 0; j < valueRange.Length; j++)
+                                        {
+                                            xmlWriter.WriteString(valueRange[j].ToString());
+
+                                            if (j != (valueRange.Length - 1))
+                                            {
+                                                xmlWriter.WriteString(",");
+                                            }
+                                        }
+                                        xmlWriter.WriteEndElement();
+                                    }
+
+                                    valueRange = rule.UnexpectedValues;
+
+                                    if ((valueRange != null) && (valueRange.Length > 0))
+                                    {
+                                        xmlWriter.WriteStartElement("Unexpected");
+                                        for (int j = 0; j < valueRange.Length; j++)
+                                        {
+                                            xmlWriter.WriteString(valueRange[j].ToString());
+
+                                            if (j != (valueRange.Length - 1))
+                                            {
+                                                xmlWriter.WriteString(",");
+                                            }
+                                        }
+                                        xmlWriter.WriteEndElement();
+                                    }
+
+                                    break;
+                                }
                             case RuleType.StringLength:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Min", rule.MinValue.ToString());
+                                    xmlWriter.WriteElementString("Max", rule.MaxValue.ToString());
+                                    break;
+                                }
                             case RuleType.Min:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Min", rule.MinValue.ToString());
+                                    break;
+                                }
                             case RuleType.Max:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Max", rule.MaxValue.ToString());
+                                    break;
+                                }
                             case RuleType.MinAndMax:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Min", rule.MinValue.ToString());
+                                    xmlWriter.WriteElementString("Max", rule.MaxValue.ToString());
+                                    break;
+                                }
                             case RuleType.NotNull:
                                 break;
                             case RuleType.Reference:
-                                break;
+                                {
+                                    if (resultObjects[rule.ReferenceFieldName] != null && resultObjects[rule.ReferenceFieldName].Count > 0)
+                                    {
+                                        xmlWriter.WriteElementString(rule.ReferenceFieldName, resultObjects[rule.ReferenceFieldName][0].FieldValue.ToString());
+                                    }
+                                    
+                                    break;
+                                }
                             case RuleType.NumberSequenceComparison:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Expected", rule.FieldValue.ToString());
+                                    break;
+                                }
                             case RuleType.Occurrence:
-                                break;
+                                {
+                                    xmlWriter.WriteElementString("Expected", rule.FieldValue.ToString());
+                                    break;
+                                }
                             default:
                                 break;
                         }
@@ -106,7 +207,6 @@ namespace QA.Parser
                             xmlWriter.WriteElementString("Value", result.FieldValue.ToString());
                         }
                         
-
                         //Detail
                         xmlWriter.WriteStartElement("Detail");
 
@@ -129,6 +229,10 @@ namespace QA.Parser
                 xmlWriter.WriteEndElement();//TestItems
 
                 xmlWriter.WriteEndDocument();
+
+                xmlWriter.Flush();
+
+                resultXml = stringWriter.ToString();
             }
 
             return resultXml;

@@ -18,7 +18,7 @@ namespace QA.PowerShell.Validation
 
             //this.WriteObject(Facade.Facade.Results);
 
-            this.WriteObject(Facade.Facade.ResultDetails);
+            this.WriteObject(Facade.Facade.GetResultXml(new object[] {Facade.Facade.Results, Facade.Facade.ResultDetails }));
         }
     }
 }

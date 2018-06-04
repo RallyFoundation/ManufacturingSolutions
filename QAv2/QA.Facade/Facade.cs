@@ -471,5 +471,12 @@ namespace QA.Facade
                 }
             }
         }
+
+        public static string GetResultXml(object[] ResultObjects)
+        {
+            IParser parser = new ValidationResultObjectToXmlConverter();
+            object result = parser.Parse(ResultObjects);
+            return result.ToString();
+        }
     }
 }
