@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMapper.cs" />
     <Compile Include="IParser.cs" />
+    <Compile Include="IReducer.cs" />
     <Compile Include="IRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

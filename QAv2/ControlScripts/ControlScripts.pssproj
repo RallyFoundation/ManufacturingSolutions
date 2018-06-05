@@ -44,6 +44,7 @@ Remove-Item ..\bin\Release\Module\UI\Views\*.dll -Force</PostBuildScript>
   <ItemGroup>
     <Compile Include="Dump\MonitorSize.ps1" />
     <Compile Include="Dump\SMBIOS-Dump.ps1" />
+    <Compile Include="Script\invoke-config.ps1" />
     <Compile Include="Script\validate-offline.ps1" />
     <Compile Include="Script\validate-online.ps1" />
     <Compile Include="Script\validate-onlineV2.ps1" />
