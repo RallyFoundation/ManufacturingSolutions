@@ -21,6 +21,8 @@ namespace QA.Parser
                 return null;
             }
 
+            XmlDocument xmlDoc = null;
+
             XmlWriterSettings settings = new XmlWriterSettings() {
                  Encoding = Encoding.UTF8,
             };
@@ -30,6 +32,8 @@ namespace QA.Parser
             IDictionary<string, List<Result>> resultObjects = ((Data as object[])[1] as IDictionary<string, List<Result>>);
 
             IDictionary<string, object> resultDescription = null;
+
+            IDictionary<string, string> nicInfo = null;
 
             ValidationRuleItem rule = null;
 
@@ -194,7 +198,9 @@ namespace QA.Parser
                                 }
                             case RuleType.Occurrence:
                                 {
-                                    xmlWriter.WriteElementString("Expected", rule.FieldValue.ToString());
+                                    //xmlWriter.WriteElementString("Expected", rule.FieldValue.ToString());
+                                    xmlWriter.WriteElementString("Min", rule.MinValue.ToString());
+                                    xmlWriter.WriteElementString("Max", rule.MaxValue.ToString());
                                     break;
                                 }
                             default:
@@ -204,7 +210,24 @@ namespace QA.Parser
                         if (i == 0)
                         {
                             //Value
-                            xmlWriter.WriteElementString("Value", result.FieldValue.ToString());
+                            xmlWriter.WriteStartElement("Value");
+
+                            if (result.FieldValue != null)
+                            {
+                                if (rule.RuleType == RuleType.Occurrence)
+                                {
+                                    if (result.FieldValue is IDictionary<string, string>)
+                                    {
+                                        xmlWriter.WriteString((result.FieldValue as IDictionary<string, string>).Keys.Count.ToString());
+                                    }
+                                }
+                                else
+                                {
+                                    xmlWriter.WriteString(result.FieldValue.ToString());
+                                }
+                            }
+
+                            xmlWriter.WriteEndElement();                     
                         }
                         
                         //Detail
@@ -220,6 +243,19 @@ namespace QA.Parser
                             }
                         }
 
+                        if (result.FieldName == "NIC")
+                        {
+                            if ((result.FieldValue != null) && (result.FieldValue is IDictionary<string, string>))
+                            {
+                                nicInfo = (result.FieldValue as IDictionary<string, string>);
+
+                                foreach (string key in nicInfo.Keys)
+                                {
+                                    xmlWriter.WriteElementString(("PhysicalMedium_" + nicInfo[key]), key.ToString());
+                                }
+                            }
+                        }
+
                         xmlWriter.WriteEndElement(); //Detail
                     }
 
@@ -232,7 +268,11 @@ namespace QA.Parser
 
                 xmlWriter.Flush();
 
-                resultXml = stringWriter.ToString();
+                xmlDoc = new XmlDocument();
+
+                xmlDoc.LoadXml(stringWriter.ToString());
+
+                resultXml = xmlDoc.InnerXml;
             }
 
             return resultXml;

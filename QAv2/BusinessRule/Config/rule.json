@@ -144,6 +144,21 @@ Settings= {
       "QuotedFields": [ "OsBuild" ],
       "$$hashKey": "object:49",
       "currentInputValue": null
+    },
+    {
+      "id": "87768e52-0abe-4d98-a476-b9668ec1b89c",
+      "FieldName": "NIC",
+      "GroupName": "DEFAULT",
+      "RuleType": "Occurrence",
+      "FieldValue": null,
+      "FieldAltValue": null,
+      "MinValue": 1,
+      "MaxValue": 10,
+      "ExpectedValues": null,
+      "UnexpectedValues": null,
+      "QuotedFields": [ "PhysicalMedium", "MacAddress" ],
+      "$$hashKey": "object:52",
+      "currentInputValue": null
     }
   ]
 };
