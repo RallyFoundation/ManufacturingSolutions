@@ -65,6 +65,8 @@ if([System.String]::IsNullOrEmpty($TransactionID) -eq $true)
     $TransactionID = [System.Guid]::NewGuid().ToString();
 }
 
+[System.String]$Message;
+
 $LogPath = $RootDir +  "\Log";
 if([System.IO.Directory]::Exists($LogPath) -eq $false)
 {
@@ -76,7 +78,7 @@ $OutputPath = $RootDir +  "\Output";
 if([System.IO.Directory]::Exists($OutputPath) -eq $false)
 {
     [System.IO.Directory]::CreateDirectory($OutputPath);
-    Start-Sleep -Milliseconds 1000;
+	Start-Sleep -Milliseconds 1000;
 }
 
 $InputPath = $RootDir +  "\Input";
@@ -96,7 +98,7 @@ $LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
 
 $OA3ReportXmlSchemaPath = $RootDir + "\Data\SchemaOA3ToolReportKey.xsd";
 
-[System.String]$Message = [System.String]::Format("Transaction Started: {0}..., {1}", $TransactionID, [System.DateTime]::Now);
+$Message = [System.String]::Format("Transaction Started: {0}..., {1}", $TransactionID, [System.DateTime]::Now);
 $Message;
 $Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
@@ -112,33 +114,93 @@ Add-Type -Path $XsltExtensionObjectPath;
 #$IE.Left = 0;
 #$IE.Top = 0;
 
-#while([System.String]::IsNullOrEmpty($ReportFilePath))
-#{
-#    $ReportFilePath = Get-InputPath -Title "Specify OA3Tool /Report File" -Message "Click 'Browse' to locate the output file from OA3Tool.exe /Report:" -ErrorMessage "Please specify the location to the output file from OA3Tool.exe /Report!";
-#}
+while([System.String]::IsNullOrEmpty($ReportFilePath))
+{
+    $ReportFilePath = Get-InputPath -Title "Specify OA3Tool /Report File" -Message "Click 'Browse' to locate the output file from OA3Tool.exe /Report:" -ErrorMessage "Please specify the location to the output file from OA3Tool.exe /Report!" -AbortOnCancel $true -UseShortPath $false;
 
-if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOrEmpty($DecodeFilePath) -or [System.String]::IsNullOrEmpty($TraceFilePath))
-#if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
+    $ReportFilePath;
+}
+
+if($ReportFilePath -eq "Cancel_Abort")
+{
+    Write-Host -Object "User canceled the operation.";
+    #exit;
+}
+
+#if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOrEmpty($DecodeFilePath) -or [System.String]::IsNullOrEmpty($TraceFilePath))
+if([System.String]::IsNullOrEmpty($ReportFilePath) -eq $false)
 {
     #$IE.Navigate2([System.String]::Format("file:///{0}", $LoadingHtmlPath));
     #$IE.Visible = $true;
 
-    $ReportFilePath = $RootDir + "\Input\" + $TransactionID + "_Report.xml";
+    #$ReportFilePath = $RootDir + "\Input\" + $TransactionID + "_Report.xml";
+
+    $ReportFilePath = (Get-Item -LiteralPath $ReportFilePath).FullName;
 
 	$DecodeFilePath = $RootDir + "\Input\" + $TransactionID + "_Decode.xml";
 
-	$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
+    #Validate OA3Tool /Report file against schema:
+    try
+    {
+       [xml]$ReportXml = Get-Content -Path $ReportFilePath -Encoding UTF8;
+       [xml]$SchemaXml = Get-Content -Path $OA3ReportXmlSchemaPath -Encoding UTF8;
 
-    $OA3ToolConfigurationFilePath = $RootDir + "\Config\OA3Tool-FileBased.cfg";
+       [xml]$SchemaValidationResult = New-XmlSchemaValidation -XmlString $ReportXml.InnerXml -XmlSchemaString $SchemaXml.InnerXml -OutputFormat "xml";
+
+       $SchemaValidationResult.validationResult.errorCount;
+       $SchemaValidationResult.validationResult.errorMessage;
+
+       [int]$schemaErrorCount = $SchemaValidationResult.validationResult.errorCount;
+
+       if($schemaErrorCount -gt 0)
+       {
+          $Message = $SchemaValidationResult.validationResult.errorMessage;
+
+          $Host.UI.RawUI.BackgroundColor = "Red";
+	      $Host.UI.RawUI.ForegroundColor = "Yellow";
+	      Write-Host -Object "The file provided for the OA3Tool report result file failed to pass the XML schema validation!"; 
+          Write-Host $Message;
+	      Read-Host -Prompt ($Message + "`nThe file provided for the OA3Tool report result file failed to pass the XML schema validation! `nPress any key to exit...");
+          $Error.Add("Invalid OA3Tool /Report XML File.");
+		  exit;
+		  #$Host.SetShouldExit(1);
+       }
+    }
+    catch [System.Exception]
+    {
+        $Message = $Error[0].Exception;
+
+		"Error(s) occurred during xml schema validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+
+	    $Host.UI.RawUI.BackgroundColor = "Red";
+	    $Host.UI.RawUI.ForegroundColor = "Yellow";
+	    #Write-Host -Object "Error(s) occurred during xml schema validation!";
+        #Write-Host $Message;
+	    Read-Host -Prompt ("`nError(s) occurred during xml schema validation! `nPress any key to exit...");
+        exit;
+		#$Host.SetShouldExit(1);
+    }
+	finally
+	{
+	   if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
+       {
+	      $Host.SetShouldExit(1);
+       }
+	}
+
+	#$TraceFilePath = $RootDir + "\Input\" + $TransactionID + "_Trace.xml";
+
+    #$OA3ToolConfigurationFilePath = $RootDir + "\Config\OA3Tool-FileBased.cfg";
 
 
-	[xml]$OA3ToolConfigurationXml = Get-Content -Path $OA3ToolConfigurationFilePath -Encoding UTF8;
+	#[xml]$OA3ToolConfigurationXml = Get-Content -Path $OA3ToolConfigurationFilePath -Encoding UTF8;
 
-	$OA3ToolConfigurationXml.OA3.OutputData.ReportedXMLFile = $ReportFilePath;
+	#$OA3ToolConfigurationXml.OA3.OutputData.ReportedXMLFile = $ReportFilePath;
 
-	$OA3ToolConfigurationFilePath = $RootDir + "\Input\" + $TransactionID + "_Config.xml";
+	#$OA3ToolConfigurationFilePath = $RootDir + "\Input\" + $TransactionID + "_Config.xml";
 
-	$OA3ToolConfigurationXml.Save($OA3ToolConfigurationFilePath);
+	#$OA3ToolConfigurationXml.Save($OA3ToolConfigurationFilePath);
 
 
 	$OA3ToolPath = $RootDir + "\OA3Tool";
@@ -149,11 +211,11 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 
 	[System.String]$OSArchitecture = $OSInfo.CimInstanceProperties.Item("OSArchitecture").Value;
 
-	$OSArchitecture;
+    $OSArchitecture;
 
 	$OSSKU = $OSInfo.CimInstanceProperties.Item("OperatingSystemSKU").Value;
 
-	$OSSKU;
+    $OSSKU;
 
 	if(($OSArchitecture -eq "64-bit") -or ($OSArchitecture.Contains("64")))
 	{
@@ -179,8 +241,8 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 	#	   $Host.UI.RawUI.BackgroundColor = "Red";
 	#	   $Host.UI.RawUI.ForegroundColor = "Yellow";
 	#	   Write-Host -Object "The SMBIOS data in the board is invalid!";
-	#	   #Read-Host -Prompt "Press any key to exit...";
-	#	   #exit;
+	#	   Read-Host -Prompt "Press any key to exit...";
+	#	   exit;
 	#	}
 	#	else
 	#	{
@@ -199,109 +261,50 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 	#	exit;
 	#}
 
-	$ShouldByPassDPKChecking = $false;
-
 	#Invokes OA3Tool.exe /Validate to test if there is already a DPK injected
-	try
-	{
-		$Message = [System.String]::Format("Validating ACPI MSDM table..., {0}", [System.DateTime]::Now);
-		$Message;
-
-		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-       
-		$Message = & ($OA3ToolPath) @("/Validate");
-		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-
-		$Message | Out-File -FilePath ($LogPath + "\" + $TransactionID + "-oa3tool-validate.log") -Force;
-
-		$Message = Get-Content -Path ($LogPath + "\" + $TransactionID + "-oa3tool-validate.log");
-
-		if(($Message.Contains("0x80070490") -eq $true) -or ($Message.Contains("Error: OEM Activation Tool failed to find the ACPI MSDM table") -eq $true)) #if($Message.Contains("The operation completed successfully.") -eq $false)
-		{
-		   #$Host.UI.RawUI.BackgroundColor = "Red";
-		   $Host.UI.RawUI.ForegroundColor = "Yellow";
-		   #Write-Host -Object "The board has NOT got a DPK injected, and the ACPI MSDM table is empty!";
-		   $Message = "The board has NOT got a DPK injected, and the ACPI MSDM table is empty! No Key Check will be taken.";
-
-		   $Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-
-		   Read-Host -Prompt "The board has NOT got a DPK injected, and the ACPI MSDM table is empty! `nPress any key to continue without DPK checking...";
-
-		   $ShouldByPassDPKChecking = $true;
-		   #exit;
-		}
-		else
-		{
-		   Write-Host -Object "OK.";
-		}
-	}
-	catch [System.Exception]
-	{
-		$Message = $Error[0].Exception;
-		$Message;
-
-		"Error(s) occurred during ACPI MSDM table validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-
-		$Host.UI.RawUI.BackgroundColor = "Red";
-		$Host.UI.RawUI.ForegroundColor = "Yellow";
-		#Write-Host -Object "Error(s) occurred during ACPI MSDM table validation!";
-		Read-Host -Prompt "Error(s) occurred during ACPI MSDM table validation!`nPress any key to exit...";
-		exit;
-		
-	}
-	finally
-	{
-	    if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
-		{
-			$Host.SetShouldExit(1);
-		}
-	}
-
-	#Invokes OA3Tool.exe /Report to generate output DPK info xml file
-	try
-	{
-		$Message = [System.String]::Format("Reporting DPK..., {0}", [System.DateTime]::Now);
-		$Message;
-		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-
-		if($ShouldByPassDPKChecking -eq $false)
-		{
-		    Start-Process -FilePath $OA3ToolPath -ArgumentList @("/Report",  ("/ConfigFile=`"" + $OA3ToolConfigurationFilePath + "`""), ("/LogTrace=`"" + $TraceFilePath + "`"")) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-report.log");
-		}
-		else
-		{
-		    Start-Process -FilePath $OA3ToolPath -ArgumentList @("/Report", "/NoKeyCheck",  ("/ConfigFile=`"" + $OA3ToolConfigurationFilePath + "`""), ("/LogTrace=`"" + $TraceFilePath + "`"")) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-report.log");
-		}
-	}
-	catch [System.Exception]
-	{
-		$Message = $Error[0].Exception;
-		$Message;
-		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-  
-		$Host.UI.RawUI.BackgroundColor = "Red";
-		$Host.UI.RawUI.ForegroundColor = "Yellow";
-		Write-Host -Object "Errors occurred!";
-		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-		exit;
-	}
-    finally
-	{
-	   if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
-	   {
-		  $Host.SetShouldExit(1);
-	   }
-	}
-
-	#Invokes OA3Tool.exe /CheckHwHash to generate log trace
 	#try
 	#{
-	#	$Message = [System.String]::Format("Checking haraware hash..., {0}", [System.DateTime]::Now);
+	#	$Message = [System.String]::Format("Validating ACPI MSDM table..., {0}", [System.DateTime]::Now);
+	#	$Message;
+       
+	#	$Message = &($OA3ToolPath) @("/Validate");
+	#	$Message;
+
+	#	$Message | Out-File -FilePath ($LogPath + "\" + $TransactionID + "-oa3tool-validate.log") -Append;
+
+	#	if($Message.Contains("The operation completed successfully.") -eq $false)
+	#	{
+	#	   $Host.UI.RawUI.BackgroundColor = "Red";
+	#	   $Host.UI.RawUI.ForegroundColor = "Yellow";
+	#	   Write-Host -Object "The board has NOT got a DPK injected, and the ACPI MSDM table is empty!";
+	#	   Read-Host -Prompt "Press any key to exit...";
+	#	   exit;
+	#	}
+	#	else
+	#	{
+	#	   Write-Host -Object "OK.";
+	#	}
+	#}
+	#catch [System.Exception]
+	#{
+	#	$Message = $Error[0].Exception;
+	#	$Message;
+
+	#	$Host.UI.RawUI.BackgroundColor = "Red";
+	#	$Host.UI.RawUI.ForegroundColor = "Yellow";
+	#	Write-Host -Object "Error(s) occurred during ACPI MSDM table validation!";
+	#	Read-Host -Prompt "Press any key to exit...";
+	#	exit;
+	#}
+
+	#Invokes OA3Tool.exe /Report to generate output DPK info xml file
+	#try
+	#{
+	#	$Message = [System.String]::Format("Reporting DPK..., {0}", [System.DateTime]::Now);
 	#	$Message;
 	#	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
-	#	Start-Process -FilePath $OA3ToolPath -ArgumentList @(("/CheckHwHash=" + $ReportFilePath), ("/LogTrace=" + $TraceFilePath)) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-checkhwhash.log");
+	#	Start-Process -FilePath $OA3ToolPath -ArgumentList @("/Report",  ("/ConfigFile=" + $OA3ToolConfigurationFilePath), ("/LogTrace=" + $TraceFilePath)) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-report.log");
 	#}
 	#catch [System.Exception]
 	#{
@@ -315,87 +318,105 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 	#	Read-Host -Prompt "Press any key to exit...";
 	#	exit;
 	#}
-}
 
-#Validate OA3Tool /Report file against schema:
-try
-{
-    [xml]$ReportXml = Get-Content -Path $ReportFilePath -Encoding UTF8;
-    [xml]$SchemaXml = Get-Content -Path $OA3ReportXmlSchemaPath -Encoding UTF8;
+	#Invokes OA3Tool.exe /CheckHwHash to generate log trace
+	#try
+	#{
+	#	$Message = [System.String]::Format("Checking haraware hash..., {0}", [System.DateTime]::Now);
+	#	$Message;
+	#	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
-    [xml]$SchemaValidationResult = New-XmlSchemaValidation -XmlString $ReportXml.InnerXml -XmlSchemaString $SchemaXml.InnerXml -OutputFormat "xml";
+	#	#$Message = Start-Process -FilePath ($OA3ToolPath) -ArgumentList @(("/CheckHwHash=" + $ReportFilePath), ("/LogTrace=" + $TraceFilePath)) -Wait -NoNewWindow;
+	#	$Message = &($OA3ToolPath) @(("/CheckHwHash=`"" + $ReportFilePath + "`""), ("/LogTrace=`"" + $TraceFilePath + "`""));
+	#	$Message;
+	#	$Message | Out-File -FilePath ($LogPath + "\" + $TransactionID + "-oa3tool-checkhwhash.log") -Append;
 
-    $SchemaValidationResult.validationResult.errorCount;
-    $SchemaValidationResult.validationResult.errorMessage;
+	#	#$Message = Get-Content -Path ($LogPath + "\" + $TransactionID + "-oa3tool-checkhwhash.log");
 
-    [int]$schemaErrorCount = $SchemaValidationResult.validationResult.errorCount;
+	#	#$Message;
 
-    if($schemaErrorCount -gt 0)
-    {
-        $Message = $SchemaValidationResult.validationResult.errorMessage;
+	#	#if($Message.IndexOf("hardware hash comparison has failed") -ge 0)
+	#	#{
+	#	#   $Host.UI.RawUI.BackgroundColor = "Red";
+	#	#   $Host.UI.RawUI.ForegroundColor = "Yellow";
+	#	#   Write-Host -Object "The reported hardware hash does not match the hardware hash generated.";
+           
+ # #         [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms");
 
-        $Host.UI.RawUI.BackgroundColor = "Red";
-	    $Host.UI.RawUI.ForegroundColor = "Yellow";
-	    Write-Host -Object "The file provided for the OA3Tool report result file failed to pass the XML schema validation!"; 
-        Write-Host $Message;
-	    Read-Host -Prompt ($Message + "`nThe file provided for the OA3Tool report result file failed to pass the XML schema validation! `nPress any key to exit...");
-        $Error.Add("Invalid OA3Tool /Report XML File.");
+	#	#	$DialogResult = [System.Windows.Forms.MessageBox]::Show("The reported hardware hash does not match the hardware hash generated, continue validation?" , "Hardware Hash Mismatch" , 4);
+
+	#	#	if($DialogResult -ne "YES")
+	#	#	{
+	#	#	    Read-Host -Prompt "Press any key to exit...";
+	#	#        exit;
+	#	#	}
+	#	#}
+	#	#else
+	#	#{
+	#	#   Write-Host -Object "OK.";
+	#	#}
+	#}
+	#catch [System.Exception]
+	#{
+	#	$Message = $Error[0].Exception;
+	#	$Message;
+	#	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+  
+	#	$Host.UI.RawUI.BackgroundColor = "Red";
+	#	$Host.UI.RawUI.ForegroundColor = "Yellow";
+	#	Write-Host -Object "Errors occurred!";
+	#	Read-Host -Prompt "Press any key to exit...";
+	#	exit;
+	#}
+
+	#Invokes OA3Tool.exe /DecodeHwHash to generate decoded hardware hash info
+	try
+	{
+		$Message = [System.String]::Format("Decoding hardware hash..., {0}", [System.DateTime]::Now);
+		$Message;
+		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+
+		Start-Process -FilePath $OA3ToolPath -ArgumentList @(("/DecodeHwHash=`"" + $ReportFilePath + "`""), ("/LogTrace=`"" + $DecodeFilePath + "`"")) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-decode.log");
+	}
+	catch [System.Exception]
+	{
+		$Message = $Error[0].Exception;
+		$Message;
+		"Errors occurred!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+		$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+  
+		$Host.UI.RawUI.BackgroundColor = "Red";
+		$Host.UI.RawUI.ForegroundColor = "Yellow";
+		#Write-Host -Object "Errors occurred!";
+		Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
 		exit;
 		#$Host.SetShouldExit(1);
-    }
-}
-catch [System.Exception]
-{
-    $Message = $Error[0].Exception;
-
-	"Error(s) occurred during xml schema validation!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-
-	$Host.UI.RawUI.BackgroundColor = "Red";
-	$Host.UI.RawUI.ForegroundColor = "Yellow";
-	#Write-Host -Object "Error(s) occurred during xml schema validation!";
-    Write-Host $Message;
-	Read-Host -Prompt ($Message + "`nError(s) occurred during xml schema validation! `nPress any key to exit...");
-    exit;
-}
-finally
-{
-    if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
+	}
+	finally
 	{
-		$Host.SetShouldExit(1);
+	   if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
+       {
+	      $Host.SetShouldExit(1);
+       }
 	}
 }
 
-#Invokes OA3Tool.exe /DecodeHwHash to generate decoded hardware hash info
-try
-{
-	$Message = [System.String]::Format("Decoding hardware hash..., {0}", [System.DateTime]::Now);
-	$Message;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
+#[System.String]$ReportTraceString = Get-Content -Path $TraceFilePath;
 
-	Start-Process -FilePath $OA3ToolPath -ArgumentList @(("/DecodeHwHash=`"" + $ReportFilePath + "`""), ("/LogTrace=`"" + $DecodeFilePath + "`"")) -Wait -NoNewWindow -RedirectStandardOutput ($LogPath + "\" + $TransactionID + "-oa3tool-decode.log");
-}
-catch [System.Exception]
-{
-	$Message = $Error[0].Exception;
-	$Message;
+#if($ReportTraceString.EndsWith("]>") -and $ReportTraceString.Contains("<![CDATA"))
+#{
+#   $ReportTraceCData = $ReportTraceString.Substring($ReportTraceString.IndexOf("<![CDATA"));
 
-	"Errors occurred!" | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-  
-	$Host.UI.RawUI.BackgroundColor = "Red";
-	$Host.UI.RawUI.ForegroundColor = "Yellow";
-	#Write-Host -Object "Errors occurred!";
-	Read-Host -Prompt "Errors occurred!`nPress any key to exit...";
-	exit;
-}
-finally
-{
-    if(($Error.Count -gt 0) -and ($StayInHost -eq $false))
-    {
-	    $Host.SetShouldExit(1);
-    }
-}
+#   $ReportTraceString = $ReportTraceString.Replace($ReportTraceCData, "");
+
+#   $ReportTraceString = $ReportTraceString.Insert($ReportTraceString.IndexOf("</HardwareVerificationData>"), $ReportTraceCData);
+#}
+
+#$ReportTraceString = $ReportTraceString.Substring(0, ($ReportTraceString.LastIndexOf(">") + 1));
+
+#[xml]$ReportTrace = (New-Object -TypeName System.Xml.XmlDocument); #[xml](Get-Content -Path $TraceFilePath);
+
+#$ReportTrace.LoadXml($ReportTraceString);
 
 if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
 {
@@ -407,26 +428,9 @@ if([System.IO.File]::Exists($DecodeFilePath) -eq $false)
 
    if($StayInHost -eq $false)
    {
-      $Host.SetShouldExit(1);
+	  $Host.SetShouldExit(1);
    }
 }
-
-[System.String]$ReportTraceString = Get-Content -Path $TraceFilePath;
-
-if($ReportTraceString.EndsWith("]>") -and $ReportTraceString.Contains("<![CDATA"))
-{
-   $ReportTraceCData = $ReportTraceString.Substring($ReportTraceString.IndexOf("<![CDATA"));
-
-   $ReportTraceString = $ReportTraceString.Replace($ReportTraceCData, "");
-
-   $ReportTraceString = $ReportTraceString.Insert($ReportTraceString.IndexOf("</HardwareVerificationData>"), $ReportTraceCData);
-}
-
-$ReportTraceString = $ReportTraceString.Substring(0, ($ReportTraceString.LastIndexOf(">") + 1));
-
-[xml]$ReportTrace = (New-Object -TypeName System.Xml.XmlDocument); #[xml](Get-Content -Path $TraceFilePath);
-
-$ReportTrace.LoadXml($ReportTraceString);
 
 [xml]$HardwareHashDecode = [xml](Get-Content -Path $DecodeFilePath);
 
@@ -438,20 +442,16 @@ $ReportTrace.LoadXml($ReportTraceString);
 #$SKU = $SystemInfo.SystemSKUNumber; 
 #$ProcessorInfo = Get-WmiObject -ClassName Win32_Processor;
 #$ProcessorInfo | ConvertTo-Json;
-
-
-if($ShouldByPassDPKChecking -eq $true)
-{
-   $ProductKeyID = "NO_KEY_CHECK";
-}
-else
-{
-   $ProductKeyID = $ProductKeyInfo.Key.ProductKeyID; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Environment.p.Where({$_.n -eq "ProductKeyID"})[0].'#text'#
-} 
-
+ 
+$ProductKeyID = $ProductKeyInfo.Key.ProductKeyID; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Environment.p.Where({$_.n -eq "ProductKeyID"})[0].'#text'
 $ExpectedOSType = "FullOS";
-$ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
-$ProcessorModel = $ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
+#$ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
+$ProcessorModel = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "ProcessorModel"})[0].v; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
+
+if([System.String]::IsNullOrEmpty($ProcessorModel))
+{
+   $ProcessorModel = "N/A";
+}
 
 $XsltArgs = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 
@@ -463,7 +463,7 @@ $XsltArgs.Add("processorModel", $ProcessorModel);
 $XsltExtObjs = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 $XsltExtObjs.Add("HHValidation.XsltExt", (New-Object -TypeName "HardwareHashValidation.XsltExtension"));
 
-#$XsltPath = $RootDir + "\Xslt\xslt-check-hh-xml.xslt";
+$XsltPath = $RootDir + "\Xslt\xslt-check-hh-xml.xslt";
 $XsltHtmlPath = $RootDir + "\Xslt\xslt-check-hh-html.xslt";
 
 $ResultXmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Result.xml";
@@ -475,38 +475,18 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 Initialize-Rule -Path ($RootDir + "\Config\rule.json");
 Initialize-Data -Path $DecodeFilePath;
 
-#$ResultJson = Get-Result | ConvertTo-Json;
-
 [xml]$ResultXml = Get-Result;
 
 $ResultXml.InnerXml | Out-File -Encoding utf8 -FilePath $ResultXmlFilePath -Force;
 
-#$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
+$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
 $ResultJson | Out-File -Encoding utf8 -FilePath $ResultJsonFilePath -Force;
-
-#if(($ResultXml.TestItems.TotalPhysicalRAM.Result -eq "Failed") -or ($ResultXml.TestItems.PrimaryDiskTotalCapacity.Result -eq "Failed"))
-#{
-    $SMBIOSDumpPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SMBIOS_Dump.txt");
-    $Message = [System.String]::Format("Dumping SMBIOS data..., {0}", [System.DateTime]::Now);
-	$Message;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-    Start-Process -FilePath "powershell" -ArgumentList @("-ExecutionPolicy ByPass", ("-File `"" + $RootDir + "\Module\Dump\SMBIOS-Dump.ps1`"")) -Wait -NoNewWindow -RedirectStandardOutput $SMBIOSDumpPath; 
-#}
-
-#if(($ResultXml.TestItems.DisplaySizePhysicalH.Result -eq "Failed") -or ($ResultXml.TestItems.DisplaySizePhysicalY.Result -eq "Failed"))
-#{
-    $MonitorDumpPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_MonitorSize_Dump.txt");
-    $Message = [System.String]::Format("Dumping Monitor data..., {0}", [System.DateTime]::Now);
-	$Message;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
-    Start-Process -FilePath "powershell" -ArgumentList @("-ExecutionPolicy ByPass", ("-File `"" + $RootDir + "\Module\Dump\MonitorSize.ps1`"")) -Wait -NoNewWindow -RedirectStandardOutput $MonitorDumpPath; 
-#}
 
 #$ResultHtml = Do-XsltTransformation -XmlString $HardwareHashDecode.InnerXml -XsltPath $XsltHtmlPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs;
 $XsltArgs = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 $XsltArgs.Add("transactionId", $TransactionID);
 $XsltArgs.Add("productKeyId", $ProductKeyID);
-$XsltArgs.Add("mode", "online");
+$XsltArgs.Add("mode", "offline");
 
 $ResultHtml = New-XsltTransformation -XmlString $ResultXml.InnerXml -XsltPath $XsltHtmlPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
 $ResultHtml | Out-File -Encoding utf8 -FilePath $ResultHtmlFilePath -Force;
@@ -521,7 +501,7 @@ $MonitorInfoJson = ($MonitorInfo | ConvertTo-Json);
 #$ProcessorInfoJson = ($ProcessorInfo | ConvertTo-Json);
 $SystemInfoJson =  ($SystemInfo | ConvertTo-Json);
 
-$ReportTraceJson = (Get-JsonFromXml -XmlString $ReportTrace.InnerXml -Indent);
+#$ReportTraceJson = (Get-JsonFromXml -XmlString $ReportTrace.InnerXml -Indent);
 $HardwareHashDecodeJson = (Get-JsonFromXml -XmlString $HardwareHashDecode.InnerXml -Indent);
 $ProductKeyInfoJson = (Get-JsonFromXml -XmlString $ProductKeyInfo.InnerXml -Indent);
 
@@ -530,29 +510,32 @@ $MonitorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $T
 #$ProcessorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Result\processorInfo_" + $TransactionID + "_" + $ProductKeyID + ".json") -Force;
 $SystemInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SystemInfo.json") -Force;
 
-$ReportTraceJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.json") -Force;
+#$ReportTraceJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.json") -Force;
 $HardwareHashDecodeJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Decode.json") -Force;
 $ProductKeyInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Report.json") -Force;
 
-$TraceXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.xml");
+$ProductKeyInfo.Save($RootDir + "\Input\" + $TransactionID + "_Report.xml");
+
+#$TraceXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.xml");
 $DecodeXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Decode.xml");
 $ReportXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Report.xml");
 
-Copy-Item -Path $TraceFilePath -Destination $TraceXmlOutputPath -Force;
+#Copy-Item -Path $TraceFilePath -Destination $TraceXmlOutputPath -Force;
 Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
-Copy-Item -Path $ReportFilePath -Destination $ReportXmlOutputPath -Force;
+Copy-Item -Path ($RootDir + "\Input\" + $TransactionID + "_Report.xml") -Destination $ReportXmlOutputPath -Force;
 
-$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
+$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));#@($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
 $ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
 
-New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
+New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);;
 
-#$ProductKeyInfo.Save($RootDir + "\Input\" + $TransactionID + "_Report.xml");
-
+#$IE = New-Object -COM InternetExplorer.Application;
 #$IE.Navigate2([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
-#$IE.Visible=$true;
+#$IE.Visible = $true;
 
 #Start-Process -FilePath ("microsoft-edge:file://" + $ResultHtmlFilePath);
+
+#Start-Process -FilePath $ResultHtmlFilePath;
 
 #Start-Process -FilePath ([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
 
@@ -579,19 +562,19 @@ Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 
 if($ByPassUI -eq $false)
 {
-    $AppDataResultJson = ("AppData=" + $ResultJson);
+	$AppDataResultJson = ("AppData=" + $ResultJson);
 	$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
 
 	$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
-	$AppSettings.Add("Mode", "Online");
+	$AppSettings.Add("Mode", "Offline");
 	$AppSettings.Add("TransactionID", $TransactionID);
 	$AppSettings.Add("ProductKeyID", $ProductKeyID);
 	$AppSettings.Add("RootDir", $RootDir);
 	$AppSettings.Add("ZipFilePath", $ZippedFilePath);
 	$AppSettings.Add("LogFilePath", ($LogPath + "\" + $TransactionID + ".log"));
-	$AppSettings.Add("SMBIOSDumpPath", $SMBIOSDumpPath);
-	$AppSettings.Add("MonitorDumpPath", $MonitorDumpPath);
-	$AppSettings.Add("TraceXmlOutputPath", $TraceXmlOutputPath);
+	#$AppSettings.Add("SMBIOSDumpPath", $SMBIOSDumpPath);
+	#$AppSettings.Add("MonitorDumpPath", $MonitorDumpPath);
+	#$AppSettings.Add("TraceXmlOutputPath", $TraceXmlOutputPath);
 
 	$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
 	$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
@@ -599,7 +582,7 @@ if($ByPassUI -eq $false)
 
 	$Message = [System.String]::Format("Launching Report..., {0}", [System.DateTime]::Now);
 	$Message;
-	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;    
+	$Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
 	#$Choice = Read-Host -Prompt ("Validation Result: {0}.`nView the validation summary report for more details? (Y: `"Yes`"; N: `"No`" (Default).)" -f $TotalResult);
 
@@ -637,8 +620,7 @@ if($ByPassUI -eq $false)
 }
 #else
 #{
-#   #exit;
-#   #$Host.SetShouldExit(1);
+#   exit;
 #}
 
 #$ServiceUrl = "http://127.0.0.1:3000/engineering/";
@@ -675,6 +657,5 @@ if([System.String]::IsNullOrEmpty($ServiceUrl) -eq $false)
 
 if($StayInHost -eq $false)
 {
-   $Host.SetShouldExit(1);
+	$Host.SetShouldExit(1);
 }
-
