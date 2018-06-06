@@ -8,6 +8,6 @@ namespace QA.Core
 {
     public interface IReducer
     {
-        object Reduce(IDictionary<string, object> Pairs, object Data);
+        object Reduce(object Pairs, object Data);
     }
 }

@@ -10,38 +10,21 @@ using QA.Parser;
 using QA.Rule;
 using QA.Utility;
 using QA.Model;
+using QA.Reducer;
 
 namespace QA.Facade
 {
     public class Facade
     {
         public static Dictionary<string, Dictionary<string, List<IRule>>> Rules;
-
         public static Dictionary<string, object> Data;
-
         public static Dictionary<string, bool> Results;
-
+        public static Dictionary<string, Dictionary<string, bool>> GroupedResults;
         public static Dictionary<string, List<Result>> ResultDetails;
 
         public static void InitializeRules()
         {
             string ruleConfPath = Global.DefaultRuleConfigPath;
-
-            //XmlDocument xmlDocument = new XmlDocument();
-
-            //xmlDocument.Load(ruleConfPath);
-
-            //List<IRule> rules = XmlUtility.XmlDeserialize(xmlDocument.InnerXml, typeof(List<IRule>), new Type[] {typeof(EqualToRule), typeof(NotEqualToRule), typeof(NotNullRule), typeof(MaxRule), typeof(MinRule), typeof(MinAndMaxRule), typeof(StringLengthRule), typeof(InRangeRule), typeof(OutOfRangeRule), typeof(InAndOutOfRangeRule) }, "utf-8") as List<IRule>;
-
-            //if (rules != null)
-            //{
-            //    Rules = new Dictionary<string, IRule>();
-
-            //    foreach (var rule in rules)
-            //    {
-            //        Rules.Add(rule.FieldName, rule);
-            //    }
-            //}
 
             IParser validationRuleJsonParser = new ValidationRuleConfigurationJsonParser();
 
@@ -51,9 +34,6 @@ namespace QA.Facade
 
             using (FileStream stream = new FileStream(ruleConfPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                //ruleBytes = new byte[stream.Length];
-                //stream.Read(ruleBytes, 0, ((int)(stream.Length)));
-
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     ruleString = reader.ReadToEnd();
@@ -61,9 +41,7 @@ namespace QA.Facade
             }
 
             ruleString = ruleString.Substring(ruleString.IndexOf("["));
-
             ruleString = ruleString.Substring(0, (ruleString.LastIndexOf("]") + 1));
-
             ruleBytes = Encoding.UTF8.GetBytes(ruleString);
 
             ValidationRuleItem[] ruleItems = validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
@@ -246,153 +224,6 @@ namespace QA.Facade
                     }
                 }
             }
-
-            //if (ruleItems != null)
-            //{
-            //    Rules = new Dictionary<string, IRule>();
-
-            //    int min = -1, max = -1;
-
-            //    for (int i = 0; i < ruleItems.Length; i++)
-            //    {
-            //        if ((ruleItems[i] != null) && (!Rules.ContainsKey(ruleItems[i].FieldName)))
-            //        {
-            //            switch (ruleItems[i].RuleType)
-            //            {
-            //                case RuleType.EqualTo:
-            //                    {
-            //                        EqualToRule rule = new EqualToRule(){
-            //                            FieldName = ruleItems[i].FieldName,
-            //                            ExpectedValue = ruleItems[i].FieldValue.ToString()
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-
-            //                        break;
-            //                    }
-            //                case RuleType.NotEqualTo:
-            //                    {
-            //                        NotEqualToRule rule = new NotEqualToRule()
-            //                        {
-            //                            FieldName = ruleItems[i].FieldName,
-            //                            UnexpectedValue = ruleItems[i].FieldValue.ToString()
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-            //                        break;
-            //                    }
-            //                case RuleType.InRange:
-            //                    {
-            //                        InRangeRule rule = new InRangeRule()
-            //                        {
-            //                            FieldName = ruleItems[i].FieldName,
-            //                            ExpectedValueRange = ruleItems[i].ExpectedValues
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-            //                        break;
-            //                    }
-            //                case RuleType.OutOfRange:
-            //                    {
-            //                        OutOfRangeRule rule = new OutOfRangeRule()
-            //                        {
-            //                            FieldName = ruleItems[i].FieldName,
-            //                            UnexpectedValueRange = ruleItems[i].UnexpectedValues
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-            //                        break;
-            //                    }
-            //                case RuleType.InAndOutOfRange:
-            //                    {
-            //                        InAndOutOfRangeRule rule = new InAndOutOfRangeRule()
-            //                        {
-            //                            FieldName = ruleItems[i].FieldName,
-            //                            ExpectedValueRange = ruleItems[i].ExpectedValues,
-            //                            UnexpectedValueRange = ruleItems[i].UnexpectedValues
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-            //                        break;
-            //                    }
-            //                case RuleType.StringLength:
-            //                    {
-            //                        if (int.TryParse(ruleItems[i].FieldValue.ToString(), out min) && int.TryParse(ruleItems[i].FieldAltValue.ToString(), out max))
-            //                        {
-            //                            StringLengthRule rule = new StringLengthRule()
-            //                            {
-            //                                FieldName = ruleItems[i].FieldName,
-            //                                MinValue = min,
-            //                                MaxValue = max
-            //                            };
-
-            //                            Rules.Add(rule.FieldName, rule);
-            //                        }
-
-            //                        break;
-            //                    }
-            //                case RuleType.Min:
-            //                    {
-            //                        if (int.TryParse(ruleItems[i].FieldValue.ToString(), out min))
-            //                        {
-            //                            MinRule rule = new MinRule()
-            //                            {
-            //                                FieldName = ruleItems[i].FieldName,
-            //                                MinValue = min
-            //                            };
-
-            //                            Rules.Add(rule.FieldName, rule);
-            //                        }
-                                    
-            //                        break;
-            //                    }
-            //                case RuleType.Max:
-            //                    {
-            //                        if (int.TryParse(ruleItems[i].FieldAltValue.ToString(), out max))
-            //                        {
-            //                            MaxRule rule = new MaxRule()
-            //                            {
-            //                                FieldName = ruleItems[i].FieldName,
-            //                                MaxValue = max
-            //                            };
-
-            //                            Rules.Add(rule.FieldName, rule);
-            //                        }
-                                    
-            //                        break;
-            //                    }
-            //                case RuleType.MinAndMax:
-            //                    {
-            //                        if ((int.TryParse(ruleItems[i].FieldValue.ToString(), out min) && int.TryParse(ruleItems[i].FieldAltValue.ToString(), out max)))
-            //                        {
-            //                            MinAndMaxRule rule = new MinAndMaxRule()
-            //                            {
-            //                                FieldName = ruleItems[i].FieldName,
-            //                                MinValue = min,
-            //                                MaxValue = max
-            //                            };
-
-            //                            Rules.Add(rule.FieldName, rule);
-            //                        }
-                                    
-            //                        break;
-            //                    }
-            //                case RuleType.NotNull:
-            //                    {
-            //                        NotNullRule rule = new NotNullRule()
-            //                        {
-            //                            FieldName = ruleItems[i].FieldName
-            //                        };
-
-            //                        Rules.Add(rule.FieldName, rule);
-            //                        break;
-            //                    }
-            //                default:
-            //                    break;
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         public static void InstantiateInputData()
@@ -408,7 +239,6 @@ namespace QA.Facade
             }
 
             IParser parser = new Decoded4KHHXmlParser();
-
             Data = parser.Parse(data) as Dictionary<string, object>;
         }
 
@@ -417,17 +247,12 @@ namespace QA.Facade
             if ((Data != null) && (Rules != null))
             {
                 Results = new Dictionary<string, bool>();
+                GroupedResults = new Dictionary<string, Dictionary<string, bool>>();
                 ResultDetails = new Dictionary<string, List<Result>>();
 
                 bool result;
 
                 object resultDetail = null;
-
-                //foreach (string key in Data.Keys)
-                //{
-                //    result = Rules[key].Check(Data);
-                //    Result.Add(key, result);
-                //}
 
                 foreach (string field in Data.Keys)
                 {
@@ -441,14 +266,24 @@ namespace QA.Facade
                                 {
                                     result = rule.Check(Data, out resultDetail);
 
-                                    if (!Results.ContainsKey(field))
+                                    if (!GroupedResults.ContainsKey(field))
                                     {
-                                        Results.Add(field, result);
+                                        //Results.Add(field, result);
+
+                                        GroupedResults.Add(field, new Dictionary<string, bool>() { { group, result} });
+                                    }
+                                    else if (!GroupedResults[field].ContainsKey(group))
+                                    {
+                                        GroupedResults[field].Add(group, result);
                                     }
                                     else if (result == false)
                                     {
-                                        Results[field] = result;
+                                        GroupedResults[field][group] = result;
                                     }
+                                    //else if (result == false)
+                                    //{
+                                    //    Results[field] = result;
+                                    //}
 
                                     if (!ResultDetails.ContainsKey(field))
                                     {
@@ -469,6 +304,10 @@ namespace QA.Facade
                         }
                     }             
                 }
+
+                IReducer reducer = new ResultReducer();
+
+                reducer.Reduce(Results, GroupedResults);
             }
         }
 

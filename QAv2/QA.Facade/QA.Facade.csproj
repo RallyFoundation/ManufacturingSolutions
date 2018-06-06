@@ -57,6 +57,10 @@
       <Project>{21c366a9-740d-4577-9398-5951b1de4928}</Project>
       <Name>QA.Parser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QA.Reducer\QA.Reducer.csproj">
+      <Project>{31b70b13-c40c-4021-b67a-1e9276266df0}</Project>
+      <Name>QA.Reducer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QA.Rule\QA.Rule.csproj">
       <Project>{974e76cb-9a7b-43b5-9503-a865a690d6f1}</Project>
       <Name>QA.Rule</Name>
