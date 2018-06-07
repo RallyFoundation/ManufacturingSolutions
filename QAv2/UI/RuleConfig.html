@@ -379,7 +379,8 @@
             $scope.saveRuleConfig = function () {
                 var fileInfo = { Path: "", Content: "" };
 
-                fileInfo.Path = "..\\..\\Config\\rule.json";
+                //fileInfo.Path = "..\\..\\Config\\rule.json";
+                fileInfo.Path = "Config\\rule.json";
                 fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
 
                 var fileInfoJson = JSON.stringify(fileInfo);

@@ -14,18 +14,18 @@ namespace QA.Reducer
         {
             IDictionary<string, Dictionary<string, bool>> groupedResults = Data as IDictionary<string, Dictionary<string, bool>>;
 
-            Dictionary<string, object> results = Pairs as Dictionary<string, object>;
+            IDictionary<string, bool> results = Pairs as IDictionary<string,bool>;
 
             if ((groupedResults != null) && (groupedResults.Count > 0))
             {
                 if (results == null)
                 {
-                    results = new Dictionary<string, object>();
+                    results = new Dictionary<string, bool>();
                 }
 
                 foreach (string field in groupedResults.Keys)
                 {
-                    foreach (string group in groupedResults.Keys)
+                    foreach (string group in groupedResults[field].Keys)
                     {
                         if (!results.ContainsKey(field))
                         {

@@ -309,8 +309,8 @@ namespace QA.Facade
 
                 reducer.Reduce(Results, GroupedResults);
 
-                IReducer oa3ToolReducer = new OA3ToolReducer();
-                oa3ToolReducer.Reduce(Results, null);
+                //IReducer oa3ToolReducer = new OA3ToolReducer();
+                //oa3ToolReducer.Reduce(Results, null);
             }
         }
 
