@@ -59,12 +59,22 @@ namespace QA.Parser
                     {
                         xmlWriter.WriteStartElement(fieldName);
 
-                        //xmlWriter.WriteStartElement("Result");
-                        //xmlWriter.WriteString(result.IsPassed.ToString());
-                        //xmlWriter.WriteEndElement();
+                        //Result
+                        xmlWriter.WriteStartElement("Result");
+
+                        if (resultSummary[fieldName] == true)
+                        {
+                            xmlWriter.WriteString("Passed");
+                        }
+                        else
+                        {
+                            xmlWriter.WriteString("Failed");
+                        }
+                        
+                        xmlWriter.WriteEndElement();
 
                         //Result
-                        xmlWriter.WriteElementString("Result", resultSummary[fieldName].ToString());
+                        //xmlWriter.WriteElementString("Result", resultSummary[fieldName].ToString());
 
                         for (int i = 0; i < resultObjects[fieldName].Count; i++)
                         {

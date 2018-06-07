@@ -60,7 +60,7 @@ namespace QA.Rule
 
                 int occurrence = ((ICollection)Pairs[FieldName]).Count;
 
-                result.IsPassed = ((occurrence > MinValue) && (occurrence <= MaxValue));
+                result.IsPassed = ((occurrence >= MinValue) && (occurrence <= MaxValue));
 
                 if (QuotedFields != null)
                 {
