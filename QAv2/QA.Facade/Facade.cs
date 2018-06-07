@@ -19,7 +19,7 @@ namespace QA.Facade
         public static Dictionary<string, Dictionary<string, List<IRule>>> Rules;
         public static Dictionary<string, object> Data;
         public static Dictionary<string, bool> Results;
-        public static Dictionary<string, Dictionary<string, bool>> GroupedResults;
+        public static Dictionary<string, Dictionary<string, List<bool>>> GroupedResults;
         public static Dictionary<string, List<Result>> ResultDetails;
 
         public static void InitializeRules()
@@ -247,7 +247,7 @@ namespace QA.Facade
             if ((Data != null) && (Rules != null))
             {
                 Results = new Dictionary<string, bool>();
-                GroupedResults = new Dictionary<string, Dictionary<string, bool>>();
+                GroupedResults = new Dictionary<string, Dictionary<string, List<bool>>>();
                 ResultDetails = new Dictionary<string, List<Result>>();
 
                 bool result;
@@ -270,16 +270,21 @@ namespace QA.Facade
                                     {
                                         //Results.Add(field, result);
 
-                                        GroupedResults.Add(field, new Dictionary<string, bool>() {{ group, result}});
+                                        GroupedResults.Add(field, new Dictionary<string, List<bool>>() {{ group, new List<bool>() { result} }});
                                     }
                                     else if (!GroupedResults[field].ContainsKey(group))
                                     {
-                                        GroupedResults[field].Add(group, result);
+                                        GroupedResults[field].Add(group, new List<bool>() { result });
                                     }
-                                    else if (result == false)
+                                    else
                                     {
-                                        GroupedResults[field][group] = result;
+                                        GroupedResults[field][group].Add(result);
                                     }
+
+                                    //else if (result == false)
+                                    //{
+                                    //    GroupedResults[field][group] = result;
+                                    //}
                                     //else if (result == false)
                                     //{
                                     //    Results[field] = result;

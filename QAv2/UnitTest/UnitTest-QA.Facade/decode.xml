@@ -24,7 +24,8 @@
 		<p n="SmbiosFirmwareVendor" v="LENOVO" />
 		<p n="SmbiosSystemManufacturer" v="LENOVO" />
 		<p n="SmbiosSystemProductName" v="20FNA06ACD" />
-		<p n="SmbiosSystemSerialNumber" v="PC0GLE1C" />
+		<!--<p n="SmbiosSystemSerialNumber" v="PC0GLE1C" />-->
+    <p n="SmbiosSystemSerialNumber" v="default string" />
 		<p n="SmbiosUuid" v="fd0cf8cc-21bf-11b2-a85c-f07eda1d882d" />
 		<p n="SmbiosSkuNumber" v="LENOVO_MT_20FN_BU_Think_FM_ThinkPad T460" />
 		<p n="SmbiosSystemFamily" v="ThinkPad T460" />

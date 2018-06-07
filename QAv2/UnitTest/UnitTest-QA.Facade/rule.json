@@ -3,7 +3,7 @@ Settings= {
     {
       "id": "f6bf0f53-d68f-4c4b-b945-f1659c96c2f7",
       "FieldName": "SmbiosSystemManufacturer",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 32,
@@ -42,7 +42,7 @@ Settings= {
     {
       "id": "040a2720-edb9-4440-bcfc-d81651e3db75",
       "FieldName": "SmbiosSystemFamily",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 64,
@@ -81,7 +81,7 @@ Settings= {
     {
       "id": "396e32d2-269c-4993-b8b3-93d773ce4c6f",
       "FieldName": "SmbiosSystemProductName",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 64,
@@ -120,7 +120,7 @@ Settings= {
     {
       "id": "9af4cdb2-a969-4cf1-95e7-5341176d9fa1",
       "FieldName": "SmbiosBoardProduct",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 32,
@@ -131,7 +131,7 @@ Settings= {
     {
       "id": "5f5ee4dd-c02c-48ee-ac16-95bd9e947d6d",
       "FieldName": "SmbiosSkuNumber",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 32,
@@ -142,7 +142,7 @@ Settings= {
     {
       "id": "cdde6b01-5b09-4aa0-a3a9-54d367306e9d",
       "FieldName": "SmbiosSystemSerialNumber",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 128,
@@ -181,7 +181,7 @@ Settings= {
     {
       "id": "d5549b24-420a-45bd-9d15-1cac2a30793a",
       "FieldName": "SmbiosUuid",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": "1",
       "FieldAltValue": "128",
@@ -192,7 +192,7 @@ Settings= {
     {
       "id": "d49c4666-e67a-44e0-af84-804df3aa0ae0",
       "FieldName": "ChassisType",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 3,
@@ -218,7 +218,7 @@ Settings= {
     {
       "id": "2827a007-e9b0-4460-a3a9-63ca86e08518",
       "FieldName": "DigitizerSupportID",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "OutOfRange",
       "FieldValue": null,
       "UnexpectedValues": [ "Not Applicable", "Not Found", "Error" ],
@@ -228,7 +228,7 @@ Settings= {
     {
       "id": "355f1b6d-ef92-46aa-b524-fa86de06003a",
       "FieldName": "TotalPhysicalRAM",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 1,
       "FieldAltValue": 4,
@@ -253,7 +253,7 @@ Settings= {
     {
       "id": "53b0a0af-9b75-4c99-b2ce-71bf19c53a04",
       "FieldName": "DisplaySizePhysicalH",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 0,
       "FieldAltValue": 4,
@@ -278,7 +278,7 @@ Settings= {
     {
       "id": "09a1bc15-15e4-4650-9b59-4f039d28dbbc",
       "FieldName": "DisplaySizePhysicalY",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "StringLength",
       "FieldValue": 0,
       "FieldAltValue": 4,
@@ -303,7 +303,7 @@ Settings= {
     {
       "id": "5dcad0e2-0855-4ae5-b590-ad2890f8d7ec",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "InAndOutOfRange",
       "ExpectedValues": [ "Virtual", "NVMe", "RAID", "SD", "SSD", "HDD" ],
       "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
@@ -328,7 +328,7 @@ Settings= {
     {
       "id": "4ed4199e-1afb-4947-943a-0a40fe1a4935",
       "FieldName": "PrimaryDiskTotalCapacity",
-      "GroupName": "DFAULT",
+      "GroupName": "DEFAULT",
       "RuleType": "MinAndMax",
       "FieldValue": 1,
       "FieldAltValue": 65536,
