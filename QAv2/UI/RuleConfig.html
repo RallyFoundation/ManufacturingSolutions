@@ -94,19 +94,19 @@
                 <td>
                     <div ng-switch="ruleItem.RuleType">
                         <div ng-switch-when="EqualTo">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
                         </div>
                         <div ng-switch-when="NotEqualTo">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
                         </div>
                         <div ng-switch-when="Reference">
                             <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                             <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                         </div>
                         <div ng-switch-when="NumberSequenceComparison">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
-                            <input type="text" ng-model="ruleItem.SequenceSeparator" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
-                            <input type="number" ng-model="ruleItem.SequenceIndex" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.Int, this)" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
+                            <input type="text" ng-model="ruleItem.SequenceSeparator" class="form-control" maxlength="50" />
+                            <input type="number" ng-model="ruleItem.SequenceIndex" class="form-control" maxlength="50" />
                         </div>
                         <div ng-switch-when="Min">
                             <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />

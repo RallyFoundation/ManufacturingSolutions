@@ -270,7 +270,7 @@ namespace QA.Facade
                                     {
                                         //Results.Add(field, result);
 
-                                        GroupedResults.Add(field, new Dictionary<string, bool>() { { group, result} });
+                                        GroupedResults.Add(field, new Dictionary<string, bool>() {{ group, result}});
                                     }
                                     else if (!GroupedResults[field].ContainsKey(group))
                                     {
@@ -308,6 +308,9 @@ namespace QA.Facade
                 IReducer reducer = new ResultReducer();
 
                 reducer.Reduce(Results, GroupedResults);
+
+                IReducer oa3ToolReducer = new OA3ToolReducer();
+                oa3ToolReducer.Reduce(Results, null);
             }
         }
 

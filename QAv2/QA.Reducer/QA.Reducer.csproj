@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OA3ToolReducer.cs" />
     <Compile Include="ResultReducer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
