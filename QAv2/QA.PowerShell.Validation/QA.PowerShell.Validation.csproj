@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddRuleCommand.cs" />
     <Compile Include="GetResultCommand.cs" />
     <Compile Include="InitializeDataCommand.cs" />
     <Compile Include="InitializeRuleCommand.cs" />

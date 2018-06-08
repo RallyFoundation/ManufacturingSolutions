@@ -481,7 +481,7 @@ Initialize-Data -Path $DecodeFilePath;
 
 $ResultXml.InnerXml | Out-File -Encoding utf8 -FilePath $ResultXmlFilePath -Force;
 
-#$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
+$ResultJson = Get-JsonFromXml -XmlString $ResultXml.InnerXml -Indent;
 $ResultJson | Out-File -Encoding utf8 -FilePath $ResultJsonFilePath -Force;
 
 #if(($ResultXml.TestItems.TotalPhysicalRAM.Result -eq "Failed") -or ($ResultXml.TestItems.PrimaryDiskTotalCapacity.Result -eq "Failed"))

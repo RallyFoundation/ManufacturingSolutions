@@ -268,8 +268,6 @@ namespace QA.Facade
 
                                     if (!GroupedResults.ContainsKey(field))
                                     {
-                                        //Results.Add(field, result);
-
                                         GroupedResults.Add(field, new Dictionary<string, List<bool>>() {{ group, new List<bool>() { result} }});
                                     }
                                     else if (!GroupedResults[field].ContainsKey(group))
@@ -281,15 +279,6 @@ namespace QA.Facade
                                         GroupedResults[field][group].Add(result);
                                     }
 
-                                    //else if (result == false)
-                                    //{
-                                    //    GroupedResults[field][group] = result;
-                                    //}
-                                    //else if (result == false)
-                                    //{
-                                    //    Results[field] = result;
-                                    //}
-
                                     if (!ResultDetails.ContainsKey(field))
                                     {
                                         ResultDetails.Add(field, new List<Result>());
@@ -299,11 +288,6 @@ namespace QA.Facade
                                     {
                                         ResultDetails[field].Add((resultDetail as Result));
                                     }
-                                    
-                                    //if (result == false)
-                                    //{
-                                    //    break;
-                                    //}
                                 }
                             }                          
                         }
@@ -324,6 +308,196 @@ namespace QA.Facade
             IParser parser = new ValidationResultObjectToXmlConverter();
             object result = parser.Parse(ResultObjects);
             return result.ToString();
+        }
+
+        public static void AddRule(ValidationRuleItem RuleItem)
+        {
+            IRule rule = null;
+
+            switch (RuleItem.RuleType)
+            {
+                case RuleType.EqualTo:
+                    {
+                        rule = new EqualToRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValue = RuleItem.FieldValue.ToString()
+                        };
+                        break;
+                    }
+                case RuleType.NotEqualTo:
+                    {
+                        rule = new NotEqualToRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            UnexpectedValue = RuleItem.FieldValue.ToString()
+                        };
+                        break;
+                    }
+                case RuleType.InRange:
+                    {
+                        rule = new InRangeRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValueRange = RuleItem.ExpectedValues
+                        };
+                        break;
+                    }
+                case RuleType.OutOfRange:
+                    {
+                        rule = new OutOfRangeRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            UnexpectedValueRange = RuleItem.UnexpectedValues
+                        };
+                        break;
+                    }
+                case RuleType.InAndOutOfRange:
+                    {
+                        rule = new InAndOutOfRangeRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValueRange = RuleItem.ExpectedValues,
+                            UnexpectedValueRange = RuleItem.UnexpectedValues
+                        };
+                        break;
+                    }
+                case RuleType.StringLength:
+                    {
+                        rule = new StringLengthRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            MinValue = RuleItem.MinValue,
+                            MaxValue = RuleItem.MaxValue
+                        };
+                        break;
+                    }
+                case RuleType.Min:
+                    {
+                        rule = new MinRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            MinValue = RuleItem.MinValue
+                        };
+                        break;
+                    }
+                case RuleType.Max:
+                    {
+                        rule = new MaxRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            MaxValue = RuleItem.MaxValue
+                        };
+                        break;
+                    }
+                case RuleType.MinAndMax:
+                    {
+                        rule = new MinAndMaxRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            MinValue = RuleItem.MinValue,
+                            MaxValue = RuleItem.MaxValue
+                        };
+                        break;
+                    }
+                case RuleType.NotNull:
+                    {
+                        rule = new NotNullRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName
+                        };
+                        break;
+                    }
+                case RuleType.Reference:
+                    {
+                        rule = new ReferenceRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ReferenceFieldName = RuleItem.ReferenceFieldName,
+                            ExpectedValue = RuleItem.FieldValue.ToString()
+                        };
+                        break;
+                    }
+                case RuleType.NumberSequenceComparison:
+                    {
+                        rule = new NumberSequenceComparisonRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            Separator = RuleItem.SequenceSeparator,
+                            Index = RuleItem.SequenceIndex,
+                            ExpectedValue = RuleItem.FieldValue.ToString()
+                        };
+                        break;
+                    }
+                case RuleType.Occurrence:
+                    {
+                        rule = new OccurrenceRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            MinValue = RuleItem.MinValue,
+                            MaxValue = RuleItem.MaxValue,
+                        };
+
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            if (Rules == null)
+            {
+                Rules = new Dictionary<string, Dictionary<string, List<IRule>>>();
+            }
+
+            if (rule != null)
+            {
+                rule.QuotedFields = RuleItem.QuotedFields;
+
+                if (!Rules.ContainsKey(rule.FieldName))
+                {
+                    Rules.Add(rule.FieldName, new Dictionary<string, List<IRule>>()
+                                {
+                                    { rule.GroupName, new List<IRule>(new IRule[] { rule }) }
+                                });
+                }
+                else if (!Rules[rule.FieldName].ContainsKey(rule.GroupName))
+                {
+                    Rules[rule.FieldName].Add(rule.GroupName, new List<IRule>(new IRule[] { rule }));
+                }
+                else
+                {
+                    Rules[rule.FieldName][rule.GroupName].Add(rule);
+                }
+            }
+
+            //if (Rules != null)
+            //{
+            //    if (!Rules.ContainsKey(RuleItem.FieldName))
+            //    {
+            //        Rules.Add(RuleItem.FieldName, new Dictionary<string, List<IRule>>() { { RuleItem.GroupName, new List<IRule>() { } } });
+            //    }
+            //    else if(!Rules[RuleItem.FieldName].ContainsKey(RuleItem.GroupName))
+            //    {
+            //        Rules[RuleItem.FieldName].Add(RuleItem.GroupName, new List<IRule>());
+            //    }
+            //    else
+            //    {
+
+            //    }     
+            //}
         }
     }
 }
