@@ -92,6 +92,8 @@ $DataProcessingModulePath = $RootDir + "\Module\DataProcessing\PowerShellDataPro
 
 $XsltExtensionObjectPath = $RootDir + "\Module\XsltExtension\BusinessRule.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
 
+$QAModelObjectPath = $RootDir + "\Module\Validation\QA.Model.dll";
+
 $LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
 
 $OA3ReportXmlSchemaPath = $RootDir + "\Data\SchemaOA3ToolReportKey.xsd";
@@ -100,11 +102,13 @@ $OA3ReportXmlSchemaPath = $RootDir + "\Data\SchemaOA3ToolReportKey.xsd";
 $Message;
 $Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
+Add-Type -Path $XsltExtensionObjectPath;
+
 Import-Module ($DataProcessingModulePath);
 
-Import-Module ($ValidationModulePath);
+Add-Type -Path $QAModelObjectPath;
 
-Add-Type -Path $XsltExtensionObjectPath;
+Import-Module ($ValidationModulePath);
 
 #$IE = New-Object -COM InternetExplorer.Application;
 #$IE.FullScreen = $false;
@@ -451,7 +455,7 @@ else
 
 $ExpectedOSType = "FullOS";
 $ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
-$ProcessorModel = $ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
+#$ProcessorModel = $ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 
 $XsltArgs = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 
@@ -474,6 +478,28 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 
 Initialize-Rule -Path ($RootDir + "\Config\rule.json");
 Initialize-Data -Path $DecodeFilePath;
+
+$RuleItemProductKeyID = New-Object -TypeName "QA.Model.ValidationRuleItem";
+
+$RuleItemProductKeyID.FieldName = "ProductKeyID";
+$RuleItemProductKeyID.FieldValue = $ProductKeyID;
+$RuleItemProductKeyID.GroupName = "DEFAULT";
+$RuleItemProductKeyID.RuleType = ([QA.Model.RuleType]::EqualTo);
+
+$RuleItemProductKeyID;
+
+Add-Rule -RuleItem $RuleItemProductKeyID;
+
+$RuleItemProcessorModel = New-Object -TypeName "QA.Model.ValidationRuleItem";
+
+$RuleItemProcessorModel.FieldName = "ProcessorModel";
+$RuleItemProcessorModel.FieldValue = $ProcessorModel;
+$RuleItemProcessorModel.GroupName = "DEFAULT";
+$RuleItemProcessorModel.RuleType = ([QA.Model.RuleType]::EqualTo);
+
+$RuleItemProcessorModel;
+
+Add-Rule -RuleItem $RuleItemProcessorModel;
 
 #$ResultJson = Get-Result | ConvertTo-Json;
 

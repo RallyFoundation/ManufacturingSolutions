@@ -12,12 +12,14 @@ namespace QA.PowerShell.Validation
     [Cmdlet(VerbsCommon.Add, "Rule")]
     public class AddRuleCommand : Cmdlet
     {
+        [Parameter(Position = 0, Mandatory = false, HelpMessage = "The rule instance to be added to the rule pairs.")]
         public ValidationRuleItem RuleItem { get; set; }
+
         protected override void ProcessRecord()
         {
-            //base.ProcessRecord();
-
             Facade.Facade.AddRule(RuleItem);
+
+            this.WriteObject(Facade.Facade.Rules);
         }
     }
 }

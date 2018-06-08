@@ -25,6 +25,23 @@ namespace UnitTest_QA.Facade
                 }
             }
 
+            QA.Facade.Facade.AddRule(new ValidationRuleItem() {
+
+                FieldName = "ProductKeyID",
+                FieldValue = 3423327065671,
+                GroupName = "DEFAULT",
+                RuleType = RuleType.EqualTo
+            });
+
+            QA.Facade.Facade.AddRule(new ValidationRuleItem()
+            {
+
+                FieldName = "ProcessorModel",
+                FieldValue = "Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz",
+                GroupName = "DEFAULT",
+                RuleType = RuleType.EqualTo
+            });
+
             QA.Facade.Facade.InstantiateInputData();
 
             if (QA.Facade.Facade.Data != null)
