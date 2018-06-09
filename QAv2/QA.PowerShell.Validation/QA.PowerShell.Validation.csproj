@@ -49,6 +49,7 @@
     <Compile Include="InitializeDataCommand.cs" />
     <Compile Include="InitializeRuleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetDataCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QA.Core\QA.Core.csproj">

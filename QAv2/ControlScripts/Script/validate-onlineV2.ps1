@@ -503,6 +503,11 @@ Add-Rule -RuleItem $RuleItemProcessorModel;
 
 #$ResultJson = Get-Result | ConvertTo-Json;
 
+if(($ShouldByPassDPKChecking -eq $true) -and ($ProductKeyID -eq "NO_KEY_CHECK"))
+{
+	Set-Data -Key "ProductKeyID" -Value "NO_KEY_CHECK";
+}
+
 [xml]$ResultXml = Get-Result;
 
 $ResultXml.InnerXml | Out-File -Encoding utf8 -FilePath $ResultXmlFilePath -Force;

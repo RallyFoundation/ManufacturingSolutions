@@ -323,6 +323,23 @@ namespace QA.Facade
             return result.ToString();
         }
 
+        public static void SetData(string FieldName, object FieldValue)
+        {
+            if (Data == null)
+            {
+                Data = new Dictionary<string, object>();
+            }
+
+            if (!Data.ContainsKey(FieldName))
+            {
+                Data.Add(FieldName, FieldValue);
+            }
+            else
+            {
+                Data[FieldName] = FieldValue;
+            }
+        }
+
         public static void AddRule(ValidationRuleItem RuleItem)
         {
             IRule rule = null;
