@@ -42,12 +42,19 @@ namespace QA.Reducer
             {
                 if (!resultDetails.ContainsKey("OA3Tool"))
                 {
+                    object toolVersion = resultDetails["ToolVersion"][0].FieldValue;
+                    object toolBuild = resultDetails["ToolBuild"][0].FieldValue;
+
                     resultDetails.Add("OA3Tool", new List<Result>() { new Result() {
 
                          FieldName = "OA3Tool",
-                         FieldValue = String.Format("{0}:{1}", resultDetails["ToolVersion"][0].FieldValue, resultDetails["ToolBuild"][0].FieldValue),
+                         FieldValue = String.Format("{0}:{1}", toolVersion, toolBuild),
                          IsPassed = results["OA3Tool"],
                          RuleType = RuleType.EqualTo,
+                         Description = new Dictionary<string, object>(){
+                             {"ToolVersion", toolVersion},
+                             { "ToolBuild", toolBuild}
+                         },
                          RuleInstance = new ValidationRuleItem(){
                               GroupName = (resultDetails["ToolVersion"][0].RuleInstance as ValidationRuleItem).GroupName,
                               FieldName = "OA3Tool",

@@ -43,6 +43,7 @@
     <Compile Include="OA3ToolReducer.cs" />
     <Compile Include="ResultReducer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationResultXmlReducer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QA.Core\QA.Core.csproj">

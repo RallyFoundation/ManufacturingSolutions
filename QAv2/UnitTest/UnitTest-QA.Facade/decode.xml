@@ -6,6 +6,7 @@
 		<p n="ToolVersion" v="3" />
 		<p n="HardwareInventoryVersion" v="131" />
 		<p n="ToolBuild" v="10.0.16288.1" />
+    <!--<p n="ToolBuild" v="10.0.17115.1" />-->
 		<p n="OSType" v="FullOS" />
 		<p n="OsCpuArchitecture" v="x64" />
 		<p n="OsBuild" v="10.0.16299.64" />

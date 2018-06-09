@@ -69,7 +69,7 @@ namespace UnitTest_QA.Facade
                     }
                 }
 
-                string xml = QA.Facade.Facade.GetResultXml(new object[] { QA.Facade.Facade.Results, QA.Facade.Facade.ResultDetails });
+                string xml = QA.Facade.Facade.OutputResultXml(); //QA.Facade.Facade.GetResultXml(new object[] { QA.Facade.Facade.Results, QA.Facade.Facade.ResultDetails });
 
                 Console.WriteLine(xml);
             }

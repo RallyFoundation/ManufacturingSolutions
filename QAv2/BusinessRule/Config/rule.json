@@ -410,22 +410,23 @@ Settings= {
       "QuotedFields": [ "ToolVersion", "ToolBuild" ],
       "$$hashKey": "object:121",
       "currentInputValue": null
-    },
-    {
-      "id": "d53b3a67-bec8-4af1-87df-2f9fe2787dae",
-      "FieldName": "ToolBuild",
-      "GroupName": "DEFAULT",
-      "RuleType": "Reference",
-      "FieldValue": "3",
-      "FieldAltValue": null,
-      "MinValue": -1,
-      "MaxValue": -1,
-      "ExpectedValues": null,
-      "UnexpectedValues": null,
-      "QuotedFields": [ "ToolVersion", "ToolBuild" ],
-      "$$hashKey": "object:127",
-      "ReferenceFieldName": "ToolVersion",
-      "currentInputValue": null
     }
+    //,
+    //{
+    //  "id": "d53b3a67-bec8-4af1-87df-2f9fe2787dae",
+    //  "FieldName": "ToolBuild",
+    //  "GroupName": "DEFAULT",
+    //  "RuleType": "Reference",
+    //  "FieldValue": "3",
+    //  "FieldAltValue": null,
+    //  "MinValue": -1,
+    //  "MaxValue": -1,
+    //  "ExpectedValues": null,
+    //  "UnexpectedValues": null,
+    //  "QuotedFields": [ "ToolVersion", "ToolBuild" ],
+    //  "$$hashKey": "object:127",
+    //  "ReferenceFieldName": "ToolVersion",
+    //  "currentInputValue": null
+    //}
   ]
 };

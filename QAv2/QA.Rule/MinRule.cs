@@ -36,6 +36,8 @@ namespace QA.Rule
 
             Result = result;
 
+            int fieldVal = -1;
+
             try
             {
                 if (Pairs == null)
@@ -50,8 +52,13 @@ namespace QA.Rule
                     return false;
                 }
 
-                result.FieldValue = Pairs[FieldName];
-                result.IsPassed = ((int)Pairs[FieldName] >= MinValue);
+                if (!int.TryParse(Pairs[FieldName].ToString(), out fieldVal))
+                {
+                    return false;
+                }
+
+                result.FieldValue = fieldVal;
+                result.IsPassed = (fieldVal >= MinValue);
 
                 if (QuotedFields != null)
                 {

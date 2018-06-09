@@ -8,5 +8,6 @@ namespace QA.Core
 {
     public interface IMapper
     {
+        object Map(object Data);
     }
 }

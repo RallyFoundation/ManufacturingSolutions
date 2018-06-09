@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AC754246-557E-4E39-A12C-D630561E8756}</ProjectGuid>
+    <ProjectGuid>{586A0AB3-7FB2-4B89-B36E-237714879CC2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QA.Facade</RootNamespace>
-    <AssemblyName>QA.Facade</AssemblyName>
+    <RootNamespace>QA.Mapper</RootNamespace>
+    <AssemblyName>QA.Mapper</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,30 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Facade.cs" />
-    <Compile Include="Global.cs" />
+    <Compile Include="Decoded4KHHXmlMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleJsonMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QA.Core\QA.Core.csproj">
       <Project>{992d7932-3d88-4b40-af68-6e6750b86a00}</Project>
       <Name>QA.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QA.Mapper\QA.Mapper.csproj">
-      <Project>{586a0ab3-7fb2-4b89-b36e-237714879cc2}</Project>
-      <Name>QA.Mapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QA.Model\QA.Model.csproj">
       <Project>{194e20d0-04fe-4ce2-b8b1-3f2d83ea515f}</Project>
       <Name>QA.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QA.Reducer\QA.Reducer.csproj">
-      <Project>{31b70b13-c40c-4021-b67a-1e9276266df0}</Project>
-      <Name>QA.Reducer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\QA.Rule\QA.Rule.csproj">
-      <Project>{974e76cb-9a7b-43b5-9503-a865a690d6f1}</Project>
-      <Name>QA.Rule</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{3a2259d1-b0b2-49f0-a288-4d9834ecc6d3}</Project>

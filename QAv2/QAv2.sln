@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperRunConfig", "SuperRunC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.Reducer", "QA.Reducer\QA.Reducer.csproj", "{31B70B13-C40C-4021-B67A-1E9276266DF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.Mapper", "QA.Mapper\QA.Mapper.csproj", "{586A0AB3-7FB2-4B89-B36E-237714879CC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +140,10 @@ Global
 		{31B70B13-C40C-4021-B67A-1E9276266DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31B70B13-C40C-4021-B67A-1E9276266DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31B70B13-C40C-4021-B67A-1E9276266DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586A0AB3-7FB2-4B89-B36E-237714879CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586A0AB3-7FB2-4B89-B36E-237714879CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586A0AB3-7FB2-4B89-B36E-237714879CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586A0AB3-7FB2-4B89-B36E-237714879CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

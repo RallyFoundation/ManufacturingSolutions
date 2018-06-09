@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
 using QA.Core;
-using QA.Parser;
+//using QA.Parser;
 using QA.Rule;
 using QA.Utility;
 using QA.Model;
+using QA.Mapper;
 using QA.Reducer;
 
 namespace QA.Facade
@@ -26,7 +27,9 @@ namespace QA.Facade
         {
             string ruleConfPath = Global.DefaultRuleConfigPath;
 
-            IParser validationRuleJsonParser = new ValidationRuleConfigurationJsonParser();
+            //IParser validationRuleJsonParser = new ValidationRuleConfigurationJsonParser();
+
+            IMapper ruleJsonMapper = new RuleJsonMapper();
 
             byte[] ruleBytes = new byte[1024];
 
@@ -44,7 +47,7 @@ namespace QA.Facade
             ruleString = ruleString.Substring(0, (ruleString.LastIndexOf("]") + 1));
             ruleBytes = Encoding.UTF8.GetBytes(ruleString);
 
-            ValidationRuleItem[] ruleItems = validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
+            ValidationRuleItem[] ruleItems = ruleJsonMapper.Map(ruleBytes) as ValidationRuleItem[]; //validationRuleJsonParser.Parse(ruleBytes) as ValidationRuleItem[];
 
             if (ruleItems != null)
             {
@@ -238,8 +241,11 @@ namespace QA.Facade
                 }
             }
 
-            IParser parser = new Decoded4KHHXmlParser();
-            Data = parser.Parse(data) as Dictionary<string, object>;
+            //IParser parser = new Decoded4KHHXmlParser();
+            //Data = parser.Parse(data) as Dictionary<string, object>;
+
+            IMapper mapper = new Decoded4KHHXmlMapper();
+            Data = mapper.Map(data) as Dictionary<string, object>;
         }
 
         public static void ValidateData()
@@ -303,10 +309,17 @@ namespace QA.Facade
             }
         }
 
-        public static string GetResultXml(object[] ResultObjects)
+        //public static string GetResultXml(object[] ResultObjects)
+        //{
+        //    IParser parser = new ValidationResultObjectToXmlConverter();
+        //    object result = parser.Parse(ResultObjects);
+        //    return result.ToString();
+        //}
+
+        public static string OutputResultXml()
         {
-            IParser parser = new ValidationResultObjectToXmlConverter();
-            object result = parser.Parse(ResultObjects);
+            IReducer xmlReducer = new ValidationResultXmlReducer();
+            object result = xmlReducer.Reduce(Results, ResultDetails);
             return result.ToString();
         }
 
@@ -482,22 +495,6 @@ namespace QA.Facade
                     Rules[rule.FieldName][rule.GroupName].Add(rule);
                 }
             }
-
-            //if (Rules != null)
-            //{
-            //    if (!Rules.ContainsKey(RuleItem.FieldName))
-            //    {
-            //        Rules.Add(RuleItem.FieldName, new Dictionary<string, List<IRule>>() { { RuleItem.GroupName, new List<IRule>() { } } });
-            //    }
-            //    else if(!Rules[RuleItem.FieldName].ContainsKey(RuleItem.GroupName))
-            //    {
-            //        Rules[RuleItem.FieldName].Add(RuleItem.GroupName, new List<IRule>());
-            //    }
-            //    else
-            //    {
-
-            //    }     
-            //}
         }
     }
 }
