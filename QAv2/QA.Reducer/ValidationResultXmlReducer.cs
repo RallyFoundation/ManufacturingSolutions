@@ -72,9 +72,6 @@ namespace QA.Reducer
 
                         xmlWriter.WriteEndElement();
 
-                        //Result
-                        //xmlWriter.WriteElementString("Result", resultSummary[fieldName].ToString());
-
                         for (int i = 0; i < resultObjects[fieldName].Count; i++)
                         {
                             result = resultObjects[fieldName][i];
@@ -243,9 +240,14 @@ namespace QA.Reducer
 
                                 xmlWriter.WriteEndElement();
                             }
+                        }
 
-                            //Detail
-                            xmlWriter.WriteStartElement("Detail");
+                        //Detail
+                        xmlWriter.WriteStartElement("Detail");
+
+                        for (int i = 0; i < resultObjects[fieldName].Count; i++)
+                        {
+                            result = resultObjects[fieldName][i];
 
                             if ((result.Description != null) && (result.Description is IDictionary<string, object>))
                             {
@@ -269,9 +271,9 @@ namespace QA.Reducer
                                     }
                                 }
                             }
-
-                            xmlWriter.WriteEndElement(); //Detail
                         }
+
+                        xmlWriter.WriteEndElement(); //Detail
 
                         xmlWriter.WriteEndElement();//FieldName
                     }
