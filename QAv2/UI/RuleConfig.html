@@ -65,16 +65,16 @@
                 <th>Quoted Fields</th>
             </tr>
             <tr ng-repeat="ruleItem in ruleItems">
-                <td>
+                <td style="width:2%">
                     <input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />
                 </td>
-                <td>
+                <td style="width:18%">
                     <input type="text" ng-model="ruleItem.FieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                 </td>
-                <td>
+                <td style="width:9%">
                     <input type="text" ng-model="ruleItem.GroupName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                 </td>
-                <td>
+                <td style="width:15%">
                     <select ng-model="ruleItem.RuleType" class="form-control">
                         <option value="EqualTo">Equal To</option>
                         <option value="NotEqualTo">Not Equal To</option>
@@ -91,32 +91,32 @@
                         <option value="Occurrence">Occurrence</option>
                     </select>
                 </td>
-                <td>
+                <td style="width:25%">
                     <div ng-switch="ruleItem.RuleType">
                         <div ng-switch-when="EqualTo">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" title="Field value." />
                         </div>
                         <div ng-switch-when="NotEqualTo">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" title="Field value." />
                         </div>
                         <div ng-switch-when="Reference">
-                            <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                            <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field value." />
                         </div>
                         <div ng-switch-when="NumberSequenceComparison">
-                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" />
-                            <input type="text" ng-model="ruleItem.SequenceSeparator" class="form-control" maxlength="50" />
-                            <input type="number" ng-model="ruleItem.SequenceIndex" class="form-control" maxlength="50" />
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" title="Field value." />
+                            <input type="text" ng-model="ruleItem.SequenceSeparator" class="form-control" maxlength="50" title="Sequence separator, i.e., '.', or ',', etc." />
+                            <input type="number" ng-model="ruleItem.SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus."/>
                         </div>
                         <div ng-switch-when="Min">
-                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" title="Min value." />
                         </div>
                         <div ng-switch-when="Max">
-                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
                         </div>
                         <div ng-switch-when="InRange">
-                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" />
-                            <table>
+                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                            <table class="table">
                                 <tr ng-repeat="val in ruleItem.ExpectedValues">
                                     <td>
                                         {{val}}
@@ -128,8 +128,8 @@
                             </table>
                         </div>
                         <div ng-switch-when="OutOfRange">
-                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" />
-                            <table>
+                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below."/>
+                            <table class="table">
                                 <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                     <td>
                                         {{val}}
@@ -141,11 +141,11 @@
                             </table>
                         </div>
                         <div ng-switch-when="InAndOutOfRange">
-                            <table>
+                            <table class="table">
                                 <tr>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" />
-                                        <table>
+                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                                        <table class="table">
                                             <tr ng-repeat="val in ruleItem.ExpectedValues">
                                                 <td>
                                                     {{val}}
@@ -157,8 +157,8 @@
                                         </table>
                                     </td>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" />
-                                        <table>
+                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below." />
+                                        <table class="table">
                                             <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                                 <td>
                                                     {{val}}
@@ -173,24 +173,24 @@
                             </table>
                         </div>
                         <div ng-switch-when="StringLength">
-                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
-                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
                         </div>
                         <div ng-switch-when="MinAndMax">
-                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
-                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
                         </div>
                         <div ng-switch-when="Occurrence">
-                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" />
-                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" />
+                            <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
                         </div>
                     </div>
                     <!--<input type="text" ng-model="ruleItem.FieldValue" ng-show="(ruleItem.RuleType != 'NotNull')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
                     <input type="text" ng-model="ruleItem.FieldAltValue" ng-show="(ruleItem.RuleType == 'InAndOutOfRange') || (ruleItem.RuleType == 'StringLength') || (ruleItem.RuleType == 'MinAndMax')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />-->
                 </td>
                 <td>
-                    <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" />
-                    <table>
+                    <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" title="Quoted fields. Type into one quoted field name, and press Enter to populate it into the Quoted Field Name List below." />
+                    <table class="table">
                         <tr ng-repeat="val in ruleItem.QuotedFields">
                             <td>
                                 {{val}}
