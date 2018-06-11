@@ -69,13 +69,13 @@
                     <input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />
                 </td>
                 <td style="width:18%">
-                    <input type="text" ng-model="ruleItem.FieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                    <input type="text" ng-model="ruleItem.FieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the field for the rule to validate." />
                 </td>
                 <td style="width:9%">
-                    <input type="text" ng-model="ruleItem.GroupName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                    <input type="text" ng-model="ruleItem.GroupName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Group name, the name of the group that this rule belongs to. If you want this rule to be computed altogether with other rules that also check this field, make sure all of those rules' group names are the same with this rule's." />
                 </td>
                 <td style="width:15%">
-                    <select ng-model="ruleItem.RuleType" class="form-control">
+                    <select ng-model="ruleItem.RuleType" class="form-control" title="The type of the rule, select one from the drop down list.">
                         <option value="EqualTo">Equal To</option>
                         <option value="NotEqualTo">Not Equal To</option>
                         <option value="Reference">Reference</option>
