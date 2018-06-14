@@ -194,11 +194,11 @@ Settings= {
       "FieldName": "ChassisType",
       "GroupName": "DEFAULT",
       "RuleType": "StringLength",
-      "FieldValue": 1,
-      "FieldAltValue": 3,
+      "FieldValue": 4,
+      "FieldAltValue": 4,
       "$$hashKey": "object:31",
-      "MinValue": 3,
-      "MaxValue": 3
+      "MinValue": 4,
+      "MaxValue": 4
     },
     {
       "id": "a6408b13-69d4-4ba7-b6b2-d877091ddedc",

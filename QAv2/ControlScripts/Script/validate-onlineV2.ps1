@@ -476,8 +476,8 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 
 #[xml]$ResultXml = Get-TransformedXml -XmlDocument $HardwareHashDecode -XsltPath $XsltPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
 
-Initialize-Rule -Path ($RootDir + "\Config\rule.json");
-Initialize-Data -Path $DecodeFilePath;
+$RulesObj = Initialize-Rule -Path ($RootDir + "\Config\rule.json");
+$DataObj = Initialize-Data -Path $DecodeFilePath;
 
 $RuleItemProductKeyID = New-Object -TypeName "QA.Model.ValidationRuleItem";
 
