@@ -115,7 +115,7 @@
                             <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
                         </div>
                         <div ng-switch-when="InRange">
-                            <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                            <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
                             <table class="table">
                                 <tr ng-repeat="val in ruleItem.ExpectedValues">
                                     <td>
@@ -125,10 +125,14 @@
                                         <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>-->
+                            <textarea ng-model="ruleItem.ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                            </ul>
                         </div>
                         <div ng-switch-when="OutOfRange">
-                            <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below."/>
+                            <!--<input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below."/>
                             <table class="table">
                                 <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                     <td>
@@ -138,13 +142,17 @@
                                         <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
                                     </td>
                                 </tr>
-                            </table>
+                            </table>-->
+                            <textarea ng-model="ruleItem.UnexpectedValues" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.UnexpectedValues">{{val}}</li>
+                            </ul>
                         </div>
                         <div ng-switch-when="InAndOutOfRange">
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                                        <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
                                         <table class="table">
                                             <tr ng-repeat="val in ruleItem.ExpectedValues">
                                                 <td>
@@ -154,10 +162,14 @@
                                                     <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>-->
+                                        <textarea ng-model="ruleItem.ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                                        </ul>
                                     </td>
                                     <td>
-                                        <input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below." />
+                                        <!--<input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below." />
                                         <table class="table">
                                             <tr ng-repeat="val in ruleItem.UnexpectedValues">
                                                 <td>
@@ -167,7 +179,11 @@
                                                     <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>-->
+                                        <textarea ng-model="ruleItem.UnexpectedValues" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in ruleItem.UnexpectedValues">{{val}}</li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>
@@ -189,7 +205,7 @@
                     <input type="text" ng-model="ruleItem.FieldAltValue" ng-show="(ruleItem.RuleType == 'InAndOutOfRange') || (ruleItem.RuleType == 'StringLength') || (ruleItem.RuleType == 'MinAndMax')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />-->
                 </td>
                 <td>
-                    <input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" title="Quoted fields. Type into one quoted field name, and press Enter to populate it into the Quoted Field Name List below." />
+                    <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" title="Quoted fields. Type into one quoted field name, and press Enter to populate it into the Quoted Field Name List below." />
                     <table class="table">
                         <tr ng-repeat="val in ruleItem.QuotedFields">
                             <td>
@@ -199,7 +215,11 @@
                                 <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.QuotedFields, $index)">Remove</a>
                             </td>
                         </tr>
-                    </table>
+                    </table>-->
+                    <textarea ng-model="ruleItem.QuotedFields" class="form-control" title="Quoted fields. Type into the name of the field(s) to quote, and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                    <ul>
+                        <li ng-repeat="val in ruleItem.QuotedFields">{{val}}</li>
+                    </ul>
                 </td>
             </tr>
         </table>
