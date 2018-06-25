@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRule.cs" />
     <Compile Include="EqualToRule.cs" />
     <Compile Include="InAndOutOfRangeRule.cs" />
     <Compile Include="InRangeRule.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="OccurrenceRule.cs" />
     <Compile Include="OutOfRangeRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceInRangeRule.cs" />
     <Compile Include="ReferenceRule.cs" />
     <Compile Include="NumberSequenceComparisonRule.cs" />
     <Compile Include="StringLengthRule.cs" />
