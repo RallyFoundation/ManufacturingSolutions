@@ -176,6 +176,17 @@ namespace QA.Facade
                                     };
                                     break;
                                 }
+                            case RuleType.ReferenceInRange:
+                                {
+                                    rule = new ReferenceInRangeRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        ReferenceFieldName = ruleItems[i].ReferenceFieldName,
+                                        ExpectedValueRange = ruleItems[i].ExpectedValues
+                                    };
+                                    break;
+                                }
                             case RuleType.NumberSequenceComparison:
                                 {
                                     rule = new NumberSequenceComparisonRule()
@@ -196,6 +207,17 @@ namespace QA.Facade
                                         GroupName = ruleItems[i].GroupName,
                                         MinValue = ruleItems[i].MinValue,
                                         MaxValue = ruleItems[i].MaxValue,
+                                    };
+
+                                    break;
+                                }
+                            case RuleType.Custom:
+                                {
+                                    rule = new CustomRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString()
                                     };
 
                                     break;
@@ -459,6 +481,17 @@ namespace QA.Facade
                         };
                         break;
                     }
+                case RuleType.ReferenceInRange:
+                    {
+                        rule = new ReferenceInRangeRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ReferenceFieldName = RuleItem.ReferenceFieldName,
+                            ExpectedValueRange = RuleItem.ExpectedValues
+                        };
+                        break;
+                    }
                 case RuleType.NumberSequenceComparison:
                     {
                         rule = new NumberSequenceComparisonRule()
@@ -479,6 +512,17 @@ namespace QA.Facade
                             GroupName = RuleItem.GroupName,
                             MinValue = RuleItem.MinValue,
                             MaxValue = RuleItem.MaxValue,
+                        };
+
+                        break;
+                    }
+                case RuleType.Custom:
+                    {
+                        rule = new CustomRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValue = RuleItem.FieldValue.ToString()
                         };
 
                         break;

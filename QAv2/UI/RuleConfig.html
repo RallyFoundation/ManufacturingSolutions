@@ -78,7 +78,8 @@
                     <select ng-model="ruleItem.RuleType" class="form-control" title="The type of the rule, select one from the drop down list.">
                         <option value="EqualTo">Equal To</option>
                         <option value="NotEqualTo">Not Equal To</option>
-                        <option value="Reference">Reference</option>
+                        <option value="Reference">Reference (Equal To)</option>
+                        <option value="ReferenceInRange">Reference (In Range)</option>
                         <option value="InRange">In Range</option>
                         <option value="OutOfRange">Out Of Range</option>
                         <option value="InAndOutOfRange">In And Out Of Range</option>
@@ -89,6 +90,7 @@
                         <option value="NotNull">Not Null</option>
                         <option value="NumberSequenceComparison">Number Sequence Comparison</option>
                         <option value="Occurrence">Occurrence</option>
+                        <option value="Custom">Custom</option>
                     </select>
                 </td>
                 <td style="width:25%">
@@ -102,6 +104,13 @@
                         <div ng-switch-when="Reference">
                             <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
                             <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field value." />
+                        </div>
+                        <div ng-switch-when="ReferenceInRange">
+                            <input type="text" ng-model="ruleItem.ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                            <textarea ng-model="ruleItem.ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                            </ul>
                         </div>
                         <div ng-switch-when="NumberSequenceComparison">
                             <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="50" title="Field value." />
@@ -199,6 +208,9 @@
                         <div ng-switch-when="Occurrence">
                             <input type="number" ng-model="ruleItem.MinValue" class="form-control" maxlength="20" title="Min value." />
                             <input type="number" ng-model="ruleItem.MaxValue" class="form-control" maxlength="20" title="Max value." />
+                        </div>
+                        <div ng-switch-when="Custom">
+                            <input type="text" ng-model="ruleItem.FieldValue" class="form-control" maxlength="80" title="Regular Expression pattern that constrains field's value." />
                         </div>
                     </div>
                     <!--<input type="text" ng-model="ruleItem.FieldValue" ng-show="(ruleItem.RuleType != 'NotNull')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
