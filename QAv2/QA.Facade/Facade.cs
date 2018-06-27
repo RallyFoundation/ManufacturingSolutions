@@ -23,12 +23,8 @@ namespace QA.Facade
         public static Dictionary<string, Dictionary<string, List<bool>>> GroupedResults;
         public static Dictionary<string, List<Result>> ResultDetails;
 
-        public static void InitializeRules()
+        static void MapRule(string ruleConfPath)
         {
-            string ruleConfPath = Global.DefaultRuleConfigPath;
-
-            //IParser validationRuleJsonParser = new ValidationRuleConfigurationJsonParser();
-
             IMapper ruleJsonMapper = new RuleJsonMapper();
 
             byte[] ruleBytes = new byte[1024];
@@ -51,15 +47,13 @@ namespace QA.Facade
 
             if (ruleItems != null)
             {
-                Rules = new Dictionary<string, Dictionary<string, List<IRule>>>();
-
                 IRule rule = null;
 
                 for (int i = 0; i < ruleItems.Length; i++)
                 {
                     rule = null;
 
-                    if (ruleItems[i] != null)
+                    if ((ruleItems[i] != null) && (ruleItems[i].Enabled == true))
                     {
                         switch (ruleItems[i].RuleType)
                         {
@@ -237,7 +231,7 @@ namespace QA.Facade
                                     { rule.GroupName, new List<IRule>(new IRule[] { rule }) }
                                 });
                             }
-                            else if(!Rules[rule.FieldName].ContainsKey(rule.GroupName))
+                            else if (!Rules[rule.FieldName].ContainsKey(rule.GroupName))
                             {
                                 Rules[rule.FieldName].Add(rule.GroupName, new List<IRule>(new IRule[] { rule }));
                             }
@@ -249,6 +243,15 @@ namespace QA.Facade
                     }
                 }
             }
+        }
+
+        public static void InitializeRules()
+        {
+            Rules = new Dictionary<string, Dictionary<string, List<IRule>>>();
+
+            MapRule(Global.DefaultRuleConfigPath);
+
+            MapRule(Global.UserRuleConfigPath);
         }
 
         public static void InstantiateInputData()

@@ -63,5 +63,9 @@ namespace QA.Model
         [DataMember(Name = "QuotedFields")]
         [JsonProperty("QuotedFields")]
         public string[] QuotedFields { get; set; }
+
+        [DataMember(Name = "Enabled")]
+        [JsonProperty("Enabled")]
+        public bool Enabled { get; set; }
     }
 }

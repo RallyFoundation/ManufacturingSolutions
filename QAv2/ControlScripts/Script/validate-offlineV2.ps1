@@ -472,7 +472,10 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 
 #[xml]$ResultXml = Get-TransformedXml -XmlDocument $HardwareHashDecode -XsltPath $XsltPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
 
-$RulesObj = Initialize-Rule -Path ($RootDir + "\Config\rule.json");
+#$RulesObj = Initialize-Rule -Path ($RootDir + "\Config\rule.json");
+
+$RulesObj = Initialize-Rule -DefaultRulePath ($RootDir + "\Config\rule.json") -UserRulePath ($RootDir + "\Config\user-rule.json");
+
 $DataObj = Initialize-Data -Path $DecodeFilePath;
 
 [xml]$ResultXml = Get-Result;

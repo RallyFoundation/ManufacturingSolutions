@@ -9,6 +9,7 @@ namespace QA.Facade
     public class Global
     {
         public static string DefaultRuleConfigPath = "rule.json";
+        public static string UserRuleConfigPath = "user-rule.json";
         public static string DefaultDataPath = "data.xml";
     }
 }
