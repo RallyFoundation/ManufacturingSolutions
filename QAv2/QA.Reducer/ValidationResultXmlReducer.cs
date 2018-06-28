@@ -54,7 +54,7 @@ namespace QA.Reducer
                     //TestItems
                     xmlWriter.WriteStartElement("TestItems");
 
-                    foreach (string fieldName in resultSummary.Keys)
+                    foreach (string fieldName in resultSummary.Keys.Where(k => ((k != "ToolBuild") && (k != "ToolVersion"))))
                     {
                         xmlWriter.WriteStartElement(fieldName);
 

@@ -331,6 +331,7 @@ Settings= {
       "$$hashKey": "object:46",
       "MinValue": 0,
       "MaxValue": 4,
+      "QuotedFields": [ "ChassisType" ],
       "Enabled": true
     },
     {
@@ -358,6 +359,7 @@ Settings= {
       "$$hashKey": "object:50",
       "MinValue": 0,
       "MaxValue": 4,
+      "QuotedFields": [ "ChassisType" ],
       "Enabled": true
     },
     {

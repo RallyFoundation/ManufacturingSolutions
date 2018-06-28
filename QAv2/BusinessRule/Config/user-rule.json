@@ -220,7 +220,8 @@
       "FieldAltValue": 4,
       "$$hashKey": "object:46",
       "MinValue": 0,
-      "MaxValue": 4
+      "MaxValue": 4,
+      "QuotedFields": [ "ChassisType" ]
     },
     //{
     //  "id": "5aea17e5-ea14-42e3-a5f5-a6c6afb33c50",
@@ -247,7 +248,8 @@
       "FieldAltValue": 4,
       "$$hashKey": "object:50",
       "MinValue": 0,
-      "MaxValue": 4
+      "MaxValue": 4,
+      "QuotedFields": [ "ChassisType" ]
     },
     //{
     //  "id": "77b282de-9062-4e1b-8482-a3fec76f9a83",
