@@ -47,36 +47,53 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
-            <!--&nbsp;
+            &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>-->
+            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule()">Copy</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>
         </p>
         <!--<p style="font-weight:bolder;font-size:x-large;font-family:Arial">
             Validation Rule
         </p>-->
         <table class="table">
             <tr>
-                <th></th>
+                <th></th>       
                 <th>Field Name</th>
                 <!--<th>Group Name</th>-->
                 <th>Rule Type</th>
                 <th>Field Value</th>
                 <th>Quoted Fields</th>
+                <th>Enabled</th>
                 <th>Override</th>
             </tr>
             <tr ng-repeat="ruleItem in ruleItems">
                 <td style="width:2%">
-                    <!--<input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />-->
-                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled"/>
+                    <input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />
                 </td>
-                <td style="width:18%">
-                    <input type="text" ng-model="ruleItem.FieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the field for the rule to validate." />
+                <td style="width:21%">
+                    <!--<input type="text" ng-model="ruleItem.FieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the field for the rule to validate." />-->
+                    <select ng-model="ruleItem.FieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Field name, the name of the field for the rule to validate.Select one from the drop down list.">
+                        <option value="SmbiosSystemManufacturer">SmbiosSystemManufacturer</option>
+                        <option value="SmbiosSystemFamily">SmbiosSystemFamily</option>
+                        <option value="SmbiosSystemProductName">SmbiosSystemProductName</option>
+                        <option value="SmbiosBoardProduct">SmbiosBoardProduct</option>
+                        <option value="SmbiosSkuNumber">SmbiosSkuNumber</option>
+                        <option value="SmbiosSystemSerialNumber">SmbiosSystemSerialNumber</option>
+                        <option value="SmbiosUuid">SmbiosUuid</option>
+                        <option value="ChassisType">ChassisType</option>
+                        <option value="TotalPhysicalRAM">TotalPhysicalRAM</option>
+                        <option value="DisplaySizePhysicalH">DisplaySizePhysicalH</option>
+                        <option value="DisplaySizePhysicalY">DisplaySizePhysicalY</option>
+                        <option value="PrimaryDiskType">PrimaryDiskType</option>
+                        <option value="PrimaryDiskTotalCapacity">PrimaryDiskTotalCapacity</option>
+                    </select>
                 </td>
                 <!--<td style="width:9%">
                     <input type="text" ng-model="ruleItem.GroupName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Group name, the name of the group that this rule belongs to. If you want this rule to be computed altogether with other rules that also check this field, make sure all of those rules' group names are the same with this rule's." />
                 </td>-->
-                <td style="width:19%">
+                <td style="width:20%">
                     <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="The type of the rule, select one from the drop down list.">
                         <option value="EqualTo">Equal To</option>
                         <option value="NotEqualTo">Not Equal To</option>
@@ -95,7 +112,7 @@
                         <option value="Custom">Custom</option>
                     </select>
                 </td>
-                <td style="width:30%">
+                <td style="width:24%">
                     <div ng-switch="ruleItem.RuleType">
                         <div ng-switch-when="EqualTo">
                             <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
@@ -235,6 +252,9 @@
                         <li ng-repeat="val in ruleItem.QuotedFields">{{val}}</li>
                     </ul>
                 </td>
+                <td style="width:2%">
+                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" />
+                </td>
                 <td>
                     <input type="checkbox" class="form-check" ng-disabled="(ruleItem.Enabled == false)" ng-checked="(ruleItem.GroupName == 'USER')" ng-click="setRuleItemGroup($event, ruleItem)" />
                 </td>
@@ -342,18 +362,45 @@
                 $scope.ruleItems.push(
                     {
                         id: ruleId,
-                        FieldName: "Field-" + ruleId,
-                        GroupName: "DEFAULT",
-                        RuleType: "EqualTo",
+                        FieldName: "SmbiosSystemManufacturer",
+                        GroupName: "USER",
+                        Enabled: false,
+                        RuleType: "OutOfRange",
                         FieldValue: null,
                         FieldAltValue: null,
                         MinValue: -1,
                         MaxValue: -1,
                         ExpectedValues: null,
-                        UnexpectedValues: null,
+                        UnexpectedValues: ["To be filled by O.E.M.", "default string", "Default String", "Default string"],
                         QuotedFields : null
                     }
                 );
+            };
+
+            $scope.copyRule = function () {
+                if ($scope.currentRuleItemIndex >= 0) {
+                    var ruleId = createGuid();
+                    var item = $scope.ruleItems[$scope.currentRuleItemIndex];
+
+                    var newItem = {
+                        id: ruleId,
+                        FieldName: item.FieldName,
+                        GroupName: item.GroupName,
+                        Enabled: false, //item.Enabled,
+                        RuleType: item.RuleType,
+                        FieldValue: item.FieldValue,
+                        FieldAltValue: item.FieldAltValue,
+                        MinValue: item.MinValue,
+                        MaxValue: item.MaxValue,
+                        ExpectedValues: item.ExpectedValues,
+                        UnexpectedValues: item.UnexpectedValues,
+                        QuotedFields: item.QuotedFields
+                    };
+
+                    $scope.ruleItems.splice($scope.currentRuleItemIndex, 0, newItem);
+
+                    //$scope.setCurrentRuleItemIndex(-1);
+                }
             };
 
             $scope.removeRule = function () {
