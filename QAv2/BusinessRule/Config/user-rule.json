@@ -279,22 +279,22 @@
     {
       "id": "5dcad0e2-0855-4ae5-b590-ad2890f8d7ec",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "DEFAULT",
+      "GroupName": "USER",
+      "Enabled": false,
       "RuleType": "InRange",
       "ExpectedValues": [ "Virtual", "NVMe", "RAID", "SD", "SSD", "HDD" ],
       "UnexpectedValues": null,
-      "$$hashKey": "object:54",
-      "Enabled": true
+      "$$hashKey": "object:54"
     },
     {
       "id": "8E3E20B7-362D-45C6-92A0-DB522C0F6B45",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "DEFAULT",
+      "GroupName": "USER",
+      "Enabled": false,
       "RuleType": "OutOfRange",
       "ExpectedValues": null,
       "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
-      "$$hashKey": "object:58",
-      "Enabled": true
+      "$$hashKey": "object:58"
     },
     //{
     //  "id": "fac5cbd9-664f-472d-b0ed-868c0192a0f9",
