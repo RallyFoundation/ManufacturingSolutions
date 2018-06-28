@@ -50,7 +50,7 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule()">Copy</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule()" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>
         </p>
@@ -66,7 +66,7 @@
                 <th>Field Value</th>
                 <th>Quoted Fields</th>
                 <th>Enabled</th>
-                <th>Override</th>
+                <th>Overriding</th>
             </tr>
             <tr ng-repeat="ruleItem in ruleItems">
                 <td style="width:2%">
@@ -96,19 +96,19 @@
                 <td style="width:20%">
                     <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="The type of the rule, select one from the drop down list.">
                         <option value="EqualTo">Equal To</option>
-                        <option value="NotEqualTo">Not Equal To</option>
-                        <option value="Reference">Reference (Equal To)</option>
-                        <option value="ReferenceInRange">Reference (In)</option>
+                        <!--<option value="NotEqualTo" ng-show="false">Not Equal To</option>-->
+                        <option value="NotNull">Not Null</option>
+                        <!--<option value="Reference">Reference (Equal To)</option>
+                        <option value="ReferenceInRange">Reference (In)</option>-->
                         <option value="InRange">In</option>
                         <option value="OutOfRange">Not In</option>
-                        <option value="InAndOutOfRange">In And Out Of Range</option>
-                        <option value="StringLength">String Length</option>
-                        <option value="Min">Min</option>
-                        <option value="Max">Max</option>
-                        <option value="MinAndMax">Between</option>
-                        <option value="NotNull">Not Null</option>
-                        <option value="NumberSequenceComparison">Number Sequence Comparison</option>
-                        <option value="Occurrence">Count</option>
+                        <!--<option value="InAndOutOfRange">In And Out Of Range</option>-->
+                        <option value="StringLength">Length</option>
+                        <option value="Min" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Min</option>
+                        <option value="Max" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Max</option>
+                        <option value="MinAndMax" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Between</option>         
+                        <!--<option value="NumberSequenceComparison">Number Sequence Comparison</option>-->
+                        <!--<option value="Occurrence" ng-show="false">Count</option>-->
                         <option value="Custom">Custom</option>
                     </select>
                 </td>

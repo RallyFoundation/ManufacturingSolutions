@@ -264,17 +264,37 @@
     //  "QuotedFields": null,
     //  "$$hashKey": "object:97"
     //},
+    //{
+    //  "id": "5dcad0e2-0855-4ae5-b590-ad2890f8d7ec",
+    //  "FieldName": "PrimaryDiskType",
+    //  "GroupName": "USER",
+    //  "Enabled": false,
+    //  "RuleType": "InAndOutOfRange",
+    //  "ExpectedValues": [ "Virtual", "NVMe", "RAID", "SD", "SSD", "HDD" ],
+    //  "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
+    //  "$$hashKey": "object:54",
+    //  "currentInputValue": null,
+    //  "currentInputAltValue": null
+    //},
     {
       "id": "5dcad0e2-0855-4ae5-b590-ad2890f8d7ec",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "USER",
-      "Enabled": false,
-      "RuleType": "InAndOutOfRange",
+      "GroupName": "DEFAULT",
+      "RuleType": "InRange",
       "ExpectedValues": [ "Virtual", "NVMe", "RAID", "SD", "SSD", "HDD" ],
-      "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
+      "UnexpectedValues": null,
       "$$hashKey": "object:54",
-      "currentInputValue": null,
-      "currentInputAltValue": null
+      "Enabled": true
+    },
+    {
+      "id": "8E3E20B7-362D-45C6-92A0-DB522C0F6B45",
+      "FieldName": "PrimaryDiskType",
+      "GroupName": "DEFAULT",
+      "RuleType": "OutOfRange",
+      "ExpectedValues": null,
+      "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
+      "$$hashKey": "object:58",
+      "Enabled": true
     },
     //{
     //  "id": "fac5cbd9-664f-472d-b0ed-868c0192a0f9",
@@ -317,7 +337,7 @@
       "UnexpectedValues": null,
       "QuotedFields": null,
       "$$hashKey": "object:115"
-    }//,
+    } //,
     //{
     //  "id": "55fa94c3-8f94-4622-b4dd-a4caeff96184",
     //  "FieldName": "OSType",
