@@ -257,7 +257,7 @@ Settings= {
       "GroupName": "DEFAULT",
       "Enabled": true,
       "RuleType": "NumberSequenceComparison",
-      "FieldValue": "10.0.17115.1",
+      "FieldValue": "10.0.16288.1",
       "MinValue": 3,
       "QuotedFields": null,
       "SequenceSeparator": ".",

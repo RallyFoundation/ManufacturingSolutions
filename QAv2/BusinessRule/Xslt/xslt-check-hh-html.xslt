@@ -343,7 +343,8 @@
                 <td>
                   OS Build Number:
                   <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-                  <xsl:value-of select="$OSType/Detail/OSBuild"/>
+                  <!--<xsl:value-of select="$OSType/Detail/OSBuild"/>-->
+                  <xsl:value-of select="$OSType/Detail/OsBuild"/>
                 </td>
               </tr>
             </table>
@@ -1128,9 +1129,11 @@
               <tr>
                 <td>Chassis Type: </td>
                 <td>
-                  <xsl:value-of select="$DisplayResolutionHorizontal/ChassisType"/>
+                  <!--<xsl:value-of select="$DisplayResolutionHorizontal/ChassisType"/>-->
+                  <xsl:value-of select="$ChassisType/Value"/>
                   <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionHorizontal/ChassisType)"/>)
+                  <!--(<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionHorizontal/ChassisType)"/>)-->
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($ChassisType/Value)"/>)
                 </td>
               </tr>
               <tr>
@@ -1180,9 +1183,11 @@
               <tr>
                 <td>Chassis Type: </td>
                 <td>
-                  <xsl:value-of select="$DisplayResolutionVertical/ChassisType"/>
+                  <!--<xsl:value-of select="$DisplayResolutionVertical/ChassisType"/>-->
+                  <xsl:value-of select="$ChassisType/Value"/>
                   <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionVertical/ChassisType)"/>)
+                  <!--(<xsl:value-of select="hhvxslx:GetEnclosureType($DisplayResolutionVertical/ChassisType)"/>)-->
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($ChassisType/Value)"/>)
                 </td>
               </tr>
               <tr>
@@ -1232,9 +1237,9 @@
               <tr>
                 <td>Chassis Type: </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalH/ChassisType"/>
+                  <xsl:value-of select="$DisplaySizePhysicalH/Detail/ChassisType"/>
                   <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalH/ChassisType)"/>)
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalH/Detail/ChassisType)"/>)
                 </td>
               </tr>
               <tr>
@@ -1306,9 +1311,9 @@
               <tr>
                 <td>Chassis Type: </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalY/ChassisType"/>
+                  <xsl:value-of select="$DisplaySizePhysicalY/Detail/ChassisType"/>
                   <xsl:value-of select="'&amp;nbsp;'" disable-output-escaping="yes"/>
-                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalY/ChassisType)"/>)
+                  (<xsl:value-of select="hhvxslx:GetEnclosureType($DisplaySizePhysicalY/Detail/ChassisType)"/>)
                 </td>
               </tr>
               <tr>
