@@ -114,7 +114,7 @@
                         <!--<option value="Occurrence" ng-show="false">Count</option>-->
                         <!--<option value="Custom">Custom</option>-->
                     </select>
-                    <span ng-show="(ruleItem.GroupName == 'DEFAULT')">{{ruleItem.RuleType}}</span>
+                    <span ng-show="(ruleItem.GroupName == 'DEFAULT')">{{getRuleTypeDisplayName(ruleItem.RuleType)}}</span>
                 </td>
                 <td style="width:24%">
                     <div ng-switch="ruleItem.RuleType">
@@ -544,36 +544,63 @@
                         break;
                     }
                     case "SmbiosSystemSerialNumber": {
-                        ruleTypes = ["StringLength", "NotIn", "Contain", "NotContain"];
+                        ruleTypes = ["StringLength", "OutOfRange", "Contain", "NotContain"];
                         break;
                     }
                     case "SmbiosUuid": {
-                        ruleTypes = ["StringLength", "NotIn"];
+                        ruleTypes = ["StringLength", "OutOfRange"];
                         break;
                     }
                     case "PrimaryDiskType": {
-                        ruleTypes = ["In", "NotIn"];
+                        ruleTypes = ["InRange", "OutOfRange"];
                         break;
                     }
                     case "TotalPhysicalRAM": {
-                        ruleTypes = ["Min", "Max", "Between"];
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
                         break;
                     }
                     case "PrimaryDiskTotalCapacity": {
-                        ruleTypes = ["Min", "Max", "Between"];
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
                         break;
                     }
                     case "DisplaySizePhysicalH": {
-                        ruleTypes = ["Min", "Max", "Between"];
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
                         break;
                     }
                     case "DisplaySizePhysicalY": {
-                        ruleTypes = ["Min", "Max", "Between"];
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
                         break;
                     }
                 }
 
                 return ruleTypes;
+            };
+
+            $scope.getRuleTypeDisplayName = function (ruleType) {
+
+                var displayName = ruleType;
+
+                switch (ruleType)
+                {
+                    case "InRange": {
+                        displayName = "In";
+                        break;
+                    }
+                    case "OutOfRange": {
+                        displayName = "NotIn";
+                        break;
+                    }
+                    case "MinAndMax": {
+                        displayName = "Between";
+                        break;
+                    }
+                    default: {
+                        displayName = ruleType;
+                        break;
+                    }
+                }
+
+                return displayName;
             };
 
             $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
