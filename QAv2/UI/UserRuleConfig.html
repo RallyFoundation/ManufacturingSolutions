@@ -95,7 +95,7 @@
                     <input type="text" ng-model="ruleItem.GroupName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Group name, the name of the group that this rule belongs to. If you want this rule to be computed altogether with other rules that also check this field, make sure all of those rules' group names are the same with this rule's." />
                 </td>-->
                 <td style="width:20%">
-                    <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" ng-show="(ruleItem.GroupName == 'USER')" class="form-control" title="The type of the rule, select one from the drop down list.">
+                    <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" ng-show="(ruleItem.GroupName == 'System')" class="form-control" title="The type of the rule, select one from the drop down list.">
                         <option value="EqualTo" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'ChasisType'))">Equal To</option>
                         <!--<option value="NotEqualTo" ng-hide="(RuleItem.GroupName == 'USER')">Not Equal To</option>
                         <option value="NotNull" ng-hide="(RuleItem.GroupName == 'USER')">Not Null</option>-->
@@ -263,7 +263,7 @@
                     </ul>
                 </td>
                 <td style="width:2%">
-                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" ng-show="(ruleItem.GroupName == 'USER')" />
+                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" ng-show="(ruleItem.GroupName == 'System')" />
                 </td>
                 <td>
                     <!--<input type="checkbox" class="form-check" ng-disabled="(ruleItem.Enabled == false)" ng-checked="(ruleItem.GroupName == 'USER')" ng-click="setRuleItemGroup($event, ruleItem)" />-->
@@ -358,7 +358,8 @@
             $scope.setRuleItemGroup = function (event, item) {
 
                 if (event.target.checked == true) {
-                    item.GroupName = "USER";
+                    //item.GroupName = "USER";
+                    item.GroupName = "System";
                 }
                 else {
                     item.GroupName = "DEFAULT";
@@ -374,7 +375,7 @@
                     {
                         id: ruleId,
                         FieldName: "SmbiosSystemManufacturer",
-                        GroupName: "USER",
+                        GroupName: "System",
                         Enabled: false,
                         RuleType: "EqualTo",
                         FieldValue: null
@@ -390,7 +391,7 @@
                     var newItem = {
                         id: ruleId,
                         FieldName: item.FieldName,
-                        GroupName: "USER",
+                        GroupName: "System",
                         Enabled: false
                     };
 
