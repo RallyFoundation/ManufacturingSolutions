@@ -67,8 +67,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDataProcessing", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellDataComputing", "PowerShellDataComputing\PowerShellDataComputing.csproj", "{8B599CEA-88A8-499E-9442-F100B86DC868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellDataVisualization", "PowerShellDataVisualization\PowerShellDataVisualization.csproj", "{07232D0C-BB06-4883-B852-D0D7C99CAC4E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -325,14 +323,6 @@ Global
 		{8B599CEA-88A8-499E-9442-F100B86DC868}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B599CEA-88A8-499E-9442-F100B86DC868}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B599CEA-88A8-499E-9442-F100B86DC868}.Release|x86.Build.0 = Release|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Debug|x86.Build.0 = Debug|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Release|x86.ActiveCfg = Release|Any CPU
-		{07232D0C-BB06-4883-B852-D0D7C99CAC4E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

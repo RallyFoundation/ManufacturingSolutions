@@ -378,6 +378,11 @@
                         Enabled: false,
                         RuleType: "EqualTo",
                         FieldValue: null,
+                        FieldAltValue: null,
+                        MinValue: -1,
+                        MaxValue: -1,
+                        ExpectedValues: null,
+                        UnexpectedValues: null,
                         QuotedFields : null
                     }
                 );
@@ -391,9 +396,22 @@
                     var newItem = {
                         id: ruleId,
                         FieldName: item.FieldName,
-                        GroupName: "USER",
-                        Enabled: false,
+                        GroupName: "USER",//item.GroupName,
+                        Enabled: false, //item.Enabled,
+                        //RuleType: item.RuleType,
+                        //FieldValue: item.FieldValue,
+                        //FieldAltValue: item.FieldAltValue,
+                        //MinValue: item.MinValue,
+                        //MaxValue: item.MaxValue,
+                        //ExpectedValues: item.ExpectedValues,
+                        //UnexpectedValues: item.UnexpectedValues,
+                        //QuotedFields: item.QuotedFields
                     };
+
+                    //switch (item.FieldName) {
+
+                    //    default:
+                    //}
 
                     var ruleTypes = $scope.getFieldRuleTypes(item.FieldName);
 
@@ -575,10 +593,6 @@
                 }
 
                 return ruleTypes;
-            };
-
-            $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
-                return false;
             };
 
             //$scope.showDetailDialog = function (ruleItemName, templateName) {
