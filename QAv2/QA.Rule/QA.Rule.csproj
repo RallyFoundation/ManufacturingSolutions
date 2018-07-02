@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainRule.cs" />
     <Compile Include="CustomRule.cs" />
     <Compile Include="EqualToRule.cs" />
     <Compile Include="InAndOutOfRangeRule.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="MaxRule.cs" />
     <Compile Include="MinAndMaxRule.cs" />
     <Compile Include="MinRule.cs" />
+    <Compile Include="NotContainRule.cs" />
     <Compile Include="NotEqualToRule.cs" />
     <Compile Include="NotNullRule.cs" />
     <Compile Include="OccurrenceRule.cs" />

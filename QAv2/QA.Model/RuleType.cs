@@ -13,6 +13,8 @@ namespace QA.Model
         InRange = 2,
         OutOfRange = 3,
         InAndOutOfRange = 4,
+        Contain = 401,
+        NotContain = 402,
         StringLength = 5,
         Min = 6,
         Max = 7,

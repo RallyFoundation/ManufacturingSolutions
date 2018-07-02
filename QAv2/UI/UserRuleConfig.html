@@ -50,7 +50,7 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule()" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule(currentRuleItemIndex)" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>
         </p>
@@ -66,7 +66,8 @@
                 <th>Field Value</th>
                 <th>Quoted Fields</th>
                 <th>Enabled</th>
-                <th>Overriding</th>
+                <!--<th>Overriding</th>-->
+                <th></th>
             </tr>
             <tr ng-repeat="ruleItem in ruleItems">
                 <td style="width:2%">
@@ -94,23 +95,26 @@
                     <input type="text" ng-model="ruleItem.GroupName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Group name, the name of the group that this rule belongs to. If you want this rule to be computed altogether with other rules that also check this field, make sure all of those rules' group names are the same with this rule's." />
                 </td>-->
                 <td style="width:20%">
-                    <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="The type of the rule, select one from the drop down list.">
-                        <option value="EqualTo">Equal To</option>
-                        <!--<option value="NotEqualTo" ng-show="false">Not Equal To</option>-->
-                        <option value="NotNull">Not Null</option>
+                    <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" ng-show="(ruleItem.GroupName == 'USER')" class="form-control" title="The type of the rule, select one from the drop down list.">
+                        <option value="EqualTo" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'ChasisType'))">Equal To</option>
+                        <!--<option value="NotEqualTo" ng-hide="(RuleItem.GroupName == 'USER')">Not Equal To</option>
+                        <option value="NotNull" ng-hide="(RuleItem.GroupName == 'USER')">Not Null</option>-->
                         <!--<option value="Reference">Reference (Equal To)</option>
                         <option value="ReferenceInRange">Reference (In)</option>-->
-                        <option value="InRange">In</option>
-                        <option value="OutOfRange">Not In</option>
+                        <option value="InRange" ng-show="(ruleItem.FieldName == 'PrimaryDiskType')">In</option>
+                        <option value="OutOfRange" ng-show="((ruleItem.FieldName == 'SmbiosSystemSerialNumber') || (ruleItem.FieldName == 'SmbiosUuid') || (ruleItem.FieldName == 'PrimaryDiskType'))">Not In</option>
+                        <option value="Contain" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'SmbiosSystemSerialNumber'))">Contain</option>
+                        <option value="NotContain" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'SmbiosSystemSerialNumber'))">Not Contain</option>
                         <!--<option value="InAndOutOfRange">In And Out Of Range</option>-->
-                        <option value="StringLength">Length</option>
-                        <option value="Min" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Min</option>
-                        <option value="Max" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Max</option>
-                        <option value="MinAndMax" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH') || (ruleItem.FieldName == 'TotalPhysicalRAM'))">Between</option>         
+                        <option value="StringLength" ng-show="(ruleItem.FieldName == 'SmbiosSystemSerialNumber') || (ruleItem.FieldName == 'SmbiosUuid')">Length</option>
+                        <option value="Min" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Min</option>
+                        <option value="Max" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Max</option>
+                        <option value="MinAndMax" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Between</option>         
                         <!--<option value="NumberSequenceComparison">Number Sequence Comparison</option>-->
                         <!--<option value="Occurrence" ng-show="false">Count</option>-->
-                        <option value="Custom">Custom</option>
+                        <!--<option value="Custom">Custom</option>-->
                     </select>
+                    <span ng-show="(ruleItem.GroupName == 'DEFAULT')">{{ruleItem.RuleType}}</span>
                 </td>
                 <td style="width:24%">
                     <div ng-switch="ruleItem.RuleType">
@@ -118,6 +122,12 @@
                             <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
                         </div>
                         <div ng-switch-when="NotEqualTo">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="Contain">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="NotContain">
                             <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
                         </div>
                         <div ng-switch-when="Reference">
@@ -247,16 +257,17 @@
                             </td>
                         </tr>
                     </table>-->
-                    <textarea ng-model="ruleItem.QuotedFields" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Quoted fields. Type into the name of the field(s) to quote, and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                    <!--<textarea ng-model="ruleItem.QuotedFields" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Quoted fields. Type into the name of the field(s) to quote, and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>-->
                     <ul>
                         <li ng-repeat="val in ruleItem.QuotedFields">{{val}}</li>
                     </ul>
                 </td>
                 <td style="width:2%">
-                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" />
+                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" ng-show="(ruleItem.GroupName == 'USER')" />
                 </td>
                 <td>
-                    <input type="checkbox" class="form-check" ng-disabled="(ruleItem.Enabled == false)" ng-checked="(ruleItem.GroupName == 'USER')" ng-click="setRuleItemGroup($event, ruleItem)" />
+                    <!--<input type="checkbox" class="form-check" ng-disabled="(ruleItem.Enabled == false)" ng-checked="(ruleItem.GroupName == 'USER')" ng-click="setRuleItemGroup($event, ruleItem)" />-->
+                    <a href="#" class="btn btn-info btn-lg" ng-click="copyRule($index)">Copy</a>
                 </td>
             </tr>
         </table>
@@ -377,29 +388,32 @@
                 );
             };
 
-            $scope.copyRule = function () {
-                if ($scope.currentRuleItemIndex >= 0) {
+            $scope.copyRule = function (index) {
+                if (index >= 0) {
                     var ruleId = createGuid();
-                    var item = $scope.ruleItems[$scope.currentRuleItemIndex];
+                    var item = $scope.ruleItems[index];
 
                     var newItem = {
                         id: ruleId,
                         FieldName: item.FieldName,
-                        GroupName: item.GroupName,
+                        GroupName: "USER",//item.GroupName,
                         Enabled: false, //item.Enabled,
-                        RuleType: item.RuleType,
-                        FieldValue: item.FieldValue,
-                        FieldAltValue: item.FieldAltValue,
-                        MinValue: item.MinValue,
-                        MaxValue: item.MaxValue,
-                        ExpectedValues: item.ExpectedValues,
-                        UnexpectedValues: item.UnexpectedValues,
-                        QuotedFields: item.QuotedFields
+                        //RuleType: item.RuleType,
+                        //FieldValue: item.FieldValue,
+                        //FieldAltValue: item.FieldAltValue,
+                        //MinValue: item.MinValue,
+                        //MaxValue: item.MaxValue,
+                        //ExpectedValues: item.ExpectedValues,
+                        //UnexpectedValues: item.UnexpectedValues,
+                        //QuotedFields: item.QuotedFields
                     };
 
-                    $scope.ruleItems.splice($scope.currentRuleItemIndex, 0, newItem);
+                    switch (item.FieldName) {
 
-                    //$scope.setCurrentRuleItemIndex(-1);
+                        default:
+                    }
+
+                    $scope.ruleItems.splice(index, 0, newItem);
                 }
             };
 

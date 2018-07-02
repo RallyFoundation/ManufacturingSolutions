@@ -3,7 +3,7 @@
     {
       "id": "E79079DE-1309-45E3-92FB-9775DE6C2F1D",
       "FieldName": "SmbiosSystemManufacturer",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -12,7 +12,7 @@
     {
       "id": "B8940C4B-EF45-44E5-B92C-AC7A25E7B55F",
       "FieldName": "SmbiosSystemManufacturer",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "OutOfRange",
       "UnexpectedValues": [ "To be filled by O.E.M.", "default string", "Default String", "Default string" ],
@@ -21,7 +21,7 @@
     {
       "id": "3B5E17D4-42DC-4B6F-B7CE-056339EAFAF2",
       "FieldName": "SmbiosSystemFamily",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -30,7 +30,7 @@
     {
       "id": "58EC751B-85F6-473E-9E90-2253DA6C91AD",
       "FieldName": "SmbiosSystemFamily",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "OutOfRange",
       "UnexpectedValues": [ "To be filled by O.E.M.", "default string", "Default String", "Default string" ],
@@ -39,7 +39,7 @@
     {
       "id": "D32FEC62-40CE-4BE2-A10E-79B8BE830FD5",
       "FieldName": "SmbiosSystemProductName",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -49,7 +49,7 @@
     {
       "id": "BB9C5E49-B753-4BCC-98D0-9D7CFC902C9F",
       "FieldName": "SmbiosSystemProductName",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "OutOfRange",
       "UnexpectedValues": [ "To be filled by O.E.M.", "default string", "Default String", "Default string" ],
@@ -58,7 +58,7 @@
     {
       "id": "B9807C38-F0BA-4D6F-AE9A-F5AE5D057F62",
       "FieldName": "SmbiosBoardProduct",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -68,7 +68,7 @@
     {
       "id": "92416B68-21D7-4682-87BE-9B73546B46BB",
       "FieldName": "SmbiosSkuNumber",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -78,7 +78,7 @@
     {
       "id": "D3859487-AE8B-47A0-9599-CD34F4C35B72",
       "FieldName": "SmbiosSystemSerialNumber",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -88,7 +88,7 @@
     {
       "id": "2AC288E8-28AA-48EA-A25B-6FCBE2C6A8D9",
       "FieldName": "SmbiosSystemSerialNumber",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "OutOfRange",
       "UnexpectedValues": [ "To be filled by O.E.M.", "default string", "Default String", "Default string" ],
@@ -97,7 +97,7 @@
     {
       "id": "217F9934-E77C-428D-8E62-F78B7A6321E1",
       "FieldName": "SmbiosUuid",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -107,7 +107,7 @@
     {
       "id": "4F5131E9-6671-4BAD-B472-833E61E094AA",
       "FieldName": "ChassisType",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 4,
@@ -117,7 +117,7 @@
     {
       "id": "0C420B00-FD2B-43BD-B93F-F0BB02108DFC",
       "FieldName": "ChassisType",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "InRange",
       "ExpectedValues": [ "0x03", "0x0A", "0x0D", "0x1E", "0x1F", "0x20", "0x24", "0x23", "0x21", "0x22" ],
@@ -126,7 +126,7 @@
     //{
     //  "id": "9ED4CE2B-C872-485C-A0BE-95D8E7DDD280",
     //  "FieldName": "DigitizerSupportID",
-    //  "GroupName": "USER",
+    //  "GroupName": "DEFAULT",
     //  "Enabled": false,
     //  "RuleType": "OutOfRange",
     //  "UnexpectedValues": [ "Not Applicable", "Not Found", "Error" ],
@@ -135,7 +135,7 @@
     {
       "id": "FC0937F0-BA0A-4CE8-8317-BAA8CB8E2C65",
       "FieldName": "TotalPhysicalRAM",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 1,
@@ -145,7 +145,7 @@
     {
       "id": "CF8B8B09-9813-47F5-8B3A-B843E139DF0C",
       "FieldName": "TotalPhysicalRAM",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "NotNull",
       "QuotedFields": null
@@ -153,7 +153,7 @@
     {
       "id": "351CE6E6-14E2-4896-915D-14866A75F3BD",
       "FieldName": "DisplaySizePhysicalH",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 0,
@@ -163,7 +163,7 @@
     {
       "id": "2E6B0214-8500-4FA2-B514-77025F63CE15",
       "FieldName": "DisplaySizePhysicalH",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "NotNull",
       "QuotedFields": null
@@ -171,7 +171,7 @@
     {
       "id": "55884701-17F8-4C46-A5B2-334FCCE128EB",
       "FieldName": "DisplaySizePhysicalY",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "StringLength",
       "MinValue": 0,
@@ -181,7 +181,7 @@
     {
       "id": "A276EF01-945D-4B24-B9A1-EB18CEEF6FFA",
       "FieldName": "DisplaySizePhysicalY",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "NotNull",
       "QuotedFields": null
@@ -189,7 +189,7 @@
     {
       "id": "83336EDF-14E3-46B2-961F-58BBEDC46CA4",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "InRange",
       "ExpectedValues": [ "Virtual", "NVMe", "RAID", "SD", "SSD", "HDD" ],
@@ -198,7 +198,7 @@
     {
       "id": "BFB50A54-A12B-4DA7-BC1E-08E862466887",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "OutOfRange",
       "UnexpectedValues": [ "Not Applicable", "Not Found", "Unspecified", "ATA", "Unknow", "SATA", "Error", "Other", "No data" ],
@@ -207,7 +207,7 @@
     {
       "id": "AFBD31F2-9108-4A0D-8D72-0EE2FE9C67A8",
       "FieldName": "PrimaryDiskType",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "NotNull",
       "QuotedFields": null
@@ -215,7 +215,7 @@
     {
       "id": "C5C51BCF-F591-4DEA-955E-6157C91C3FD9",
       "FieldName": "PrimaryDiskTotalCapacity",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "MinAndMax",
       "MinValue": 1,
@@ -225,7 +225,7 @@
     {
       "id": "89F022F0-FB2F-46E5-80A3-64159793E986",
       "FieldName": "PrimaryDiskTotalCapacity",
-      "GroupName": "USER",
+      "GroupName": "DEFAULT",
       "Enabled": false,
       "RuleType": "NotNull",
       "QuotedFields": null

@@ -108,6 +108,26 @@ namespace QA.Facade
                                     };
                                     break;
                                 }
+                            case RuleType.Contain:
+                                {
+                                    rule = new ContainRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString(),
+                                    };
+                                    break;
+                                }
+                            case RuleType.NotContain:
+                                {
+                                    rule = new NotContainRule()
+                                    {
+                                        FieldName = ruleItems[i].FieldName,
+                                        GroupName = ruleItems[i].GroupName,
+                                        ExpectedValue = ruleItems[i].FieldValue.ToString(),
+                                    };
+                                    break;
+                                }
                             case RuleType.StringLength:
                                 {
                                     rule = new StringLengthRule()
@@ -419,6 +439,26 @@ namespace QA.Facade
                             GroupName = RuleItem.GroupName,
                             ExpectedValueRange = RuleItem.ExpectedValues,
                             UnexpectedValueRange = RuleItem.UnexpectedValues
+                        };
+                        break;
+                    }
+                case RuleType.Contain:
+                    {
+                        rule = new ContainRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValue = RuleItem.FieldValue.ToString(),
+                        };
+                        break;
+                    }
+                case RuleType.NotContain:
+                    {
+                        rule = new NotContainRule()
+                        {
+                            FieldName = RuleItem.FieldName,
+                            GroupName = RuleItem.GroupName,
+                            ExpectedValue = RuleItem.FieldValue.ToString(),
                         };
                         break;
                     }
