@@ -376,13 +376,13 @@
                         FieldName: "SmbiosSystemManufacturer",
                         GroupName: "USER",
                         Enabled: false,
-                        RuleType: "OutOfRange",
+                        RuleType: "EqualTo",
                         FieldValue: null,
                         FieldAltValue: null,
                         MinValue: -1,
                         MaxValue: -1,
                         ExpectedValues: null,
-                        UnexpectedValues: ["To be filled by O.E.M.", "default string", "Default String", "Default string"],
+                        UnexpectedValues: null,
                         QuotedFields : null
                     }
                 );
@@ -408,9 +408,15 @@
                         //QuotedFields: item.QuotedFields
                     };
 
-                    switch (item.FieldName) {
+                    //switch (item.FieldName) {
 
-                        default:
+                    //    default:
+                    //}
+
+                    var ruleTypes = $scope.getFieldRuleTypes(item.FieldName);
+
+                    if ((ruleTypes != null) && (ruleTypes.length > 0)) {
+                        newItem.RuleType = ruleTypes[0];
                     }
 
                     $scope.ruleItems.splice(index, 0, newItem);
@@ -525,6 +531,68 @@
 
             $scope.closeDialog = function () {
                 ngDialog.closeAll();
+            };
+
+            $scope.getFieldRuleTypes = function (fieldName) {
+                var ruleTypes = null;
+
+                switch (fieldName)
+                {
+                    case "SmbiosSystemManufacturer": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemFamily": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemProductName": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosBoardProduct": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSkuNumber": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "ChasisType": {
+                        ruleTypes = ["EqualTo"];
+                        break;
+                    }
+                    case "SmbiosSystemSerialNumber": {
+                        ruleTypes = ["StringLength", "NotIn", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosUuid": {
+                        ruleTypes = ["StringLength", "NotIn"];
+                        break;
+                    }
+                    case "PrimaryDiskType": {
+                        ruleTypes = ["In", "NotIn"];
+                        break;
+                    }
+                    case "TotalPhysicalRAM": {
+                        ruleTypes = ["Min", "Max", "Between"];
+                        break;
+                    }
+                    case "PrimaryDiskTotalCapacity": {
+                        ruleTypes = ["Min", "Max", "Between"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalH": {
+                        ruleTypes = ["Min", "Max", "Between"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalY": {
+                        ruleTypes = ["Min", "Max", "Between"];
+                        break;
+                    }
+                }
+
+                return ruleTypes;
             };
 
             //$scope.showDetailDialog = function (ruleItemName, templateName) {
