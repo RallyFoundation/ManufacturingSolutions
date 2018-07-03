@@ -96,7 +96,7 @@
                 </td>-->
                 <td style="width:20%">
                     <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" ng-show="(ruleItem.GroupName == 'System')" class="form-control" title="The type of the rule, select one from the drop down list.">
-                        <option value="EqualTo" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'ChasisType'))">Equal To</option>
+                        <option value="EqualTo" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'ChassisType'))">Equal To</option>
                         <!--<option value="NotEqualTo" ng-hide="(RuleItem.GroupName == 'USER')">Not Equal To</option>
                         <option value="NotNull" ng-hide="(RuleItem.GroupName == 'USER')">Not Null</option>-->
                         <!--<option value="Reference">Reference (Equal To)</option>
@@ -596,7 +596,7 @@
                         break;
                     }
                     case "StringLength": {
-                        displayName = "String Length";
+                        displayName = "Length";
                         break;
                     }
                     case "NotNull": {
