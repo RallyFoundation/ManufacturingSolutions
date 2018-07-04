@@ -1,0 +1,468 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>User Rule Configuration</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.min.css" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-mocks.js"></script>
+    <script src="Scripts/angular-aria.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-cookies.min.js"></script>
+    <script src="Scripts/angular-loader.js"></script>
+    <script src="Scripts/angular-loader.min.js"></script>
+    <script src="Scripts/angular-message-format.js"></script>
+    <script src="Scripts/angular-message-format.min.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-scenario.js"></script>
+    <script src="Scripts/angular-touch.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    <script src="Scripts/ngDialog.js"></script>
+    <script src="Scripts/ngDialog.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="../../../Config/user-rule.json"></script>
+</head>
+<body ng-app="HQATool">
+    <div ng-controller="ValidationRuleConfigController" ng-init="loadData()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
+            <!--&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule(currentRuleItemIndex)" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>-->
+        </p>
+        <ol>
+            <li ng-repeat="fieldName in fieldNames">
+                <p style="font-weight:bolder;text-decoration:underline;font-style:italic">{{fieldName}}</p>
+                <ol>
+                    <li ng-repeat="ruleItem in ruleItems">
+                        <p ng-show="(ruleItem.FieldName == fieldName) && (ruleItem.GroupName == 'System')">{{getRuleDescription(ruleItem)}}</p>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationRuleConfigController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.ruleItems = [];
+
+            $scope.fieldNames = [
+                "SmbiosSystemManufacturer",
+                "SmbiosSystemFamily",
+                "SmbiosSystemProductName",
+                "SmbiosBoardProduct",
+                "SmbiosSkuNumber",
+                "ChassisType",
+                "SmbiosSystemSerialNumber",
+                "SmbiosUuid",
+                "TotalPhysicalRAM",
+                "PrimaryDiskType",
+                "PrimaryDiskTotalCapacity",
+                "DisplaySizePhysicalH",
+                "DisplaySizePhysicalY"
+            ];
+
+            $scope.currentRuleItemIndex = -1;
+
+            $scope.currentRuleItemName = "";
+
+            $scope.currentRuleItem = null;
+
+            $scope.getValueLength = function (value){
+                return String(value).length;
+            };
+
+            $scope.loadData = function () {
+                if ((settings != null) && (settings.length > 0)) {
+                    for (var i = 0; i < settings.length; i++) {
+                        $scope.ruleItems.push(settings[i]);
+                    }
+                }
+            };
+
+            $scope.setCurrentRuleItemIndex = function (index) {
+                $scope.currentRuleItemIndex = index;
+            };
+
+            $scope.setRuleItemGroup = function (event, item) {
+
+                if (event.target.checked == true) {
+                    //item.GroupName = "USER";
+                    item.GroupName = "System";
+                }
+                else {
+                    item.GroupName = "DEFAULT";
+                }
+
+            };
+
+            $scope.getRuleDescription = function (ruleItem) {
+
+                var ruleDescription = "";
+
+                switch (ruleItem.RuleType) {
+                    case "EqualTo": {
+                        ruleDescription = ruleItem.FieldName + "should equal to \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "NotEqualTo": {
+                        ruleDescription = ruleItem.FieldName + "should NOT equal to \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "InRange": {
+                        ruleDescription = ruleItem.FieldName + "should be of ";
+                        for (var i = 0; i < ruleItem.ExpectedValues.length; i++) {
+                            ruleDescription += "\"" + ruleItem.ExpectedValues[i] + "\"";
+                            if (i != (ruleItem.ExpectedValues.length - 1)) {
+                                ruleDescription += ", ";
+                            }
+                        }
+                        break;
+                    }
+                    case "OutOfRange": {
+                        ruleDescription = ruleItem.FieldName + "should NOT be of ";
+                        for (var i = 0; i < ruleItem.UnexpectedValues.length; i++) {
+                            ruleDescription += "\"" + ruleItem.UnexpectedValues[i] + "\"";
+                            if (i != (ruleItem.UnexpectedValues.length - 1)) {
+                                ruleDescription += ", ";
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                }
+
+                return ruleDescription;
+            };
+
+            $scope.addRule = function () {
+
+                var ruleId = createGuid();
+
+                $scope.ruleItems.push(
+                    {
+                        id: ruleId,
+                        FieldName: "SmbiosSystemManufacturer",
+                        GroupName: "System",
+                        Enabled: false,
+                        RuleType: "EqualTo",
+                        FieldValue: null
+                    }
+                );
+            };
+
+            $scope.copyRule = function (index) {
+                if (index >= 0) {
+                    var ruleId = createGuid();
+                    var item = $scope.ruleItems[index];
+
+                    var newItem = {
+                        id: ruleId,
+                        FieldName: item.FieldName,
+                        GroupName: "System",
+                        Enabled: false
+                    };
+
+                    var ruleTypes = $scope.getFieldRuleTypes(item.FieldName);
+
+                    if ((ruleTypes != null) && (ruleTypes.length > 0)) {
+                        newItem.RuleType = ruleTypes[0];
+                    }
+
+                    $scope.ruleItems.splice(index, 0, newItem);
+                }
+            };
+
+            $scope.removeRule = function () {
+                if ($scope.currentRuleItemIndex >= 0) {
+                    $scope.ruleItems.splice($scope.currentRuleItemIndex, 1);
+                    $scope.setCurrentRuleItemIndex(-1);
+                }
+            };
+
+            $scope.removeValue = function (array, index) {
+                if ((array != null) && (index >= 0)) {
+                    array.splice(index, 1);
+                }
+            };
+
+            $scope.setRuleItemQuotedFields = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].QuotedFields == null) {
+                        $scope.ruleItems[index].QuotedFields = [];
+                    }
+
+                    if ($scope.ruleItems[index].QuotedFields.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].QuotedFields.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }
+                }
+            };
+
+            $scope.setRuleItemExpectedValues = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].ExpectedValues == null) {
+                        $scope.ruleItems[index].ExpectedValues = [];
+                    }
+
+                    if ($scope.ruleItems[index].ExpectedValues.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].ExpectedValues.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }
+                }
+            };
+
+            $scope.setRuleItemUnexpectedValues = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].UnexpectedValues == null) {
+                        $scope.ruleItems[index].UnexpectedValues = [];
+                    }
+
+                    if ($scope.ruleItems[index].UnexpectedValues.indexOf($scope.ruleItems[index].currentInputAltValue) < 0) {
+                        $scope.ruleItems[index].UnexpectedValues.push($scope.ruleItems[index].currentInputAltValue);
+
+                        $scope.ruleItems[index].currentInputAltValue = null;
+                    }
+                }
+            };
+
+            $scope.saveRuleConfig = function () {
+                var fileInfo = { Path: "", Content: "" };
+
+                //fileInfo.Path = "..\\..\\Config\\rule.json";
+                fileInfo.Path = "Config\\user-rule.json";
+                fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+
+                var fileInfoJson = JSON.stringify(fileInfo);
+
+                event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                document.dispatchEvent(event);
+            };
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/theme/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getFieldRuleTypes = function (fieldName) {
+                var ruleTypes = null;
+
+                switch (fieldName)
+                {
+                    case "SmbiosSystemManufacturer": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemFamily": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemProductName": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosBoardProduct": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSkuNumber": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "ChasisType": {
+                        ruleTypes = ["EqualTo"];
+                        break;
+                    }
+                    case "SmbiosSystemSerialNumber": {
+                        ruleTypes = ["StringLength", "OutOfRange", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosUuid": {
+                        ruleTypes = ["StringLength", "OutOfRange"];
+                        break;
+                    }
+                    case "PrimaryDiskType": {
+                        ruleTypes = ["InRange", "OutOfRange"];
+                        break;
+                    }
+                    case "TotalPhysicalRAM": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "PrimaryDiskTotalCapacity": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalH": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalY": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                }
+
+                return ruleTypes;
+            };
+
+            $scope.getRuleTypeDisplayName = function (ruleType) {
+
+                var displayName = ruleType;
+
+                switch (ruleType)
+                {
+                    case "InRange": {
+                        displayName = "In";
+                        break;
+                    }
+                    case "OutOfRange": {
+                        displayName = "Not In";
+                        break;
+                    }
+                    case "MinAndMax": {
+                        displayName = "Between";
+                        break;
+                    }
+                    case "StringLength": {
+                        displayName = "Length";
+                        break;
+                    }
+                    case "NotNull": {
+                        displayName = "Not Null";
+                        break;
+                    }
+                    case "NotContain": {
+                        displayName = "Not Contain";
+                        break;
+                    }
+                    case "EqualTo": {
+                        displayName = "Equal To";
+                        break;
+                    }
+                    case "NotEqualTo": {
+                        displayName = "Not Equal To";
+                        break;
+                    }
+                    default: {
+                        displayName = ruleType;
+                        break;
+                    }
+                }
+
+                return displayName;
+            };
+
+            $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
+                return false;
+            };
+        });
+    </script>
+</body>
+</html>

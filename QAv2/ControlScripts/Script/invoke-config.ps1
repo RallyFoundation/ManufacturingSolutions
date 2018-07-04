@@ -49,7 +49,7 @@ if([System.IO.Directory]::Exists($InputPath) -eq $false)
 }
 
 #$ConfigUIPath = ($RootDir + "\Module\UI\Views\RuleConfig.html");
-$ConfigUIPath = ($RootDir + "\Module\UI\Views\UserRuleConfig.html");
+$ConfigUIPath = ($RootDir + "\Module\UI\Views\Rule.html");
 $WebViewPlusPath = ($RootDir + "\Module\UI\WebViewPlus.exe");
 
 Start-Process -FilePath $WebViewPlusPath -ArgumentList @($ConfigUIPath) -Wait -NoNewWindow;

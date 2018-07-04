@@ -80,6 +80,7 @@
     <Content Include="Content\ngDialog.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Rule.html" />
     <Content Include="UserRuleConfig.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
