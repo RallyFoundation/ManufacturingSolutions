@@ -58,8 +58,8 @@
             <li ng-repeat="fieldName in fieldNames">
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">{{fieldName}}</p>
                 <ol>
-                    <li ng-repeat="ruleItem in ruleItems">
-                        <p ng-show="(ruleItem.FieldName == fieldName) && (ruleItem.GroupName == 'System')">{{getRuleDescription(ruleItem)}}</p>
+                    <li ng-repeat="ruleItem in ruleItems" ng-show="(ruleItem.FieldName == fieldName)">
+                        <p ng-show="(ruleItem.GroupName == 'DEFAULT')">{{getRuleDescription(ruleItem)}}</p>
                     </li>
                 </ol>
             </li>
@@ -174,45 +174,6 @@
                     item.GroupName = "DEFAULT";
                 }
 
-            };
-
-            $scope.getRuleDescription = function (ruleItem) {
-
-                var ruleDescription = "";
-
-                switch (ruleItem.RuleType) {
-                    case "EqualTo": {
-                        ruleDescription = ruleItem.FieldName + "should equal to \"" + ruleItem.FieldValue + "\";";
-                        break;
-                    }
-                    case "NotEqualTo": {
-                        ruleDescription = ruleItem.FieldName + "should NOT equal to \"" + ruleItem.FieldValue + "\";";
-                        break;
-                    }
-                    case "InRange": {
-                        ruleDescription = ruleItem.FieldName + "should be of ";
-                        for (var i = 0; i < ruleItem.ExpectedValues.length; i++) {
-                            ruleDescription += "\"" + ruleItem.ExpectedValues[i] + "\"";
-                            if (i != (ruleItem.ExpectedValues.length - 1)) {
-                                ruleDescription += ", ";
-                            }
-                        }
-                        break;
-                    }
-                    case "OutOfRange": {
-                        ruleDescription = ruleItem.FieldName + "should NOT be of ";
-                        for (var i = 0; i < ruleItem.UnexpectedValues.length; i++) {
-                            ruleDescription += "\"" + ruleItem.UnexpectedValues[i] + "\"";
-                            if (i != (ruleItem.UnexpectedValues.length - 1)) {
-                                ruleDescription += ", ";
-                            }
-                        }
-                        break;
-                    }
-                    default:
-                }
-
-                return ruleDescription;
             };
 
             $scope.addRule = function () {
@@ -457,6 +418,79 @@
                 }
 
                 return displayName;
+            };
+
+            $scope.getRuleDescription = function (ruleItem) {
+
+                var ruleDescription = "";
+
+                switch (ruleItem.RuleType) {
+                    case "EqualTo": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should equal to \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "NotEqualTo": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT equal to \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "NotNull": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT be null or empty;";
+                        break;
+                    }
+                    case "InRange": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should be of ";
+                        for (var i = 0; i < ruleItem.ExpectedValues.length; i++) {
+                            ruleDescription += "\"" + ruleItem.ExpectedValues[i] + "\"";
+                            if (i != (ruleItem.ExpectedValues.length - 1)) {
+                                ruleDescription += ", ";
+                            }
+                        }
+                        break;
+                    }
+                    case "OutOfRange": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT be of ";
+                        for (var i = 0; i < ruleItem.UnexpectedValues.length; i++) {
+                            ruleDescription += "\"" + ruleItem.UnexpectedValues[i] + "\"";
+                            if (i != (ruleItem.UnexpectedValues.length - 1)) {
+                                ruleDescription += ", ";
+                            }
+                        }
+                        break;
+                    }
+                    case "Contain": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should at least contain the key word of \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "NotContain": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT contain any piece of the key word of \"" + ruleItem.FieldValue + "\";";
+                        break;
+                    }
+                    case "Min": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should be greater than or equal to " + ruleItem.MinValue + ";";
+                        break;
+                    }
+                    case "Max": {
+                        ruleDescription = "The value of" + ruleItem.FieldName + " should be less than or equal to " + ruleItem.MaxValue + ";";
+                        break;
+                    }
+                    case "MinAndMax": {
+                        ruleDescription = "The value of " + ruleItem.FieldName + " should  both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                        break;
+                    }
+                    case "StringLength": {
+                        ruleDescription = "The character length of the value for " + ruleItem.FieldName + " should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                        break;
+                    }
+                    case "Occurrence": {
+                        ruleDescription = "The occurrence of " + ruleItem.FieldName + " should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+
+                return ruleDescription;
             };
 
             $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
