@@ -47,21 +47,129 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
-            <!--&nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
-            &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule(currentRuleItemIndex)" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
-            &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>-->
         </p>
         <ol>
             <li ng-repeat="fieldName in fieldNames">
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">{{fieldName}}</p>
                 <ol>
                     <li ng-repeat="ruleItem in ruleItems" ng-show="(ruleItem.FieldName == fieldName)">
-                        <p ng-show="(ruleItem.GroupName == 'DEFAULT')">{{getRuleDescription(ruleItem)}}</p>
+                        <p  ng-style="(ruleItem.GroupName == 'System') && {'color' : 'orange'}">{{getRuleDescription(ruleItem)}}
+                            &nbsp;&nbsp;<a href="#" ng-show="(ruleItem.GroupName == 'System')" ng-click="removeValue(ruleItems, $index)">Remove</a>
+                        </p>
+                        
                     </li>
                 </ol>
+                <a href="#" ng-click="newRule(fieldName)" ng-show="(newItems[fieldName] == null)">Add My Rule...</a>            
+                <div ng-show="(newItems[fieldName] != null)">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <a href="#" ng-click="appendNewRule(fieldName)">OK</a>
+                                &nbsp;
+                                <a href="#" ng-click="cancelNewRule(fieldName)">Cancel</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select ng-model="newItems[fieldName].RuleType" class="form-control" title="The type of the rule, select one from the drop down list.">
+                                    <option value="EqualTo" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'ChassisType'))">Equal To</option>
+                                    <option value="InRange" ng-show="(fieldName == 'PrimaryDiskType')">In</option>
+                                    <option value="OutOfRange" ng-show="((fieldName == 'SmbiosSystemSerialNumber') || (fieldName == 'SmbiosUuid') || (fieldName == 'PrimaryDiskType'))">Not In</option>
+                                    <option value="Contain" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'SmbiosSystemSerialNumber'))">Contain</option>
+                                    <option value="NotContain" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'SmbiosSystemSerialNumber'))">Not Contain</option>
+                                    <option value="StringLength" ng-show="(fieldName == 'SmbiosSystemSerialNumber') || (fieldName == 'SmbiosUuid')">Length</option>
+                                    <option value="Min" ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM') || (fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">Min</option>
+                                    <option value="Max" ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM') || (fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">Max</option>
+                                    <option value="MinAndMax" ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM') || (fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">Between</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div ng-switch="newItems[fieldName].RuleType">
+                                    <div ng-switch-when="EqualTo">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                    </div>
+                                    <div ng-switch-when="NotEqualTo">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                    </div>
+                                    <div ng-switch-when="Contain">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                    </div>
+                                    <div ng-switch-when="NotContain">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                    </div>
+                                    <div ng-switch-when="Reference">
+                                        <input type="text" ng-model="newItems[fieldName].ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field value." />
+                                    </div>
+                                    <div ng-switch-when="ReferenceInRange">
+                                        <input type="text" ng-model="newItems[fieldName].ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                                        <textarea ng-model="newItems[fieldName].ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
+                                        </ul>
+                                    </div>
+                                    <div ng-switch-when="NumberSequenceComparison">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].SequenceSeparator" class="form-control" maxlength="50" title="Sequence separator, i.e., '.', or ',', etc." />
+                                        <input type="number" ng-model="newItems[fieldName].SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
+                                    </div>
+                                    <div ng-switch-when="Min">
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
+                                    </div>
+                                    <div ng-switch-when="Max">
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                    </div>
+                                    <div ng-switch-when="InRange">
+                                        <textarea ng-model="newItems[fieldName].ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
+                                        </ul>
+                                    </div>
+                                    <div ng-switch-when="OutOfRange">
+                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in newItems[fieldName].UnexpectedValues">{{val}}</li>
+                                        </ul>
+                                    </div>
+                                    <div ng-switch-when="InAndOutOfRange">
+                                        <table class="table">
+                                            <tr>
+                                                <td>
+                                                    <textarea ng-model="newItems[fieldName].ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                                    <ul>
+                                                        <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <textarea ng-model="newItems[fieldName].UnexpectedValues" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                                    <ul>
+                                                        <li ng-repeat="val in newItems[fieldName].UnexpectedValues">{{val}}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div ng-switch-when="StringLength">
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                    </div>
+                                    <div ng-switch-when="MinAndMax">
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                    </div>
+                                    <div ng-switch-when="Occurrence">
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                    </div>
+                                    <div ng-switch-when="Custom">
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="80" title="Regular Expression pattern that constrains field's value." />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br/>
             </li>
         </ol>
     </div>
@@ -142,6 +250,8 @@
                 "DisplaySizePhysicalY"
             ];
 
+            $scope.newItems = {};
+
             $scope.currentRuleItemIndex = -1;
 
             $scope.currentRuleItemName = "";
@@ -174,6 +284,51 @@
                     item.GroupName = "DEFAULT";
                 }
 
+            };
+
+            $scope.newRule = function (fieldName) {
+                if ($scope.newItems[fieldName] == null) {
+
+                    var ruleId = createGuid();
+
+                    var newItem = {
+                        id: ruleId,
+                        FieldName: fieldName,
+                        GroupName: "System",
+                        Enabled: false
+                    };
+
+                    var ruleTypes = $scope.getFieldRuleTypes(fieldName);
+
+                    if ((ruleTypes != null) && (ruleTypes.length > 0)) {
+                        newItem.RuleType = ruleTypes[0];
+                    }
+
+                    $scope.newItems[fieldName] = newItem;
+
+                    //alert(JSON.stringify($scope.newItems));
+                }
+
+            };
+
+            $scope.appendNewRule = function (fieldName) {
+                if ($scope.newItems[fieldName] != null) {
+
+                    var item = $scope.newItems[fieldName];
+
+                    item.Enabled = true;
+
+                    $scope.ruleItems.push(item);
+
+                    $scope.newItems[fieldName] = null;
+                }
+            };
+
+            $scope.cancelNewRule = function (fieldName) {
+                if ($scope.newItems[fieldName] != null) {
+                    
+                    $scope.newItems[fieldName] = null;
+                }
             };
 
             $scope.addRule = function () {
@@ -426,19 +581,19 @@
 
                 switch (ruleItem.RuleType) {
                     case "EqualTo": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should equal to \"" + ruleItem.FieldValue + "\";";
+                        ruleDescription = "Value should equal to \"" + ruleItem.FieldValue + "\";";
                         break;
                     }
                     case "NotEqualTo": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT equal to \"" + ruleItem.FieldValue + "\";";
+                        ruleDescription = "Value should NOT equal to \"" + ruleItem.FieldValue + "\";";
                         break;
                     }
                     case "NotNull": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT be null or empty;";
+                        ruleDescription = "Value should NOT be null or empty;";
                         break;
                     }
                     case "InRange": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should be of ";
+                        ruleDescription = "Value should be of ";
                         for (var i = 0; i < ruleItem.ExpectedValues.length; i++) {
                             ruleDescription += "\"" + ruleItem.ExpectedValues[i] + "\"";
                             if (i != (ruleItem.ExpectedValues.length - 1)) {
@@ -448,7 +603,7 @@
                         break;
                     }
                     case "OutOfRange": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT be of ";
+                        ruleDescription = "Value should NOT be of ";
                         for (var i = 0; i < ruleItem.UnexpectedValues.length; i++) {
                             ruleDescription += "\"" + ruleItem.UnexpectedValues[i] + "\"";
                             if (i != (ruleItem.UnexpectedValues.length - 1)) {
@@ -458,27 +613,27 @@
                         break;
                     }
                     case "Contain": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should at least contain the key word of \"" + ruleItem.FieldValue + "\";";
+                        ruleDescription = "Value should at least contain the key word of \"" + ruleItem.FieldValue + "\";";
                         break;
                     }
                     case "NotContain": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should NOT contain any piece of the key word of \"" + ruleItem.FieldValue + "\";";
+                        ruleDescription = "Value should NOT contain any piece of the key word of \"" + ruleItem.FieldValue + "\";";
                         break;
                     }
                     case "Min": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should be greater than or equal to " + ruleItem.MinValue + ";";
+                        ruleDescription = "Value should be greater than or equal to " + ruleItem.MinValue + ";";
                         break;
                     }
                     case "Max": {
-                        ruleDescription = "The value of" + ruleItem.FieldName + " should be less than or equal to " + ruleItem.MaxValue + ";";
+                        ruleDescription = "Value should be less than or equal to " + ruleItem.MaxValue + ";";
                         break;
                     }
                     case "MinAndMax": {
-                        ruleDescription = "The value of " + ruleItem.FieldName + " should  both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                        ruleDescription = "Value should  both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
                         break;
                     }
                     case "StringLength": {
-                        ruleDescription = "The character length of the value for " + ruleItem.FieldName + " should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                        ruleDescription = "Value's character length should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
                         break;
                     }
                     case "Occurrence": {
