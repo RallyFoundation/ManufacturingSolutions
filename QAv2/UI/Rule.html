@@ -53,7 +53,7 @@
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">{{fieldName}}</p>
                 <ol>
                     <li ng-repeat="ruleItem in ruleItems" ng-show="(ruleItem.FieldName == fieldName)">
-                        <p  ng-style="(ruleItem.GroupName == 'System') && {'color' : 'orange'}">{{getRuleDescription(ruleItem)}}
+                        <p  ng-style="((ruleItem.GroupName == 'System') && {'color' : 'orange'}) || ((voilatedRules.indexOf(ruleItem.id) >= 0) && {'color' : 'red'})">{{getRuleDescription(ruleItem)}}
                             &nbsp;&nbsp;<a href="#" ng-show="(ruleItem.GroupName == 'System')" ng-click="removeValue(ruleItems, $index)">Remove</a>
                         </p>
                         
@@ -64,7 +64,7 @@
                     <table>
                         <tr>
                             <td colspan="2">
-                                <a href="#" ng-click="appendNewRule(fieldName)">OK</a>
+                                <a href="#" ng-show="(voilatingFields[fieldName] == null)" ng-click="appendNewRule(fieldName)">OK</a>
                                 &nbsp;
                                 <a href="#" ng-click="cancelNewRule(fieldName)">Cancel</a>
                             </td>
@@ -86,16 +86,16 @@
                             <td>
                                 <div ng-switch="newItems[fieldName].RuleType">
                                     <div ng-switch-when="EqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotEqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Contain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotContain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Reference">
                                         <input type="text" ng-model="newItems[fieldName].ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
@@ -114,19 +114,19 @@
                                         <input type="number" ng-model="newItems[fieldName].SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
                                     </div>
                                     <div ng-switch-when="Min">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
                                     </div>
                                     <div ng-switch-when="Max">
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="InRange">
-                                        <textarea ng-model="newItems[fieldName].ExpectedValues" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].ExpectedValues" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
                                         </ul>
                                     </div>
                                     <div ng-switch-when="OutOfRange">
-                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].UnexpectedValues">{{val}}</li>
                                         </ul>
@@ -254,6 +254,10 @@
 
             $scope.fieldRuleDict = {};
 
+            $scope.voilatedRules = [];
+
+            $scope.voilatingFields = {};
+
             $scope.currentRuleItemIndex = -1;
 
             $scope.currentRuleItemName = "";
@@ -330,6 +334,22 @@
                 if ($scope.newItems[fieldName] != null) {
                     
                     $scope.newItems[fieldName] = null;
+                }
+
+                if ($scope.voilatingFields[fieldName] != null) {
+                    if ($scope.voilatedRules != null) {
+
+                        var voilatatedRuleIndex = -1
+                        for (var i = 0; i < $scope.voilatingFields[fieldName].length; i++) {
+                            voilatatedRuleIndex = $scope.voilatedRules.indexOf($scope.voilatingFields[fieldName][i].RuleID);
+
+                            if (voilatatedRuleIndex >= 0) {
+                                $scope.voilatedRules.splice(voilatatedRuleIndex, 1);
+                            }
+                        }
+                    }
+
+                    $scope.voilatingFields[fieldName] = null;
                 }
             };
 
@@ -656,7 +676,7 @@
 
                 var results = [];
 
-                var result = false;
+                var voilatedRuleIndex = -1;
 
                 if (fieldRules == null) {
                     $scope.fieldRuleDict[fieldName] = [];
@@ -671,72 +691,171 @@
                 if (fieldRules != null) {
                     for (var i = 0; i < fieldRules.length; i++) {
                         if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "EqualTo")) {
-                            if (fieldRules[i].ExpectedValues.indexOf(ruleItem.FieldValue) < 0)
-                            {
-                                results.push({RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule."});
-                                
+                            if (fieldRules[i].ExpectedValues.indexOf(ruleItem.FieldValue) < 0){
+                                results.push({ RuleID: fieldRules[i].id, Description: "Rule value is not in the scope of the expected values of a built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "StringLength") && (ruleItem.RuleType == "EqualTo")) {
                             if ((ruleItem.FieldValue.length > fieldRules[i].MaxValue) || (ruleItem.FieldValue.length < fieldRules[i].MinValue)) {
-                                results.push({ RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule." });
+                                results.push({ RuleID: fieldRules[i].id, Description: "Rule value does not meet the character length limit of a built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "EqualTo")) {
                             if (fieldRules[i].UnexpectedValues.indexOf(ruleItem.FieldValue) >= 0) {
-                                results.push({ RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule." });
-
+                                results.push({ RuleID: fieldRules[i].id, Description: "Rule value is in the scope of the unexpected values of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "Contain")) {
-                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
                                 if (fieldRules[i].ExpectedValues[j].indexOf(ruleItem.FieldValue) < 0) {
-                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                    results.push({ RuleID: fieldRules[i].id, Description: "Rule value of the key word conflicts with some of the expected values of a built-in rule." });
+                                    if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                        $scope.voilatedRules.push(fieldRules[i].id);
+                                    }
+                                }
+                                else {
+                                    voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                    if (voilatedRuleIndex >= 0) {
+                                        $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                    }
                                 }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "NotContain")) {
-                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
                                 if (fieldRules[i].ExpectedValues[j].indexOf(ruleItem.FieldValue) >=0) {
-                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                    results.push({ RuleID: fieldRules[i].id, Description: "Rule value of the key word conflicts with some of the expected values of a built-in rule." });
+                                    if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                        $scope.voilatedRules.push(fieldRules[i].id);
+                                    }
                                 }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "InRange")) {
-                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
                                 if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) < 0) {
-                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                    results.push({ RuleID: fieldRules[i].id, Description: "The specified range of expected values is narrower than an exisiting defination of a built-in rule." });
+                                    if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                        $scope.voilatedRules.push(fieldRules[i].id);
+                                    }
+                                }
+                                else {
+                                    voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                    if (voilatedRuleIndex >= 0) {
+                                        $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                    }
                                 }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "OutOfRange")) {
-                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
                                 if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
-                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                    results.push({ RuleID: fieldRules[i].id, Description: "Some of the values of the specified unexpected values also exists in exisiting expected values defination of a built-in rule." });
+                                    if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                        $scope.voilatedRules.push(fieldRules[i].id);
+                                    }
+                                }
+                                else {
+                                    voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                    if (voilatedRuleIndex >= 0) {
+                                        $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                    }
                                 }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "InRange")) {
-                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
                                 if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
-                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                    results.push({ RuleID: fieldRules[i].id, Description: "Some of the values of the specified expected values also exists in exisiting unexpected values defination of a built-in rule." });
+                                    if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                        $scope.voilatedRules.push(fieldRules[i].id);
+                                    }
+                                }
+                                else {
+                                    voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                    if (voilatedRuleIndex >= 0) {
+                                        $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                    }
                                 }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "Min") && (ruleItem.RuleType == "Max")) {
                             if (fieldRules[i].MinValue > ruleItem.MaxValue) {
-                                results.push({ RuleType: "Max", Description: "Max value is less than the min value of built-in rule." });
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
                             }
                         }
                         else if ((fieldRules[i].RuleType == "Max") && (ruleItem.RuleType == "Min")) {
-                            if (fieldRules[i].MaxValue< ruleItem.MinValue) {
-                                results.push({ RuleType: "Min", Description: "Min value is greater than the max value of built-in rule." });
+                            if (fieldRules[i].MaxValue < ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
                             }
                         }
                     }
                 }
 
-                return false;
+                //alert(JSON.stringify(results));
+
+                //return results;
+
+                //for (var i = 0; i < $scope.ruleItems.length; i++) {
+                //    if ($scope.voilatedRules.indexOf($scope.ruleItems[i].id) >= 0) {
+                //        $scope.ruleItems[i].isVoilated = true;
+                //    }
+                //    else {
+                //        $scope.ruleItems[i].isVoilated = undefined;
+                //    }
+                //}
+
+                if (results.length > 0) {
+                    $scope.voilatingFields[fieldName] = results;
+                }
+                else {
+                    $scope.voilatingFields[fieldName] = null;
+                }
+               
             };
         });
     </script>
