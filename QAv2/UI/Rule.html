@@ -86,16 +86,16 @@
                             <td>
                                 <div ng-switch="newItems[fieldName].RuleType">
                                     <div ng-switch-when="EqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotEqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Contain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotContain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Reference">
                                         <input type="text" ng-model="newItems[fieldName].ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
@@ -114,19 +114,19 @@
                                         <input type="number" ng-model="newItems[fieldName].SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
                                     </div>
                                     <div ng-switch-when="Min">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
                                     </div>
                                     <div ng-switch-when="Max">
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="InRange">
-                                        <textarea ng-model="newItems[fieldName].ExpectedValues" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].ExpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
                                         </ul>
                                     </div>
                                     <div ng-switch-when="OutOfRange">
-                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" ng-keyup="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].UnexpectedValues">{{val}}</li>
                                         </ul>
@@ -150,12 +150,12 @@
                                         </table>
                                     </div>
                                     <div ng-switch-when="StringLength">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="MinAndMax">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="Occurrence">
                                         <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
@@ -717,6 +717,20 @@
                                 }
                             }
                         }
+                        else if ((fieldRules[i].RuleType == "StringLength") && (ruleItem.RuleType == "StringLength")) {
+                            if ((ruleItem.MaxValue > fieldRules[i].MaxValue) || (ruleItem.MinValue < fieldRules[i].MinValue)) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Character length limit is less strict than that of a built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
                         else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "EqualTo")) {
                             if (fieldRules[i].UnexpectedValues.indexOf(ruleItem.FieldValue) >= 0) {
                                 results.push({ RuleID: fieldRules[i].id, Description: "Rule value is in the scope of the unexpected values of built-in rule." });
@@ -775,7 +789,7 @@
                         }
                         else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "OutOfRange")) {
                             for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
-                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
+                                if (ruleItem.UnexpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
                                     results.push({ RuleID: fieldRules[i].id, Description: "Some of the values of the specified unexpected values also exists in exisiting expected values defination of a built-in rule." });
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
@@ -790,8 +804,8 @@
                             }
                         }
                         else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "InRange")) {
-                            for (var j = 0; j < fieldRules[i].ExpectedValues.length; j++) {
-                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
+                            for (var j = 0; j < fieldRules[i].UnexpectedValues.length; j++) {
+                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].UnexpectedValues[j]) >= 0) {
                                     results.push({ RuleID: fieldRules[i].id, Description: "Some of the values of the specified expected values also exists in exisiting unexpected values defination of a built-in rule." });
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
@@ -820,6 +834,82 @@
                             }
                         }
                         else if ((fieldRules[i].RuleType == "Max") && (ruleItem.RuleType == "Min")) {
+                            if (fieldRules[i].MaxValue < ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "MinAndMax") && (ruleItem.RuleType == "Min")) {
+                            if (fieldRules[i].MaxValue < ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "MinAndMax") && (ruleItem.RuleType == "Max")) {
+                            if (fieldRules[i].MinValue > ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "MinAndMax") && (ruleItem.RuleType == "MinAndMax")) {
+                            if (fieldRules[i].MinValue > ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else if (fieldRules[i].MaxValue < ruleItem.MinValue){
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "Min") && (ruleItem.RuleType == "MinAndMax")) {
+                            if (fieldRules[i].MinValue > ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else {
+                                voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                if (voilatedRuleIndex >= 0) {
+                                    $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "Max") && (ruleItem.RuleType == "MinAndMax")) {
                             if (fieldRules[i].MaxValue < ruleItem.MinValue) {
                                 results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
                                 if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
