@@ -252,6 +252,8 @@
 
             $scope.newItems = {};
 
+            $scope.fieldRuleDict = {};
+
             $scope.currentRuleItemIndex = -1;
 
             $scope.currentRuleItemName = "";
@@ -648,7 +650,92 @@
                 return ruleDescription;
             };
 
-            $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
+            $scope.checkFieldRuleValue = function (fieldName, ruleItem) {
+
+                var fieldRules = $scope.fieldRuleDict[fieldName];
+
+                var results = [];
+
+                var result = false;
+
+                if (fieldRules == null) {
+                    $scope.fieldRuleDict[fieldName] = [];
+
+                    for (var i = 0; i < $scope.ruleItems.length; i++) {
+                        if ($scope.ruleItems[i].FieldName == fieldName) {
+                            $scope.fieldRuleDict[fieldName].push($scope.ruleItems[i]);
+                        }
+                    }
+                }
+
+                if (fieldRules != null) {
+                    for (var i = 0; i < fieldRules.length; i++) {
+                        if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "EqualTo")) {
+                            if (fieldRules[i].ExpectedValues.indexOf(ruleItem.FieldValue) < 0)
+                            {
+                                results.push({RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule."});
+                                
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "StringLength") && (ruleItem.RuleType == "EqualTo")) {
+                            if ((ruleItem.FieldValue.length > fieldRules[i].MaxValue) || (ruleItem.FieldValue.length < fieldRules[i].MinValue)) {
+                                results.push({ RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule." });
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "EqualTo")) {
+                            if (fieldRules[i].UnexpectedValues.indexOf(ruleItem.FieldValue) >= 0) {
+                                results.push({ RuleType: "EqualTo", Description: "Rule value does not in the scope of built-in rule." });
+
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "Contain")) {
+                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                                if (fieldRules[i].ExpectedValues[j].indexOf(ruleItem.FieldValue) < 0) {
+                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "NotContain")) {
+                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                                if (fieldRules[i].ExpectedValues[j].indexOf(ruleItem.FieldValue) >=0) {
+                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "InRange")) {
+                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) < 0) {
+                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "InRange") && (ruleItem.RuleType == "OutOfRange")) {
+                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
+                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "OutOfRange") && (ruleItem.RuleType == "InRange")) {
+                            for (var j = 0; j < fieldRules.ExpectedValues.length; j++) {
+                                if (ruleItem.ExpectedValues.indexOf(fieldRules[i].ExpectedValues[j]) >= 0) {
+                                    results.push({ RuleType: "InRange", Description: "Rule value does not in the scope of built-in rule." });
+                                }
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "Min") && (ruleItem.RuleType == "Max")) {
+                            if (fieldRules[i].MinValue > ruleItem.MaxValue) {
+                                results.push({ RuleType: "Max", Description: "Max value is less than the min value of built-in rule." });
+                            }
+                        }
+                        else if ((fieldRules[i].RuleType == "Max") && (ruleItem.RuleType == "Min")) {
+                            if (fieldRules[i].MaxValue< ruleItem.MinValue) {
+                                results.push({ RuleType: "Min", Description: "Min value is greater than the max value of built-in rule." });
+                            }
+                        }
+                    }
+                }
+
                 return false;
             };
         });
