@@ -86,16 +86,16 @@
                             <td>
                                 <div ng-switch="newItems[fieldName].RuleType">
                                     <div ng-switch-when="EqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotEqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Contain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="NotContain">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="50" title="Field value." />
+                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
                                     </div>
                                     <div ng-switch-when="Reference">
                                         <input type="text" ng-model="newItems[fieldName].ReferenceFieldName" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
@@ -114,19 +114,19 @@
                                         <input type="number" ng-model="newItems[fieldName].SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
                                     </div>
                                     <div ng-switch-when="Min">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
                                     </div>
                                     <div ng-switch-when="Max">
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="InRange">
-                                        <textarea ng-model="newItems[fieldName].ExpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].ExpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].ExpectedValues">{{val}}</li>
                                         </ul>
                                     </div>
                                     <div ng-switch-when="OutOfRange">
-                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <textarea ng-model="newItems[fieldName].UnexpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
                                         <ul>
                                             <li ng-repeat="val in newItems[fieldName].UnexpectedValues">{{val}}</li>
                                         </ul>
@@ -150,12 +150,12 @@
                                         </table>
                                     </div>
                                     <div ng-switch-when="StringLength">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
                                         <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="MinAndMax">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Min value." />
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
+                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
+                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." />
                                     </div>
                                     <div ng-switch-when="Occurrence">
                                         <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
@@ -281,20 +281,16 @@
             };
 
             $scope.setRuleItemGroup = function (event, item) {
-
                 if (event.target.checked == true) {
-                    //item.GroupName = "USER";
                     item.GroupName = "System";
                 }
                 else {
                     item.GroupName = "DEFAULT";
                 }
-
             };
 
             $scope.newRule = function (fieldName) {
                 if ($scope.newItems[fieldName] == null) {
-
                     var ruleId = createGuid();
 
                     var newItem = {
@@ -311,8 +307,6 @@
                     }
 
                     $scope.newItems[fieldName] = newItem;
-
-                    //alert(JSON.stringify($scope.newItems));
                 }
 
             };
@@ -354,7 +348,6 @@
             };
 
             $scope.addRule = function () {
-
                 var ruleId = createGuid();
 
                 $scope.ruleItems.push(
@@ -461,6 +454,23 @@
 
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.speakOutText = function (fieldName) {
+                if (($scope.voilatingFields[fieldName] != null) && ($scope.voilatingFields[fieldName] != undefined)) {
+                    var data = "";
+
+                    for (var i = 0; i < $scope.voilatingFields[fieldName].length; i++) {
+                        data += $scope.voilatingFields[fieldName][i].Description;
+
+                        if (i != ($scope.voilatingFields[fieldName].length - 1)) {
+                            data += " ";
+                        }
+                    }
+                }
+
+                event = new MessageEvent("SpeakText", { "view": window, "bubbles": false, "cancelable": true, 'data': (data + "|" )});
                 document.dispatchEvent(event);
             };
 
@@ -926,26 +936,13 @@
                     }
                 }
 
-                //alert(JSON.stringify(results));
-
-                //return results;
-
-                //for (var i = 0; i < $scope.ruleItems.length; i++) {
-                //    if ($scope.voilatedRules.indexOf($scope.ruleItems[i].id) >= 0) {
-                //        $scope.ruleItems[i].isVoilated = true;
-                //    }
-                //    else {
-                //        $scope.ruleItems[i].isVoilated = undefined;
-                //    }
-                //}
-
                 if (results.length > 0) {
                     $scope.voilatingFields[fieldName] = results;
                 }
                 else {
                     $scope.voilatingFields[fieldName] = null;
                 }
-               
+
             };
         });
     </script>

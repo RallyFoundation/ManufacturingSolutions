@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Speech.Synthesis;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 
@@ -246,6 +247,34 @@ namespace WebViewPlus
             }
 
             return result;
+        }
+
+        public static void SpeakOutText(string TextToSpeak, string VoiceName)
+        {
+            using (SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer())
+            {
+                if (!String.IsNullOrEmpty(VoiceName))
+                {
+                    speechSynthesizer.SelectVoice(VoiceName);
+                }
+
+                speechSynthesizer.SetOutputToDefaultAudioDevice();
+
+                speechSynthesizer.Speak(TextToSpeak);
+            }  
+        }
+        public static void SpeakOutTextAsync(string TextToSpeak, string VoiceName)
+        {
+            SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
+
+            if (!String.IsNullOrEmpty(VoiceName))
+            {
+                speechSynthesizer.SelectVoice(VoiceName);
+            }
+
+            speechSynthesizer.SetOutputToDefaultAudioDevice();
+
+            speechSynthesizer.SpeakAsync(TextToSpeak);
         }
     }
 }

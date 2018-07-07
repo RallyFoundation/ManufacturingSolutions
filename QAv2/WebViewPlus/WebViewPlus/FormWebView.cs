@@ -218,6 +218,14 @@ namespace WebViewPlus
             MessageBox.Show(String.Format("Successfully write content to file \"{0}\"", filePath), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void speakText(string param)
+        {
+            string[] parameters = param.Split(new string[] { "|" }, StringSplitOptions.None);
+            string textToSay = parameters[0], voiceName = parameters[1];
+
+            Utility.SpeakOutTextAsync(textToSay, voiceName);
+        }
+
         private void GeckoWebBrowser_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
             this.Text = e.Window.Document.Title;
@@ -234,6 +242,7 @@ namespace WebViewPlus
             this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
             this.geckoWebBrowser.AddMessageEventListener("SaveFile", (string param) => this.saveFile(param));
             this.geckoWebBrowser.AddMessageEventListener("RunApp", (string param) => this.runApp(param));
+            this.geckoWebBrowser.AddMessageEventListener("SpeakText", (string param) => this.speakText(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
 
             if (!String.IsNullOrEmpty(this.url))
