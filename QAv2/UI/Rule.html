@@ -462,16 +462,18 @@
                     var data = "";
 
                     for (var i = 0; i < $scope.voilatingFields[fieldName].length; i++) {
-                        data += $scope.voilatingFields[fieldName][i].Description;
+                        if ((i == 0) || ($scope.voilatingFields[fieldName][i].Description != $scope.voilatingFields[fieldName][(i-1)].Description)) {
+                            data += $scope.voilatingFields[fieldName][i].Description;
+                        }
 
                         if (i != ($scope.voilatingFields[fieldName].length - 1)) {
                             data += " ";
                         }
                     }
-                }
 
-                event = new MessageEvent("SpeakText", { "view": window, "bubbles": false, "cancelable": true, 'data': (data + "|" )});
-                document.dispatchEvent(event);
+                    event = new MessageEvent("SpeakText", { "view": window, "bubbles": false, "cancelable": true, 'data': (data + "|") });
+                    document.dispatchEvent(event);
+                }
             };
 
             $scope.showProgress = function () {
@@ -880,6 +882,12 @@
                                     $scope.voilatedRules.push(fieldRules[i].id);
                                 }
                             }
+                            else if (fieldRules[i].MinValue > ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
                             else {
                                 voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
                                 if (voilatedRuleIndex >= 0) {
@@ -890,6 +898,12 @@
                         else if ((fieldRules[i].RuleType == "MinAndMax") && (ruleItem.RuleType == "Max")) {
                             if (fieldRules[i].MinValue > ruleItem.MaxValue) {
                                 results.push({ RuleID: fieldRules[i].id, Description: "Max value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else if (fieldRules[i].MaxValue < ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is greater than the max value of built-in rule." });
                                 if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                     $scope.voilatedRules.push(fieldRules[i].id);
                                 }
@@ -914,6 +928,18 @@
                                     $scope.voilatedRules.push(fieldRules[i].id);
                                 }
                             }
+                            else if (fieldRules[i].MaxValue < ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else if (fieldRules[i].MinValue > ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
                             else {
                                 voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
                                 if (voilatedRuleIndex >= 0) {
@@ -928,6 +954,12 @@
                                     $scope.voilatedRules.push(fieldRules[i].id);
                                 }
                             }
+                            else if (fieldRules[i].MinValue > ruleItem.MinValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Min value is less than the min value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
                             else {
                                 voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
                                 if (voilatedRuleIndex >= 0) {
@@ -938,6 +970,12 @@
                         else if ((fieldRules[i].RuleType == "Max") && (ruleItem.RuleType == "MinAndMax")) {
                             if (fieldRules[i].MaxValue < ruleItem.MinValue) {
                                 results.push({ RuleID: fieldRules[i].id, Description: "Min value is greater than the max value of built-in rule." });
+                                if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
+                                    $scope.voilatedRules.push(fieldRules[i].id);
+                                }
+                            }
+                            else if (fieldRules[i].MaxValue < ruleItem.MaxValue) {
+                                results.push({ RuleID: fieldRules[i].id, Description: "Max value is greater than the max value of built-in rule." });
                                 if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                     $scope.voilatedRules.push(fieldRules[i].id);
                                 }
