@@ -762,6 +762,8 @@
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
                                     }
+
+                                    break;
                                 }
                                 else {
                                     voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
@@ -778,6 +780,14 @@
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
                                     }
+
+                                    break;
+                                }
+                                else {
+                                    voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
+                                    if (voilatedRuleIndex >= 0) {
+                                        $scope.voilatedRules.splice(voilatedRuleIndex, 1);
+                                    }
                                 }
                             }
                         }
@@ -788,6 +798,8 @@
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
                                     }
+
+                                    break;
                                 }
                                 else {
                                     voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
@@ -804,6 +816,8 @@
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
                                     }
+
+                                    break;
                                 }
                                 else {
                                     voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
@@ -820,6 +834,8 @@
                                     if ($scope.voilatedRules.indexOf(fieldRules[i].id) < 0) {
                                         $scope.voilatedRules.push(fieldRules[i].id);
                                     }
+
+                                    break;
                                 }
                                 else {
                                     voilatedRuleIndex = $scope.voilatedRules.indexOf(fieldRules[i].id);
