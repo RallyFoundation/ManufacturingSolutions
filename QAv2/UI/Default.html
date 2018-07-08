@@ -58,7 +58,7 @@
             <a href="#" class="btn btn-info btn-lg" ng-show="mode == 'Online'" ng-click="showSMBIOSDump()">View SMBIOS Dump</a>
         </p>
         <hr />
-        <p style="font-weight:bolder;font-size:x-large;font-family:Arial">
+        <p style="font-weight:bolder;font-size:x-large;font-family:Arial" ng-init="speakOutText(('Total Result: ' + getTotalResultLabelText()))">
             Total Result:
             <Span ng-style="(totalFailureCount == 0 && {'background-color': 'forestgreen'}) || ((totalFailureCount > 0) && {'background-color': 'red'})">
                 {{getTotalResultLabelText()}}
@@ -275,6 +275,16 @@
             $scope.setTitle = function ()
             {
                 document.title += " - " + $scope.transactionId + " - " + $scope.productKeyId;
+            };
+
+            $scope.speakOutText = function (textToSay) {
+                if ((textToSay != null) && (textToSay != undefined)) {
+
+                    var data = textToSay;
+
+                    event = new MessageEvent("SpeakText", { "view": window, "bubbles": false, "cancelable": true, 'data': (data + "|") });
+                    document.dispatchEvent(event);
+                }
             };
 
             $scope.setCurrentDetailKeyValues = function (detailObject) {
