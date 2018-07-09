@@ -72,7 +72,7 @@
                         <tr>
                             <td>
                                 <select ng-model="newItems[fieldName].RuleType" class="form-control" title="The type of the rule, select one from the drop down list.">
-                                    <option value="EqualTo" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'ChassisType'))">Equal To</option>
+                                    <option value="EqualTo" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'ChassisType') || (fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">Equal To</option>
                                     <option value="InRange" ng-show="(fieldName == 'PrimaryDiskType')">In</option>
                                     <option value="OutOfRange" ng-show="((fieldName == 'SmbiosSystemSerialNumber') || (fieldName == 'SmbiosUuid') || (fieldName == 'PrimaryDiskType'))">Not In</option>
                                     <option value="Contain" ng-show="((fieldName == 'SmbiosSystemManufacturer') || (fieldName == 'SmbiosSystemFamily') || (fieldName == 'SmbiosSystemProductName') || (fieldName == 'SmbiosBoardProduct') || (fieldName == 'SmbiosSkuNumber') || (fieldName == 'SmbiosSystemSerialNumber'))">Contain</option>
@@ -86,7 +86,15 @@
                             <td>
                                 <div ng-switch="newItems[fieldName].RuleType">
                                     <div ng-switch-when="EqualTo">
-                                        <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
+                                        <input ng-show="((fieldName != 'DisplaySizePhysicalY') && (fieldName != 'DisplaySizePhysicalH'))" type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
+                                        <table ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">
+                                            <tr>
+                                                <td>Resolution:</td>
+                                                <td><input type="number" step="any" ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))" ng-model="newItems[fieldName].FieldValue" ng-change="calcSize(newItems[fieldName], fieldName)" class="form-control" maxlength="20" title="Resolution value." /></td>
+                                                <td>Size:</td>
+                                                <td><input type="number" step="any" ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))" ng-model="newItems[fieldName].SizeValue" ng-change="calcResolution(newItems[fieldName], fieldName)" class="form-control" maxlength="20" title="Size value." /></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div ng-switch-when="NotEqualTo">
                                         <input type="text" ng-model="newItems[fieldName].FieldValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="50" title="Field value." />
@@ -150,12 +158,24 @@
                                         </table>
                                     </div>
                                     <div ng-switch-when="StringLength">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." />
+                                        <table>
+                                            <tr>
+                                                <td>Min:</td>
+                                                <td><input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." /></td>
+                                                <td>Max:</td>
+                                                <td><input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." /></td>
+                                            </tr>
+                                        </table>      
                                     </div>
                                     <div ng-switch-when="MinAndMax">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." />
+                                        <table>
+                                            <tr>
+                                                <td>Min:</td>
+                                                <td><input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." /></td>
+                                                <td>Max:</td>
+                                                <td><input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." /></td>
+                                            </tr>
+                                        </table>                  
                                     </div>
                                     <div ng-switch-when="Occurrence">
                                         <input type="number" ng-model="newItems[fieldName].MinValue" class="form-control" maxlength="20" title="Min value." />
@@ -474,6 +494,104 @@
                     event = new MessageEvent("SpeakText", { "view": window, "bubbles": false, "cancelable": true, 'data': (data + "|") });
                     document.dispatchEvent(event);
                 }
+            };
+
+            $scope.calcY = function (ruleItem, size) {
+                var hItem = null;
+
+                for (var i = 0; i < $scope.ruleItems.length; i++) {
+                    if (($scope.ruleItems[i].FieldName == "DisplaySizePhysicalH") && ($scope.ruleItems[i].RuleType == "EqualTo")) {
+                        hItem = $scope.ruleItems[i];
+                        break;
+                    }
+                }
+
+                if ((hItem == null) || (hItem.FieldValue == null) || (hItem.FieldValue == undefined)) {
+                    ruleItem.FieldValue = Math.sqrt(Math.pow((size / 0.0393701), 2));
+                    //alert(size);
+                    //alert(ruleItem.FieldValue);
+                } else {
+                    ruleItem.FieldValue = Math.sqrt(Math.pow((size / 0.0393701), 2) - hItem.FieldValue);
+                }//Math.sqrt(((ruleItem.H * ruleItem.H) + (ruleItem.Y * ruleItem.Y))) * 0.0393701;
+            };
+
+            $scope.calcH = function (ruleItem, size) {
+                var yItem = null;
+
+                for (var i = 0; i < $scope.ruleItems.length; i++) {
+                    if (($scope.ruleItems[i].FieldName == "DisplaySizePhysicalY") && ($scope.ruleItems[i].RuleType == "EqualTo")) {
+                        yItem = $scope.ruleItems[i];
+                        break;
+                    }
+                }
+
+                if ((yItem == null) || (yItem.FieldValue == null) || (yItem.FieldValue == undefined)) {
+                    ruleItem.FieldValue = Math.sqrt(Math.pow((size / 0.0393701), 2));
+                    //alert(size);
+                    //alert(ruleItem.FieldValue);
+                }
+                else {
+                    ruleItem.FieldValue = Math.sqrt(Math.pow((size / 0.0393701), 2) - yItem.FieldValue);
+                }//Math.sqrt(((ruleItem.H * ruleItem.H) + (ruleItem.Y * ruleItem.Y))) * 0.0393701;
+            };
+
+            $scope.calcResolution = function (ruleItem, fieldName) {
+
+                //if (ruleItem.FieldValue <= 0 || ruleItem.SizeValue <= 0 || ruleItem.SizeValue == undefined || ruleItem.SizeValue == null) {
+                //    return;
+                //}
+
+                if (fieldName == "DisplaySizePhysicalH") {
+                    $scope.calcY(ruleItem, ruleItem.SizeValue);
+                }
+                else {
+                    $scope.calcH(ruleItem, ruleItem.SizeValue);
+                }
+
+                //alert(ruleItem.FieldValue);
+            };
+
+            $scope.calcSize = function (ruleItem, fieldName) {
+                //if (ruleItem.FieldValue <= 0 || ruleItem.SizeValue <= 0 || ruleItem.SizeValue == undefined || ruleItem.SizeValue == null) {
+                //    return;
+                //}
+
+                if (fieldName == "DisplaySizePhysicalH") {
+                    var yItem = null;
+
+                    for (var i = 0; i < $scope.ruleItems.length; i++) {
+                        if (($scope.ruleItems[i].FieldName == "DisplaySizePhysicalY") && ($scope.ruleItems[i].RuleType == "EqualTo")) {
+                            yItem = $scope.ruleItems[i];
+                            break;
+                        }
+                    }
+
+                    if (yItem == null) {
+                        ruleItem.SizeValue = Math.sqrt(((ruleItem.FieldValue * ruleItem.FieldValue))) * 0.0393701
+                    }
+                    else {
+                        ruleItem.SizeValue = Math.sqrt(((ruleItem.FieldValue * ruleItem.FieldValue) + (yItem.FieldValue * yItem.FieldValue))) * 0.0393701;
+                    }       
+                }
+                else {
+                    var hItem;
+
+                    for (var i = 0; i < $scope.ruleItems.length; i++) {
+                        if (($scope.ruleItems[i].FieldName == "DisplaySizePhysicalH") && ($scope.ruleItems[i].RuleType == "EqualTo")) {
+                            hItem = $scope.ruleItems[i];
+                            break;
+                        }
+                    }
+
+                    if (hItem == null) {
+                        ruleItem.SizeValue = Math.sqrt(((ruleItem.FieldValue * ruleItem.FieldValue))) * 0.0393701;
+                    }
+                    else {
+                        ruleItem.SizeValue = Math.sqrt(((ruleItem.FieldValue * ruleItem.FieldValue) + (hItem.FieldValue * hItem.FieldValue))) * 0.0393701;
+                    }    
+                }
+
+                //alert(ruleItem.SizeValue);
             };
 
             $scope.showProgress = function () {

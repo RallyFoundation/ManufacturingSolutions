@@ -223,6 +223,14 @@ namespace WebViewPlus
             string[] parameters = param.Split(new string[] { "|" }, StringSplitOptions.None);
             string textToSay = parameters[0], voiceName = parameters[1];
 
+            Utility.SpeakOutText(textToSay, voiceName);
+        }
+
+        private void speakTextAsync(string param)
+        {
+            string[] parameters = param.Split(new string[] { "|" }, StringSplitOptions.None);
+            string textToSay = parameters[0], voiceName = parameters[1];
+
             Utility.SpeakOutTextAsync(textToSay, voiceName);
         }
 
@@ -243,6 +251,7 @@ namespace WebViewPlus
             this.geckoWebBrowser.AddMessageEventListener("SaveFile", (string param) => this.saveFile(param));
             this.geckoWebBrowser.AddMessageEventListener("RunApp", (string param) => this.runApp(param));
             this.geckoWebBrowser.AddMessageEventListener("SpeakText", (string param) => this.speakText(param));
+            this.geckoWebBrowser.AddMessageEventListener("SpeakTextAsync", (string param) => this.speakTextAsync(param));
             this.geckoWebBrowser.AddMessageEventListener("SetDocumentAttribute", (string param) => this.setDocumentElementAttribute(param));
 
             if (!String.IsNullOrEmpty(this.url))
