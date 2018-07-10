@@ -55,8 +55,7 @@
                     <li ng-repeat="ruleItem in ruleItems" ng-show="(ruleItem.FieldName == fieldName)">
                         <p  ng-style="((ruleItem.GroupName == 'System') && {'color' : 'orange'}) || ((voilatedRules.indexOf(ruleItem.id) >= 0) && {'color' : 'red'})">{{getRuleDescription(ruleItem)}}
                             &nbsp;&nbsp;<a href="#" ng-show="(ruleItem.GroupName == 'System')" ng-click="removeValue(ruleItems, $index)">Remove</a>
-                        </p>
-                        
+                        </p>                
                     </li>
                 </ol>
                 <a href="#" ng-click="newRule(fieldName)" ng-show="(newItems[fieldName] == null)">Add My Rule...</a>            
@@ -91,8 +90,10 @@
                                             <tr>
                                                 <td>Resolution:</td>
                                                 <td><input type="number" step="any" ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))" ng-model="newItems[fieldName].FieldValue" ng-change="calcSize(newItems[fieldName], fieldName)" class="form-control" maxlength="20" title="Resolution value." /></td>
+                                                <td>&nbsp;(Millimeters)&nbsp;</td>
                                                 <td>Size:</td>
                                                 <td><input type="number" step="any" ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))" ng-model="newItems[fieldName].SizeValue" ng-change="calcResolution(newItems[fieldName], fieldName)" class="form-control" maxlength="20" title="Size value." /></td>
+                                                <td>&nbsp;(Inches)&nbsp;</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -122,10 +123,24 @@
                                         <input type="number" ng-model="newItems[fieldName].SequenceIndex" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
                                     </div>
                                     <div ng-switch-when="Min">
-                                        <input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." />
+                                        <table>
+                                            <tr>
+                                                <td><input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." /></td>
+                                                <td ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM'))">&nbsp;(GB)&nbsp;</td>
+                                                <td ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">&nbsp;(Millimeters)&nbsp;</td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div ng-switch-when="Max">
-                                        <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." />
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." />
+                                                </td>
+                                                <td ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM'))">&nbsp;(GB)&nbsp;</td>
+                                                <td ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">&nbsp;(Millimeters)&nbsp;</td>
+                                            </tr>
+                                        </table>         
                                     </div>
                                     <div ng-switch-when="InRange">
                                         <textarea ng-model="newItems[fieldName].ExpectedValues" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
@@ -160,20 +175,26 @@
                                     <div ng-switch-when="StringLength">
                                         <table>
                                             <tr>
-                                                <td>Min:</td>
+                                                <td>Min:&nbsp;</td>
                                                 <td><input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." /></td>
-                                                <td>Max:</td>
+                                                <td>&nbsp;Character(s)&nbsp;</td>
+                                                <td>Max:&nbsp;</td>
                                                 <td><input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" class="form-control" maxlength="20" title="Max value." /></td>
+                                                <td>&nbsp;Character(s)&nbsp;</td>
                                             </tr>
                                         </table>      
                                     </div>
                                     <div ng-switch-when="MinAndMax">
                                         <table>
                                             <tr>
-                                                <td>Min:</td>
+                                                <td>Min:&nbsp;</td>
                                                 <td><input type="number" ng-model="newItems[fieldName].MinValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Min value." /></td>
-                                                <td>Max:</td>
+                                                <td ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM'))">&nbsp;(GB)&nbsp;</td>
+                                                <td ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">&nbsp;(Millimeters)&nbsp;</td>
+                                                <td>Max:&nbsp;</td>
                                                 <td><input type="number" ng-model="newItems[fieldName].MaxValue" ng-change="checkFieldRuleValue(fieldName, newItems[fieldName])" ng-mouseleave="speakOutText(fieldName)" class="form-control" maxlength="20" title="Max value." /></td>
+                                                <td ng-show="((fieldName == 'PrimaryDiskTotalCapacity') || (fieldName == 'TotalPhysicalRAM'))">&nbsp;(GB)&nbsp;</td>
+                                                <td ng-show="((fieldName == 'DisplaySizePhysicalY') || (fieldName == 'DisplaySizePhysicalH'))">&nbsp;(Millimeters)&nbsp;</td>
                                             </tr>
                                         </table>                  
                                     </div>
