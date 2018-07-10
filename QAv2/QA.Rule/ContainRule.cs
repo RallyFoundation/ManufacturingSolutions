@@ -20,7 +20,7 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.NotContain,
+                RuleType = RuleType.Contain,
                 RuleInstance = new ValidationRuleItem()
                 {
                     FieldName = FieldName,
