@@ -13,7 +13,7 @@ namespace QA.Rule
     {
         public string FieldName { get; set; }
         public string GroupName { get; set; }
-        public string ExpectedValue { get; set; }
+        public string UnexpectedValue { get; set; }
         public string[] QuotedFields { get; set; }
 
         public bool Check(IDictionary<string, object> Pairs, out object Result)
@@ -21,13 +21,13 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.EqualTo,
+                RuleType = RuleType.NotContain,
                 RuleInstance = new ValidationRuleItem()
                 {
                     FieldName = FieldName,
                     GroupName = GroupName,
                     RuleType = RuleType.NotContain,
-                    FieldValue = ExpectedValue,
+                    FieldValue = UnexpectedValue,
                     QuotedFields = QuotedFields
                 }
             };
@@ -49,7 +49,7 @@ namespace QA.Rule
                 }
 
                 result.FieldValue = Pairs[FieldName];
-                result.IsPassed = (!((string)Pairs[FieldName]).Contains(ExpectedValue));
+                result.IsPassed = (!((string)Pairs[FieldName]).Contains(UnexpectedValue));
 
                 if (QuotedFields != null)
                 {

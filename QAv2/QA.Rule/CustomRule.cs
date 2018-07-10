@@ -21,7 +21,7 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.EqualTo,
+                RuleType = RuleType.Custom,
                 RuleInstance = new ValidationRuleItem()
                 {
                     FieldName = FieldName,

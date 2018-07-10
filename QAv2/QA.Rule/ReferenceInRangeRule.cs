@@ -21,7 +21,7 @@ namespace QA.Rule
             Result result = new Result()
             {
                 FieldName = FieldName,
-                RuleType = RuleType.Reference,
+                RuleType = RuleType.ReferenceInRange,
                 RuleInstance = new ValidationRuleItem()
                 {
                     FieldName = FieldName,

@@ -124,7 +124,7 @@ namespace QA.Facade
                                     {
                                         FieldName = ruleItems[i].FieldName,
                                         GroupName = ruleItems[i].GroupName,
-                                        ExpectedValue = ruleItems[i].FieldValue.ToString(),
+                                        UnexpectedValue = ruleItems[i].FieldValue.ToString(),
                                     };
                                     break;
                                 }
@@ -458,7 +458,7 @@ namespace QA.Facade
                         {
                             FieldName = RuleItem.FieldName,
                             GroupName = RuleItem.GroupName,
-                            ExpectedValue = RuleItem.FieldValue.ToString(),
+                            UnexpectedValue = RuleItem.FieldValue.ToString(),
                         };
                         break;
                     }

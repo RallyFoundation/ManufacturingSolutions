@@ -90,6 +90,16 @@ namespace QA.Reducer
                                         xmlWriter.WriteElementString("Unexpected", rule.FieldValue.ToString());
                                         break;
                                     }
+                                case RuleType.Contain:
+                                    {
+                                        xmlWriter.WriteElementString("Expected", rule.FieldValue.ToString());
+                                        break;
+                                    }
+                                case RuleType.NotContain:
+                                    {
+                                        xmlWriter.WriteElementString("Unexpected", rule.FieldValue.ToString());
+                                        break;
+                                    }
                                 case RuleType.InRange:
                                     {
                                         valueRange = rule.ExpectedValues;
