@@ -13,6 +13,18 @@
                 {{testItems[currentTestItemName].Max}}
             </td>
         </tr>
+        <tr ng-show="(testItems[currentTestItemName].Expected != null)">
+            <td>Expected Value: </td>
+            <td>
+                {{testItems[currentTestItemName].Expected}}
+            </td>
+        </tr>
+        <tr ng-show="(testItems[currentTestItemName].Unexpected != null)">
+            <td>Unexpected Value: </td>
+            <td>
+                {{testItems[currentTestItemName].Unexpected}}
+            </td>
+        </tr>
         <tr>
             <td>Chassis Type: </td>
             <td>

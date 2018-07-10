@@ -1,6 +1,18 @@
 ﻿<div>
     <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">{{currentTestItemName}}</p>
     <table class="table">
+        <tr ng-show="(testItems[currentTestItemName].Min != null)">
+            <td>Min Value: </td>
+            <td>
+                {{testItems[currentTestItemName].Min}}
+            </td>
+        </tr>
+        <tr ng-show="(testItems[currentTestItemName].Max != null)">
+            <td>Max Value: </td>
+            <td>
+                {{testItems[currentTestItemName].Max}}
+            </td>
+        </tr>
         <tr>
             <td>Expected Value: </td>
             <td>
