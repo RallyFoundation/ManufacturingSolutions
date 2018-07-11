@@ -202,6 +202,73 @@ namespace WebViewPlus
             }        
         }
 
+        private void readFile(string param)
+        {
+            string path = Path.GetFullPath(param); //Utility.GetFullPath(param);
+
+            string fileContent = "";
+
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
+            }
+
+            if (!String.IsNullOrEmpty(fileContent))
+            {
+                string result = null;
+
+                using (AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
+                {
+                    context.EvaluateScript(String.Format(@"RecFileContent('{0}')", fileContent), (nsISupports)this.geckoWebBrowser.Window.DomWindow, out result);
+                }
+            }
+        }
+
+        private void listDirectory(string param)
+        {
+            string path = Path.GetFullPath(param); //Utility.GetFullPath(param);
+
+            DirectoryInfo dirInfo = new DirectoryInfo(path);
+
+            DirectoryInfo[] dirInfoes = dirInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
+
+            List<string> dirNames = null;
+
+            if ((dirInfoes != null) && (dirInfoes.Length > 0))
+            {
+                dirNames = new List<string>();
+
+                foreach (var info in dirInfoes)
+                {
+                    dirNames.Add(info.Name);
+                }
+            }
+
+            if (dirNames != null)
+            {
+                string jsonString = Utility.JsonSerialize(dirNames.ToArray(), typeof(string[]));
+
+                string result = null;
+
+                using (AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
+                {
+                    context.EvaluateScript(String.Format(@"RecDirInfo('{0}')", jsonString), (nsISupports)this.geckoWebBrowser.Window.DomWindow, out result);
+                }
+
+                //MessageBox.Show(result);
+            }
+        }
+
+        private void createDirectory(string param)
+        {
+            string path = Path.GetFullPath(param); //Utility.GetFullPath(param);
+
+            Directory.CreateDirectory(path);
+        }
+
         private void runApp(string param)
         {
             string[] parameters = param.Split(new string[] {"|"}, StringSplitOptions.None);
@@ -249,6 +316,9 @@ namespace WebViewPlus
             this.geckoWebBrowser.AddMessageEventListener("WriteFile", (string param) => this.writeFile(param));
             this.geckoWebBrowser.AddMessageEventListener("UploadFile", (string param) => this.uploadFile(param));
             this.geckoWebBrowser.AddMessageEventListener("SaveFile", (string param) => this.saveFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("ReadFile", (string param) => this.readFile(param));
+            this.geckoWebBrowser.AddMessageEventListener("ListDir", (string param) => this.listDirectory(param));
+            this.geckoWebBrowser.AddMessageEventListener("CreateDir", (string param) => this.createDirectory(param));
             this.geckoWebBrowser.AddMessageEventListener("RunApp", (string param) => this.runApp(param));
             this.geckoWebBrowser.AddMessageEventListener("SpeakText", (string param) => this.speakText(param));
             this.geckoWebBrowser.AddMessageEventListener("SpeakTextAsync", (string param) => this.speakTextAsync(param));

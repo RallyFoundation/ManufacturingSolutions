@@ -83,6 +83,9 @@
     <Content Include="Rule.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="template-new-rule-template.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="UserRuleConfig.html" />
     <Content Include="progress-template.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

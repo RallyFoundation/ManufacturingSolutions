@@ -1,0 +1,15 @@
+﻿<div>
+    <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Create a New Rule Template</p>
+    <br/>
+    <dl class="dl-horizontal">
+        <dt>Template Name:</dt>
+        <dd>
+            <input type="text" ng-model="newRuleTemplate.Name" ng-style="(ruleTemplateNames.indexOf(newRuleTemplate.Name.toUpperCase()) >= 0) && {'background-color' : 'red'}" ng-keyup="onNewRuleTemplateNameKeyUp()" class="form-control" maxlength="18" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Name of the rule template." />
+        </dd>
+    </dl>
+        <p style="text-align:center">
+            <a href="#" ng-show="((newRuleTemplate.Name != null) && (newRuleTemplate.Name != 'DEFAULT') && (newRuleTemplate.Name != undefined) && (ruleTemplateNames.indexOf(newRuleTemplate.Name) < 0))" class="btn btn-info btn-lg" ng-click="createRuleTemplate()">OK</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeDialog()">Cancel</a>
+        </p>
+</div>

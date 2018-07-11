@@ -47,7 +47,10 @@
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="loadRuleTemplateDirInfo();wait(1500);loadRuleTemplateNames();saveRuleTemplate()">Save As</a>
         </p>
+        <br />
         <ol>
             <li ng-repeat="fieldName in fieldNames">
                 <p style="font-weight:bolder;text-decoration:underline;font-style:italic">{{fieldName}}</p>
@@ -267,7 +270,37 @@
             }
         }
 
+        function RecDirInfo(DirInfoJson) {
+            templates = JSON.parse(DirInfoJson);
+
+            //window.alert(JSON.stringify(templates));
+        }
+
+        function RecFileContent(FileContent)
+        {
+            var content = FileContent;
+
+            content = content.substring(content.indexOf("{"));
+
+            var data = JSON.parse(content);
+
+            settings = data.Data;
+
+            window.alert(JSON.stringify(settings));
+        }
+
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+        }
+
         var settings = Settings.Data;
+
+        var templates = null;
 
         var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationRuleConfigController",
 
@@ -305,14 +338,39 @@
 
             $scope.currentRuleItem = null;
 
+            $scope.ruleTemplateNames = ["DEFAULT"];
+
+            $scope.newRuleTemplate = { Name: "DEFAULT", Path: "" };
+
+            $scope.ruleTemplatePath = "Template";
+
             $scope.getValueLength = function (value){
                 return String(value).length;
+            };
+
+            $scope.wait = function (milliSec) {
+                sleep(milliSec);
             };
 
             $scope.loadData = function () {
                 if ((settings != null) && (settings.length > 0)) {
                     for (var i = 0; i < settings.length; i++) {
                         $scope.ruleItems.push(settings[i]);
+                    }
+                }
+            };
+
+            $scope.loadRuleTemplateDirInfo = function () {
+                var path = $scope.ruleTemplatePath;
+
+                event = new MessageEvent("ListDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                document.dispatchEvent(event);
+            }; 
+
+            $scope.loadRuleTemplateNames = function (){
+                if ((templates != null) && (templates.length > 0)) {
+                    for (var i = 0; i < templates.length; i++) {
+                        $scope.ruleTemplateNames.push(templates[i].toUpperCase());
                     }
                 }
             };
@@ -493,6 +551,55 @@
                 document.dispatchEvent(event);
             };
 
+            $scope.onNewRuleTemplateNameKeyUp = function () {
+                var value = $scope.newRuleTemplate.Name;
+                $scope.newRuleTemplate.Name = value.toUpperCase();
+            };
+
+            $scope.saveRuleTemplate = function () {
+                var path = $scope.ruleTemplatePath;
+
+                event = new MessageEvent("CreateDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                document.dispatchEvent(event);
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'template-new-rule-template.html',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.createRuleTemplate = function () {
+                if ($scope.ruleTemplateNames.indexOf($scope.newRuleTemplate.Name) < 0) {
+                    var path = $scope.ruleTemplatePath + "\\" + $scope.newRuleTemplate.Name;
+
+                    event = new MessageEvent("CreateDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                    document.dispatchEvent(event);
+
+                    path = path + "\\user-rule.json";
+
+                    var fileInfo = { Path: "", Content: "" };
+
+                    fileInfo.Path = path;
+                    fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+
+                    var fileInfoJson = JSON.stringify(fileInfo);
+
+                    event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                    document.dispatchEvent(event);
+
+                    $scope.closeDialog();
+                }
+            };
+
             $scope.closeWindow = function () {
                 event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
                 document.dispatchEvent(event);
@@ -557,7 +664,6 @@
             };
 
             $scope.calcResolution = function (ruleItem, fieldName) {
-
                 //if (ruleItem.FieldValue <= 0 || ruleItem.SizeValue <= 0 || ruleItem.SizeValue == undefined || ruleItem.SizeValue == null) {
                 //    return;
                 //}
@@ -568,8 +674,6 @@
                 else {
                     $scope.calcH(ruleItem, ruleItem.SizeValue);
                 }
-
-                //alert(ruleItem.FieldValue);
             };
 
             $scope.calcSize = function (ruleItem, fieldName) {
@@ -611,8 +715,6 @@
                         ruleItem.SizeValue = Math.sqrt(((ruleItem.FieldValue * ruleItem.FieldValue) + (hItem.FieldValue * hItem.FieldValue))) * 0.0393701;
                     }    
                 }
-
-                //alert(ruleItem.SizeValue);
             };
 
             $scope.showProgress = function () {
