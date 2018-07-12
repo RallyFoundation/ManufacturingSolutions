@@ -222,7 +222,7 @@ namespace WebViewPlus
 
                 using (AutoJSContext context = new AutoJSContext(this.geckoWebBrowser.Window))
                 {
-                    context.EvaluateScript(String.Format(@"RecFileContent('{0}')", fileContent), (nsISupports)this.geckoWebBrowser.Window.DomWindow, out result);
+                    context.EvaluateScript(String.Format("var content = {0}; RecFileContent(content);", fileContent), (nsISupports)this.geckoWebBrowser.Window.DomWindow, out result);
                 }
             }
         }

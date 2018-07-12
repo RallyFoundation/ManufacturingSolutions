@@ -41,15 +41,18 @@
     <script src="../../../Config/user-rule.json"></script>
 </head>
 <body ng-app="HQATool">
-    <div ng-controller="ValidationRuleConfigController" ng-init="loadData()">
+    <div ng-controller="ValidationRuleConfigController" ng-init="loadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">
         <p>
             &nbsp;&nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="loadRuleTemplateDirInfo();wait(1500);loadRuleTemplateNames();saveRuleTemplate()">Save As</a>
-        </p>
+            <a href="#" class="btn btn-info btn-lg" ng-click="loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames();saveRuleTemplate()">Save As</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="selectRuleTemplate();wait(1800);loadData()">Load Template</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="loadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">Refresh</a>
         <br />
         <ol>
             <li ng-repeat="fieldName in fieldNames">
@@ -276,17 +279,18 @@
             //window.alert(JSON.stringify(templates));
         }
 
-        function RecFileContent(FileContent)
-        {
+        function RecFileContent(FileContent){
             var content = FileContent;
 
-            content = content.substring(content.indexOf("{"));
+            //window.alert(JSON.stringify(content));
 
-            var data = JSON.parse(content);
+            //content = content.substring(content.indexOf("{"));
+
+            var data = content; //JSON.parse(content);
 
             settings = data.Data;
 
-            window.alert(JSON.stringify(settings));
+            //window.alert(JSON.stringify(settings));
         }
 
         function sleep(milliseconds) {
@@ -334,13 +338,15 @@
 
             $scope.currentRuleItemIndex = -1;
 
-            $scope.currentRuleItemName = "";
+            $scope.currentRuleItemName = "";  
 
             $scope.currentRuleItem = null;
 
             $scope.ruleTemplateNames = ["DEFAULT"];
 
             $scope.newRuleTemplate = { Name: "DEFAULT", Path: "" };
+
+            $scope.currentRuleTemplateName = "DEFAULT";
 
             $scope.ruleTemplatePath = "Template";
 
@@ -354,6 +360,7 @@
 
             $scope.loadData = function () {
                 if ((settings != null) && (settings.length > 0)) {
+                    $scope.ruleItems.splice(0);
                     for (var i = 0; i < settings.length; i++) {
                         $scope.ruleItems.push(settings[i]);
                     }
@@ -575,6 +582,41 @@
                         return true;
                     }
                 });
+            };
+
+            $scope.selectRuleTemplate = function () {
+                var path = $scope.ruleTemplatePath;
+
+                event = new MessageEvent("ListDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                document.dispatchEvent(event);
+
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'template-open-rule-template.html',
+                    //plain: true,
+                    showClose: true,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 500,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.openRuleTemplate = function () {
+                var path;
+                if ($scope.currentRuleTemplateName == "DEFAULT") {
+                    path = "Config\\user-rule.json";
+                } else {
+                    path = $scope.ruleTemplatePath + "\\" + $scope.currentRuleTemplateName + "\\user-rule.json";
+                }
+
+                event = new MessageEvent("ReadFile", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                document.dispatchEvent(event);
+
+                $scope.closeDialog();
             };
 
             $scope.createRuleTemplate = function () {

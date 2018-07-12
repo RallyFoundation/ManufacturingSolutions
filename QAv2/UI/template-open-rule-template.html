@@ -1,0 +1,19 @@
+﻿<div>
+    <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Load an Existing Rule Template</p>
+    <br />
+    <dl class="dl-horizontal">
+        <dt>Template Name:</dt>
+        <dd>
+            <select ng-model="currentRuleTemplateName" class="form-control" title="Name of the rule templates.">
+                <option ng-repeat="ruleTempName in ruleTemplateNames">{{ruleTempName}}</option>
+            </select>
+        </dd>
+    </dl>
+    <p style="text-align:center">
+        <a href="#" class="btn btn-info btn-lg" ng-click="openRuleTemplate()">OK</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="closeDialog()">Cancel</a>
+        &nbsp;
+        <a href="#" class="btn btn-info btn-lg" ng-click="loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">Refresh</a>
+    </p>
+</div>
