@@ -48,11 +48,11 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames();saveRuleTemplate()">Save As</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleTemplate()">Save As</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="selectRuleTemplate();wait(1800);loadData()">Load Template</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="selectRuleTemplate()">Load Template</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="loadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">Refresh</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="reloadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">Refresh</a>
         <br />
         <ol>
             <li ng-repeat="fieldName in fieldNames">
@@ -291,6 +291,8 @@
             settings = data.Data;
 
             //window.alert(JSON.stringify(settings));
+
+            //window.alert(settings.length);
         }
 
         function sleep(milliseconds) {
@@ -344,9 +346,9 @@
 
             $scope.ruleTemplateNames = ["DEFAULT"];
 
-            $scope.newRuleTemplate = { Name: "DEFAULT", Path: "" };
+            $scope.newRuleTemplate = { Name: "MYRULE01", Path: "" };
 
-            $scope.currentRuleTemplateName = "DEFAULT";
+            $scope.currentRuleTemplate = { Name: "DEFAULT", Path: "" };
 
             $scope.ruleTemplatePath = "Template";
 
@@ -365,6 +367,19 @@
                         $scope.ruleItems.push(settings[i]);
                     }
                 }
+            };
+
+            $scope.reloadData = function () {
+                if ((settings != null) && (settings.length > 0)) {
+                    $scope.ruleItems.splice(0);
+                    for (var i = 0; i < settings.length; i++) {
+                        $scope.ruleItems.push(settings[i]);
+                    }
+
+                    //window.alert(JSON.stringify($scope.ruleItems));
+                }
+
+                //window.alert(JSON.stringify(settings));
             };
 
             $scope.loadRuleTemplateDirInfo = function () {
@@ -587,8 +602,8 @@
             $scope.selectRuleTemplate = function () {
                 var path = $scope.ruleTemplatePath;
 
-                event = new MessageEvent("ListDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
-                document.dispatchEvent(event);
+                //event = new MessageEvent("ListDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
+                //document.dispatchEvent(event);
 
                 $scope.currentDialog = ngDialog.open({
                     scope: $scope,
@@ -607,16 +622,22 @@
 
             $scope.openRuleTemplate = function () {
                 var path;
-                if ($scope.currentRuleTemplateName == "DEFAULT") {
+                if ($scope.currentRuleTemplate.Name == "DEFAULT") {
                     path = "Config\\user-rule.json";
                 } else {
-                    path = $scope.ruleTemplatePath + "\\" + $scope.currentRuleTemplateName + "\\user-rule.json";
+                    path = $scope.ruleTemplatePath + "\\" + $scope.currentRuleTemplate.Name + "\\user-rule.json";
                 }
+
+                //window.alert(path);
 
                 event = new MessageEvent("ReadFile", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
                 document.dispatchEvent(event);
 
+                $scope.wait(1200); 
+
                 $scope.closeDialog();
+
+                $scope.reloadData();
             };
 
             $scope.createRuleTemplate = function () {
