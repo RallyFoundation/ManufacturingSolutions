@@ -41,7 +41,7 @@
     <script src="../../../Config/user-rule.json"></script>
 </head>
 <body ng-app="HQATool">
-    <div ng-controller="ValidationRuleConfigController" ng-init="loadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">
+    <div ng-controller="ValidationRuleConfigController" ng-init="loadData();loadRuleTemplateDirInfo()">
         <p>
             &nbsp;&nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
@@ -52,7 +52,8 @@
             &nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="selectRuleTemplate()">Load Template</a>
             &nbsp;
-            <a href="#" class="btn btn-info btn-lg" ng-click="reloadData();loadRuleTemplateDirInfo();wait(1200);loadRuleTemplateNames()">Refresh</a>
+            <a href="#" class="btn btn-info btn-lg" ng-click="loadData();loadRuleTemplateDirInfo()">Refresh</a>
+        </p>
         <br />
         <ol>
             <li ng-repeat="fieldName in fieldNames">
@@ -276,23 +277,25 @@
         function RecDirInfo(DirInfoJson) {
             templates = JSON.parse(DirInfoJson);
 
-            //window.alert(JSON.stringify(templates));
+            var appElement = document.querySelector("[ng-controller=ValidationRuleConfigController]");
+            var scope = angular.element(appElement).scope(); 
+
+            scope.loadRuleTemplateNames();
+            scope.$apply();
         }
 
         function RecFileContent(FileContent){
             var content = FileContent;
 
-            //window.alert(JSON.stringify(content));
-
-            //content = content.substring(content.indexOf("{"));
-
-            var data = content; //JSON.parse(content);
+            var data = content; 
 
             settings = data.Data;
 
-            //window.alert(JSON.stringify(settings));
+            var appElement = document.querySelector("[ng-controller=ValidationRuleConfigController]");
+            var scope = angular.element(appElement).scope();
 
-            //window.alert(settings.length);
+            scope.loadData();
+            scope.$apply();
         }
 
         function sleep(milliseconds) {
@@ -369,19 +372,6 @@
                 }
             };
 
-            $scope.reloadData = function () {
-                if ((settings != null) && (settings.length > 0)) {
-                    $scope.ruleItems.splice(0);
-                    for (var i = 0; i < settings.length; i++) {
-                        $scope.ruleItems.push(settings[i]);
-                    }
-
-                    //window.alert(JSON.stringify($scope.ruleItems));
-                }
-
-                //window.alert(JSON.stringify(settings));
-            };
-
             $scope.loadRuleTemplateDirInfo = function () {
                 var path = $scope.ruleTemplatePath;
 
@@ -389,8 +379,10 @@
                 document.dispatchEvent(event);
             }; 
 
-            $scope.loadRuleTemplateNames = function (){
+            $scope.loadRuleTemplateNames = function () {
                 if ((templates != null) && (templates.length > 0)) {
+                    $scope.ruleTemplateNames.splice(1);
+
                     for (var i = 0; i < templates.length; i++) {
                         $scope.ruleTemplateNames.push(templates[i].toUpperCase());
                     }
@@ -561,11 +553,28 @@
             };
 
             $scope.saveRuleConfig = function () {
+
+                settings.splice(0);
+                var item = null;
+
+                for (var i = 0; i < $scope.ruleItems.length; i++) {
+                    item = {};
+
+                    for (var prop in $scope.ruleItems[i]) {
+                        if (prop != "$$hashKey") {
+                            item[prop] = $scope.ruleItems[i][prop];
+                        }
+                    }
+
+                    settings.push(item);
+                }
+
                 var fileInfo = { Path: "", Content: "" };
 
                 //fileInfo.Path = "..\\..\\Config\\rule.json";
                 fileInfo.Path = "Config\\user-rule.json";
-                fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+                //fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+                fileInfo.Content = "Settings=" + JSON.stringify({ Data: settings }) + ";";
 
                 var fileInfoJson = JSON.stringify(fileInfo);
 
@@ -579,10 +588,7 @@
             };
 
             $scope.saveRuleTemplate = function () {
-                var path = $scope.ruleTemplatePath;
-
-                event = new MessageEvent("CreateDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
-                document.dispatchEvent(event);
+                $scope.loadRuleTemplateDirInfo();
 
                 $scope.currentDialog = ngDialog.open({
                     scope: $scope,
@@ -600,10 +606,7 @@
             };
 
             $scope.selectRuleTemplate = function () {
-                var path = $scope.ruleTemplatePath;
-
-                //event = new MessageEvent("ListDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
-                //document.dispatchEvent(event);
+                $scope.loadRuleTemplateDirInfo();
 
                 $scope.currentDialog = ngDialog.open({
                     scope: $scope,
@@ -628,16 +631,10 @@
                     path = $scope.ruleTemplatePath + "\\" + $scope.currentRuleTemplate.Name + "\\user-rule.json";
                 }
 
-                //window.alert(path);
-
                 event = new MessageEvent("ReadFile", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
                 document.dispatchEvent(event);
 
-                $scope.wait(1200); 
-
                 $scope.closeDialog();
-
-                $scope.reloadData();
             };
 
             $scope.createRuleTemplate = function () {
@@ -646,6 +643,8 @@
 
                     event = new MessageEvent("CreateDir", { "view": window, "bubbles": false, "cancelable": true, 'data': path });
                     document.dispatchEvent(event);
+
+                    $scope.wait(100);
 
                     path = path + "\\user-rule.json";
 
@@ -1300,7 +1299,6 @@
                 else {
                     $scope.voilatingFields[fieldName] = null;
                 }
-
             };
         });
     </script>
