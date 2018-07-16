@@ -48,6 +48,13 @@ if([System.IO.Directory]::Exists($InputPath) -eq $false)
 	Start-Sleep -Milliseconds 1000;
 }
 
+$TemplatePath = $RootDir +  "\Template";
+if([System.IO.Directory]::Exists($TemplatePath) -eq $false)
+{
+    [System.IO.Directory]::CreateDirectory($TemplatePath);
+	Start-Sleep -Milliseconds 1000;
+}
+
 #$ConfigUIPath = ($RootDir + "\Module\UI\Views\RuleConfig.html");
 $ConfigUIPath = ($RootDir + "\Module\UI\Views\Rule.html");
 $WebViewPlusPath = ($RootDir + "\Module\UI\WebViewPlus.exe");
