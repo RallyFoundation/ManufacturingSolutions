@@ -646,12 +646,27 @@
 
                     $scope.wait(100);
 
+                    var item = null;
+                    var tempItems = [];
+
+                    for (var i = 0; i < $scope.ruleItems.length; i++) {
+                        item = {};
+
+                        for (var prop in $scope.ruleItems[i]) {
+                            if (prop != "$$hashKey") {
+                                item[prop] = $scope.ruleItems[i][prop];
+                            }
+                        }
+
+                        tempItems.push(item);
+                    }
+
                     path = path + "\\user-rule.json";
 
                     var fileInfo = { Path: "", Content: "" };
 
                     fileInfo.Path = path;
-                    fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+                    fileInfo.Content = "Settings=" + JSON.stringify({ Data: tempItems }) + ";";
 
                     var fileInfoJson = JSON.stringify(fileInfo);
 
