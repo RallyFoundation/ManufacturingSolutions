@@ -210,18 +210,18 @@ namespace QA.Utility
             }
         }
 
-        [DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
-        static extern int GetShortPathName(string lpszLongPath, StringBuilder lpszShortPath, int cchBuffer);
+        //[DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]
+        //static extern int GetShortPathName(string lpszLongPath, StringBuilder lpszShortPath, int cchBuffer);
 
-        public static string GetShortPath(string longPath)
-        {
-            string shortPath = longPath;
+        //public static string GetShortPath(string longPath)
+        //{
+        //    string shortPath = longPath;
 
-            StringBuilder sPath = new StringBuilder(longPath.Length);
-            GetShortPathName(longPath, sPath, longPath.Length);
-            shortPath = sPath.ToString();
+        //    StringBuilder sPath = new StringBuilder(longPath.Length);
+        //    GetShortPathName(longPath, sPath, longPath.Length);
+        //    shortPath = sPath.ToString();
 
-            return shortPath;
-        }
+        //    return shortPath;
+        //}
     }
 }

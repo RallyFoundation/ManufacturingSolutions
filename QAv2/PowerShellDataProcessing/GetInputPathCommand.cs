@@ -42,7 +42,7 @@ namespace PowerShellDataProcessing
 
                 if (UseShortPath)
                 {
-                    inputPath = CommonUtility.GetShortPath(inputPath);
+                    //inputPath = CommonUtility.GetShortPath(inputPath);
                 }
 
                 this.WriteObject(inputPath);
