@@ -507,6 +507,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemManufacturer: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosSystemManufacturer/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemManufacturer/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosSystemManufacturer/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemManufacturer/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -551,6 +577,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemFamily: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+             <xsl:if test="count($SmbiosSystemFamily/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemFamily/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosSystemFamily/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemFamily/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -595,6 +647,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemProductName: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosSystemProductName/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemProductName/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosSystemProductName/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemProductName/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -639,6 +717,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosBoardProduct: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosBoardProduct/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosBoardProduct/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosBoardProduct/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosBoardProduct/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -683,6 +787,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSkuNumber: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosSkuNumber/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSkuNumber/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosSkuNumber/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSkuNumber/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -727,6 +857,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosSystemSerialNumber: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosSystemSerialNumber/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemSerialNumber/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosSystemSerialNumber/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosSystemSerialNumber/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -771,6 +927,32 @@
         <li>
           <p style="font-weight:bolder;text-decoration:underline;font-style:italic">SmbiosUuid: </p>
           <table xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:if test="count($SmbiosUuid/Expected) > 0">
+              <tr>
+                <td>Expected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosUuid/Expected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
+            <xsl:if test="count($SmbiosUuid/Unexpected) > 0">
+              <tr>
+                <td>Unexpected Value: </td>
+                <td>
+                  <xsl:for-each select="$SmbiosUuid/Unexpected">
+                    <xsl:value-of select="./text()"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>           
+                    </xsl:if>   
+                  </xsl:for-each>  
+                </td>
+              </tr>   
+            </xsl:if>
             <tr>
               <td>Min Value (Length): </td>
               <td>
@@ -840,15 +1022,29 @@
                 <tr>
                   <td>Expected Value: </td>
                   <td>
-                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Expected)" disable-output-escaping="yes"/>
+                   <xsl:for-each select="$ChassisType/Expected">
+                        <xsl:value-of select="hhvxslx:GetHtmlSpacedString(./text())" disable-output-escaping="yes"/>
+                        <xsl:if test="position() != last()">
+                          <xsl:value-of select="','"/>           
+                        </xsl:if>   
+                    </xsl:for-each>
+                    <!--<xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Expected)" disable-output-escaping="yes"/>-->
                   </td>
                 </tr>
-                <tr>
-                  <td>Unexpected Value: </td>
-                  <td>
-                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Unexpected)" disable-output-escaping="yes"/>
-                  </td>
-                </tr>
+                <xsl:if test="count($ChassisType/Unexpected) > 0">
+                  <tr>
+                    <td>Unexpected Value: </td>
+                    <td>
+                      <xsl:for-each select="$ChassisType/Unexpected">
+                          <xsl:value-of select="hhvxslx:GetHtmlSpacedString(./text())" disable-output-escaping="yes"/>
+                          <xsl:if test="position() != last()">
+                            <xsl:value-of select="','"/>           
+                          </xsl:if>   
+                      </xsl:for-each>
+                      <!--<xsl:value-of select="hhvxslx:GetHtmlSpacedString($ChassisType/Unexpected)" disable-output-escaping="yes"/>-->
+                    </td>
+                  </tr>
+                </xsl:if>
                 <tr>
                   <td>Test Value: </td>
                   <td style="background-color:yellow">
@@ -920,13 +1116,25 @@
                   <tr>
                     <td>Min Value (Length): </td>
                     <td>
-                      <xsl:value-of select="$TotalPhysicalRAM/Min"/>
+                      <xsl:for-each select="$TotalPhysicalRAM/Min">
+                        <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                        <xsl:if test="position() != last()">
+                          <xsl:value-of select="','"/>
+                        </xsl:if>
+                      </xsl:for-each>
+                      <!--<xsl:value-of select="$TotalPhysicalRAM/Min"/>-->
                     </td>
                   </tr>
                   <tr>
                     <td>Max Value (Length): </td>
                     <td>
-                      <xsl:value-of select="$TotalPhysicalRAM/Max"/>
+                      <xsl:for-each select="$TotalPhysicalRAM/Max">
+                        <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                        <xsl:if test="position() != last()">
+                          <xsl:value-of select="','"/>
+                        </xsl:if>
+                      </xsl:for-each>
+                      <!--<xsl:value-of select="$TotalPhysicalRAM/Max"/>-->
                     </td>
                   </tr>
                   <tr>
@@ -986,15 +1194,29 @@
                 <tr>
                   <td>Expected Value: </td>
                   <td>
-                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Expected)" disable-output-escaping="yes"/>
+                    <xsl:for-each select="$PrimaryDiskType/Expected">
+                        <xsl:value-of select="hhvxslx:GetHtmlSpacedString(./text())" disable-output-escaping="yes"/>
+                        <xsl:if test="position() != last()">
+                          <xsl:value-of select="','"/>           
+                        </xsl:if>   
+                    </xsl:for-each>
+                    <!--<xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Expected)" disable-output-escaping="yes"/>-->
                   </td>
                 </tr>
+                <xsl:if test="count($PrimaryDiskType/Unexpected) > 0">
                 <tr>
-                  <td>Unexpected Value: </td>
-                  <td>
-                    <xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Unexpected)" disable-output-escaping="yes"/>
-                  </td>
-                </tr>
+                    <td>Unexpected Value: </td>
+                    <td>
+                      <xsl:for-each select="$PrimaryDiskType/Unexpected">
+                          <xsl:value-of select="hhvxslx:GetHtmlSpacedString(./text())" disable-output-escaping="yes"/>
+                          <xsl:if test="position() != last()">
+                            <xsl:value-of select="','"/>           
+                          </xsl:if>   
+                      </xsl:for-each>
+                      <!--<xsl:value-of select="hhvxslx:GetHtmlSpacedString($PrimaryDiskType/Unexpected)" disable-output-escaping="yes"/>-->
+                    </td>
+                  </tr>
+                </xsl:if>
                 <tr>
                   <td>Test Value: </td>
                   <td style="background-color:yellow">
@@ -1051,13 +1273,25 @@
               <tr>
                 <td>Min Value: </td>
                 <td>
-                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Min"/>
+                  <!--<xsl:value-of select="$PrimaryDiskTotalCapacity/Min"/>-->
+                  <xsl:for-each select="$PrimaryDiskTotalCapacity/Min">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
                 <td>Max Value: </td>
                 <td>
-                  <xsl:value-of select="$PrimaryDiskTotalCapacity/Max"/>
+                  <!--<xsl:value-of select="$PrimaryDiskTotalCapacity/Max"/>-->
+                  <xsl:for-each select="$PrimaryDiskTotalCapacity/Max">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
@@ -1222,16 +1456,41 @@
           <li>
             <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplaySizePhysicalH: </p>
             <table xmlns="http://www.w3.org/1999/xhtml">
+              <xsl:if test="count($DisplaySizePhysicalH/Expected) > 0">
+                <tr>
+                  <td>Expected Value: </td>
+                  <td>
+                    <xsl:for-each select="$DisplaySizePhysicalH/Expected">
+                      <xsl:value-of select="./text()"/>
+                      <xsl:if test="position() != last()">
+                        <xsl:value-of select="','"/>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </td>
+                </tr>
+              </xsl:if>
               <tr>
                 <td>Min Value (Length): </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalH/Min"/>
+                  <!--<xsl:value-of select="$DisplaySizePhysicalH/Min"/>-->
+                  <xsl:for-each select="$DisplaySizePhysicalH/Min">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
                 <td>Max Value (Length): </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalH/Max"/>
+                  <!--<xsl:value-of select="$DisplaySizePhysicalH/Max"/>-->
+                  <xsl:for-each select="$DisplaySizePhysicalH/Max">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
@@ -1296,16 +1555,41 @@
           <li>
             <p style="font-weight:bolder;text-decoration:underline;font-style:italic">DisplaySizePhysicalY: </p>
             <table xmlns="http://www.w3.org/1999/xhtml">
+              <xsl:if test="count($DisplaySizePhysicalY/Expected) > 0">
+                <tr>
+                  <td>Expected Value: </td>
+                  <td>
+                    <xsl:for-each select="$DisplaySizePhysicalY/Expected">
+                      <xsl:value-of select="./text()"/>
+                      <xsl:if test="position() != last()">
+                        <xsl:value-of select="','"/>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </td>
+                </tr>
+              </xsl:if>
               <tr>
                 <td>Min Value (Length): </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalY/Min"/>
+                  <!--<xsl:value-of select="$DisplaySizePhysicalY/Min"/>-->
+                  <xsl:for-each select="$DisplaySizePhysicalY/Min">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
                 <td>Max Value (Length): </td>
                 <td>
-                  <xsl:value-of select="$DisplaySizePhysicalY/Max"/>
+                  <!--<xsl:value-of select="$DisplaySizePhysicalY/Max"/>-->
+                  <xsl:for-each select="$DisplaySizePhysicalY/Max">
+                    <xsl:value-of select="./text()" disable-output-escaping="yes"/>
+                    <xsl:if test="position() != last()">
+                      <xsl:value-of select="','"/>
+                    </xsl:if>
+                  </xsl:for-each>
                 </td>
               </tr>
               <tr>
