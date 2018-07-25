@@ -367,7 +367,7 @@ Copy-Item -Path $OA3OutputBinFilePath -Destination ($DPKFilePath + $ProductKeyID
 #}
 
 ##Runs slmgr.vbs /ipk to install the 5x5 here
-#Intall 5x5 with WMI Software Licensing Service here
+#Intalls 5x5 with WMI Software Licensing Service here
 try
 {
     $Message = [System.String]::Format("Installing 5x5..., {0}", [System.DateTime]::Now);
