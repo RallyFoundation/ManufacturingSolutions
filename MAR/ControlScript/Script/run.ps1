@@ -366,7 +366,8 @@ Copy-Item -Path $OA3OutputBinFilePath -Destination ($DPKFilePath + $ProductKeyID
 #	exit;
 #}
 
-#Runs slmgr.vbs /ipk to install the 5x5 here
+##Runs slmgr.vbs /ipk to install the 5x5 here
+#Intall 5x5 with WMI Software Licensing Service here
 try
 {
     $Message = [System.String]::Format("Installing 5x5..., {0}", [System.DateTime]::Now);
@@ -374,9 +375,15 @@ try
 
 	$ProductKey;
 
-	Start-Process -FilePath "slmgr.vbs" -ArgumentList @(("/ipk " + $ProductKey));
-
+	#Start-Process -FilePath "slmgr.vbs" -ArgumentList @(("/ipk " + $ProductKey));
 	#Start-Process -FilePath "slui.exe" -Wait;
+
+	$ComputerName = GC ENV:COMPUTERNAME;
+	$SoftwareLicensingService = Get-WmiObject -Query "SELECT * FROM SoftwareLicensingService" -ComputerName $ComputerName;
+	$SoftwareLicensingService.InstallProductKey($ProductKey);
+	$SoftwareLicensingService.RefreshLicenseStatus();
+
+	$SoftwareLicensingService;
 
     $Message | Out-File -FilePath ($LogPath + "\production-log.log") -Append;
 }
