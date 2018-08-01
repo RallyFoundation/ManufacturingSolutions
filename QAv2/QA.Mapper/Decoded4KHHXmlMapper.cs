@@ -31,6 +31,7 @@ namespace QA.Mapper
                     for (int i = 0; i < nodes.Count; i++)
                     {
                         name = nodes[i].Attributes["n"].Value;
+                        name = name.Trim();
                         value = nodes[i].Attributes["v"].Value;
 
                         result.Add(name, value);
@@ -48,6 +49,7 @@ namespace QA.Mapper
                     for (int i = 0; i < nodes.Count; i++)
                     {
                         name = nodes[(i + 1)].Attributes["v"].Value;
+                        name = name.Trim();
                         value = nodes[i].Attributes["v"].Value;
 
                         nicInfo.Add(name, value);
