@@ -34,6 +34,10 @@
     <Compile Include="app.js" />
     <Compile Include="file-api.js" />
     <Compile Include="forwarder.js" />
+    <Compile Include="hqa-cloud.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="hqa-zip-monitor.js" />
     <Compile Include="log-monitor.js">
       <SubType>Code</SubType>
     </Compile>
