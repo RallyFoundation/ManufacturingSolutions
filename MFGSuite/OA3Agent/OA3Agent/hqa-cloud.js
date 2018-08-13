@@ -40,8 +40,13 @@ app.use(cors());
 var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var hqaDataZipRepository = config.get("app.hqa-data-zip-repository");
 var hqaHome = config.get("app.hqa-home");
+var hqaEntry = config.get("app.hqa-entry");
 var httpServerPort = config.get("app.http-server-port"); //8089;
 var webSocketServerPort = config.get("app.web-socket-server-port");
+var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
+var redisPort = config.get("app.redis-port"); //6379;
+var redisPassword = config.get("app.redis-password"); //"P@ssword1";
+var redisDbNameHQAData = config.get("app.redis-db-name-hqa-data"); //hqa;
 
 var hqaDataZipUploader = multer({
     storage: multer.diskStorage({
@@ -78,7 +83,7 @@ if (enableCpuClustering == true) {
         server = app.listen(httpServerPort, function () {
             var host = server.address().address;
             var port = server.address().port;
-            console.log("HQA Micro-service listening at http://%s:%s", host, port);
+            console.log("HQA Microservice listening at http://%s:%s", host, port);
         });
 
         http.listen(webSocketServerPort, function () {
@@ -92,7 +97,7 @@ else {
     server = app.listen(httpServerPort, function () {
         var host = server.address().address;
         var port = server.address().port;
-        console.log("HQA Micro-service listening at http://%s:%s", host, port);
+        console.log("HQA Microservice listening at http://%s:%s", host, port);
     });
 
     http.listen(webSocketServerPort, function () {
@@ -129,6 +134,61 @@ io.on("connection", function (socket) {
     //});
 });
 
+function getRedisClient() {
+    var client = redis.createClient(redisPort, redisAddress);
+    client.auth(redisPassword);
+
+    return client;
+}
+
+var redisClient = getRedisClient();
+
+redisClient.subscribe(redisDbNameHQAData);
+redisClient.on("message", function (channel, message) {
+    console.log(channel + ": " + message);
+
+    var reportFileDir = message.ReportFileDir;
+    var transactionId = message.TransID;
+
+    let ps = new shell({
+        executionPolicy: 'Bypass',
+        noProfile: true
+    });
+
+    var hqaOfflineScript = hqaEntry;
+
+    readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
+        if (err) { res.end(err.message); }
+        else {
+
+            console.log(reportXmlFiles);
+
+            for (var i = 0; i < reportXmlFiles.length; i++) {
+                ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
+                ps.invoke()
+                    .then(output => {
+                        console.log(output);
+
+                        ps.addCommand('$outResult');
+                        ps.invoke()
+                            .then(output => {
+                                console.log(output);
+                                res.end(output);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                ps.dispose();
+                            });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        ps.dispose();
+                    });
+            }
+        }
+    });
+});
+
 app.post("/hqa/offline/zip/:trsnid", function (req, res) {
 
     hqaDataZipUploader(req, res, function (err) {
@@ -154,7 +214,7 @@ app.post("/hqa/offline/batch/", function (req, res) {
         noProfile: true
     });
 
-    var hqaOfflineScript = hqaHome + "\Script\validate-offlineV2.ps1";
+    var hqaOfflineScript = hqaEntry;
 
     readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
         if (err) { res.end(err.message); }

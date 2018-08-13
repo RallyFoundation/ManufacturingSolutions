@@ -2,12 +2,18 @@ var chokidar = require("chokidar");
 var config = require("nodejs-config")(__dirname);
 var fs = require("fs");
 const streamZip = require('node-stream-zip');
+var redis = require("redis");
+var io = require("socket.io-client");
+var uuidv1 = require("uuid/v1");
 
 var hqaDataZipRepository = config.get("app.hqa-data-zip-repository");
+var hqaDataRepository = config.get("app.hqa-data-repository");
 var webSocketServerHost = config.get("app.web-socket-server-host");
 var webSocketServerPort = config.get("app.web-socket-server-port");
-
-var io = require("socket.io-client");
+var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
+var redisPort = config.get("app.redis-port"); //6379;
+var redisPassword = config.get("app.redis-password"); //"P@ssword1";
+var redisDbIndexHQAData = config.get("app.redis-db-index-hqa-data"); //2;
 
 var socket = io.connect(("http://" + webSocketServerHost + ":" + webSocketServerPort), { reconnect: true });
 
@@ -15,6 +21,12 @@ socket.on("connect", function (socket) {
     console.log("Connected!");
 });
 
+function getRedisClient() {
+    var client = redis.createClient(redisPort, redisAddress);
+    client.auth(redisPassword);
+
+    return client;
+}
 
 var logKeywordRegPattern = new RegExp(logKeywords, "g");
 
@@ -38,10 +50,32 @@ var extractNewZip = function (path) {
     });
 
     zip.on('ready', () => {
-        fs.mkdirSync('extracted');
-        zip.extract(null, './extracted', (err, count) => {
+
+        var dirName = path.substring(path.lastIndexOf("/"));
+        var extractedDirFullPath = hqaDataRepository + dirName;
+
+        fs.mkdirSync(extractedDirFullPath);
+
+        zip.extract(null, extractedDirFullPath, (err, count) => {
             console.log(err ? 'Extract error' : `Extracted ${count} entries`);
             zip.close();
+        });
+
+        var redisClient = getRedisClient();
+
+        var transactionId = uuidv1();
+        var message = { TransID: transactionId, ReportFileDir: extractedDirFullPath };
+
+        redisClient.set(transactionId, message, function (err, result) {
+            if (err) {
+                console.log(err);
+                res.end(err);
+            }
+            else {
+                console.log(result);
+                redisClient.end(true);
+                res.end(result);
+            }
         });
     });
 };

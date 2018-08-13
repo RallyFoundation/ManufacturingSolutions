@@ -8,6 +8,8 @@
   "redis-password": "",
   "redis-db-index": 0,
   "redis-db-index-client-status": 1,
+  "redis-db-index-hqa-data": 2,
+  "redis-db-name-hqa-data": "hqa",
   "mongodb-url": "mongodb://localhost:27017/mfgcloud",
   "mongodb-collection-name": "engineering",
   "mongo-odata-resource-model": {
@@ -21,5 +23,9 @@
   "boot-image-repository": "D:\\WDS-Images\\Boot",
   "ffu-image-repository": "D:\\WDS-Images\\FFU",
   "log-repository": "D:\\WDS-Images\\Log",
-  "log-keywords": "error|exception|failed|failure|cannot|Error|Exception|Failed|Failure|Cannot"
+  "log-keywords": "error|exception|failed|failure|cannot|Error|Exception|Failed|Failure|Cannot",
+  "hqa-home": "D:\\HQA\\App",
+  "hqa-entry": "D:\\HQA\\App\\Script\\validate-offlineV2.ps1",
+  "hqa-data-zip-repository": "D:\\HQA\\Upload",
+  "hqa-data-repository": "D:\\HQA\\Extracted"
 }
