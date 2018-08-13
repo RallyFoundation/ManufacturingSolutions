@@ -1,7 +1,7 @@
 var chokidar = require("chokidar");
 var config = require("nodejs-config")(__dirname);
 var fs = require("fs");
-const streamZip = require('node-stream-zip');
+const StreamZip = require('node-stream-zip');
 var redis = require("redis");
 var io = require("socket.io-client");
 var uuidv1 = require("uuid/v1");
@@ -28,8 +28,6 @@ function getRedisClient() {
     return client;
 }
 
-var logKeywordRegPattern = new RegExp(logKeywords, "g");
-
 // Initialize watcher.
 var watcher = chokidar.watch(hqaDataZipRepository, 'file, dir, glob, or array', {
     ignored: /(^|[\/\\])\../,
@@ -51,7 +49,7 @@ var extractNewZip = function (path) {
 
     zip.on('ready', () => {
 
-        var dirName = path.substring(path.lastIndexOf("/"));
+        var dirName = path.substring(path.lastIndexOf("\\"));
         var extractedDirFullPath = hqaDataRepository + dirName;
 
         fs.mkdirSync(extractedDirFullPath);
@@ -61,28 +59,33 @@ var extractNewZip = function (path) {
             zip.close();
         });
 
-        var redisClient = getRedisClient();
-
         var transactionId = uuidv1();
         var message = { TransID: transactionId, ReportFileDir: extractedDirFullPath };
 
-        redisClient.set(transactionId, message, function (err, result) {
+        var redisClient = getRedisClient();
+
+        redisClient.select(redisDbIndexHQAData, function (err) {
             if (err) {
                 console.log(err);
                 res.end(err);
             }
             else {
-                console.log(result);
-                redisClient.end(true);
-                res.end(result);
+                redisClient.set(transactionId, JSON.stringify(message), function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(result);
+                        redisClient.end(true);
+                    }
+                });
             }
         });
-    });
+    })
 };
 
 // Add event listeners.
-watcher
-    .on('add', path => extractNewZip(path))
+    watcher.on('add', path => extractNewZip(path));
     //.on('change', path => parseLog(path))
     //.on('unlink', path => log(`File ${path} has been removed`));
 

@@ -11,6 +11,8 @@ var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 //var bearerToken = require('express-bearer-token');
 //var async = require("async");
+var path = require("path");
+var uuidv1 = require("uuid/v1");
 
 var cluster = require('cluster');
 var os = require('os');
@@ -37,6 +39,10 @@ app.use(cors());
 //    res.send('Token ' + req.token);
 //});
 
+app.use(express.static(__dirname));
+app.use(express.static(__dirname + "/views"));
+app.use(express.static(__dirname + "/public"));
+
 var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var hqaDataZipRepository = config.get("app.hqa-data-zip-repository");
 var hqaHome = config.get("app.hqa-home");
@@ -54,7 +60,8 @@ var hqaDataZipUploader = multer({
             cb(null, hqaDataZipRepository);
         },
         filename: function (req, file, cb) {
-            cb(null, req.params.trsnid + "_" + file.originalname);
+            var transId = uuidv1();
+            cb(null, transId + "_" + file.originalname);
         }
     })
 }).any();
@@ -189,7 +196,7 @@ redisClient.on("message", function (channel, message) {
     });
 });
 
-app.post("/hqa/offline/zip/:trsnid", function (req, res) {
+app.post("/hqa/offline/zip/upload/", function (req, res) {
 
     hqaDataZipUploader(req, res, function (err) {
         if (err) {
@@ -197,7 +204,6 @@ app.post("/hqa/offline/zip/:trsnid", function (req, res) {
             res.end(err);
         }
 
-        console.log(req.params.trsnid);
         console.log(req.files[0].path);
 
         res.end();
@@ -246,4 +252,9 @@ app.post("/hqa/offline/batch/", function (req, res) {
             }
         }
     });
+});
+
+app.get("/hqa/offline/", function (req, res) {
+
+    res.sendFile(path.join(__dirname + "/upload-hqa.html"));
 });
