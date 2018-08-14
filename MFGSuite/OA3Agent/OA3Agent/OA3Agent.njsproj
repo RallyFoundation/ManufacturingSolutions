@@ -13,7 +13,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>hqa-zip-monitor.js</StartupFile>
+    <StartupFile>hqa-job-executor.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,7 +34,10 @@
     <Compile Include="app.js" />
     <Compile Include="file-api.js" />
     <Compile Include="forwarder.js" />
-    <Compile Include="hqa-cloud.js">
+    <Compile Include="hqa-job-executor.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="hqa-zip-uploader.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="hqa-zip-monitor.js" />

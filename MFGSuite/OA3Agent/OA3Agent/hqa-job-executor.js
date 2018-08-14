@@ -2,12 +2,10 @@
 var bodyParser = require('body-parser');
 var fs = require("fs");
 var readDir = require("readdir");
-var multer = require('multer');
 var shell = require('node-powershell');
 var redis = require("redis");
 var cors = require("cors");
 var config = require("nodejs-config")(__dirname);
-var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 //var bearerToken = require('express-bearer-token');
 //var async = require("async");
@@ -39,9 +37,6 @@ app.use(cors());
 //    res.send('Token ' + req.token);
 //});
 
-app.use(express.static(__dirname));
-app.use(express.static(__dirname + "/views"));
-app.use(express.static(__dirname + "/public"));
 
 var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var hqaDataZipRepository = config.get("app.hqa-data-zip-repository");
@@ -52,19 +47,6 @@ var webSocketServerPort = config.get("app.web-socket-server-port");
 var redisAddress = config.get("app.redis-address"); //"127.0.0.1";
 var redisPort = config.get("app.redis-port"); //6379;
 var redisPassword = config.get("app.redis-password"); //"P@ssword1";
-var redisDbNameHQAData = config.get("app.redis-db-name-hqa-data"); //hqa;
-
-var hqaDataZipUploader = multer({
-    storage: multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, hqaDataZipRepository);
-        },
-        filename: function (req, file, cb) {
-            var transId = uuidv1();
-            cb(null, transId + "_" + file.originalname);
-        }
-    })
-}).any();
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -150,7 +132,7 @@ function getRedisClient() {
 
 var redisClient = getRedisClient();
 
-redisClient.subscribe(redisDbNameHQAData);
+redisClient.subscribe("pubsub");
 redisClient.on("message", function (channel, message) {
     console.log(channel + ": " + message);
 
@@ -196,20 +178,6 @@ redisClient.on("message", function (channel, message) {
     });
 });
 
-app.post("/hqa/offline/zip/upload/", function (req, res) {
-
-    hqaDataZipUploader(req, res, function (err) {
-        if (err) {
-            console.log(err);
-            res.end(err);
-        }
-
-        console.log(req.files[0].path);
-
-        res.end();
-    });
-});
-
 app.post("/hqa/offline/batch/", function (req, res) {
 
     var reportFileDir = req.body.ReportFileDir;
@@ -228,13 +196,26 @@ app.post("/hqa/offline/batch/", function (req, res) {
 
             console.log(reportXmlFiles);
 
+            ps.addCommand("$outResult");
+            //ps.invoke().then(output => {
+            //    console.log(output);
+            //}).catch(err => {
+            //    console.log(err);
+            //    ps.dispose();
+            //});
+
             for (var i = 0; i < reportXmlFiles.length; i++) {
-                ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
+                console.log(reportXmlFiles[i]);
+
+                //ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
+
+                ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true")]);
+
                 ps.invoke()
                     .then(output => {
                         console.log(output);
 
-                        ps.addCommand('$outResult');
+                        ps.addCommand("$outResult");
                         ps.invoke()
                             .then(output => {
                                 console.log(output);
@@ -252,9 +233,4 @@ app.post("/hqa/offline/batch/", function (req, res) {
             }
         }
     });
-});
-
-app.get("/hqa/offline/", function (req, res) {
-
-    res.sendFile(path.join(__dirname + "/upload-hqa.html"));
 });

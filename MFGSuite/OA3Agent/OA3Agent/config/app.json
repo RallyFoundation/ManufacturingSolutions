@@ -9,7 +9,6 @@
   "redis-db-index": 0,
   "redis-db-index-client-status": 1,
   "redis-db-index-hqa-data": 2,
-  "redis-db-name-hqa-data": "hqa",
   "mongodb-url": "mongodb://localhost:27017/mfgcloud",
   "mongodb-collection-name": "engineering",
   "mongo-odata-resource-model": {
