@@ -24,7 +24,7 @@
   "log-repository": "D:\\WDS-Images\\Log",
   "log-keywords": "error|exception|failed|failure|cannot|Error|Exception|Failed|Failure|Cannot",
   "hqa-home": "D:\\HQA\\App",
-  "hqa-entry": "D:\\HQA\\App\\Script\\validate-offlineV2.ps1",
+  "hqa-entry": "D:\\HQA\\App\\Script\\offline-batch.ps1",
   "hqa-data-zip-repository": "D:\\HQA\\Upload",
   "hqa-data-repository": "D:\\HQA\\Extracted"
 }

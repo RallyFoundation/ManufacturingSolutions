@@ -146,36 +146,44 @@ redisClient.on("message", function (channel, message) {
 
     var hqaOfflineScript = hqaEntry;
 
-    readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
-        if (err) { res.end(err.message); }
-        else {
-
-            console.log(reportXmlFiles);
-
-            for (var i = 0; i < reportXmlFiles.length; i++) {
-                ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
-                ps.invoke()
-                    .then(output => {
-                        console.log(output);
-
-                        ps.addCommand('$outResult');
-                        ps.invoke()
-                            .then(output => {
-                                console.log(output);
-                                res.end(output);
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                ps.dispose();
-                            });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        ps.dispose();
-                    });
-            }
-        }
+    ps.addCommand(hqaOfflineScript, [("ReportFileDir " + reportFileDir), ("BatchID " + transactionId), ("RootDir " + hqaHome)]);
+    ps.invoke().then(output => {
+        console.log(output);
+    }).catch(err => {
+        console.log(err);
+        ps.dispose();
     });
+
+    //readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
+    //    if (err) { res.end(err.message); }
+    //    else {
+
+    //        console.log(reportXmlFiles);
+
+    //        for (var i = 0; i < reportXmlFiles.length; i++) {
+    //            ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
+    //            ps.invoke()
+    //                .then(output => {
+    //                    console.log(output);
+
+    //                    ps.addCommand('$outResult');
+    //                    ps.invoke()
+    //                        .then(output => {
+    //                            console.log(output);
+    //                            res.end(output);
+    //                        })
+    //                        .catch(err => {
+    //                            console.log(err);
+    //                            ps.dispose();
+    //                        });
+    //                })
+    //                .catch(err => {
+    //                    console.log(err);
+    //                    ps.dispose();
+    //                });
+    //        }
+    //    }
+    //});
 });
 
 app.post("/hqa/offline/batch/", function (req, res) {
@@ -190,47 +198,55 @@ app.post("/hqa/offline/batch/", function (req, res) {
 
     var hqaOfflineScript = hqaEntry;
 
-    readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
-        if (err) { res.end(err.message); }
-        else {
+    ps.addCommand(hqaOfflineScript, [("ReportFileDir " + reportFileDir), ("BatchID " + transactionId), ("RootDir " + hqaHome)]);
+    ps.invoke().then(output => {
+            console.log(output);
+        }).catch(err => {
+            console.log(err);
+            ps.dispose();
+        });
 
-            console.log(reportXmlFiles);
+    //readDir.read(reportFileDir, ["**.xml"], readDir.ABSOLUTE_PATHS + readDir.CASELESS_SORT, function (err, reportXmlFiles) {
+    //    if (err) { res.end(err.message); }
+    //    else {
 
-            ps.addCommand("$outResult");
-            //ps.invoke().then(output => {
-            //    console.log(output);
-            //}).catch(err => {
-            //    console.log(err);
-            //    ps.dispose();
-            //});
+    //        console.log(reportXmlFiles);
 
-            for (var i = 0; i < reportXmlFiles.length; i++) {
-                console.log(reportXmlFiles[i]);
+    //        //ps.addCommand("$outResult");
+    //        //ps.invoke().then(output => {
+    //        //    console.log(output);
+    //        //}).catch(err => {
+    //        //    console.log(err);
+    //        //    ps.dispose();
+    //        //});
 
-                //ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
+    //        //for (var i = 0; i < reportXmlFiles.length; i++) {
+    //        //    console.log(reportXmlFiles[i]);
 
-                ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true")]);
+    //        //    //ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true"), ("OutResult ([ref]$outResult)")]);
 
-                ps.invoke()
-                    .then(output => {
-                        console.log(output);
+    //        //    ps.addCommand(hqaOfflineScript, [("ReportFilePath " + reportXmlFiles[i]), ("TransactionID " + transactionId + "_" + i), ("RootDir " + hqaHome), ("ByPassUI $true"), ("StayInHost $true")]);
 
-                        ps.addCommand("$outResult");
-                        ps.invoke()
-                            .then(output => {
-                                console.log(output);
-                                res.end(output);
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                ps.dispose();
-                            });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        ps.dispose();
-                    });
-            }
-        }
-    });
+    //        //    ps.invoke()
+    //        //        .then(output => {
+    //        //            console.log(output);
+
+    //        //            ps.addCommand("$outResult");
+    //        //            ps.invoke()
+    //        //                .then(output => {
+    //        //                    console.log(output);
+    //        //                    res.end(output);
+    //        //                })
+    //        //                .catch(err => {
+    //        //                    console.log(err);
+    //        //                    ps.dispose();
+    //        //                });
+    //        //        })
+    //        //        .catch(err => {
+    //        //            console.log(err);
+    //        //            ps.dispose();
+    //        //        });
+    //        //}
+    //    }
+    //});
 });
