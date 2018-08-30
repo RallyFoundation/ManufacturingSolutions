@@ -2,7 +2,6 @@ param([System.String]$TransactionID, [System.String]$RootDir, [System.String]$Se
 
 $ErrorActionPreference = "Stop";
 
-#Checking PowerShell version and CLR (.NET Framework) version:
 $PowerShellVersionInfo = $PSVersionTable;
 
 $PowerShellVersionInfo;

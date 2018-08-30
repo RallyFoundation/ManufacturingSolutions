@@ -154,6 +154,26 @@
       "MinValue": 174,
       "MaxValue": 174,
       "QuotedFields": null
+    },
+    {
+      "id": "C7CE0081-F27E-4D4A-A815-8F1BECEA7A7F",
+      "FieldName": "DisplayResolutionHorizontal",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 240,
+      "MaxValue": 1920,
+      "QuotedFields": null
+    },
+    {
+      "id": "F75AC509-11D3-42DA-ADBC-4FACAE57937D",
+      "FieldName": "DisplayResolutionVertical",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 360,
+      "MaxValue": 1080,
+      "QuotedFields": null
     }
   ]
 }
