@@ -274,6 +274,16 @@ namespace QA.Facade
             MapRule(Global.UserRuleConfigPath);
         }
 
+        public static void InitializeMatrix()
+        {
+            if (Rules == null)
+            {
+                Rules = new Dictionary<string, Dictionary<string, List<IRule>>>();
+            }
+           
+            MapRule(Global.DefaultMatrixConfigPath);
+        }
+
         public static void InstantiateInputData()
         {
             string data;

@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>User Rule Configuration</title>
+    <title>Matrix Configuration</title>
     <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
@@ -41,7 +41,7 @@
     <script src="../../../Config/user-rule.json"></script>
 </head>
 <body ng-app="HQATool">
-    <div ng-controller="ValidationRuleConfigController" ng-init="loadData();loadRuleTemplateDirInfo()">
+    <div ng-controller="MatrixConfigController" ng-init="loadData();loadRuleTemplateDirInfo()">
         <p>
             &nbsp;&nbsp;
             <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
@@ -277,7 +277,7 @@
         function RecDirInfo(DirInfoJson) {
             templates = JSON.parse(DirInfoJson);
 
-            var appElement = document.querySelector("[ng-controller=ValidationRuleConfigController]");
+            var appElement = document.querySelector("[ng-controller=MatrixConfigController]");
             var scope = angular.element(appElement).scope();
 
             scope.loadRuleTemplateNames();
@@ -291,7 +291,7 @@
 
             settings = data.Data;
 
-            var appElement = document.querySelector("[ng-controller=ValidationRuleConfigController]");
+            var appElement = document.querySelector("[ng-controller=MatrixConfigController]");
             var scope = angular.element(appElement).scope();
 
             scope.loadData();
@@ -311,7 +311,7 @@
 
         var templates = null;
 
-        var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationRuleConfigController",
+        var appModule = angular.module("HQATool", ['ngDialog']).controller("MatrixConfigController",
 
         function ($scope, $location, $http, ngDialog) {
 

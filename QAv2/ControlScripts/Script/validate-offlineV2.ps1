@@ -448,6 +448,9 @@ $ExpectedOSType = "FullOS";
 #$ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 $ProcessorModel = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "ProcessorModel"})[0].v; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 
+[System.String]$ProductKeyPN = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "ProductKeyPkPn"})[0].v;
+$ProductKeyPN = $ProductKeyPN.Substring(($ProductKeyPN.IndexOf("]") + 1));
+
 if([System.String]::IsNullOrEmpty($ProcessorModel))
 {
    $ProcessorModel = "N/A";
@@ -475,6 +478,13 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 #$RulesObj = Initialize-Rule -Path ($RootDir + "\Config\rule.json");
 
 $RulesObj = Initialize-Rule -DefaultRulePath ($RootDir + "\Config\rule.json") -UserRulePath ($RootDir + "\Config\user-rule.json");
+
+$MatrixPath = ($RootDir + "\Matrix\" + $ProductKeyPN + "\matrix.json");
+
+if([System.IO.File]::Exists($MatrixPath))
+{
+	$RulesObj = Initialize-Matrix -DefaultMatrixPath $MatrixPath;
+}
 
 $DataObj = Initialize-Data -Path $DecodeFilePath;
 

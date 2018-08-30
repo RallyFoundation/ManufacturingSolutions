@@ -447,10 +447,13 @@ $ReportTrace.LoadXml($ReportTraceString);
 if($ShouldByPassDPKChecking -eq $true)
 {
    $ProductKeyID = "NO_KEY_CHECK";
+   [System.String]$ProductKeyPN = "NO_KEY_CHECK";
 }
 else
 {
    $ProductKeyID = $ProductKeyInfo.Key.ProductKeyID; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Environment.p.Where({$_.n -eq "ProductKeyID"})[0].'#text'#
+   $ProductKeyPN = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "ProductKeyPkPn"})[0].v;
+   $ProductKeyPN = $ProductKeyPN.Substring(($ProductKeyPN.IndexOf("]") + 1));
 } 
 
 $ExpectedOSType = "FullOS";
@@ -479,6 +482,16 @@ $ResultHtmlFilePath = $RootDir + "\Output\" + $TransactionID + "_" + $ProductKey
 #$RulesObj = Initialize-Rule -Path ($RootDir + "\Config\rule.json");
 
 $RulesObj = Initialize-Rule -DefaultRulePath ($RootDir + "\Config\rule.json") -UserRulePath ($RootDir + "\Config\user-rule.json");
+
+if($ShouldByPassDPKChecking -eq $false)
+{
+	$MatrixPath = ($RootDir + "\Matrix\" + $ProductKeyPN + "\matrix.json");
+
+	if([System.IO.File]::Exists($MatrixPath))
+	{
+		$RulesObj = Initialize-Matrix -DefaultMatrixPath $MatrixPath;
+	}
+}
 
 $DataObj = Initialize-Data -Path $DecodeFilePath;
 
@@ -656,7 +669,7 @@ if($ByPassUI -eq $false)
 	$OptionNo = New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Skip the report and exit."
 	$PromptOptions = [System.Management.Automation.Host.ChoiceDescription[]]($OptionNo, $OptionYes)
 
-	$Choice = $Host.UI.PromptForChoice($PromptTitle, $PromptMessage, $PromptOptions, 0) 
+	$Choice = $Host.UI.PromptForChoice($PromptTitle, $PromptMessage, $PromptOptions, 0); 
 
 	switch ($Choice)
 	{

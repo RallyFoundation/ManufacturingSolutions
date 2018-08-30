@@ -47,6 +47,7 @@
     <Compile Include="AddRuleCommand.cs" />
     <Compile Include="GetResultCommand.cs" />
     <Compile Include="InitializeDataCommand.cs" />
+    <Compile Include="InitializeMatrixCommand.cs" />
     <Compile Include="InitializeRuleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetDataCommand.cs" />

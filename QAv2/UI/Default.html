@@ -185,6 +185,91 @@
                     </content>
                 </ul>
             </li>
+            <li>
+                <p style="font-weight:bolder;font-size:x-large;text-decoration:underline;font-family:Arial">Pricing Matrix Fields: {{getSubResultPricingMatrixFields()}}</p>
+                <ul>
+                    <content>
+                        <table class="table">
+                            <tr ng-hide="testItems.ProcessorModel == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorModel)}" ng-mouseover="onMouseOver(testItems.ProcessorModel)" ng-mouseleave="onMouseLeave(testItems.ProcessorModel)" ng-click="showDetailDialog('ProcessorModel', 'template-detail-expected-value.html')">
+                                <td>ProcessorModel: </td>
+                                <td>{{testItems.ProcessorModel.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.OsCpuArchitecture == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.OsCpuArchitecture)}" ng-mouseover="onMouseOver(testItems.OsCpuArchitecture)" ng-mouseleave="onMouseLeave(testItems.OsCpuArchitecture)" ng-click="showDetailDialog('OsCpuArchitecture', 'template-detail-expected-value.html')">
+                                <td>OsCpuArchitecture: </td>
+                                <td>{{testItems.OsCpuArchitecture.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.ProcessorPackages == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorPackages)}" ng-mouseover="onMouseOver(testItems.ProcessorPackages)" ng-mouseleave="onMouseLeave(testItems.TotalPhysicalRAM)" ng-click="showDetailDialog('ProcessorPackages', 'template-detail-min-max.html')">
+                                <td>ProcessorPackages: </td>
+                                <td>{{testItems.ProcessorPackages.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.ProcessorThreads == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorThreads)}" ng-mouseover="onMouseOver(testItems.ProcessorThreads)" ng-mouseleave="onMouseLeave(testItems.ProcessorThreads)" ng-click="showDetailDialog('ProcessorThreads', 'template-detail-min-max.html')">
+                                <td>ProcessorThreads: </td>
+                                <td>{{testItems.ProcessorThreads.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.ProcessorCores == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorCores)}" ng-mouseover="onMouseOver(testItems.ProcessorCores)" ng-mouseleave="onMouseLeave(testItems.ProcessorCores)" ng-click="showDetailDialog('ProcessorCores', 'template-detail-min-max.html')">
+                                <td>ProcessorCores: </td>
+                                <td>{{testItems.ProcessorCores.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.ProcessorHyperThreading == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.ProcessorHyperThreading)}" ng-mouseover="onMouseOver(testItems.ProcessorHyperThreading)" ng-mouseleave="onMouseLeave(testItems.ProcessorHyperThreading)" ng-click="showDetailDialog('ProcessorHyperThreading', 'template-detail-expected-value.html')">
+                                <td>ProcessorHyperThreading: </td>
+                                <td>{{testItems.ProcessorHyperThreading.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosRamErrorCorrection == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosRamErrorCorrection)}" ng-mouseover="onMouseOver(testItems.SmbiosRamErrorCorrection)" ng-mouseleave="onMouseLeave(testItems.SmbiosRamErrorCorrection)" ng-click="showDetailDialog('SmbiosRamErrorCorrection', 'template-detail-expected-value.html')">
+                                <td>SmbiosRamErrorCorrection: </td>
+                                <td>{{testItems.SmbiosRamErrorCorrection.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosRamSlots == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosRamSlots)}" ng-mouseover="onMouseOver(testItems.SmbiosRamSlots)" ng-mouseleave="onMouseLeave(testItems.SmbiosRamSlots)" ng-click="showDetailDialog('SmbiosRamSlots', 'template-detail-min-max.html')">
+                                <td>SmbiosRamSlots: </td>
+                                <td>{{testItems.SmbiosRamSlots.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosRamArrayCount == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosRamArrayCount)}" ng-mouseover="onMouseOver(testItems.SmbiosRamArrayCount)" ng-mouseleave="onMouseLeave(testItems.SmbiosRamArrayCount)" ng-click="showDetailDialog('SmbiosRamArrayCount', 'template-detail-min-max.html')">
+                                <td>SmbiosRamArrayCount: </td>
+                                <td>{{testItems.SmbiosRamArrayCount.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.SmbiosRamMaximumCapacity == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.SmbiosRamMaximumCapacity)}" ng-mouseover="onMouseOver(testItems.SmbiosRamMaximumCapacity)" ng-mouseleave="onMouseLeave(testItems.SmbiosRamMaximumCapacity)" ng-click="showDetailDialog('SmbiosRamMaximumCapacity', 'template-detail-min-max.html')">
+                                <td>SmbiosRamMaximumCapacity: </td>
+                                <td>{{testItems.SmbiosRamMaximumCapacity.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.TotalPhysicalRAM == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.TotalPhysicalRAM)}" ng-mouseover="onMouseOver(testItems.TotalPhysicalRAM)" ng-mouseleave="onMouseLeave(testItems.TotalPhysicalRAM)" ng-click="showDetailDialog('TotalPhysicalRAM', 'template-detail-min-max.html')">
+                                <td>TotalPhysicalRAM: </td>
+                                <td>{{testItems.TotalPhysicalRAM.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.PrimaryDiskType == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskType)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskType)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskType)" ng-click="showDetailDialog('PrimaryDiskType', 'template-detail-expected-unexpected.html')">
+                                <td>PrimaryDiskType: </td>
+                                <td>{{testItems.PrimaryDiskType.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.PrimaryDiskTotalCapacity == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.PrimaryDiskTotalCapacity)}" ng-mouseover="onMouseOver(testItems.PrimaryDiskTotalCapacity)" ng-mouseleave="onMouseLeave(testItems.PrimaryDiskTotalCapacity)" ng-click="showDetailDialog('PrimaryDiskTotalCapacity', 'template-detail-min-max.html')">
+                                <td>PrimaryDiskTotalCapacity: </td>
+                                <td>{{testItems.PrimaryDiskTotalCapacity.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.InternalDiskCount == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.InternalDiskCount)}" ng-mouseover="onMouseOver(testItems.InternalDiskCount)" ng-mouseleave="onMouseLeave(testItems.InternalDiskCount)" ng-click="showDetailDialog('InternalDiskCount', 'template-detail-min-max.html')">
+                                <td>InternalDiskCount: </td>
+                                <td>{{testItems.InternalDiskCount.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplayResolutionHorizontal == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionHorizontal)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionHorizontal)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionHorizontal)" ng-click="showDetailDialog('DisplayResolutionHorizontal', 'template-detail-min-max-chassis.html')">
+                                <td>DisplayResolutionHorizontal: </td>
+                                <td>{{testItems.DisplayResolutionHorizontal.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplayResolutionVertical == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplayResolutionVertical)}" ng-mouseover="onMouseOver(testItems.DisplayResolutionVertical)" ng-mouseleave="onMouseLeave(testItems.DisplayResolutionVertical)" ng-click="showDetailDialog('DisplayResolutionVertical', 'template-detail-min-max-chassis.html')">
+                                <td>DisplayResolutionVertical: </td>
+                                <td>{{testItems.DisplayResolutionVertical.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplaySizePhysicalH == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalH)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalH)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalH)" ng-click="showDetailDialog('DisplaySizePhysicalH', 'template-detail-min-max-chassis.html')">
+                                <td>DisplaySizePhysicalH: </td>
+                                <td>{{testItems.DisplaySizePhysicalH.Value}}</td>
+                            </tr>
+                            <tr ng-hide="testItems.DisplaySizePhysicalY == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DisplaySizePhysicalY)}" ng-mouseover="onMouseOver(testItems.DisplaySizePhysicalY)" ng-mouseleave="onMouseLeave(testItems.DisplaySizePhysicalY)" ng-click="showDetailDialog('DisplaySizePhysicalY', 'template-detail-min-max-chassis.html')">
+                                <td>DisplaySizePhysicalY: </td>
+                                <td>{{testItems.DisplaySizePhysicalY.Value}}</td>
+                            </tr>
+                            <!--<tr ng-hide="testItems.DigitizerSupportID == null" ng-style="{'background-color': getBackgroundColorByModel(testItems.DigitizerSupportID)}" ng-mouseover="onMouseOver(testItems.DigitizerSupportID)" ng-mouseleave="onMouseLeave(testItems.DigitizerSupportID)" ng-click="showDetailDialog('DigitizerSupportID', 'template-detail-expected-unexpected.html')">
+                                <td>DigitizerSupportID: </td>
+                                <td>{{testItems.DigitizerSupportID.Value}}</td>
+                            </tr>-->
+                        </table>
+                    </content>
+                </ul>
+            </li>
         </ul>
     </div>
     <script type="text/javascript">
@@ -471,6 +556,86 @@
                 if ($scope.testItems.DigitizerSupportID != null) {
                     itemArray.push($scope.testItems.DigitizerSupportID.Result);
                 }   
+
+                var failureCount = $scope.getFailureCount(itemArray);
+
+                return failureCount <= 0 ? "Passed" : "Failed";
+            };
+
+            $scope.getSubResultPricingMatrixFields = function () {
+                var itemArray = [];
+
+                if ($scope.testItems.OsCpuArchitecture != null) {
+                    itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                }
+
+                if ($scope.testItems.ProcessorModel != null) {
+                    itemArray.push($scope.testItems.ProcessorModel.Result);
+                }
+
+                if ($scope.testItems.TotalPhysicalRAM != null) {
+                    itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                }
+
+                if ($scope.testItems.PrimaryDiskType != null) {
+                    itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                }
+
+                if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                    itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                }
+
+                if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                    itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                }
+
+                if ($scope.testItems.DisplayResolutionVertical != null) {
+                    itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                }
+
+                if ($scope.testItems.DisplaySizePhysicalH != null) {
+                    itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                }
+
+                if ($scope.testItems.DisplaySizePhysicalY != null) {
+                    itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                }
+
+                if ($scope.testItems.ProcessorPackages != null) {
+                    itemArray.push($scope.testItems.ProcessorPackages.Result);
+                }
+
+                if ($scope.testItems.ProcessorThreads != null) {
+                    itemArray.push($scope.testItems.ProcessorThreads.Result);
+                }
+
+                if ($scope.testItems.ProcessorCores != null) {
+                    itemArray.push($scope.testItems.ProcessorCores.Result);
+                }
+
+                if ($scope.testItems.ProcessorHyperThreading != null) {
+                    itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                }
+
+                if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                    itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                }
+
+                if ($scope.testItems.SmbiosRamSlots != null) {
+                    itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                }
+
+                if ($scope.testItems.SmbiosRamArrayCount != null) {
+                    itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                }
+
+                if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                    itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                }
+
+                if ($scope.testItems.InternalDiskCount != null) {
+                    itemArray.push($scope.testItems.InternalDiskCount.Result);
+                }
 
                 var failureCount = $scope.getFailureCount(itemArray);
 
