@@ -41,18 +41,28 @@ namespace QA.Rule
                 if (Pairs == null)
                 {
                     result.IsPassed = false;
+                    result.FieldValue = -1;
                     return false;
                 }
 
                 if (!Pairs.ContainsKey(FieldName))
                 {
                     result.IsPassed = false;
+                    result.FieldValue = new Dictionary<string, string>();
+                    return false;
+                }
+
+                if (Pairs[FieldName] == null)
+                {
+                    result.IsPassed = false;
+                    result.FieldValue = new Dictionary<string, string>();
                     return false;
                 }
 
                 if (!(Pairs[FieldName] is ICollection))
                 {
                     result.IsPassed = false;
+                    result.FieldValue = -2;
                     return false;
                 }
 

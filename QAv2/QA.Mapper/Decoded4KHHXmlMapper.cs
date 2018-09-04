@@ -59,6 +59,10 @@ namespace QA.Mapper
 
                     result.Add("NIC", nicInfo);
                 }
+                else
+                {
+                    result.Add("NIC", null);
+                }
             }
 
             return result;

@@ -94,6 +94,8 @@ $DataProcessingModulePath = $RootDir + "\Module\DataProcessing\PowerShellDataPro
 
 $XsltExtensionObjectPath = $RootDir + "\Module\XsltExtension\BusinessRule.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
 
+$QAModelObjectPath = $RootDir + "\Module\Validation\QA.Model.dll";
+
 $LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
 
 $OA3ReportXmlSchemaPath = $RootDir + "\Data\SchemaOA3ToolReportKey.xsd";
@@ -103,6 +105,8 @@ $Message;
 $Message | Out-File -FilePath ($LogPath + "\validation-log.log") -Append;
 
 Import-Module ($DataProcessingModulePath);
+
+Add-Type -Path $QAModelObjectPath;
 
 Import-Module ($ValidationModulePath);
 
@@ -487,6 +491,28 @@ if([System.IO.File]::Exists($MatrixPath))
 }
 
 $DataObj = Initialize-Data -Path $DecodeFilePath;
+
+$RuleItemProductKeyID = New-Object -TypeName "QA.Model.ValidationRuleItem";
+
+$RuleItemProductKeyID.FieldName = "ProductKeyID";
+$RuleItemProductKeyID.FieldValue = $ProductKeyID;
+$RuleItemProductKeyID.GroupName = "DEFAULT";
+$RuleItemProductKeyID.RuleType = ([QA.Model.RuleType]::EqualTo);
+
+$RuleItemProductKeyID;
+
+Add-Rule -RuleItem $RuleItemProductKeyID;
+
+$RuleItemProcessorModel = New-Object -TypeName "QA.Model.ValidationRuleItem";
+
+$RuleItemProcessorModel.FieldName = "ProcessorModel";
+$RuleItemProcessorModel.FieldValue = $ProcessorModel;
+$RuleItemProcessorModel.GroupName = "DEFAULT";
+$RuleItemProcessorModel.RuleType = ([QA.Model.RuleType]::EqualTo);
+
+$RuleItemProcessorModel;
+
+Add-Rule -RuleItem $RuleItemProcessorModel;
 
 [xml]$ResultXml = Get-Result;
 

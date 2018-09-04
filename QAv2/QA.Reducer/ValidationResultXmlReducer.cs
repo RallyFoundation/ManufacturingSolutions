@@ -241,6 +241,10 @@ namespace QA.Reducer
                                         {
                                             xmlWriter.WriteString((result.FieldValue as IDictionary<string, string>).Keys.Count.ToString());
                                         }
+                                        else
+                                        {
+                                            xmlWriter.WriteString(result.FieldValue.ToString());
+                                        }
                                     }
                                     else
                                     {
