@@ -1,0 +1,1075 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Matrix Validation Result</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.min.css" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-cookies.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/ngDialog.js"></script>
+    <script src="Scripts/ngDialog.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="data.json"></script>
+    <script src="matrix.json"></script>
+</head>
+<body ng-app="SKUMatrixTool">
+    <div ng-controller="ValidationSummaryController" ng-init="loadData()">
+        <table class="table">
+            <tr>
+                <td ng-style="{'background-color' : 'blue'}">DPK</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td style="width:300px;" ng-style="{'background-color' : 'blue'}">Product Key ID</td>
+                            <td ng-style="{'background-color' : 'blue'}">{{testItems.ProductKeyID.Value}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-style="{'background-color' : 'blue'}">Product Key Part Number</td>
+                            <td ng-style="{'background-color' : 'blue'}">{{testItems.ProductKeyPkPn.Value}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:200px;" ng-style="{'background-color' : getBackgroundColorByResult(getSubResultPricingMatrixFieldsCPU())}">CPU</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td style="width:300px;">OsCpuArchitecture</td>
+                            <td style="width:220px" ng-style="{'background-color' : getBackgroundColorByModel(testItems.OsCpuArchitecture)}">{{testItems.OsCpuArchitecture.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('OsCpuArchitecture'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProcessorModel</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.ProcessorModel)}">{{testItems.ProcessorModel.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('ProcessorModel'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProcessorPackages</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.ProcessorPackages)}">{{testItems.ProcessorPackages.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('ProcessorPackages'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProcessorThreads</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.ProcessorThreads)}">{{testItems.ProcessorThreads.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('ProcessorThreads'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProcessorCores</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.ProcessorCores)}">{{testItems.ProcessorCores.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('ProcessorCores'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ProcessorHyperThreading</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.ProcessorHyperThreading)}">{{testItems.ProcessorHyperThreading.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('ProcessorHyperThreading'))}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td ng-style="{'background-color' : getBackgroundColorByResult(getSubResultPricingMatrixFieldsRAM())}">RAM</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td style="width:300px;">TotalPhysicalRAM</td>
+                            <td style="width:220px;" ng-style="{'background-color' : getBackgroundColorByModel(testItems.TotalPhysicalRAM)}">{{testItems.TotalPhysicalRAM.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('OsCpuArchitecture'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SmbiosRamErrorCorrection</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.SmbiosRamErrorCorrection)}">{{testItems.SmbiosRamErrorCorrection.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('SmbiosRamErrorCorrection'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SmbiosRamSlots</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.SmbiosRamSlots)}">{{testItems.SmbiosRamSlots.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('SmbiosRamSlots'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SmbiosRamArrayCount</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.SmbiosRamArrayCount)}">{{testItems.SmbiosRamArrayCount.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('SmbiosRamArrayCount'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SmbiosRamMaximumCapacity</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.SmbiosRamMaximumCapacity)}">{{testItems.SmbiosRamMaximumCapacity.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('SmbiosRamMaximumCapacity'))}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td ng-style="{'background-color' : getBackgroundColorByResult(getSubResultPricingMatrixFieldsStorage())}">Storage</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td style="width:300px;">PrimaryDiskType</td>
+                            <td style="width:220px;" ng-style="{'background-color' : getBackgroundColorByModel(testItems.PrimaryDiskType)}">{{testItems.PrimaryDiskType.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('PrimaryDiskType'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PrimaryDiskTotalCapacity</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.PrimaryDiskTotalCapacity)}">{{testItems.PrimaryDiskTotalCapacity.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('PrimaryDiskTotalCapacity'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>InternalDiskCount</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.InternalDiskCount)}">{{testItems.InternalDiskCount.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('InternalDiskCount'))}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td ng-style="{'background-color' : getBackgroundColorByResult(getSubResultPricingMatrixFieldsScreenSize())}">Screen Size</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td style="width:300px;">DisplaySizePhysicalH</td>
+                            <td style="width:220px;" ng-style="{'background-color' : getBackgroundColorByModel(testItems.DisplaySizePhysicalH)}">{{testItems.DisplaySizePhysicalH.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('DisplaySizePhysicalH'))}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DisplaySizePhysicalY</td>
+                            <td ng-style="{'background-color' : getBackgroundColorByModel(testItems.DisplaySizePhysicalY)}">{{testItems.DisplaySizePhysicalY.Value}}</td>
+                            <td ng-style="{'background-color' : 'blue'}">
+                                {{getRuleDescription(getFieldRuleItem('DisplaySizePhysicalY'))}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td ng-style="{'background-color' : 'blue'}">OPK</td>
+                <td ng-style="{'background-color' : 'blue'}"></td>
+            </tr>
+            <tr>
+                <td ng-style="{'background-color' : 'blue'}">Language Pack</td>
+                <td ng-style="{'background-color' : 'blue'}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+           function createGuid() {
+               return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                   var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                   return v.toString(16);
+               });
+           }
+
+           var valuePolicy = {
+               AlphaNum: "alpha_num",
+               Int: "int",
+               Decimal: "decimal",
+               DateTime: "datetime",
+               Password: "password",
+               DBCCase: "dbc_case"
+           };
+
+           function purgeValue(policy, source) {
+               switch (policy) {
+                   case valuePolicy.AlphaNum:
+                       {
+                           source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                           break;
+                       }
+                   case valuePolicy.Int:
+                       {
+                           source.value = source.value.replace(/[^\d]/g, '');
+                           break;
+                       }
+                   case valuePolicy.Decimal:
+                       {
+                           source.value = source.value.replace(/[^0-9\.]/g, '');
+                           break;
+                       }
+                   case valuePolicy.Password:
+                       {
+                           break;
+                       }
+                   case valuePolicy.DBCCase:
+                       {
+                           source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                           source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                           break;
+                       }
+                   default:
+                       {
+                           source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                           source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                           break;
+                       }
+               }
+           }
+
+           var settings = Settings.Data;
+
+           var appModule = angular.module("SKUMatrixTool", ['ngDialog']).controller("ValidationSummaryController",
+
+               function ($scope, $location, $http, ngDialog) {
+
+                   $scope.testItems = AppData.TestItems;
+
+                   $scope.totalFailureCount = -1;
+
+                   $scope.currentTestItemName = "";
+
+                   $scope.currentDetailKeyValues = [];
+
+                   $scope.ruleItems = [];
+
+                   //$scope.zipArchiveFileName = settings.ZipFilePath;
+
+                   //$scope.logFileName = settings.LogFilePath;
+
+                   //$scope.traceXmlFileName = settings.TraceXmlOutputPath != undefined ? settings.TraceXmlOutputPath : null;
+
+                   //$scope.monitorDumpFileName = settings.MonitorDumpPath != undefined ? settings.MonitorDumpPath : null;
+
+                   //$scope.smbiosDumpFileName = settings.SMBIOSDumpPath != undefined ? settings.SMBIOSDumpPath : null;
+
+                   //$scope.transactionId = settings.TransactionID;
+
+                   //$scope.productKeyId = settings.ProductKeyID;
+
+                   //$scope.rootDir = settings.RootDir;
+
+                   //$scope.mode = settings.Mode;
+
+                   //$scope.setTitle = function () {
+                   //    document.title += " - " + $scope.transactionId + " - " + $scope.productKeyId;
+                   //};
+
+                   //$scope.speakLabel = function (labelText) {
+                   //    if (labelText.toLowerCase().indexOf("passed") >= 0) {
+                   //        labelText += "Congratulations";
+                   //    }
+                   //    else if (labelText.toLowerCase().indexOf("failed") >= 0) {
+                   //        labelText += "Please verify and double check the validation report.";
+                   //    }
+
+                   //    $scope.speakOutText(labelText);
+                   //};
+
+                   //$scope.speakOutText = function (textToSay) {
+                   //    if ((textToSay != null) && (textToSay != undefined)) {
+                   //        event = new MessageEvent("SpeakTextAsync", { "view": window, "bubbles": false, "cancelable": true, 'data': (textToSay + "|") });
+                   //        document.dispatchEvent(event);
+                   //    }
+                   //};
+
+                   $scope.loadData = function () {
+                       if ((settings != null) && (settings.length > 0)) {
+                           $scope.ruleItems.splice(0);
+                           for (var i = 0; i < settings.length; i++) {
+                               $scope.ruleItems.push(settings[i]);
+                           }
+                       }
+                   };
+
+                   $scope.setCurrentDetailKeyValues = function (detailObject) {
+
+                       $scope.currentDetailKeyValues.splice(0, $scope.currentDetailKeyValues.length);
+
+                       if (($scope.testItems[$scope.currentTestItemName].Detail != undefined) && ($scope.testItems[$scope.currentTestItemName].Detail != null)) {
+                           for (var prop in detailObject) {
+                               $scope.currentDetailKeyValues.push({ "Key": prop, "Value": detailObject[prop] });
+                           }
+                       }
+                   };
+
+                   $scope.onMouseOver = function (model) {
+                       model.IsInFocus = true;
+                   };
+
+                   $scope.onMouseLeave = function (model) {
+                       model.IsInFocus = false;
+                   };
+
+                   $scope.getBackgroundColorByModel = function (model) {
+
+                       var result = model.Result;
+                       var isInFocus = model.IsInFocus;
+
+                       if (result == "Failed" && !isInFocus) {
+                           return "red";
+                       }
+                       else if (result == "Failed" && isInFocus) {
+                           return "orange";
+                       }
+                       else if (isInFocus) {
+                           return "lightblue";
+                       }
+                       else { return 'green'; }
+                       //else { return null; }
+                   };
+
+                   $scope.getBackgroundColorByResult = function (result) {
+                       if (result == "Failed") {
+                           return "red";
+                       }
+                       else { return "green"; }
+                   };
+
+                   $scope.getTotalResultLabelText = function () {
+                       var itemArray = [];
+
+                       for (var prop in $scope.testItems) {
+                           if (($scope.testItems[prop] != null) && ($scope.testItems[prop].Result != undefined) && ($scope.testItems[prop].Result != null)) {
+                               itemArray.push($scope.testItems[prop].Result.toString());
+                           }
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       $scope.totalFailureCount = failureCount;
+
+                       if (failureCount <= 0) {
+                           return "Passed";
+                       }
+                       else if (failureCount == 1) {
+                           return "1 Field Failed";
+                       }
+                       else {
+                           return failureCount.toString() + " Fields Failed"
+                       }
+                   };
+
+                   $scope.getFieldRuleItem = function (fieldName) {
+                       for (var i = 0; i < $scope.ruleItems.length; i++) {
+                           if ($scope.ruleItems[i].FieldName == fieldName) {
+                               return $scope.ruleItems[i];
+                           }
+                       }
+                   };
+
+                   $scope.getRuleDescription = function (ruleItem) {
+
+                       var ruleDescription = "";
+
+                       switch (ruleItem.RuleType) {
+                           case "EqualTo": {
+                               ruleDescription = "Value should equal to \"" + ruleItem.FieldValue + "\";";
+                               break;
+                           }
+                           case "NotEqualTo": {
+                               ruleDescription = "Value should NOT equal to \"" + ruleItem.FieldValue + "\";";
+                               break;
+                           }
+                           case "NotNull": {
+                               ruleDescription = "Value should NOT be null or empty;";
+                               break;
+                           }
+                           case "InRange": {
+                               ruleDescription = "Value should be of ";
+                               for (var i = 0; i < ruleItem.ExpectedValues.length; i++) {
+                                   ruleDescription += "\"" + ruleItem.ExpectedValues[i] + "\"";
+                                   if (i != (ruleItem.ExpectedValues.length - 1)) {
+                                       ruleDescription += ", ";
+                                   }
+                               }
+                               break;
+                           }
+                           case "OutOfRange": {
+                               ruleDescription = "Value should NOT be of ";
+                               for (var i = 0; i < ruleItem.UnexpectedValues.length; i++) {
+                                   ruleDescription += "\"" + ruleItem.UnexpectedValues[i] + "\"";
+                                   if (i != (ruleItem.UnexpectedValues.length - 1)) {
+                                       ruleDescription += ", ";
+                                   }
+                               }
+                               break;
+                           }
+                           case "Contain": {
+                               ruleDescription = "Value should at least contain the key word of \"" + ruleItem.FieldValue + "\";";
+                               break;
+                           }
+                           case "NotContain": {
+                               ruleDescription = "Value should NOT contain any piece of the key word of \"" + ruleItem.FieldValue + "\";";
+                               break;
+                           }
+                           case "Min": {
+                               ruleDescription = "Value should be greater than or equal to " + ruleItem.MinValue + ";";
+                               break;
+                           }
+                           case "Max": {
+                               ruleDescription = "Value should be less than or equal to " + ruleItem.MaxValue + ";";
+                               break;
+                           }
+                           case "MinAndMax": {
+                               ruleDescription = "Value should  both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                               break;
+                           }
+                           case "StringLength": {
+                               ruleDescription = "Value's character length should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                               break;
+                           }
+                           case "Occurrence": {
+                               ruleDescription = "The occurrence of " + ruleItem.FieldName + " should both be greater than or equal to " + ruleItem.MinValue + ", and less than or equal to " + ruleItem.MaxValue + ";";
+                               break;
+                           }
+                           default: {
+                               break;
+                           }
+                       }
+
+                       return ruleDescription;
+                   };
+
+                   $scope.getSubResultSystemInfo = function () {
+                       var itemArray = [];
+
+                       if ($scope.testItems.ProductKeyID != null) {
+                           itemArray.push($scope.testItems.ProductKeyID.Result);
+                       }
+
+                       if ($scope.testItems.OSType != null) {
+                           itemArray.push($scope.testItems.OSType.Result);
+                       }
+
+                       if ($scope.testItems.NIC != null) {
+                           itemArray.push($scope.testItems.NIC.Result);
+                       }
+
+                       if ($scope.testItems.OA3Tool != null) {
+                           itemArray.push($scope.testItems.OA3Tool.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultSmbiosFields = function () {
+                       var itemArray = [];
+
+                       if ($scope.testItems.ChassisType != null) {
+                           itemArray.push($scope.testItems.ChassisType.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosSystemManufacturer != null) {
+                           itemArray.push($scope.testItems.SmbiosSystemManufacturer.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosSystemFamily != null) {
+                           itemArray.push($scope.testItems.SmbiosSystemFamily.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosSystemProductName != null) {
+                           itemArray.push($scope.testItems.SmbiosSystemProductName.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosBoardProduct != null) {
+                           itemArray.push($scope.testItems.SmbiosBoardProduct.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosSkuNumber != null) {
+                           itemArray.push($scope.testItems.SmbiosSkuNumber.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosSystemSerialNumber != null) {
+                           itemArray.push($scope.testItems.SmbiosSystemSerialNumber.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosUuid != null) {
+                           itemArray.push($scope.testItems.SmbiosUuid.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultHardwareBasedPriceFields = function () {
+                       var itemArray = [];
+
+                       if ($scope.testItems.ChassisType != null) {
+                           itemArray.push($scope.testItems.ChassisType.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorModel != null) {
+                           itemArray.push($scope.testItems.ProcessorModel.Result);
+                       }
+
+                       if ($scope.testItems.TotalPhysicalRAM != null) {
+                           itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       }
+
+                       if ($scope.testItems.PrimaryDiskType != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       }
+
+                       if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       }
+
+                       if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       }
+
+                       if ($scope.testItems.DisplayResolutionVertical != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalH != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalY != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       }
+
+                       if ($scope.testItems.DigitizerSupportID != null) {
+                           itemArray.push($scope.testItems.DigitizerSupportID.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultPricingMatrixFields = function () {
+                       var itemArray = [];
+
+                       if ($scope.testItems.OsCpuArchitecture != null) {
+                           itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorModel != null) {
+                           itemArray.push($scope.testItems.ProcessorModel.Result);
+                       }
+
+                       if ($scope.testItems.TotalPhysicalRAM != null) {
+                           itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       }
+
+                       if ($scope.testItems.PrimaryDiskType != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       }
+
+                       if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       }
+
+                       if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       }
+
+                       if ($scope.testItems.DisplayResolutionVertical != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalH != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalY != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorPackages != null) {
+                           itemArray.push($scope.testItems.ProcessorPackages.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorThreads != null) {
+                           itemArray.push($scope.testItems.ProcessorThreads.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorCores != null) {
+                           itemArray.push($scope.testItems.ProcessorCores.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorHyperThreading != null) {
+                           itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                           itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamSlots != null) {
+                           itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamArrayCount != null) {
+                           itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                           itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                       }
+
+                       if ($scope.testItems.InternalDiskCount != null) {
+                           itemArray.push($scope.testItems.InternalDiskCount.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultPricingMatrixFieldsCPU = function () {
+                       var itemArray = [];
+
+                       if ($scope.testItems.OsCpuArchitecture != null) {
+                           itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorModel != null) {
+                           itemArray.push($scope.testItems.ProcessorModel.Result);
+                       }
+
+                       //if ($scope.testItems.TotalPhysicalRAM != null) {
+                       //    itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       //}
+
+                       //if ($scope.testItems.PrimaryDiskType != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       //}
+
+                       //if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplayResolutionVertical != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalH != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalY != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       //}
+
+                       if ($scope.testItems.ProcessorPackages != null) {
+                           itemArray.push($scope.testItems.ProcessorPackages.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorThreads != null) {
+                           itemArray.push($scope.testItems.ProcessorThreads.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorCores != null) {
+                           itemArray.push($scope.testItems.ProcessorCores.Result);
+                       }
+
+                       if ($scope.testItems.ProcessorHyperThreading != null) {
+                           itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                       }
+
+                       //if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamSlots != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamArrayCount != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                       //}
+
+                       //if ($scope.testItems.InternalDiskCount != null) {
+                       //    itemArray.push($scope.testItems.InternalDiskCount.Result);
+                       //}
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultPricingMatrixFieldsRAM = function () {
+                       var itemArray = [];
+
+                       //if ($scope.testItems.OsCpuArchitecture != null) {
+                       //    itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorModel != null) {
+                       //    itemArray.push($scope.testItems.ProcessorModel.Result);
+                       //}
+
+                       if ($scope.testItems.TotalPhysicalRAM != null) {
+                           itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       }
+
+                       //if ($scope.testItems.PrimaryDiskType != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       //}
+
+                       //if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplayResolutionVertical != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalH != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalY != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorPackages != null) {
+                       //    itemArray.push($scope.testItems.ProcessorPackages.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorThreads != null) {
+                       //    itemArray.push($scope.testItems.ProcessorThreads.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorCores != null) {
+                       //    itemArray.push($scope.testItems.ProcessorCores.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorHyperThreading != null) {
+                       //    itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                       //}
+
+                       if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                           itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamSlots != null) {
+                           itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamArrayCount != null) {
+                           itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                       }
+
+                       if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                           itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                       }
+
+                       //if ($scope.testItems.InternalDiskCount != null) {
+                       //    itemArray.push($scope.testItems.InternalDiskCount.Result);
+                       //}
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultPricingMatrixFieldsStorage = function () {
+                       var itemArray = [];
+
+                       //if ($scope.testItems.OsCpuArchitecture != null) {
+                       //    itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorModel != null) {
+                       //    itemArray.push($scope.testItems.ProcessorModel.Result);
+                       //}
+
+                       //if ($scope.testItems.TotalPhysicalRAM != null) {
+                       //    itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       //}
+
+                       if ($scope.testItems.PrimaryDiskType != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       }
+
+                       if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                           itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       }
+
+                       //if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplayResolutionVertical != null) {
+                       //    itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalH != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       //}
+
+                       //if ($scope.testItems.DisplaySizePhysicalY != null) {
+                       //    itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorPackages != null) {
+                       //    itemArray.push($scope.testItems.ProcessorPackages.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorThreads != null) {
+                       //    itemArray.push($scope.testItems.ProcessorThreads.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorCores != null) {
+                       //    itemArray.push($scope.testItems.ProcessorCores.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorHyperThreading != null) {
+                       //    itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamSlots != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamArrayCount != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                       //}
+
+                       if ($scope.testItems.InternalDiskCount != null) {
+                           itemArray.push($scope.testItems.InternalDiskCount.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getSubResultPricingMatrixFieldsScreenSize = function () {
+                       var itemArray = [];
+
+                       //if ($scope.testItems.OsCpuArchitecture != null) {
+                       //    itemArray.push($scope.testItems.OsCpuArchitecture.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorModel != null) {
+                       //    itemArray.push($scope.testItems.ProcessorModel.Result);
+                       //}
+
+                       //if ($scope.testItems.TotalPhysicalRAM != null) {
+                       //    itemArray.push($scope.testItems.TotalPhysicalRAM.Result);
+                       //}
+
+                       //if ($scope.testItems.PrimaryDiskType != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskType.Result);
+                       //}
+
+                       //if ($scope.testItems.PrimaryDiskTotalCapacity != null) {
+                       //    itemArray.push($scope.testItems.PrimaryDiskTotalCapacity.Result);
+                       //}
+
+                       if ($scope.testItems.DisplayResolutionHorizontal != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionHorizontal.Result);
+                       }
+
+                       if ($scope.testItems.DisplayResolutionVertical != null) {
+                           itemArray.push($scope.testItems.DisplayResolutionVertical.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalH != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalH.Result);
+                       }
+
+                       if ($scope.testItems.DisplaySizePhysicalY != null) {
+                           itemArray.push($scope.testItems.DisplaySizePhysicalY.Result);
+                       }
+
+                       //if ($scope.testItems.ProcessorPackages != null) {
+                       //    itemArray.push($scope.testItems.ProcessorPackages.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorThreads != null) {
+                       //    itemArray.push($scope.testItems.ProcessorThreads.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorCores != null) {
+                       //    itemArray.push($scope.testItems.ProcessorCores.Result);
+                       //}
+
+                       //if ($scope.testItems.ProcessorHyperThreading != null) {
+                       //    itemArray.push($scope.testItems.ProcessorHyperThreading.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamErrorCorrection != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamErrorCorrection.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamSlots != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamSlots.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamArrayCount != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamArrayCount.Result);
+                       //}
+
+                       //if ($scope.testItems.SmbiosRamMaximumCapacity != null) {
+                       //    itemArray.push($scope.testItems.SmbiosRamMaximumCapacity.Result);
+                       //}
+
+                       if ($scope.testItems.InternalDiskCount != null) {
+                           itemArray.push($scope.testItems.InternalDiskCount.Result);
+                       }
+
+                       var failureCount = $scope.getFailureCount(itemArray);
+
+                       return failureCount <= 0 ? "Passed" : "Failed";
+                   };
+
+                   $scope.getFailureCount = function (itemArray) {
+                       var failureCount = 0;
+
+                       for (var i = 0; i < itemArray.length; i++) {
+                           if (itemArray[i].toString().toLowerCase() == "failed") {
+                               failureCount++;
+                           }
+                       }
+
+                       return failureCount;
+                   };
+
+                   $scope.getValueLength = function (value) {
+                       return String(value).length;
+                   };
+
+                   $scope.saveZip = function () {
+                       //alert($scope.zipArchiveFileName);
+                       event = new MessageEvent("SaveFile", { "view": window, "bubbles": false, "cancelable": true, 'data': $scope.zipArchiveFileName });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.showLog = function () {
+                       //alert($scope.logFileName);
+                       event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.logFileName) });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.showTrace = function () {
+                       //alert($scope.logFileName);
+                       event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.traceXmlFileName) });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.showMonitorDump = function () {
+                       //alert($scope.logFileName);
+                       event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.monitorDumpFileName) });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.showSMBIOSDump = function () {
+                       //alert($scope.logFileName);
+                       event = new MessageEvent("RunApp", { "view": window, "bubbles": false, "cancelable": true, 'data': ('notepad|' + $scope.smbiosDumpFileName) });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.closeWindow = function () {
+                       event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                       document.dispatchEvent(event);
+                   };
+
+                   $scope.showProgress = function () {
+                       $scope.currentDialog = ngDialog.open({
+                           scope: $scope,
+                           className: 'ngdialog-theme-default',
+                           template: 'progress-template.html',//'<img src=\"/theme/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                           //plain: true,
+                           showClose: false,
+                           closeByDocument: false,
+                           closeByEscape: false,
+                           width: 100,
+                           preCloseCallback: function (value) {
+                               return true;
+                           }
+                       });
+                   };
+
+                   $scope.hideProgress = function () {
+                       ngDialog.closeAll();
+                   };
+
+                   $scope.closeDialog = function () {
+                       ngDialog.closeAll();
+                   };
+
+                   $scope.showDetailDialog = function (testItemName, templateName) {
+
+                       $scope.currentTestItemName = testItemName;
+
+                       if ($scope.testItems[$scope.currentTestItemName] != null) {
+
+                           $scope.setCurrentDetailKeyValues($scope.testItems[$scope.currentTestItemName].Detail);
+
+                           $scope.currentDialog = ngDialog.open({
+                               scope: $scope,
+                               className: 'ngdialog-theme-default',
+                               template: templateName,
+                               //plain: true,
+                               showClose: true,
+                               closeByDocument: false,
+                               closeByEscape: false,
+                               width: 500,
+                               preCloseCallback: function (value) {
+                                   return true;
+                               }
+                           });
+                       }
+                   };
+               });
+    </script>
+</body>
+</html>

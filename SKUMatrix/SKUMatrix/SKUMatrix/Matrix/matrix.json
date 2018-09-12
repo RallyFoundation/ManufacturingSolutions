@@ -1,0 +1,159 @@
+{
+  "Data": [
+    {
+      "id": "E9A9682F-B7F6-4A71-B8FD-7B7C22F45FA6",
+      "FieldName": "OsCpuArchitecture",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "EqualTo",
+      "FieldValue": "x86",
+      "QuotedFields": null
+    },
+    {
+      "id": "A38D0E09-F424-44E3-B628-7EFAB95B07CC",
+      "FieldName": "ProcessorModel",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "InRange",
+      "ExpectedValues": [ "Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz" ],
+      "QuotedFields": null
+    },
+    {
+      "id": "F51994B1-4A16-4E92-A422-30B624C27C9E",
+      "FieldName": "ProcessorPackages",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 1,
+      "QuotedFields": null
+    },
+    {
+      "id": "55678F05-587C-45C7-86C9-D98A5EEAD70F",
+      "FieldName": "ProcessorThreads",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 4,
+      "QuotedFields": null
+    },
+    {
+      "id": "D3A706D7-03D4-45CA-AAA8-7F62BD0E583E",
+      "FieldName": "ProcessorCores",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 2,
+      "QuotedFields": null
+    },
+    {
+      "id": "B8D38E7B-996C-4B48-9E70-D0681B8B0DF0",
+      "FieldName": "ProcessorHyperThreading",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "EqualTo",
+      "FieldValue": "true",
+      "QuotedFields": null
+    },
+    {
+      "id": "0A5259BA-59F8-4ACB-B9D8-7AA36E5D67DD",
+      "FieldName": "SmbiosRamErrorCorrection",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "EqualTo",
+      "FieldValue": "None",
+      "QuotedFields": null
+    },
+    {
+      "id": "D3A706D7-03D4-45CA-AAA8-7F62BD0E583E",
+      "FieldName": "SmbiosRamSlots",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 2,
+      "QuotedFields": null
+    },
+    {
+      "id": "70A3DAF3-A3DC-483D-8C11-8ADE47441E14",
+      "FieldName": "SmbiosRamArrayCount",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 2,
+      "QuotedFields": null
+    },
+    {
+      "id": "6AEFEEE7-98B3-43DC-80E3-72845D1303B5",
+      "FieldName": "SmbiosRamMaximumCapacity",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 8,
+      "MaxValue": 16,
+      "QuotedFields": null
+    },
+    {
+      "id": "594F9E09-7D80-470A-8699-FEC97E9B3975",
+      "FieldName": "TotalPhysicalRAM",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 8,
+      "MaxValue": 8,
+      "QuotedFields": null
+    },
+    {
+      "id": "66E89F63-8C77-4F5C-96FA-31E87B59EFAF",
+      "FieldName": "InternalDiskCount",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 1,
+      "MaxValue": 2,
+      "QuotedFields": null
+    },
+    {
+      "id": "C8FDAAA5-F636-4B05-9110-62E964F49FB2",
+      "FieldName": "PrimaryDiskTotalCapacity",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 8,
+      "MaxValue": 500,
+      "QuotedFields": null
+    },
+    {
+      "id": "03AFC76F-933D-4531-A905-68DF20EAF8FD",
+      "FieldName": "PrimaryDiskType",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "EqualTo",
+      "FieldValue": "HDD",
+      "QuotedFields": null
+    },
+    {
+      "id": "3D1BB043-25C9-4271-A650-49C5E13930BE",
+      "FieldName": "DisplaySizePhysicalH",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 309,
+      "MaxValue": 309,
+      "QuotedFields": null
+    },
+    {
+      "id": "6ABADFEF-8A00-4973-84EE-068D28DC5F9B",
+      "FieldName": "DisplaySizePhysicalY",
+      "GroupName": "Pricing",
+      "Enabled": true,
+      "RuleType": "MinAndMax",
+      "MinValue": 174,
+      "MaxValue": 174,
+      "QuotedFields": null
+    }
+  ]
+}
