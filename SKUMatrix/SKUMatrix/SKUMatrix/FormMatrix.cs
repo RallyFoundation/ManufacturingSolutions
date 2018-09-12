@@ -97,106 +97,113 @@ namespace SKUMatrix
 
         private void metroTileOfflineCheck_Click(object sender, EventArgs e)
         {
-            this.transactionId = Guid.NewGuid().ToString();
-
-            if (this.openFileDialogDecoded4KHH.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                Global.DefaultDataPath = this.openFileDialogDecoded4KHH.FileName;
-            }
+                this.transactionId = Guid.NewGuid().ToString();
 
-            Facade.InstantiateInputData();
-
-            if ((Facade.Data != null) && (Facade.Data.ContainsKey("ProductKeyPkPn")))
-            {
-                this.currentPKPN = Facade.Data["ProductKeyPkPn"].ToString();
-                this.currentPKPN = currentPKPN.Substring((currentPKPN.IndexOf("]") + 1));
-
-                string matrixFullPath = this.GetFullPath(String.Format("Matrix\\{0}\\matrix.json", this.currentPKPN));
-
-                if (File.Exists(matrixFullPath))
+                if (this.openFileDialogDecoded4KHH.ShowDialog(this) == DialogResult.OK)
                 {
-                    Global.DefaultMatrixConfigPath = matrixFullPath;
-                    Facade.InitializeMatrix();
+                    Global.DefaultDataPath = this.openFileDialogDecoded4KHH.FileName;
+                }
 
-                    Facade.AddRule(new ValidationRuleItem() {  FieldName = "ProductKeyID", FieldValue = Facade.Data["ProductKeyID"].ToString(), GroupName = "Pricing", RuleType = RuleType.EqualTo, Enabled = true });
+                Facade.InstantiateInputData();
 
-                    Facade.AddRule(new ValidationRuleItem() { FieldName = "ProductKeyPkPn", FieldValue = Facade.Data["ProductKeyPkPn"].ToString(), GroupName = "Pricing", RuleType = RuleType.EqualTo, Enabled = true });
+                if ((Facade.Data != null) && (Facade.Data.ContainsKey("ProductKeyPkPn")))
+                {
+                    this.currentPKPN = Facade.Data["ProductKeyPkPn"].ToString();
+                    this.currentPKPN = currentPKPN.Substring((currentPKPN.IndexOf("]") + 1));
 
-                    Facade.ValidateData();    
+                    string matrixFullPath = this.GetFullPath(String.Format("Matrix\\{0}\\matrix.json", this.currentPKPN));
 
-                    if (Facade.Results != null)
+                    if (File.Exists(matrixFullPath))
                     {
-                        string workDir = this.GetFullPath(String.Format("{0}\\{1}", this.outputPath, this.transactionId));
+                        Global.DefaultMatrixConfigPath = matrixFullPath;
+                        Facade.InitializeMatrix();
 
-                        string resultXml = Facade.OutputResultXml();
+                        Facade.AddRule(new ValidationRuleItem() { FieldName = "ProductKeyID", FieldValue = Facade.Data["ProductKeyID"].ToString(), GroupName = "Pricing", RuleType = RuleType.EqualTo, Enabled = true });
 
-                        string resultJson = JsonUtility.GetJsonFromXml(resultXml, true, false);
+                        Facade.AddRule(new ValidationRuleItem() { FieldName = "ProductKeyPkPn", FieldValue = Facade.Data["ProductKeyPkPn"].ToString(), GroupName = "Pricing", RuleType = RuleType.EqualTo, Enabled = true });
 
-                        if (!String.IsNullOrEmpty(resultXml))
+                        Facade.ValidateData();
+
+                        if (Facade.Results != null)
                         {
-                            Directory.CreateDirectory(workDir);
+                            string workDir = this.GetFullPath(String.Format("{0}\\{1}", this.outputPath, this.transactionId));
 
-                            string resultXmlPath = workDir + "\\Result.xml";
+                            string resultXml = Facade.OutputResultXml();
 
-                            using (FileStream stream = new FileStream(resultXmlPath, FileMode.Create, FileAccess.Write, FileShare.Write))
+                            string resultJson = JsonUtility.GetJsonFromXml(resultXml, true, false);
+
+                            if (!String.IsNullOrEmpty(resultXml))
+                            {
+                                Directory.CreateDirectory(workDir);
+
+                                string resultXmlPath = workDir + "\\Result.xml";
+
+                                using (FileStream stream = new FileStream(resultXmlPath, FileMode.Create, FileAccess.Write, FileShare.Write))
+                                {
+                                    using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                                    {
+                                        writer.Write(resultXml);
+                                    }
+                                }
+                            }
+
+                            if (!String.IsNullOrEmpty(resultJson))
+                            {
+                                string resultJsonPath = workDir + "\\Result.json";
+
+                                using (FileStream stream = new FileStream(resultJsonPath, FileMode.Create, FileAccess.Write, FileShare.Write))
+                                {
+                                    using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                                    {
+                                        writer.Write(resultJson);
+                                    }
+                                }
+
+                                using (FileStream stream = new FileStream("data.json", FileMode.Create, FileAccess.Write, FileShare.Write))
+                                {
+                                    using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+                                    {
+                                        writer.Write("AppData=" + resultJson);
+                                    }
+                                }
+                            }
+
+                            string matrixJson = "";
+
+                            using (FileStream stream = new FileStream(matrixFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                            {
+                                using (StreamReader reader = new StreamReader(stream))
+                                {
+                                    matrixJson = reader.ReadToEnd();
+                                }
+                            }
+
+                            using (FileStream stream = new FileStream("matrix.json", FileMode.Create, FileAccess.Write, FileShare.Write))
                             {
                                 using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
                                 {
-                                    writer.Write(resultXml);
-                                }
-                            }
-                        }
-
-                        if (!String.IsNullOrEmpty(resultJson))
-                        {
-                            string resultJsonPath = workDir + "\\Result.json";
-
-                            using (FileStream stream = new FileStream(resultJsonPath, FileMode.Create, FileAccess.Write, FileShare.Write))
-                            {
-                                using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
-                                {
-                                    writer.Write(resultJson);
+                                    writer.Write("Settings=" + matrixJson);
                                 }
                             }
 
-                            using (FileStream stream = new FileStream("data.json", FileMode.Create, FileAccess.Write, FileShare.Write))
-                            {
-                                using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
-                                {
-                                    writer.Write("AppData=" + resultJson);
-                                }
-                            }
+                            this.metroTabControlMain.SelectedTab = this.metroTabPageResult;
+                            this.Navigate(this.url);
                         }
+                    }
+                    else
+                    {
+                        string message = String.Format("The matrix for the PKPN of \"{0}\" does NOT exist! Please update the matrix data.", this.currentPKPN);
+                        MessageBox.Show(message, "Matrix Does NOT Exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                        string matrixJson = "";
-
-                        using (FileStream stream = new FileStream(matrixFullPath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                        {
-                            using (StreamReader reader = new StreamReader(stream))
-                            {
-                                matrixJson = reader.ReadToEnd();
-                            }
-                        }
-
-                        using (FileStream stream = new FileStream("matrix.json", FileMode.Create, FileAccess.Write, FileShare.Write))
-                        {
-                            using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
-                            {
-                                writer.Write("Settings=" + matrixJson);
-                            }
-                        }
-
-                        this.metroTabControlMain.SelectedTab = this.metroTabPageResult;
-                        this.Navigate(this.url);
+                        return;
                     }
                 }
-                else
-                {
-                    string message = String.Format("The matrix for the PKPN of \"{0}\" does NOT exist! Please update the matrix data.", this.currentPKPN);
-                    MessageBox.Show(message, "Matrix Does NOT Exist", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    return;
-                }        
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Errors Occurred", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
