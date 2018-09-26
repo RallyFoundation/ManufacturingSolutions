@@ -9,20 +9,56 @@
     <AssemblyName>MyApplication</AssemblyName>
     <Name>ControlScripts</Name>
     <PostBuildScript>Copy-Item .\Script ..\bin\Release -Recurse -Force
-Copy-Item .\Dump ..\bin\Release\Module -Recurse -Force
+Copy-Item .\Dump ..\bin\Release\Module\Dump -Recurse -Force
 Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
+Copy-Item ..\bin\Release\netcoreapp2.1\Config ..\bin\Release\ -Recurse -Force
+Copy-Item ..\bin\Release\netcoreapp2.1\Xslt ..\bin\Release\ -Recurse -Force
+Copy-Item ..\bin\Release\netcoreapp2.1\Data ..\bin\Release\ -Recurse -Force
+
 #Copy-Item "..\HQA Tool Version 1.0.txt" ..\bin\Release -Recurse -Force
 #Copy-Item "..\HQA Tool Third Party Notices.txt" ..\bin\Release -Recurse -Force
 #Copy-Item "..\Microsoft HQA Tool EULA.docx" ..\bin\Release -Recurse -Force
-New-Item -Path ..\bin\Release\Module -Name XsltExtension -Type Directory -Force
-Copy-Item ..\bin\Release\BusinessRule.dll  ..\bin\Release\Module\XsltExtension\BusinessRule.dll -Force
-Remove-Item ..\bin\Release\*.pdb -Force
-Remove-Item ..\bin\Release\*.dll -Force
-Remove-Item ..\bin\Release\Module\DataProcessing\*.pdb -Recurse -Force
-Remove-Item ..\bin\Release\Module\Validation\*.pdb -Recurse -Force
-Remove-Item ..\bin\Release\Module\UI\*.pdb -Recurse -Force
-Remove-Item ..\bin\Release\Module\UI\Views\*.pdb -Force
-Remove-Item ..\bin\Release\Module\UI\Views\*.dll -Force</PostBuildScript>
+
+New-Item -Path ..\bin\Release\Module -Name Extension -Type Directory -Force
+
+New-Item -Path ..\bin\Release\Module -Name DataProcessing -Type Directory -Force
+
+New-Item -Path ..\bin\Release\Module -Name Validation -Type Directory -Force
+
+Remove-Item ..\bin\Release\netcoreapp2.1\*.pdb -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Extension.BusinessRule.*  ..\bin\Release\Module\Extension\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.PowerShell.DataProcessing.*  ..\bin\Release\Module\DataProcessing\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Core.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Model.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Facade.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Rule.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Mapper.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Reducer.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Utility.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.PowerShell.Validation.*  ..\bin\Release\Module\Validation\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\Online.*  ..\bin\Release\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\app-config-online.json  ..\bin\Release\ -Force
+
+Remove-Item ..\bin\Release\netcoreapp2.1\ -Force
+
+#Remove-Item ..\bin\Release\*.dll -Force
+#Remove-Item ..\bin\Release\Module\DataProcessing\*.pdb -Recurse -Force
+#Remove-Item ..\bin\Release\Module\Validation\*.pdb -Recurse -Force
+#Remove-Item ..\bin\Release\Module\UI\*.pdb -Recurse -Force
+#Remove-Item ..\bin\Release\Module\UI\Views\*.pdb -Force
+#Remove-Item ..\bin\Release\Module\UI\Views\*.dll -Force</PostBuildScript>
     <PackageEntryPoint>Script\validate-online.ps1</PackageEntryPoint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
