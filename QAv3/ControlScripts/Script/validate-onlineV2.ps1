@@ -558,24 +558,24 @@ $XsltArgs.Add("mode", "online");
 $ResultHtml = New-XsltTransformation -XmlString $ResultXml.InnerXml -XsltPath $XsltHtmlPath -OutputEncoding "utf-8" -XsltArguments $XsltArgs -XsltExtendedObjects $XsltExtObjs;
 $ResultHtml | Out-File -Encoding utf8 -FilePath $ResultHtmlFilePath -Force;
 
-$SMBInfo = Get-WmiObject MSSmBios_RawSMBiosTables -Namespace Root\Wmi;
-$MonitorInfo = Get-WmiObject -Namespace Root\Wmi -Clas WmiMonitorId;
-#$ProcessorInfo = Get-WmiObject -ClassName Win32_Processor;
-$SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
+#$SMBInfo = Get-WmiObject MSSmBios_RawSMBiosTables -Namespace Root\Wmi;
+#$MonitorInfo = Get-WmiObject -Namespace Root\Wmi -Clas WmiMonitorId;
+##$ProcessorInfo = Get-WmiObject -ClassName Win32_Processor;
+#$SystemInfo = Get-CimInstance -ClassName Win32_ComputerSystem;
 
-$SMBInfoJson = ($SMBInfo | ConvertTo-Json);
-$MonitorInfoJson = ($MonitorInfo | ConvertTo-Json);
-#$ProcessorInfoJson = ($ProcessorInfo | ConvertTo-Json);
-$SystemInfoJson =  ($SystemInfo | ConvertTo-Json);
+#$SMBInfoJson = ($SMBInfo | ConvertTo-Json);
+#$MonitorInfoJson = ($MonitorInfo | ConvertTo-Json);
+##$ProcessorInfoJson = ($ProcessorInfo | ConvertTo-Json);
+#$SystemInfoJson =  ($SystemInfo | ConvertTo-Json);
 
 $ReportTraceJson = (Get-JsonFromXml -XmlString $ReportTrace.InnerXml -Indent);
 $HardwareHashDecodeJson = (Get-JsonFromXml -XmlString $HardwareHashDecode.InnerXml -Indent);
 $ProductKeyInfoJson = (Get-JsonFromXml -XmlString $ProductKeyInfo.InnerXml -Indent);
 
-$SMBInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SMBInfo.json") -Force;
-$MonitorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_MonitorInfo.json") -Force;
-#$ProcessorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Result\processorInfo_" + $TransactionID + "_" + $ProductKeyID + ".json") -Force;
-$SystemInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SystemInfo.json") -Force;
+#$SMBInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SMBInfo.json") -Force;
+#$MonitorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_MonitorInfo.json") -Force;
+##$ProcessorInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Result\processorInfo_" + $TransactionID + "_" + $ProductKeyID + ".json") -Force;
+#$SystemInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_SystemInfo.json") -Force;
 
 $ReportTraceJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.json") -Force;
 $HardwareHashDecodeJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Decode.json") -Force;

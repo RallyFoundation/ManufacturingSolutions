@@ -45,6 +45,8 @@ Copy-Item ..\bin\Release\netcoreapp2.1\QA.Reducer.*  ..\bin\Release\Module\Valid
 
 Copy-Item ..\bin\Release\netcoreapp2.1\QA.Utility.*  ..\bin\Release\Module\Validation\ -Force
 
+Copy-Item ..\bin\Release\netcoreapp2.1\QA.Utility.*  ..\bin\Release\Module\DataProcessing\ -Force
+
 Copy-Item ..\bin\Release\netcoreapp2.1\QA.PowerShell.Validation.*  ..\bin\Release\Module\Validation\ -Force
 
 Copy-Item ..\bin\Release\netcoreapp2.1\Online.*  ..\bin\Release\ -Force
