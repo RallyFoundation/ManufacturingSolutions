@@ -29,7 +29,7 @@ namespace QA.Online
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("app-config.json")
+                .AddJsonFile("app-config-online.json")
                 .AddVariableConfiguration();
 
             var config =  builder.Build();

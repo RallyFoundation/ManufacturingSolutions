@@ -26,19 +26,19 @@ if($PowerShellVersionInfo.PSVersion.Major -lt 5)
    }
 }
 
-if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
-{
-   $Host.UI.RawUI.BackgroundColor = "Red";
-   $Host.UI.RawUI.ForegroundColor = "Yellow";
-   Write-Host -Object ".NET Framework 4.52 is required!";
-   Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
-   exit;
+#if($PowerShellVersionInfo.CLRVersion.Major -lt 4)
+#{
+#   $Host.UI.RawUI.BackgroundColor = "Red";
+#   $Host.UI.RawUI.ForegroundColor = "Yellow";
+#   Write-Host -Object ".NET Framework 4.52 is required!";
+#   Read-Host -Prompt ".NET Framework 4.52 is required!`nPress any key to exit...";
+#   exit;
 
-   if($StayInHost -eq $false)
-   {
-	  $Host.SetShouldExit(1);
-   }
-}
+#   if($StayInHost -eq $false)
+#   {
+#	  $Host.SetShouldExit(1);
+#   }
+#}
 
 if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
 {
@@ -88,13 +88,13 @@ if([System.IO.Directory]::Exists($InputPath) -eq $false)
 
 $ValidationModulePath = $RootDir + "\Module\Validation\QA.PowerShell.Validation.dll";
 
-$DataProcessingModulePath = $RootDir + "\Module\DataProcessing\PowerShellDataProcessing.dll";
+$DataProcessingModulePath = $RootDir + "\Module\DataProcessing\QA.PowerShell.DataProcessing.dll";
 
-$XsltExtensionObjectPath = $RootDir + "\Module\XsltExtension\BusinessRule.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
+$XsltExtensionObjectPath = $RootDir + "\Module\Extension\QA.Extension.BusinessRule.dll";#$RootDir + "\Module\XsltExtension\XsltExtension.cs";
 
 $QAModelObjectPath = $RootDir + "\Module\Validation\QA.Model.dll";
 
-$LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
+#$LoadingHtmlPath = $RootDir + "\Module\UI\Loading.html";
 
 $OA3ReportXmlSchemaPath = $RootDir + "\Data\SchemaOA3ToolReportKey.xsd";
 
