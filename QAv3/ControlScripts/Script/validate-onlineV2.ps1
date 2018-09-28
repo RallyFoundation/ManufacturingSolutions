@@ -487,7 +487,7 @@ if($ShouldByPassDPKChecking -eq $false)
 {
 	$MatrixPath = ($RootDir + "\Matrix\" + $ProductKeyPN + "\matrix.json");
 
-	if([System.IO.File]::Exists($MatrixPath))
+	if([System.IO.File]::Exists($MatrixPath) -eq $true)
 	{
 		$RulesObj = Initialize-Matrix -DefaultMatrixPath $MatrixPath;
 	}
@@ -590,7 +590,17 @@ Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
 Copy-Item -Path $ReportFilePath -Destination $ReportXmlOutputPath -Force;
 
 #$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
-$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath);
+#$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath);
+
+[System.String]$TransLogPath = ($LogPath + "\" + $TransactionID + ".log");
+
+$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
+
+if([System.IO.File]::Exists($TransLogPath) -eq $true)
+{
+    $FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $TransLogPath);
+}
+
 $ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
 
 #New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
