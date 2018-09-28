@@ -589,10 +589,12 @@ Copy-Item -Path $TraceFilePath -Destination $TraceXmlOutputPath -Force;
 Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
 Copy-Item -Path $ReportFilePath -Destination $ReportXmlOutputPath -Force;
 
-$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
+#$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
+$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath);
 $ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
 
-New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
+#New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
+Compress-Archive -Path $FilePathsForZip -DestinationPath $ZippedFilePath -Update -CompressionLevel Fastest;
 
 #$ProductKeyInfo.Save($RootDir + "\Input\" + $TransactionID + "_Report.xml");
 
@@ -626,23 +628,23 @@ Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 
 if($ByPassUI -eq $false)
 {
-    $AppDataResultJson = ("AppData=" + $ResultJson);
-	$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
+ #   $AppDataResultJson = ("AppData=" + $ResultJson);
+	#$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
 
-	$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
-	$AppSettings.Add("Mode", "Online");
-	$AppSettings.Add("TransactionID", $TransactionID);
-	$AppSettings.Add("ProductKeyID", $ProductKeyID);
-	$AppSettings.Add("RootDir", $RootDir);
-	$AppSettings.Add("ZipFilePath", $ZippedFilePath);
-	$AppSettings.Add("LogFilePath", ($LogPath + "\" + $TransactionID + ".log"));
-	$AppSettings.Add("SMBIOSDumpPath", $SMBIOSDumpPath);
-	$AppSettings.Add("MonitorDumpPath", $MonitorDumpPath);
-	$AppSettings.Add("TraceXmlOutputPath", $TraceXmlOutputPath);
+	#$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
+	#$AppSettings.Add("Mode", "Online");
+	#$AppSettings.Add("TransactionID", $TransactionID);
+	#$AppSettings.Add("ProductKeyID", $ProductKeyID);
+	#$AppSettings.Add("RootDir", $RootDir);
+	#$AppSettings.Add("ZipFilePath", $ZippedFilePath);
+	#$AppSettings.Add("LogFilePath", ($LogPath + "\" + $TransactionID + ".log"));
+	#$AppSettings.Add("SMBIOSDumpPath", $SMBIOSDumpPath);
+	#$AppSettings.Add("MonitorDumpPath", $MonitorDumpPath);
+	#$AppSettings.Add("TraceXmlOutputPath", $TraceXmlOutputPath);
 
-	$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
-	$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
-	$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\config.json") -Force;
+	#$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
+	#$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
+	#$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\config.json") -Force;
 
 	$Message = [System.String]::Format("Launching Report..., {0}", [System.DateTime]::Now);
 	$Message;
@@ -678,7 +680,9 @@ if($ByPassUI -eq $false)
 			#exit;
 		}
 		1 {
-			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -Wait -NoNewWindow;
+			#Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -Wait -NoNewWindow;
+
+			Start-Process -FilePath ([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
 		}
 	}
 }

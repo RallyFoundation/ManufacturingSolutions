@@ -565,10 +565,13 @@ $ReportXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductK
 Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
 Copy-Item -Path ($RootDir + "\Input\" + $TransactionID + "_Report.xml") -Destination $ReportXmlOutputPath -Force;
 
-$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));#@($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
+#$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));#@($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
+$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
 $ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
 
-New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);;
+#New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);;
+
+Compress-Archive -Path $FilePathsForZip -DestinationPath $ZippedFilePath -Update -CompressionLevel Fastest;
 
 #$IE = New-Object -COM InternetExplorer.Application;
 #$IE.Navigate2([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
@@ -603,23 +606,23 @@ Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 
 if($ByPassUI -eq $false)
 {
-	$AppDataResultJson = ("AppData=" + $ResultJson);
-	$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
+	#$AppDataResultJson = ("AppData=" + $ResultJson);
+	#$AppDataResultJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\data.json") -Force;
 
-	$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
-	$AppSettings.Add("Mode", "Offline");
-	$AppSettings.Add("TransactionID", $TransactionID);
-	$AppSettings.Add("ProductKeyID", $ProductKeyID);
-	$AppSettings.Add("RootDir", $RootDir);
-	$AppSettings.Add("ZipFilePath", $ZippedFilePath);
-	$AppSettings.Add("LogFilePath", ($LogPath + "\" + $TransactionID + ".log"));
+	#$AppSettings = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
+	#$AppSettings.Add("Mode", "Offline");
+	#$AppSettings.Add("TransactionID", $TransactionID);
+	#$AppSettings.Add("ProductKeyID", $ProductKeyID);
+	#$AppSettings.Add("RootDir", $RootDir);
+	#$AppSettings.Add("ZipFilePath", $ZippedFilePath);
+	#$AppSettings.Add("LogFilePath", ($LogPath + "\" + $TransactionID + ".log"));
 	#$AppSettings.Add("SMBIOSDumpPath", $SMBIOSDumpPath);
 	#$AppSettings.Add("MonitorDumpPath", $MonitorDumpPath);
 	#$AppSettings.Add("TraceXmlOutputPath", $TraceXmlOutputPath);
 
-	$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
-	$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
-	$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\config.json") -Force;
+	#$AppSettingsJson = ConvertTo-Json -InputObject $AppSettings -Compress;
+	#$AppSettingsJson = "Settings={`"Data`":" + $AppSettingsJson + "}";
+	#$AppSettingsJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Module\UI\Views\config.json") -Force;
 
 	$Message = [System.String]::Format("Launching Report..., {0}", [System.DateTime]::Now);
 	$Message;
@@ -655,7 +658,9 @@ if($ByPassUI -eq $false)
 			#exit;
 		}
 		1 {
-			Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -Wait -NoNewWindow;
+			#Start-Process -FilePath ($RootDir + "\Module\UI\WebViewPlus.exe") -Wait -NoNewWindow;
+
+			Start-Process -FilePath ([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
 		}
 	}
 }
