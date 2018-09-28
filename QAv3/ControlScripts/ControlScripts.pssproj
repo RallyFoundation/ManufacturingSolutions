@@ -19,6 +19,16 @@ Copy-Item ..\bin\Release\netcoreapp2.1\Data ..\bin\Release\ -Recurse -Force
 #Copy-Item "..\HQA Tool Third Party Notices.txt" ..\bin\Release -Recurse -Force
 #Copy-Item "..\Microsoft HQA Tool EULA.docx" ..\bin\Release -Recurse -Force
 
+New-Item -Path ..\bin\Release -Name PowerShell -Type Directory -Force
+
+New-Item -Path ..\bin\Release\PowerShell -Name x86 -Type Directory -Force
+
+New-Item -Path ..\bin\Release\PowerShell -Name x64 -Type Directory -Force
+
+New-Item -Path ..\bin\Release\PowerShell -Name win-arm32 -Type Directory -Force
+
+New-Item -Path ..\bin\Release\PowerShell -Name win-arm64 -Type Directory -Force
+
 New-Item -Path ..\bin\Release\Module -Name Extension -Type Directory -Force
 
 New-Item -Path ..\bin\Release\Module -Name DataProcessing -Type Directory -Force
