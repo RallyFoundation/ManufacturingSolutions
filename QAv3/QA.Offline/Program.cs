@@ -1,13 +1,9 @@
 ﻿using System;
-//using System.Text;
 using System.IO;
 using System.Diagnostics;
-//using System.Configuration;
-//using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
-//using VariableConfig;
 
-namespace QA.Online
+namespace QA.Offline
 {
     class Program
     {
@@ -32,7 +28,7 @@ namespace QA.Online
                 .AddJsonFile("app-config-online.json")
                 .AddVariableConfiguration();
 
-            var config =  builder.Build();
+            var config = builder.Build();
 
             ExePath = config["ExePath"];
             ScriptPath = config["ScriptPath"];
@@ -267,7 +263,7 @@ namespace QA.Online
                 {
                     writer.WriteLine(e.Data);
                 }
-            }    
+            }
         }
     }
 }

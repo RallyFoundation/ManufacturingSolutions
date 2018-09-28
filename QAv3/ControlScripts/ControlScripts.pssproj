@@ -51,7 +51,10 @@ Copy-Item ..\bin\Release\netcoreapp2.1\QA.PowerShell.Validation.*  ..\bin\Releas
 
 Copy-Item ..\bin\Release\netcoreapp2.1\Online.*  ..\bin\Release\ -Force
 
+Copy-Item ..\bin\Release\netcoreapp2.1\Offline.*  ..\bin\Release\ -Force
 Copy-Item ..\bin\Release\netcoreapp2.1\app-config-online.json  ..\bin\Release\ -Force
+
+Copy-Item ..\bin\Release\netcoreapp2.1\app-config-offline.json  ..\bin\Release\ -Force
 
 Remove-Item ..\bin\Release\netcoreapp2.1\ -Force
 

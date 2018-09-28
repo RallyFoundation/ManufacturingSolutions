@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+//using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Reflection;
 //using System.Runtime.Remoting;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.InteropServices;
-using Ionic.Zip;
+//using System.Runtime.InteropServices;
+//using Ionic.Zip;
 
 namespace QA.Utility
 {
@@ -188,26 +188,30 @@ namespace QA.Utility
 
         public static void CreateZip(string[] filesToZip, string zippedFilePath, string pathInZip)
         {
-            using (ZipFile zip = new ZipFile())
-            {
-                foreach (string file in filesToZip)
-                {
-                    if (File.Exists(file))
-                    {
-                        zip.AddFile(file, pathInZip);
-                    }
-                }
+            //using (ZipFile zip = new ZipFile())
+            //{
+            //    foreach (string file in filesToZip)
+            //    {
+            //        if (File.Exists(file))
+            //        {
+            //            zip.AddFile(file, pathInZip);
+            //        }
+            //    }
 
-                zip.Save(zippedFilePath);
-            }
+            //    zip.Save(zippedFilePath);
+            //}
+
+            throw new NotImplementedException();
         }
 
         public static void ExtractZip(string zipFilePath, string extractionPath)
         {
-            using (ZipFile zip = ZipFile.Read(zipFilePath))
-            {
-                zip.ExtractAll(extractionPath, ExtractExistingFileAction.InvokeExtractProgressEvent);
-            }
+            //using (ZipFile zip = ZipFile.Read(zipFilePath))
+            //{
+            //    zip.ExtractAll(extractionPath, ExtractExistingFileAction.InvokeExtractProgressEvent);
+            //}
+
+            throw new NotImplementedException();
         }
 
         //[DllImport("kernel32.dll", EntryPoint = "GetShortPathNameA")]

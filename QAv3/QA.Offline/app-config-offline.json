@@ -1,0 +1,15 @@
+{
+  "AppConfiguration": {
+    "RequireTransactionID": true,
+    "RequireAppRootPath": true,
+    "ShouldUseShortPath": false,
+    "ShouldExitOnComplete": true,
+    "ShouldShellExecute": false,
+    "ShouldCreateNewWindow": true,
+    "ScriptPath": "Script\\validate-offlineV2.ps1",
+    "ScriptArgs": "",
+    "ExePath": "PowerShell\\pwsh.exe",
+    "ArgumentTemplate": "-ExecutionPolicy ByPass -NoExit -File &quot;{0}&quot; -TransactionID {1}",
+    "LogFilePathTemplate": "\\Log\\{0}.log"
+  }
+}
