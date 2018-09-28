@@ -34,16 +34,18 @@ namespace QA.Online
 
             var config =  builder.Build();
 
-            ExePath = config["ExePath"];
-            ScriptPath = config["ScriptPath"];
-            ScriptArgs = config["ScriptArgs"];
-            ArgsTemp = config["ArgumentTemplate"];
-            LogFilePathTemplate = config["LogFilePathTemplate"];
-            RequireTransactionID = (config["RequireTransactionID"] == "true");
-            RequireAppRootPath = (config["RequireAppRootPath"] == "true");
-            ShouldUseShortPath = (config["ShouldUseShortPath"] == "true");
-            ShouldCreateNewWindow = (config["ShouldCreateNewWindow"] == "true");
-            ShouldExitOnComplete = (config["ShouldExitOnComplete"] == "true");
+            var appConfig = config.GetSection("AppConfiguration");
+
+            ExePath = appConfig["ExePath"];
+            ScriptPath = appConfig["ScriptPath"];
+            ScriptArgs = appConfig["ScriptArgs"];
+            ArgsTemp = appConfig["ArgumentTemplate"];
+            LogFilePathTemplate = appConfig["LogFilePathTemplate"];
+            RequireTransactionID = (appConfig["RequireTransactionID"] == "true" || appConfig["RequireTransactionID"] == "True");
+            RequireAppRootPath = (appConfig["RequireAppRootPath"] == "true" || appConfig["RequireAppRootPath"] == "True");
+            ShouldUseShortPath = (appConfig["ShouldUseShortPath"] == "true" || appConfig["ShouldUseShortPath"] == "True");
+            ShouldCreateNewWindow = (appConfig["ShouldCreateNewWindow"] == "true" || appConfig["ShouldCreateNewWindow"] == "True");
+            ShouldExitOnComplete = (appConfig["ShouldExitOnComplete"] == "true" || appConfig["ShouldExitOnComplete"] == "True");
         }
 
         static void Main(string[] args)

@@ -8,8 +8,8 @@
     "ShouldCreateNewWindow": true,
     "ScriptPath": "Script\\validate-onlineV2.ps1",
     "ScriptArgs": "",
-    "ExePath": "PowerShell\\pwsh.exe",
-    "ArgumentTemplate": "-ExecutionPolicy ByPass -NoExit -File &quot;{0}&quot; -TransactionID {1}",
+    "ExePath": "PowerShell\\x64\\pwsh.exe",
+    "ArgumentTemplate": "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -TransactionID {1}",
     "LogFilePathTemplate": "\\Log\\{0}.log"
   }
 }
