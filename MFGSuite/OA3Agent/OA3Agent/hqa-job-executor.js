@@ -11,6 +11,7 @@ var assert = require('assert');
 //var async = require("async");
 var path = require("path");
 var uuidv1 = require("uuid/v1");
+var childProcess = require("child_process");
 
 var cluster = require('cluster');
 var os = require('os');
@@ -198,7 +199,22 @@ app.post("/hqa/offline/batch/", function (req, res) {
 
     var hqaOfflineScript = hqaEntry;
 
-    ps.addCommand(hqaOfflineScript, [("ReportFileDir " + reportFileDir), ("BatchID " + transactionId), ("RootDir " + hqaHome)]);
+    //childProcess.execFile("PowerShell.exe", ["-ExecutionPolicy ByPass", "-NoExit", ("-File \"" + hqaOfflineScript + "\""), ("-ReportFileDir " + reportFileDir), ("-BatchID " + transactionId), ("-RootDir " + hqaHome)], { detached: true, stdio: ['ignore', 'ignore', 'ignore'] });
+
+    //childProcess.exec("PowerShell.exe", ["-ExecutionPolicy ByPass", ("-File " + hqaOfflineScript), ("-ReportFileDir " + reportFileDir), ("-BatchID " + transactionId), ("-RootDir " + hqaHome)], (error, stdout, stderr) => {
+    //    if (error) {
+    //        console.log(error);
+    //    }
+
+    //    if (stderr) {
+    //        console.log(stderr);
+    //    }
+
+    //    console.log(stdout);
+    //});
+
+
+    ps.addCommand(hqaOfflineScript, [("RootDir \"" + hqaHome + "\""), ("ReportFileDir \"" + reportFileDir + "\""), ("BatchID \"" + transactionId + "\"")]);
     ps.invoke().then(output => {
             console.log(output);
         }).catch(err => {
