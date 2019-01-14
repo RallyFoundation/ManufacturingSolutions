@@ -1,6 +1,6 @@
 ﻿{
   "enable-cpu-clustering": false,
-  "http-server-port": 8089,
+  "http-server-port": 9089,
   "web-socket-server-host": "127.0.0.1",
   "web-socket-server-port": 3000,
   "redis-address": "127.0.0.1",
@@ -26,5 +26,6 @@
   "hqa-home": "D:\\HQA\\App",
   "hqa-entry": "D:\\HQA\\App\\Script\\offline-batch.ps1",
   "hqa-data-zip-repository": "D:\\HQA\\Upload",
-  "hqa-data-repository": "D:\\HQA\\Extracted"
+  "hqa-data-repository": "D:\\HQA\\Extracted",
+  "vamt-entry": "C:\\VamtScripts\\Server\\InvokeVamt.ps1"
 }

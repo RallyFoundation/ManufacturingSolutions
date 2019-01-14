@@ -6,6 +6,7 @@
     <Name>OA3Agent</Name>
     <RootNamespace>OA3Agent</RootNamespace>
     <NameOfLastUsedPublishProfile>wds-nodejs-pub</NameOfLastUsedPublishProfile>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -13,7 +14,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>881e5400-b1f8-4469-9ced-20ce1cc148ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>hqa-job-executor.js</StartupFile>
+    <StartupFile>vamt.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -50,6 +51,12 @@
     <Compile Include="server-odata.js" />
     <Compile Include="server.js" />
     <Compile Include="redis-rest.js" />
+    <Compile Include="tcp.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="vamt.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="wds-api.js" />
     <Compile Include="wds-client.js" />
   </ItemGroup>
