@@ -19,6 +19,7 @@ app.use(cors());
 var enableCpuClustering = config.get("app.enable-cpu-clustering");
 var httpServerPort = config.get("app.http-server-port"); //8089;
 var vamtEntry = config.get("app.vamt-entry");
+var vamtModulePath = config.get("app.vamt-module-path");
 
 var http = require('http').Server(app);
 var server;
@@ -75,7 +76,7 @@ app.post("/vamt/register/", function (req, res) {
 
     var vamtScript = vamtEntry;
 
-    ps.addCommand(vamtScript, [("ClientHostName " + data.Host), ("ClientUserName " + data.User), ("ClientPassword " + data.Password)]);
+    ps.addCommand(vamtScript, [("ClientHostName " + data.Host), ("ClientUserName " + data.User), ("ClientPassword " + data.Password), ("VamtPSModulePath \"" + vamtModulePath + "\"")]);
     ps.invoke().then(output => {
         console.log(output);
     }).catch(err => {

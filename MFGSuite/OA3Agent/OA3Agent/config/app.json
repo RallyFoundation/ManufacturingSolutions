@@ -27,5 +27,6 @@
   "hqa-entry": "D:\\HQA\\App\\Script\\offline-batch.ps1",
   "hqa-data-zip-repository": "D:\\HQA\\Upload",
   "hqa-data-repository": "D:\\HQA\\Extracted",
+  "vamt-module-path": "C:\\Program Files (x86)\\Windows Kits\\10\\Assessment and Deployment Kit\\VAMT3\\VAMT.psd1",
   "vamt-entry": "C:\\VamtScripts\\Server\\InvokeVamt.ps1"
 }
