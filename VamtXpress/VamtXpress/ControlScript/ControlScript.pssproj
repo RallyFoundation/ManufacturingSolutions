@@ -31,6 +31,7 @@
     <Folder Include="Server\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\InvokeVamtAPI.ps1" />
     <Compile Include="ControlScript.ps1" />
     <Compile Include="Server\InvokeVamt.ps1" />
     <Compile Include="Client\AddRegistryKey4WorkGroupAccess.ps1" />

@@ -1,12 +1,12 @@
-Set-ExecutionPolicy ByPass
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Force;
 
-.\TurnOnFirewallSettings.ps1
+.\TurnOnFirewallSettings.ps1;
 
-.\AddRegistryKey4WorkGroupAccess.ps1
+.\AddRegistryKey4WorkGroupAccess.ps1;
 
-.\ConnectToVamtServer.ps1
+.\InvokeVamtAPI.ps1;
 
-.\RemoveRegistryKey4WorkGroupAccess.ps1
+.\RemoveRegistryKey4WorkGroupAccess.ps1;
 
-.\TurnOffFirewallSettings.ps1
+.\TurnOffFirewallSettings.ps1;
 
