@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configurationItems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <vamtApiServicePoint>http://vamt-server98089</vamtApiServicePoint>
+  <httpServerPort>0</httpServerPort>
+  <webSocketServerPort>3000</webSocketServerPort>
+  <nicName>ASIX AX88179 USB 3.0 to Gigabit Ethernet Adapter</nicName>
+  <clientIdentifierType>1</clientIdentifierType>
+  <clientHostName></clientHostName>
+  <clientUserName>testusr002</clientUserName>
+  <clientPassword>P@ssword!</clientPassword>
+  <serverHostName></serverHostName>
+  <serverUserName></serverUserName>
+  <serverPassword></serverPassword>
+</configurationItems>

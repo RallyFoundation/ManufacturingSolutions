@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamtXpress", "VamtXpress\VamtXpress.csproj", "{761BADB5-FB53-48B2-8F6E-4EC4449203E5}"
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "ControlScript", "ControlScript\ControlScript.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
+	ProjectSection(ProjectDependencies) = postProject
+		{761BADB5-FB53-48B2-8F6E-4EC4449203E5} = {761BADB5-FB53-48B2-8F6E-4EC4449203E5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

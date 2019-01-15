@@ -7,6 +7,12 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>ControlScript</Name>
+    <PackageEntryPoint>Client\AddRegistryKey4WorkGroupAccess.ps1</PackageEntryPoint>
+    <DotNetVersion>v4.6.1</DotNetVersion>
+    <PackageType>Console</PackageType>
+    <PostBuildScript>New-Item -Path ..\bin\Release\ -Name Script -Type Directory -Force
+Copy-Item .\Client\*.* ..\bin\Release\Script\ -Recurse -Force
+Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +42,7 @@
     <Compile Include="Server\InvokeVamt.ps1" />
     <Compile Include="Client\AddRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\ConnectToVamtServer.ps1" />
-    <Compile Include="Client\main.ps1" />
+    <Compile Include="Client\run.ps1" />
     <Compile Include="Client\RemoveRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\TurnOffFirewallSettings.ps1" />
     <Compile Include="Client\TurnOnFirewallSettings.ps1" />

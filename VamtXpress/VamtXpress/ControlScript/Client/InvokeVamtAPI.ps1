@@ -4,9 +4,24 @@
 
 $RootDir = Split-Path -parent $MyInvocation.MyCommand.Definition;
 
+if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
+{
+   $RootDir = Split-Path -parent $MyInvocation.MyCommand.Definition;
+
+   if($RootDir.EndsWith("\") -eq $true)
+   {
+      $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
+   }
+
+   if($RootDir.ToLower().EndsWith("\script") -eq $true)
+   {
+      $RootDir = $RootDir.Substring(0, ($RootDir.ToLower().LastIndexOf("\script")));
+   }
+}
+
 if($RootDir.EndsWith("\") -eq $true)
 {
-   $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
+  $RootDir = $RootDir.Substring(0, ($RootDir.Length -1));
 }
 
 $ErrorActionPreference = "Stop";
@@ -16,7 +31,7 @@ $ErrorActionPreference = "Stop";
 $ClientHostName = $env:COMPUTERNAME;
 $ClientUserName = $env:USERNAME;
 
-[xml]$ConfigXml = Get-Content -Path ($RootDir + "\config.xml") -Encoding UTF8;
+[xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\vamt-api-config.xml") -Encoding UTF8;
 
 $ConfigXml.InnerXml;
 
