@@ -90,7 +90,7 @@ $Body.Host = $ClientHostName;
 $Body.User = $ClientUserName;
 $Body.Password = $ClientPassword;
 
-$Body.Value = "VAMTRegister";
+$Body.Value = [System.String]::Format("VAMTRegister-{0}", [System.Guid]::NewGuid());
 $Body.Time = [System.DateTime]::Now;
 $BodyJson = ConvertTo-Json -InputObject $Body;
 Invoke-RestMethod -Method Post -Uri ($VamtApiServicePoint + $UrlRegister) -Body $BodyJson -ContentType "application/json";

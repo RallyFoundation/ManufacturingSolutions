@@ -170,14 +170,6 @@ io.on("connection", function (socket) {
         console.log(data);
         io.emit("msg:logmfr", data);
     });
-
-    //socket.on("msg:cltstat", function (data) {
-
-    //    var ipAddress = socket.handshake.address;
-    //    var clientStatus = { ip: ipAddress, status: data };
-
-    //    updateClientStatus(status);
-    //});
 });
 
 
