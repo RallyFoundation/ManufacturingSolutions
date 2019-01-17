@@ -21,7 +21,7 @@
   "install-image-repository": "D:\\WDS-Images\\Install",
   "boot-image-repository": "D:\\WDS-Images\\Boot",
   "ffu-image-repository": "D:\\WDS-Images\\FFU",
-  "log-repository": "D:\\VAMT-API\\Log",
+  "log-repository": "C:\\VAMT-API\\Log",
   "log-keywords": "error|exception|failed|failure|cannot|Error|Exception|Failed|Failure|Cannot",
   "hqa-home": "D:\\HQA\\App",
   "hqa-entry": "D:\\HQA\\App\\Script\\offline-batch.ps1",
