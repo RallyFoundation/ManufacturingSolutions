@@ -1,2 +1,2 @@
-Netsh AdvFirewall Firewall Add Rule Name = "WdsApi-8089-In" Dir=In Action=Allow Protocol=TCP LocalPort = 8089 LocalIP=Any RemotePort=Any RemoteIP=Any
-Netsh AdvFirewall Firewall Add Rule Name = "WdsApi-8089-Out" Dir=Out Action=Allow Protocol=TCP LocalPort=Any LocalIP=Any RemotePort = 8089 RemoteIP=Any
+Netsh AdvFirewall Firewall Add Rule Name = "VamtAPI-9089-In" Dir=In Action=Allow Protocol=TCP LocalPort = 9089 LocalIP=Any RemotePort=Any RemoteIP=Any
+Netsh AdvFirewall Firewall Add Rule Name = "VamtAPI-9089-Out" Dir=Out Action=Allow Protocol=TCP LocalPort=Any LocalIP=Any RemotePort = 9089 RemoteIP=Any
