@@ -1,0 +1,2 @@
+﻿Netsh AdvFirewall Firewall Add Rule Name = "FTP-Passive-5001-In" Dir=In Action=Allow Protocol=TCP LocalPort = 5001 LocalIP=Any RemotePort=Any RemoteIP=Any
+Netsh AdvFirewall Firewall Add Rule Name = "FTP-Passive-5001-Out" Dir=Out Action=Allow Protocol=TCP LocalPort=Any LocalIP=Any RemotePort = 5001 RemoteIP=Any
