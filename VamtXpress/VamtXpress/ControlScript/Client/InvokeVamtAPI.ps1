@@ -2,7 +2,8 @@
 # InvokeVamtAPI.ps1
 #
 
-$RootDir = Split-Path -parent $MyInvocation.MyCommand.Definition;
+param([System.String]$TransactionID, [System.String]$RootDir)
+
 
 if([System.String]::IsNullOrEmpty($RootDir) -eq $true)
 {

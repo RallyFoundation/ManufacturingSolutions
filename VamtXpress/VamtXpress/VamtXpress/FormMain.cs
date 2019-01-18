@@ -25,10 +25,10 @@ namespace VamtXpress
             this.loadUiLayoutConfigs();
         }
 
-        private string OA3StartScriptPath;
+        private string VamtStartScriptPath;
         //private string OA3ValidateScriptPath;
-        private string OA3ToolConfGenPath;
-        private string OA3ToolConfPath;
+        private string VamtConfGenPath;
+        private string VamtConfPath;
         private string LookupMapperPath;
         private string LookupConfPath;
         //private string OA3ToolPath;
@@ -39,11 +39,11 @@ namespace VamtXpress
 
         private void loadAppConfigs()
         {
-            this.OA3StartScriptPath = ConfigurationManager.AppSettings.Get("OA3StartScriptPath");
+            this.VamtStartScriptPath = ConfigurationManager.AppSettings.Get("VamtStartScriptPath");
             //this.OA3ValidateScriptPath = ConfigurationManager.AppSettings.Get("OA3ValidateScriptPath");
-            this.OA3ToolConfGenPath = ConfigurationManager.AppSettings.Get("OA3ToolConfGenPath");
+            this.VamtConfGenPath = ConfigurationManager.AppSettings.Get("VamtConfGenPath");
             //this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
-            this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPath");
+            this.VamtConfPath = ConfigurationManager.AppSettings.Get("VamtConfPath");
             this.LookupMapperPath = ConfigurationManager.AppSettings.Get("LookupMapperPath");
             this.LookupConfPath = ConfigurationManager.AppSettings.Get("LookupConfPath");
             //this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
@@ -144,11 +144,11 @@ namespace VamtXpress
 
         private void metroTileConfigure_Click(object sender, EventArgs e)
         {
-            string oa3ToolConfGenFullPath = this.getFullPath(this.OA3ToolConfGenPath);
+            string oa3ToolConfGenFullPath = this.getFullPath(this.VamtConfGenPath);
 
-            if (!String.IsNullOrEmpty(this.OA3ToolConfPath))
+            if (!String.IsNullOrEmpty(this.VamtConfPath))
             {
-                string oa3ToolConfFullPath = this.getFullPath(this.OA3ToolConfPath);
+                string oa3ToolConfFullPath = this.getFullPath(this.VamtConfPath);
                 Utility.StartProcess(oa3ToolConfGenFullPath, oa3ToolConfFullPath, true, true);
             }
             else
@@ -159,7 +159,7 @@ namespace VamtXpress
 
         private void metroTileStart_Click(object sender, EventArgs e)
         {
-            string startScriptFullPath = this.getFullPath(this.OA3StartScriptPath);
+            string startScriptFullPath = this.getFullPath(this.VamtStartScriptPath);
 
             string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
 

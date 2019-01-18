@@ -15,7 +15,12 @@ Copy-Item .\CreateRepoDir.ps1 ..\bin\Release\Script\ -Recurse -Force
 Copy-Item .\SetFirewallVamtAPI9089.ps1 ..\bin\Release\Script\ -Recurse -Force
 Copy-Item .\SetFirewallVamtAPI-WebSocket-3000.ps1 ..\bin\Release\Script\ -Recurse -Force
 Copy-Item .\Stop.ps1 ..\bin\Release\Script\ -Recurse -Force
+Copy-Item .\InvokeVamt.ps1 ..\bin\Release\Script\ -Recurse -Force
+Copy-Item .\InitVamt.ps1 ..\bin\Release\Script\ -Recurse -Force
 Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
+    <PackageEntryPoint>CreateRepoDir.ps1</PackageEntryPoint>
+    <DotNetVersion>v4.6.1</DotNetVersion>
+    <PackageType>Console</PackageType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,7 +47,9 @@ Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateRepoDir.ps1" />
+    <Compile Include="InitVamt.ps1" />
     <Compile Include="InstallMongoDBService.ps1" />
+    <Compile Include="InvokeVamt.ps1" />
     <Compile Include="Run.ps1" />
     <Compile Include="SetFirewallFPS.ps1" />
     <Compile Include="SetFirewallFrontWeb5000.ps1" />

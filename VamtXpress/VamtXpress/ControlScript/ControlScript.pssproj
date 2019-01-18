@@ -11,7 +11,7 @@
     <DotNetVersion>v4.6.1</DotNetVersion>
     <PackageType>Console</PackageType>
     <PostBuildScript>New-Item -Path ..\bin\Release\ -Name Script -Type Directory -Force
-Copy-Item .\Client\*.* ..\bin\Release\Script\ -Recurse -Force
+Copy-Item .\Client\run.ps1 ..\bin\Release\Script\ -Recurse -Force
 Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,21 +33,16 @@ Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Client\" />
-    <Folder Include="Optional\" />
-    <Folder Include="Server\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\InvokeSoapWebService.ps1" />
     <Compile Include="Client\InvokeVamtAPI.ps1" />
-    <Compile Include="ControlScript.ps1" />
-    <Compile Include="Server\InvokeVamt.ps1" />
     <Compile Include="Client\AddRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\ConnectToVamtServer.ps1" />
     <Compile Include="Client\run.ps1" />
     <Compile Include="Client\RemoveRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\TurnOffFirewallSettings.ps1" />
     <Compile Include="Client\TurnOnFirewallSettings.ps1" />
-    <Compile Include="Optional\InitVamt.ps1" />
-    <Compile Include="Optional\InvokeSoapWebService.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
