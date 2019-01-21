@@ -11,7 +11,7 @@
     <DotNetVersion>v4.6.1</DotNetVersion>
     <PackageType>Console</PackageType>
     <PostBuildScript>New-Item -Path ..\bin\Release\ -Name Script -Type Directory -Force
-Copy-Item .\Client\run.ps1 ..\bin\Release\Script\ -Recurse -Force
+Copy-Item .\Client\*.ps1 ..\bin\Release\Script\ -Recurse -Force
 Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

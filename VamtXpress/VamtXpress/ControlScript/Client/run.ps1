@@ -51,17 +51,17 @@ if([System.IO.Directory]::Exists($LogPath) -eq $false)
 
 #Turn On Firewall Settings:
 #netsh advfirewall firewall set rule group = "Windows Management Instrumentation (WMI)" new enable = yes;
-#New-NetFirewallRule -Group "Windows Management Instrumentation (WMI)" -Enabled True; 
+#New-NetFirewallRule -Group "Windows Management Instrumentation (WMI)" -DisplayName "Windows Management Instrumentation (WMI)" -Enabled True; 
 #netsh advfirewall firewall set rule name = "Windows Management Instrumentation (Async-in)" new remoteip = any enable = yes;
-#New-NetFirewallRule -Name "Windows Management Instrumentation (Async-in)" -RemoteAddress Any -Enabled True;
+#New-NetFirewallRule -Name "Windows Management Instrumentation (Async-in)" -DisplayName "Windows Management Instrumentation (Async-in)" -RemoteAddress Any -Enabled True;
 #netsh advfirewall firewall set rule name = "Windows Management Instrumentation (DCOM-in)" new remoteip = any enable = yes;
-#New-NetFirewallRule -Name "Windows Management Instrumentation (DCOM-in)" -RemoteAddress Any -Enabled True;
+#New-NetFirewallRule -Name "Windows Management Instrumentation (DCOM-in)" -DisplayName "Windows Management Instrumentation (DCOM-in)" -RemoteAddress Any -Enabled True;
 #netsh advfirewall firewall set rule name = "Windows Management Instrumentation (WMI-in)" new remoteip = any enable = yes;
-#New-NetFirewallRule -Name "Windows Management Instrumentation (WMI-in)" -RemoteAddress Any -Enabled True;
+#New-NetFirewallRule -Name "Windows Management Instrumentation (WMI-in)" -DisplayName "Windows Management Instrumentation (WMI-in)" -RemoteAddress Any -Enabled True;
 #netsh advfirewall firewall set rule group = "File and Printer Sharing" new enable = yes;
-#New-NetFirewallRule -Group "File and Printer Sharing" -Enabled True;
+#New-NetFirewallRule -Group "File and Printer Sharing" -DisplayName "File and Printer Sharing" -Enabled True;
 #netsh advfirewall firewall set rule group = "Remote Administration" new enable = yes;
-#New-NetFirewallRule -Group "Remote Administration" -Enabled True;
+#New-NetFirewallRule -Group "Remote Administration" -DisplayName "Remote Administration" -Enabled True;
 
 #Add Registry Key for Work Group Access:
 New-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system -Name LocalAccountTokenFilterPolicy -PropertyType DWord -Value 1;
@@ -152,6 +152,13 @@ Remove-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersi
 #Set-NetFirewallRule -Name "Windows Management Instrumentation (WMI-in)" -RemoteAddress 127.0.0.1 -Enabled False;
 #Set-NetFirewallRule -Group "File and Printer Sharing" -Enabled False;
 #Set-NetFirewallRule -Group "Remote Administration" -Enabled False;
+
+#Remove-NetFirewallRule -DisplayName "Windows Management Instrumentation (WMI)";
+#Remove-NetFirewallRule -DisplayName "Windows Management Instrumentation (Async-in)";
+#Remove-NetFirewallRule -DisplayName "Windows Management Instrumentation (DCOM-in)";
+#Remove-NetFirewallRule -DisplayName "Windows Management Instrumentation (WMI-in)";
+#Remove-NetFirewallRule -DisplayName "File and Printer Sharing";
+#Remove-NetFirewallRule -DisplayName "Remote Administration";
 
 #Ending:
 [System.DateTime]$EndTime = [System.DateTime]::Now;
