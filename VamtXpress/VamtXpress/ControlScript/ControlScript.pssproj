@@ -12,7 +12,9 @@
     <PackageType>Console</PackageType>
     <PostBuildScript>New-Item -Path ..\bin\Release\ -Name Script -Type Directory -Force
 Copy-Item .\Client\*.ps1 ..\bin\Release\Script\ -Recurse -Force
-Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
+#Copy-Item  ..\bin\Release\Module\VamtConfGen\config.xml ..\bin\Release\Config -Recurse -Force
+Remove-Item ..\bin\Release\*.pdb -Recurse -Force
+Remove-Item ..\bin\Release\Module\VamtConfGen\*.pdb -Recurse -Force</PostBuildScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,10 +37,12 @@ Remove-Item ..\bin\Release\*.pdb -Recurse -Force</PostBuildScript>
     <Folder Include="Client\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\cleanup.ps1" />
     <Compile Include="Client\InvokeSoapWebService.ps1" />
     <Compile Include="Client\InvokeVamtAPI.ps1" />
     <Compile Include="Client\AddRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\ConnectToVamtServer.ps1" />
+    <Compile Include="Client\prepare.ps1" />
     <Compile Include="Client\run.ps1" />
     <Compile Include="Client\RemoveRegistryKey4WorkGroupAccess.ps1" />
     <Compile Include="Client\TurnOffFirewallSettings.ps1" />

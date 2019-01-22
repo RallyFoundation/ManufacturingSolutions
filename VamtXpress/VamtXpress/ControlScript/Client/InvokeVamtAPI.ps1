@@ -32,7 +32,7 @@ $ErrorActionPreference = "Stop";
 $ClientHostName = $env:COMPUTERNAME;
 $ClientUserName = $env:USERNAME;
 
-[xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\vamt-api-config.xml") -Encoding UTF8;
+[xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\config.xml") -Encoding UTF8;
 
 $ConfigXml.InnerXml;
 

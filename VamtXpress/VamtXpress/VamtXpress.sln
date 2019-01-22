@@ -7,8 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamtXpress", "VamtXpress\Va
 EndProject
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "ControlScript", "ControlScript\ControlScript.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 	ProjectSection(ProjectDependencies) = postProject
+		{29AC0043-D55C-4CE1-88E5-F638A720B486} = {29AC0043-D55C-4CE1-88E5-F638A720B486}
 		{761BADB5-FB53-48B2-8F6E-4EC4449203E5} = {761BADB5-FB53-48B2-8F6E-4EC4449203E5}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamtAPIConfigurator", "VamtAPIConfigurator\VamtAPIConfigurator.csproj", "{29AC0043-D55C-4CE1-88E5-F638A720B486}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +27,10 @@ Global
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AC0043-D55C-4CE1-88E5-F638A720B486}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

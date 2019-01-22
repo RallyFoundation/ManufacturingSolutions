@@ -64,13 +64,13 @@ if([System.IO.Directory]::Exists($LogPath) -eq $false)
 #New-NetFirewallRule -Group "Remote Administration" -DisplayName "Remote Administration" -Enabled True;
 
 #Add Registry Key for Work Group Access:
-New-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system -Name LocalAccountTokenFilterPolicy -PropertyType DWord -Value 1;
+#New-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system -Name LocalAccountTokenFilterPolicy -PropertyType DWord -Value 1;
 
 #Invoke VAMT API:
 $ClientHostName = $env:COMPUTERNAME;
 $ClientUserName = $env:USERNAME;
 
-[xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\vamt-api-config.xml") -Encoding UTF8;
+[xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\config.xml") -Encoding UTF8;
 
 $ConfigXml.InnerXml;
 
@@ -136,7 +136,7 @@ Invoke-RestMethod -Method Post -Uri ($VamtApiServicePoint + $UrlRegister) -Body 
 
 
 #Remove Registry Key for Work Group Access:
-Remove-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system -Name LocalAccountTokenFilterPolicy;
+#Remove-ItemProperty -Path Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system -Name LocalAccountTokenFilterPolicy;
 
 #Turn Off Firewall Settings:
 #netsh advfirewall firewall set rule group = "Windows Management Instrumentation (WMI)" new enable = no;

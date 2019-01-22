@@ -26,50 +26,20 @@ namespace VamtXpress
         }
 
         private string VamtStartScriptPath;
-        //private string OA3ValidateScriptPath;
+        private string VamtPrepareScriptPath;
+        private string VamtCleanupScriptPath;
         private string VamtConfGenPath;
         private string VamtConfPath;
-        private string LookupMapperPath;
-        private string LookupConfPath;
-        //private string OA3ToolPath;
-        //private string InjectionToolPath;
-        //private string InjectionToolEraseCommand;
-        //private string EraseScriptPath;
 
 
         private void loadAppConfigs()
         {
             this.VamtStartScriptPath = ConfigurationManager.AppSettings.Get("VamtStartScriptPath");
-            //this.OA3ValidateScriptPath = ConfigurationManager.AppSettings.Get("OA3ValidateScriptPath");
+            this.VamtPrepareScriptPath = ConfigurationManager.AppSettings.Get("VamtPrepareScriptPath");
+            this.VamtCleanupScriptPath = ConfigurationManager.AppSettings.Get("VamtCleanupScriptPath");
             this.VamtConfGenPath = ConfigurationManager.AppSettings.Get("VamtConfGenPath");
-            //this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
             this.VamtConfPath = ConfigurationManager.AppSettings.Get("VamtConfPath");
-            this.LookupMapperPath = ConfigurationManager.AppSettings.Get("LookupMapperPath");
-            this.LookupConfPath = ConfigurationManager.AppSettings.Get("LookupConfPath");
-            //this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
-            //this.InjectionToolPath = ConfigurationManager.AppSettings.Get("InjectionToolPath");
-            //this.InjectionToolEraseCommand = ConfigurationManager.AppSettings.Get("InjectionToolEraseCommand");
-            //this.EraseScriptPath = ConfigurationManager.AppSettings.Get("EraseScriptPath");
         }
-
-        //private void loadAppConfigByAchitecture(string architecture)
-        //{
-        //    switch (architecture.ToLower())
-        //    {
-        //        case "x86":
-        //            this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
-        //            this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
-        //            break;
-        //        case "amd64":
-        //            this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathAmd64");
-        //            this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathAmd64");
-        //            break;
-        //        default:
-        //            this.OA3ToolConfPath = ConfigurationManager.AppSettings.Get("OA3ToolConfPathX86");
-        //            this.OA3ToolPath = ConfigurationManager.AppSettings.Get("OA3ToolPathX86");
-        //            break;
-        //    }
-        //}
 
         private void loadUiLayoutConfigs()
         {
@@ -130,86 +100,52 @@ namespace VamtXpress
             return rootPath + relativePath;
         }
 
-        //private void metroRadioButtonSysArchX86_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (!this.metroRadioButtonSysArchX86.Checked)
-        //    {
-        //        this.loadAppConfigByAchitecture("amd64");
-        //    }
-        //    else
-        //    {
-        //        this.loadAppConfigByAchitecture("x86");
-        //    }
-        //}
-
         private void metroTileConfigure_Click(object sender, EventArgs e)
         {
-            string oa3ToolConfGenFullPath = this.getFullPath(this.VamtConfGenPath);
+            string vamtConfGenFullPath = this.getFullPath(this.VamtConfGenPath);
 
             if (!String.IsNullOrEmpty(this.VamtConfPath))
             {
                 string oa3ToolConfFullPath = this.getFullPath(this.VamtConfPath);
-                Utility.StartProcess(oa3ToolConfGenFullPath, oa3ToolConfFullPath, true, true);
+                Utility.StartProcess(vamtConfGenFullPath, oa3ToolConfFullPath, true, true);
             }
             else
             {
-                Utility.StartProcess(oa3ToolConfGenFullPath, null, true, true);
+                Utility.StartProcess(vamtConfGenFullPath, null, true, true);
             }          
         }
 
         private void metroTileStart_Click(object sender, EventArgs e)
         {
-            string startScriptFullPath = this.getFullPath(this.VamtStartScriptPath);
+            string scriptFullPath = this.getFullPath(this.VamtStartScriptPath);
 
-            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
+            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
 
-            //string args = String.Format(argsTemp, startScriptFullPath, this.metroRadioButtonSysArchX86.Checked ? "x86" : "amd64");
-
-            string args = String.Format(argsTemp, startScriptFullPath, "x86");
+            string args = String.Format(argsTemp, scriptFullPath);
 
             Utility.StartProcess("PowerShell", args, true, true);
         }
 
-        private void metroTileConfigureLookup_Click(object sender, EventArgs e)
+        private void metroTilePrepare_Click(object sender, EventArgs e)
         {
-            string lookupMapperFullPath = this.getFullPath(this.LookupMapperPath);
-            string lookupConfFullPath = this.getFullPath(this.LookupConfPath);
+            string scriptFullPath = this.getFullPath(this.VamtPrepareScriptPath);
 
-            Utility.StartProcess(lookupMapperFullPath, lookupConfFullPath, true, true);
+            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
+
+            string args = String.Format(argsTemp, scriptFullPath);
+
+            Utility.StartProcess("PowerShell", args, true, true);
         }
 
-        //private void metroTileValidate_Click(object sender, EventArgs e)
-        //{
-        //    //string oa3ToolFullPath = this.getFullPath(this.OA3ToolPath);
+        private void metroTileCleanup_Click(object sender, EventArgs e)
+        {
+            string scriptFullPath = this.getFullPath(this.VamtCleanupScriptPath);
 
-        //    //string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} /Validate\"";
+            string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\"";
 
-        //    //string args = String.Format(argsTemp, oa3ToolFullPath);
+            string args = String.Format(argsTemp, scriptFullPath);
 
-        //    string validateScriptFullPath = this.getFullPath(this.OA3ValidateScriptPath);
-
-        //    string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
-
-        //    string args = String.Format(argsTemp, validateScriptFullPath, this.metroRadioButtonSysArchX86.Checked ? "x86" : "amd64");
-
-        //    Utility.StartProcess("PowerShell", args, true, true);
-        //}
-
-        //private void metroTileErase_Click(object sender, EventArgs e)
-        //{
-        //    //string injectionToolFullPath = this.getFullPath(this.InjectionToolPath);
-
-        //    //string argsTemp = "-ExecutionPolicy ByPass -NoExit -Command \"{0} {1}\"";
-
-        //    //string args = String.Format(argsTemp, injectionToolFullPath, this.InjectionToolEraseCommand);
-
-        //    string eraseScriptFullPath = this.getFullPath(this.EraseScriptPath);
-
-        //    string argsTemp = "-ExecutionPolicy ByPass -NoExit -File \"{0}\" -Architecture \"{1}\"";
-
-        //    string args = String.Format(argsTemp, eraseScriptFullPath, this.metroRadioButtonSysArchX86.Checked ? "x86" : "amd64");
-
-        //    Utility.StartProcess("PowerShell", args, true, true);
-        //}
+            Utility.StartProcess("PowerShell", args, true, true);
+        }
     }
 }
