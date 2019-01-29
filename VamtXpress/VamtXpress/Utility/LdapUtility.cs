@@ -14,7 +14,7 @@ namespace Utility
 {
     public class LdapUtility
     {
-        public static object Connect(string UserName, string Password, string AuthType, string Server, bool IsAutoBind, int Timeout)
+        public static object Connection(string UserName, string Password, string AuthType, string Server, bool IsAutoBind, int Timeout)
         {
             LdapConnection returnValue = null;
 
@@ -27,10 +27,15 @@ namespace Utility
         {
             object returnValue = null;
 
-            if ((Connection != null) && (Connection is System.DirectoryServices.Protocols.LdapConnection) && (!String.IsNullOrEmpty(Filter)) && (!String.IsNullOrEmpty(DistinguishedName)) && (!String.IsNullOrEmpty(Scope)))
+            if ((Connection != null) && (Connection is System.DirectoryServices.Protocols.LdapConnection) && (!String.IsNullOrEmpty(Filter)) && (!String.IsNullOrEmpty(Scope)))
             {
                 System.DirectoryServices.Protocols.SearchRequest request = new System.DirectoryServices.Protocols.SearchRequest();
-                request.DistinguishedName = DistinguishedName;
+
+                if (!String.IsNullOrEmpty(DistinguishedName))
+                {
+                    request.DistinguishedName = DistinguishedName;
+                }
+
                 request.Scope = getSearchScope(Scope);
                 request.Filter = Filter;
 
