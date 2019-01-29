@@ -33,27 +33,34 @@
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.statusStripLabel1 = new System.Windows.Forms.StatusStrip();
+            this.textBoxVamtDomainName = new System.Windows.Forms.TextBox();
+            this.labelVamtDomainName = new System.Windows.Forms.Label();
+            this.textBoxDomainUserName = new System.Windows.Forms.TextBox();
+            this.labelDomainUserName = new System.Windows.Forms.Label();
+            this.textBoxVamtDomainUserPassword = new System.Windows.Forms.TextBox();
+            this.labelVamtDomainUserPassword = new System.Windows.Forms.Label();
+            this.buttonTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelUrl
             // 
             this.labelUrl.AutoSize = true;
-            this.labelUrl.Location = new System.Drawing.Point(14, 35);
+            this.labelUrl.Location = new System.Drawing.Point(48, 35);
             this.labelUrl.Name = "labelUrl";
-            this.labelUrl.Size = new System.Drawing.Size(23, 13);
+            this.labelUrl.Size = new System.Drawing.Size(70, 13);
             this.labelUrl.TabIndex = 0;
-            this.labelUrl.Text = "Url:";
+            this.labelUrl.Text = "Vamt API Url:";
             // 
             // textBoxUrl
             // 
-            this.textBoxUrl.Location = new System.Drawing.Point(48, 32);
+            this.textBoxUrl.Location = new System.Drawing.Point(124, 32);
             this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(382, 20);
+            this.textBoxUrl.Size = new System.Drawing.Size(306, 20);
             this.textBoxUrl.TabIndex = 1;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(355, 77);
+            this.buttonSave.Location = new System.Drawing.Point(357, 178);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 4;
@@ -63,16 +70,82 @@
             // 
             // statusStripLabel1
             // 
-            this.statusStripLabel1.Location = new System.Drawing.Point(0, 121);
+            this.statusStripLabel1.Location = new System.Drawing.Point(0, 213);
             this.statusStripLabel1.Name = "statusStripLabel1";
             this.statusStripLabel1.Size = new System.Drawing.Size(444, 22);
             this.statusStripLabel1.TabIndex = 5;
+            // 
+            // textBoxVamtDomainName
+            // 
+            this.textBoxVamtDomainName.Location = new System.Drawing.Point(124, 69);
+            this.textBoxVamtDomainName.Name = "textBoxVamtDomainName";
+            this.textBoxVamtDomainName.Size = new System.Drawing.Size(306, 20);
+            this.textBoxVamtDomainName.TabIndex = 7;
+            // 
+            // labelVamtDomainName
+            // 
+            this.labelVamtDomainName.AutoSize = true;
+            this.labelVamtDomainName.Location = new System.Drawing.Point(14, 72);
+            this.labelVamtDomainName.Name = "labelVamtDomainName";
+            this.labelVamtDomainName.Size = new System.Drawing.Size(104, 13);
+            this.labelVamtDomainName.TabIndex = 6;
+            this.labelVamtDomainName.Text = "Vamt Domain Name:";
+            // 
+            // textBoxDomainUserName
+            // 
+            this.textBoxDomainUserName.Location = new System.Drawing.Point(124, 107);
+            this.textBoxDomainUserName.Name = "textBoxDomainUserName";
+            this.textBoxDomainUserName.Size = new System.Drawing.Size(306, 20);
+            this.textBoxDomainUserName.TabIndex = 9;
+            // 
+            // labelDomainUserName
+            // 
+            this.labelDomainUserName.AutoSize = true;
+            this.labelDomainUserName.Location = new System.Drawing.Point(14, 110);
+            this.labelDomainUserName.Name = "labelDomainUserName";
+            this.labelDomainUserName.Size = new System.Drawing.Size(102, 13);
+            this.labelDomainUserName.TabIndex = 8;
+            this.labelDomainUserName.Text = "Domain User Name:";
+            // 
+            // textBoxVamtDomainUserPassword
+            // 
+            this.textBoxVamtDomainUserPassword.Location = new System.Drawing.Point(124, 143);
+            this.textBoxVamtDomainUserPassword.Name = "textBoxVamtDomainUserPassword";
+            this.textBoxVamtDomainUserPassword.Size = new System.Drawing.Size(306, 20);
+            this.textBoxVamtDomainUserPassword.TabIndex = 11;
+            this.textBoxVamtDomainUserPassword.UseSystemPasswordChar = true;
+            // 
+            // labelVamtDomainUserPassword
+            // 
+            this.labelVamtDomainUserPassword.AutoSize = true;
+            this.labelVamtDomainUserPassword.Location = new System.Drawing.Point(60, 146);
+            this.labelVamtDomainUserPassword.Name = "labelVamtDomainUserPassword";
+            this.labelVamtDomainUserPassword.Size = new System.Drawing.Size(56, 13);
+            this.labelVamtDomainUserPassword.TabIndex = 10;
+            this.labelVamtDomainUserPassword.Text = "Password:";
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(276, 178);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonTest.TabIndex = 12;
+            this.buttonTest.Text = "Test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 143);
+            this.ClientSize = new System.Drawing.Size(444, 235);
+            this.Controls.Add(this.buttonTest);
+            this.Controls.Add(this.textBoxVamtDomainUserPassword);
+            this.Controls.Add(this.labelVamtDomainUserPassword);
+            this.Controls.Add(this.textBoxDomainUserName);
+            this.Controls.Add(this.labelDomainUserName);
+            this.Controls.Add(this.textBoxVamtDomainName);
+            this.Controls.Add(this.labelVamtDomainName);
             this.Controls.Add(this.statusStripLabel1);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxUrl);
@@ -95,6 +168,13 @@
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.StatusStrip statusStripLabel1;
+        private System.Windows.Forms.TextBox textBoxVamtDomainName;
+        private System.Windows.Forms.Label labelVamtDomainName;
+        private System.Windows.Forms.TextBox textBoxDomainUserName;
+        private System.Windows.Forms.Label labelDomainUserName;
+        private System.Windows.Forms.TextBox textBoxVamtDomainUserPassword;
+        private System.Windows.Forms.Label labelVamtDomainUserPassword;
+        private System.Windows.Forms.Button buttonTest;
     }
 }
 

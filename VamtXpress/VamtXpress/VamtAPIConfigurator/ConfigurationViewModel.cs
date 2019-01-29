@@ -74,5 +74,14 @@ namespace VamtAPIConfigurator.ViewModels
         //[JsonProperty("disk-identifier-value")]
         [XmlElement(ElementName = "diskIdentifierValue")]
         public string DiskIdentifierValue { get; set; }
+
+        [XmlElement(ElementName ="vamtDomainName")]
+        public string VamtDomainName { get; set; }
+
+        [XmlElement(ElementName = "vamtDomainUserName")]
+        public string VamtDomainUserName { get; set; }
+
+        [XmlElement(ElementName = "vamtDomainPassword")]
+        public string VamtDomainPassword { get; set; }
     }
 }
