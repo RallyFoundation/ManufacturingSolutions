@@ -14,11 +14,37 @@ namespace Utility
 {
     public class LdapUtility
     {
-        public static object Connection(string UserName, string Password, string AuthType, string Server, bool IsAutoBind, int Timeout)
+        public static string[] ParseLdapUrl(string LdapUrl)
+        {
+            string[] result = null;
+
+            string url = LdapUrl.ToLower();
+
+            if (url.StartsWith("ldap://"))
+            {
+                url = url.Substring(7);
+            }
+
+            if (url.IndexOf(".") < 0)
+            {
+                return new string[] { url };
+            }        
+
+            result = url.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+
+            return result;
+        }
+
+        public static object Connect(string UserName, string Password, string AuthType, string Server, bool IsAutoBind, int Timeout)
         {
             LdapConnection returnValue = null;
 
             returnValue = getLdapConnection(UserName, Password, AuthType, Server, IsAutoBind, Timeout);
+
+            if (!IsAutoBind)
+            {
+                returnValue.Bind();
+            }
 
             return returnValue;
         }

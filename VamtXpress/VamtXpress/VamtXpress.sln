@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VamtAPIConfigurator", "Vamt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{C2C084B3-6CC5-4146-9C61-FD2CD9739043}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{F89CD31B-9BEC-426A-A72A-EA12D036659A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest-Utility", "UnitTest-Utility\UnitTest-Utility.csproj", "{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,9 +41,16 @@ Global
 		{C2C084B3-6CC5-4146-9C61-FD2CD9739043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2C084B3-6CC5-4146-9C61-FD2CD9739043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2C084B3-6CC5-4146-9C61-FD2CD9739043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2EEA685-6B80-49BF-82D7-BEFBAA8909C9} = {F89CD31B-9BEC-426A-A72A-EA12D036659A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F142F42A-4FD1-4E4B-9740-F655A8146D80}

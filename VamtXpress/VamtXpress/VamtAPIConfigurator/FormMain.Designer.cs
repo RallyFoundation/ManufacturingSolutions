@@ -33,8 +33,8 @@
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.statusStripLabel1 = new System.Windows.Forms.StatusStrip();
-            this.textBoxVamtDomainName = new System.Windows.Forms.TextBox();
-            this.labelVamtDomainName = new System.Windows.Forms.Label();
+            this.textBoxVamtDomainLDAPUrl = new System.Windows.Forms.TextBox();
+            this.labelVamtDomainLDAPUrl = new System.Windows.Forms.Label();
             this.textBoxDomainUserName = new System.Windows.Forms.TextBox();
             this.labelDomainUserName = new System.Windows.Forms.Label();
             this.textBoxVamtDomainUserPassword = new System.Windows.Forms.TextBox();
@@ -57,6 +57,7 @@
             this.textBoxUrl.Name = "textBoxUrl";
             this.textBoxUrl.Size = new System.Drawing.Size(306, 20);
             this.textBoxUrl.TabIndex = 1;
+            this.textBoxUrl.Text = "http://vamt-server:9089/";
             // 
             // buttonSave
             // 
@@ -75,21 +76,22 @@
             this.statusStripLabel1.Size = new System.Drawing.Size(444, 22);
             this.statusStripLabel1.TabIndex = 5;
             // 
-            // textBoxVamtDomainName
+            // textBoxVamtDomainLDAPUrl
             // 
-            this.textBoxVamtDomainName.Location = new System.Drawing.Point(124, 69);
-            this.textBoxVamtDomainName.Name = "textBoxVamtDomainName";
-            this.textBoxVamtDomainName.Size = new System.Drawing.Size(306, 20);
-            this.textBoxVamtDomainName.TabIndex = 7;
+            this.textBoxVamtDomainLDAPUrl.Location = new System.Drawing.Point(124, 69);
+            this.textBoxVamtDomainLDAPUrl.Name = "textBoxVamtDomainLDAPUrl";
+            this.textBoxVamtDomainLDAPUrl.Size = new System.Drawing.Size(306, 20);
+            this.textBoxVamtDomainLDAPUrl.TabIndex = 7;
+            this.textBoxVamtDomainLDAPUrl.Text = "ldap://vamt-server.mydomain.com";
             // 
-            // labelVamtDomainName
+            // labelVamtDomainLDAPUrl
             // 
-            this.labelVamtDomainName.AutoSize = true;
-            this.labelVamtDomainName.Location = new System.Drawing.Point(14, 72);
-            this.labelVamtDomainName.Name = "labelVamtDomainName";
-            this.labelVamtDomainName.Size = new System.Drawing.Size(104, 13);
-            this.labelVamtDomainName.TabIndex = 6;
-            this.labelVamtDomainName.Text = "Vamt Domain Name:";
+            this.labelVamtDomainLDAPUrl.AutoSize = true;
+            this.labelVamtDomainLDAPUrl.Location = new System.Drawing.Point(62, 72);
+            this.labelVamtDomainLDAPUrl.Name = "labelVamtDomainLDAPUrl";
+            this.labelVamtDomainLDAPUrl.Size = new System.Drawing.Size(54, 13);
+            this.labelVamtDomainLDAPUrl.TabIndex = 6;
+            this.labelVamtDomainLDAPUrl.Text = "LDAP Url:";
             // 
             // textBoxDomainUserName
             // 
@@ -144,8 +146,8 @@
             this.Controls.Add(this.labelVamtDomainUserPassword);
             this.Controls.Add(this.textBoxDomainUserName);
             this.Controls.Add(this.labelDomainUserName);
-            this.Controls.Add(this.textBoxVamtDomainName);
-            this.Controls.Add(this.labelVamtDomainName);
+            this.Controls.Add(this.textBoxVamtDomainLDAPUrl);
+            this.Controls.Add(this.labelVamtDomainLDAPUrl);
             this.Controls.Add(this.statusStripLabel1);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxUrl);
@@ -168,8 +170,8 @@
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.StatusStrip statusStripLabel1;
-        private System.Windows.Forms.TextBox textBoxVamtDomainName;
-        private System.Windows.Forms.Label labelVamtDomainName;
+        private System.Windows.Forms.TextBox textBoxVamtDomainLDAPUrl;
+        private System.Windows.Forms.Label labelVamtDomainLDAPUrl;
         private System.Windows.Forms.TextBox textBoxDomainUserName;
         private System.Windows.Forms.Label labelDomainUserName;
         private System.Windows.Forms.TextBox textBoxVamtDomainUserPassword;

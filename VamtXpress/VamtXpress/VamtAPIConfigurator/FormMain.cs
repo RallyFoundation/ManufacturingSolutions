@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml;
 using Utility;
 using VamtAPIConfigurator.ViewModels;
 
@@ -66,7 +67,7 @@ namespace VamtAPIConfigurator
             config = XmlUtility.XmlDeserialize(xml, typeof(ConfigurationViewModel), null, "utf-8") as ConfigurationViewModel;
 
             this.textBoxUrl.Text = config.VamtApiServicePoint;
-            this.textBoxVamtDomainName.Text = config.VamtDomainName;
+            this.textBoxVamtDomainLDAPUrl.Text = config.VamtDomainName;
             this.textBoxDomainUserName.Text = config.VamtDomainUserName;
             this.textBoxVamtDomainUserPassword.Text = config.VamtDomainPassword;
         }
@@ -81,7 +82,7 @@ namespace VamtAPIConfigurator
             }
 
 
-            this.saveConfig(this.textBoxUrl.Text, this.textBoxVamtDomainName.Text, this.textBoxDomainUserName.Text, this.textBoxVamtDomainUserPassword.Text);
+            this.saveConfig(this.textBoxUrl.Text, this.textBoxVamtDomainLDAPUrl.Text, this.textBoxDomainUserName.Text, this.textBoxVamtDomainUserPassword.Text);
 
             string message = String.Format("VAMT API configuration settings successfully saved to \"{0}\"", this.currentFilePath);
 
@@ -105,11 +106,46 @@ namespace VamtAPIConfigurator
         {
             try
             {
-               object message = HttpUtility.Get(this.textBoxUrl.Text, new Authentication() { Type = AuthenticationType.Custom }, null);
+                object message = HttpUtility.Get(this.textBoxUrl.Text, new Authentication() { Type = AuthenticationType.Custom }, null);
 
                 if (message != null)
                 {
                     MessageBox.Show(message.ToString(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                string[] adParams = LdapUtility.ParseLdapUrl(this.textBoxVamtDomainLDAPUrl.Text);
+
+                if ((adParams != null) && (adParams.Length > 0))
+                {
+                    string dn = "";
+                    string server = adParams[0];
+                    string user = this.textBoxDomainUserName.Text;
+                    string pwd = this.textBoxVamtDomainUserPassword.Text;
+                    string filter = String.Format("(&(objectCategory=person)(objectClass=user)(cn={0}))", user);
+
+                    if (adParams.Length > 1)
+                    {
+                        for (int i = 1; i < adParams.Length; i++)
+                        {
+                            dn += "dc=" + adParams[i];
+
+                            if (i != (adParams.Length - 1))
+                            {
+                                dn += ",";
+                            }
+                        }
+                    }
+
+                    var conn = LdapUtility.Connect(user, pwd, "ntlm", server, true, 4000);
+
+                    var result = LdapUtility.Query(conn, filter, dn, "subtree");
+
+                    if ((result != null) && (result is XmlDocument))
+                    {
+                        string dsml = (result as XmlDocument).InnerXml;
+
+                        MessageBox.Show(dsml, "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
