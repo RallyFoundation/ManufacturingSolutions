@@ -29,11 +29,12 @@ namespace VamtAPIConfigurator
             InitializeComponent();
         }
 
-        private void saveConfig(string url, string domainName, string domainUserName,string domainPassword)
+        private void saveConfig(string url, string domainServer, string domainName, string domainUserName,string domainPassword)
         {
             ConfigurationViewModel config = new ConfigurationViewModel()
             {
                 VamtApiServicePoint = url,
+                ServerAddress = domainServer,
                 VamtDomainName = domainName,
                 VamtDomainUserName = domainUserName,
                 VamtDomainPassword = domainPassword
@@ -67,7 +68,7 @@ namespace VamtAPIConfigurator
             config = XmlUtility.XmlDeserialize(xml, typeof(ConfigurationViewModel), null, "utf-8") as ConfigurationViewModel;
 
             this.textBoxUrl.Text = config.VamtApiServicePoint;
-            this.textBoxVamtDomainLDAPUrl.Text = config.VamtDomainName;
+            this.textBoxVamtDomainLDAPUrl.Text = String.Format("ldap://{0}.{1}", config.ServerAddress, config.VamtDomainName);
             this.textBoxDomainUserName.Text = config.VamtDomainUserName;
             this.textBoxVamtDomainUserPassword.Text = config.VamtDomainPassword;
         }
@@ -77,12 +78,51 @@ namespace VamtAPIConfigurator
             if (String.IsNullOrEmpty(this.textBoxUrl.Text))
             {
                 MessageBox.Show("Url is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
                 return;
             }
 
+            if (String.IsNullOrEmpty(this.textBoxVamtDomainLDAPUrl.Text))
+            {
+                MessageBox.Show("LDAP Url is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            this.saveConfig(this.textBoxUrl.Text, this.textBoxVamtDomainLDAPUrl.Text, this.textBoxDomainUserName.Text, this.textBoxVamtDomainUserPassword.Text);
+            if (String.IsNullOrEmpty(this.textBoxDomainUserName.Text))
+            {
+                MessageBox.Show("Domain User Name is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (String.IsNullOrEmpty(this.textBoxVamtDomainUserPassword.Text))
+            {
+                MessageBox.Show("Domain User Password is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string[] adParams = LdapUtility.ParseLdapUrl(this.textBoxVamtDomainLDAPUrl.Text);
+
+            if ((adParams == null) || (adParams.Length <= 1))
+            {
+                MessageBox.Show("Invalid LDAP Url!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string domainName = "";
+
+            if (adParams.Length > 1)
+            {
+                for (int i = 1; i < adParams.Length; i++)
+                {
+                    domainName += adParams[i];
+
+                    if (i != (adParams.Length - 1))
+                    {
+                        domainName += ".";
+                    }
+                }
+            }
+
+            this.saveConfig(this.textBoxUrl.Text, adParams[0], domainName, this.textBoxDomainUserName.Text, this.textBoxVamtDomainUserPassword.Text);
 
             string message = String.Format("VAMT API configuration settings successfully saved to \"{0}\"", this.currentFilePath);
 
@@ -106,14 +146,44 @@ namespace VamtAPIConfigurator
         {
             try
             {
+                if (String.IsNullOrEmpty(this.textBoxUrl.Text))
+                {
+                    MessageBox.Show("Url is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (String.IsNullOrEmpty(this.textBoxVamtDomainLDAPUrl.Text))
+                {
+                    MessageBox.Show("LDAP Url is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (String.IsNullOrEmpty(this.textBoxDomainUserName.Text))
+                {
+                    MessageBox.Show("Domain User Name is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (String.IsNullOrEmpty(this.textBoxVamtDomainUserPassword.Text))
+                {
+                    MessageBox.Show("Domain User Password is required!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string[] adParams = LdapUtility.ParseLdapUrl(this.textBoxVamtDomainLDAPUrl.Text);
+
+                if ((adParams == null) || (adParams.Length <= 1))
+                {
+                    MessageBox.Show("Invalid LDAP Url!", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 object message = HttpUtility.Get(this.textBoxUrl.Text, new Authentication() { Type = AuthenticationType.Custom }, null);
 
                 if (message != null)
                 {
                     MessageBox.Show(message.ToString(), "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                string[] adParams = LdapUtility.ParseLdapUrl(this.textBoxVamtDomainLDAPUrl.Text);
+                }     
 
                 if ((adParams != null) && (adParams.Length > 0))
                 {
