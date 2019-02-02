@@ -57,18 +57,18 @@ netsh advfirewall firewall set rule group = "Remote Administration" new enable =
 #Join Domain:
 $ClientHostName = $env:COMPUTERNAME;
 $ClientUserName = $env:USERNAME;
-$LocalCredential = [System.String]::Format("[0}\{1}", $ClientHostName, $ClientUserName);
+$LocalCredential = [System.String]::Format("{0}\{1}", $ClientHostName, $ClientUserName);
 
 [xml]$ConfigXml = Get-Content -Path ($RootDir + "\Config\config.xml") -Encoding UTF8;
 $ConfigXml.InnerXml;
 
-[System.String]$DomainName = $ConfigXml.vamtDomainName;
+[System.String]$DomainName = $ConfigXml.configurationItems.vamtDomainName;
 $DomainName = $DomainName.Substring(0, $DomainName.IndexOf("."));
-[System.String]$DomainUserName = $ConfigXml.vamtDomainUserName;
-[System.String]$DomainPassword =  $ConfigXml.vamtDomainPassword;
+[System.String]$DomainUserName = $ConfigXml.configurationItems.vamtDomainUserName;
+[System.String]$DomainPassword =  $ConfigXml.configurationItems.vamtDomainPassword;
 $DomainSecuredPassword = ConvertTo-SecureString $DomainPassword -AsPlainText -Force;
 
-#$DomainCredential = [System.String]::Format("[0}\{1}", $DomainName, $DomainUserName);
+#$DomainCredential = [System.String]::Format("{0}\{1}", $DomainName, $DomainUserName);
 
 $DomainCredential = New-Object System.Management.Automation.PSCredential($DomainUserName, $DomainSecuredPassword);
 
