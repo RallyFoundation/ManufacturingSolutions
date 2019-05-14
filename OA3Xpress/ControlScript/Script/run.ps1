@@ -166,6 +166,8 @@ $OA3ToolConfigurationXml.OA3.OutputData.ReportedXMLFile = "OA3.xml";
 
 #Adding serial number to OA3Tool configuration file:
 [System.String]$SerialNumber = $TransactionID;
+$ComputerBIOS = Get-CimInstance CIM_BIOSElement;
+$SerialNumber = $ComputerBIOS.SerialNumber;
 
 if($OA3ToolConfigurationXml.OA3.ServerBased.Parameters.SerialNumber -ne $null)
 {
@@ -220,6 +222,7 @@ $OA3OutputXmlFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $Transacti
 $OA3OutputTraceFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".trace.xml";
 $OA3OutputHWDecodeFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".hwdecode.xml";
 $OA3OutputConfigFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".cfg.xml";
+$OA3OutputAutopilotCSVFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + "_Autopilot.csv";
 
 Copy-Item -Path .\OA3.bin -Destination $OA3InputBinFilePath -Force;
 Copy-Item -Path .\OA3.Assemble.xml -Destination $OA3InputXmlFilePath -Force;
@@ -228,6 +231,8 @@ Copy-Item -Path .\OA3.Report.xml -Destination $OA3OutputXmlFilePath -Force;
 Copy-Item -Path .\OA3.Trace.xml -Destination $OA3OutputTraceFilePath -Force;
 Copy-Item -Path .\OA3.HWDecode.xml -Destination $OA3OutputHWDecodeFilePath -Force;
 Copy-Item -Path .\OA3Tool.cfg -Destination $OA3OutputConfigFilePath -Force;
+
+($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $OA3OutputAutopilotCSVFilePath -Encoding utf8;
 
 Remove-Item -Path .\OA3.bin -Force;
 Remove-Item -Path .\OA3.Assemble.xml -Force;
@@ -332,6 +337,8 @@ try
 			$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputTraceFilePath);
 
 			$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputHWDecodeFilePath);
+
+			$webClient.UploadFile($FFKIAPILogUrl, $OA3OutputAutopilotCSVFilePath);
 
 			$webClient.UploadFile($FFKIAPILogUrl, $LogPath);
 		}
