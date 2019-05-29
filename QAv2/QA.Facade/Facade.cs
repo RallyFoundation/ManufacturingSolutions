@@ -301,6 +301,10 @@ namespace QA.Facade
 
             IMapper mapper = new Decoded4KHHXmlMapper();
             Data = mapper.Map(data) as Dictionary<string, object>;
+
+            //For new data format in decoded HH in 19H1 oa3tool output
+            IMapper mapper19H1 = new Decoded4KHHDataPair19H1Mapper();
+            Data = mapper19H1.Map(Data) as Dictionary<string, object>;
         }
 
         public static void ValidateData()

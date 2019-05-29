@@ -52,7 +52,16 @@ namespace QA.Mapper
                         name = name.Trim();
                         value = nodes[i].Attributes["v"].Value;
 
-                        nicInfo.Add(name, value);
+                        //nicInfo.Add(name, value); //To fix the "Duplicated MAC" issue - Rally, May 27, 2019
+
+                        if (!nicInfo.ContainsKey(name))
+                        {
+                            nicInfo.Add(name, value);
+                        }
+                        else
+                        {
+                            nicInfo.Add(String.Format("{0}_{1}_{2}", name, value, i), value);
+                        }
 
                         i++;
                     }

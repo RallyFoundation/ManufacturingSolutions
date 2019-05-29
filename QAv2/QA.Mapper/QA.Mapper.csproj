@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decoded4KHHDataPair19H1Mapper.cs" />
     <Compile Include="Decoded4KHHXmlMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleJsonMapper.cs" />
