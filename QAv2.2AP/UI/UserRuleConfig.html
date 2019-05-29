@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>User Rule Configuration</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="Content/style.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog-theme-default.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.css" />
+    <link rel="stylesheet" type="text/css" href="Content/ngDialog.min.css" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-mocks.js"></script>
+    <script src="Scripts/angular-aria.js"></script>
+    <script src="Scripts/angular-aria.min.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-cookies.min.js"></script>
+    <script src="Scripts/angular-loader.js"></script>
+    <script src="Scripts/angular-loader.min.js"></script>
+    <script src="Scripts/angular-message-format.js"></script>
+    <script src="Scripts/angular-message-format.min.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
+    <script src="Scripts/angular-scenario.js"></script>
+    <script src="Scripts/angular-touch.js"></script>
+    <script src="Scripts/angular-touch.min.js"></script>
+    <script src="Scripts/ngDialog.js"></script>
+    <script src="Scripts/ngDialog.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="../../../Config/user-rule.json"></script>
+</head>
+<body ng-app="HQATool">
+    <div ng-controller="ValidationRuleConfigController" ng-init="loadData()">
+        <p>
+            &nbsp;&nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="closeWindow()">Close</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="saveRuleConfig()">Save</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="addRule()">Add</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="copyRule(currentRuleItemIndex)" ng-show="(currentRuleItemIndex >= 0)">Copy</a>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-lg" ng-click="removeRule()" ng-show="(currentRuleItemIndex >= 0)">Remove</a>
+        </p>
+        <!--<p style="font-weight:bolder;font-size:x-large;font-family:Arial">
+            Validation Rule
+        </p>-->
+        <table class="table">
+            <tr>
+                <th></th>       
+                <th>Field Name</th>
+                <!--<th>Group Name</th>-->
+                <th>Rule Type</th>
+                <th>Field Value</th>
+                <th>Quoted Fields</th>
+                <th>Enabled</th>
+                <!--<th>Overriding</th>-->
+                <th></th>
+            </tr>
+            <tr ng-repeat="ruleItem in ruleItems">
+                <td style="width:2%">
+                    <input type="radio" class="radio" name="currentRuleItem" ng-click="setCurrentRuleItemIndex($index)" />
+                </td>
+                <td style="width:21%">
+                    <!--<input type="text" ng-model="ruleItem.FieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the field for the rule to validate." />-->
+                    <select ng-model="ruleItem.FieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Field name, the name of the field for the rule to validate.Select one from the drop down list.">
+                        <option value="SmbiosSystemManufacturer">SmbiosSystemManufacturer</option>
+                        <option value="SmbiosSystemFamily">SmbiosSystemFamily</option>
+                        <option value="SmbiosSystemProductName">SmbiosSystemProductName</option>
+                        <option value="SmbiosBoardProduct">SmbiosBoardProduct</option>
+                        <option value="SmbiosSkuNumber">SmbiosSkuNumber</option>
+                        <option value="SmbiosSystemSerialNumber">SmbiosSystemSerialNumber</option>
+                        <option value="SmbiosUuid">SmbiosUuid</option>
+                        <option value="ChassisType">ChassisType</option>
+                        <option value="TotalPhysicalRAM">TotalPhysicalRAM</option>
+                        <option value="DisplaySizePhysicalH">DisplaySizePhysicalH</option>
+                        <option value="DisplaySizePhysicalY">DisplaySizePhysicalY</option>
+                        <option value="PrimaryDiskType">PrimaryDiskType</option>
+                        <option value="PrimaryDiskTotalCapacity">PrimaryDiskTotalCapacity</option>
+                    </select>
+                </td>
+                <!--<td style="width:9%">
+                    <input type="text" ng-model="ruleItem.GroupName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Group name, the name of the group that this rule belongs to. If you want this rule to be computed altogether with other rules that also check this field, make sure all of those rules' group names are the same with this rule's." />
+                </td>-->
+                <td style="width:20%">
+                    <select ng-model="ruleItem.RuleType" ng-disabled="(ruleItem.Enabled == false)" ng-show="(ruleItem.GroupName == 'System')" class="form-control" title="The type of the rule, select one from the drop down list.">
+                        <option value="EqualTo" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'ChassisType'))">Equal To</option>
+                        <!--<option value="NotEqualTo" ng-hide="(RuleItem.GroupName == 'USER')">Not Equal To</option>
+                        <option value="NotNull" ng-hide="(RuleItem.GroupName == 'USER')">Not Null</option>-->
+                        <!--<option value="Reference">Reference (Equal To)</option>
+                        <option value="ReferenceInRange">Reference (In)</option>-->
+                        <option value="InRange" ng-show="(ruleItem.FieldName == 'PrimaryDiskType')">In</option>
+                        <option value="OutOfRange" ng-show="((ruleItem.FieldName == 'SmbiosSystemSerialNumber') || (ruleItem.FieldName == 'SmbiosUuid') || (ruleItem.FieldName == 'PrimaryDiskType'))">Not In</option>
+                        <option value="Contain" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'SmbiosSystemSerialNumber'))">Contain</option>
+                        <option value="NotContain" ng-show="((ruleItem.FieldName == 'SmbiosSystemManufacturer') || (ruleItem.FieldName == 'SmbiosSystemFamily') || (ruleItem.FieldName == 'SmbiosSystemProductName') || (ruleItem.FieldName == 'SmbiosBoardProduct') || (ruleItem.FieldName == 'SmbiosSkuNumber') || (ruleItem.FieldName == 'SmbiosSystemSerialNumber'))">Not Contain</option>
+                        <!--<option value="InAndOutOfRange">In And Out Of Range</option>-->
+                        <option value="StringLength" ng-show="(ruleItem.FieldName == 'SmbiosSystemSerialNumber') || (ruleItem.FieldName == 'SmbiosUuid')">Length</option>
+                        <option value="Min" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Min</option>
+                        <option value="Max" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Max</option>
+                        <option value="MinAndMax" ng-show="((ruleItem.FieldName == 'PrimaryDiskTotalCapacity') || (ruleItem.FieldName == 'TotalPhysicalRAM') || (ruleItem.FieldName == 'DisplaySizePhysicalY') || (ruleItem.FieldName == 'DisplaySizePhysicalH'))">Between</option>         
+                        <!--<option value="NumberSequenceComparison">Number Sequence Comparison</option>-->
+                        <!--<option value="Occurrence" ng-show="false">Count</option>-->
+                        <!--<option value="Custom">Custom</option>-->
+                    </select>
+                    <span ng-show="(ruleItem.GroupName == 'DEFAULT')">{{getRuleTypeDisplayName(ruleItem.RuleType)}}</span>
+                </td>
+                <td style="width:24%">
+                    <div ng-switch="ruleItem.RuleType">
+                        <div ng-switch-when="EqualTo">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="NotEqualTo">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="Contain">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="NotContain">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                        </div>
+                        <div ng-switch-when="Reference">
+                            <input type="text" ng-model="ruleItem.ReferenceFieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field value." />
+                        </div>
+                        <div ng-switch-when="ReferenceInRange">
+                            <input type="text" ng-model="ruleItem.ReferenceFieldName" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" title="Field name, the name of the referenced field." />
+                            <textarea ng-model="ruleItem.ExpectedValues" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                            </ul>
+                        </div>
+                        <div ng-switch-when="NumberSequenceComparison">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Field value." />
+                            <input type="text" ng-model="ruleItem.SequenceSeparator" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Sequence separator, i.e., '.', or ',', etc." />
+                            <input type="number" ng-model="ruleItem.SequenceIndex" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="50" title="Sequence index, the index of the sequence to focus." />
+                        </div>
+                        <div ng-switch-when="Min">
+                            <input type="number" ng-model="ruleItem.MinValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Min value." />
+                        </div>
+                        <div ng-switch-when="Max">
+                            <input type="number" ng-model="ruleItem.MaxValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Max value." />
+                        </div>
+                        <div ng-switch-when="InRange">
+                            <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                            <table class="table">
+                                <tr ng-repeat="val in ruleItem.ExpectedValues">
+                                    <td>
+                                        {{val}}
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
+                                    </td>
+                                </tr>
+                            </table>-->
+                            <textarea ng-model="ruleItem.ExpectedValues" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                            </ul>
+                        </div>
+                        <div ng-switch-when="OutOfRange">
+                            <!--<input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below."/>
+                            <table class="table">
+                                <tr ng-repeat="val in ruleItem.UnexpectedValues">
+                                    <td>
+                                        {{val}}
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
+                                    </td>
+                                </tr>
+                            </table>-->
+                            <textarea ng-model="ruleItem.UnexpectedValues" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                            <ul>
+                                <li ng-repeat="val in ruleItem.UnexpectedValues">{{val}}</li>
+                            </ul>
+                        </div>
+                        <div ng-switch-when="InAndOutOfRange">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemExpectedValues($index, $event)" class="form-control" title="Expected values. Type into one expected value, and press Enter to populate it into the Expected Value List below." />
+                                        <table class="table">
+                                            <tr ng-repeat="val in ruleItem.ExpectedValues">
+                                                <td>
+                                                    {{val}}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.ExpectedValues, $index)">Remove</a>
+                                                </td>
+                                            </tr>
+                                        </table>-->
+                                        <textarea ng-model="ruleItem.ExpectedValues" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Expected values. Type into one or more expected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in ruleItem.ExpectedValues">{{val}}</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <!--<input type="text" ng-model="ruleItem.currentInputAltValue" ng-keypress="setRuleItemUnexpectedValues($index, $event)" class="form-control" title="Unexpected values. Type into one unexpected value, and press Enter to populate it into the Unexpected Value List below." />
+                                        <table class="table">
+                                            <tr ng-repeat="val in ruleItem.UnexpectedValues">
+                                                <td>
+                                                    {{val}}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.UnexpectedValues, $index)">Remove</a>
+                                                </td>
+                                            </tr>
+                                        </table>-->
+                                        <textarea ng-model="ruleItem.UnexpectedValues" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Unexpected values. Type into one or more unexpected value(s), and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>
+                                        <ul>
+                                            <li ng-repeat="val in ruleItem.UnexpectedValues">{{val}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div ng-switch-when="StringLength">
+                            <input type="number" ng-model="ruleItem.MinValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Max value." />
+                        </div>
+                        <div ng-switch-when="MinAndMax">
+                            <input type="number" ng-model="ruleItem.MinValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Max value." />
+                        </div>
+                        <div ng-switch-when="Occurrence">
+                            <input type="number" ng-model="ruleItem.MinValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Min value." />
+                            <input type="number" ng-model="ruleItem.MaxValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="20" title="Max value." />
+                        </div>
+                        <div ng-switch-when="Custom">
+                            <input type="text" ng-model="ruleItem.FieldValue" ng-disabled="(ruleItem.Enabled == false)" class="form-control" maxlength="80" title="Regular Expression pattern that constrains field's value." />
+                        </div>
+                    </div>
+                    <!--<input type="text" ng-model="ruleItem.FieldValue" ng-show="(ruleItem.RuleType != 'NotNull')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />
+                    <input type="text" ng-model="ruleItem.FieldAltValue" ng-show="(ruleItem.RuleType == 'InAndOutOfRange') || (ruleItem.RuleType == 'StringLength') || (ruleItem.RuleType == 'MinAndMax')" class="form-control" maxlength="50" onkeyup="purgeValue(valuePolicy.AlphaNum, this)" onmouseout="purgeValue(valuePolicy.AlphaNum, this)" />-->
+                </td>
+                <td>
+                    <!--<input type="text" ng-model="ruleItem.currentInputValue" ng-keypress="setRuleItemQuotedFields($index, $event)" class="form-control" title="Quoted fields. Type into one quoted field name, and press Enter to populate it into the Quoted Field Name List below." />
+                    <table class="table">
+                        <tr ng-repeat="val in ruleItem.QuotedFields">
+                            <td>
+                                {{val}}
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-info btn-lg" ng-click="removeValue(ruleItem.QuotedFields, $index)">Remove</a>
+                            </td>
+                        </tr>
+                    </table>-->
+                    <!--<textarea ng-model="ruleItem.QuotedFields" ng-disabled="(ruleItem.Enabled == false)" class="form-control" title="Quoted fields. Type into the name of the field(s) to quote, and separate each of them with a comma (,)." ng-list="," ng-trim="true"></textarea>-->
+                    <ul>
+                        <li ng-repeat="val in ruleItem.QuotedFields">{{val}}</li>
+                    </ul>
+                </td>
+                <td style="width:2%">
+                    <input type="checkbox" class="form-check" ng-model="ruleItem.Enabled" ng-show="(ruleItem.GroupName == 'System')" />
+                </td>
+                <td>
+                    <!--<input type="checkbox" class="form-check" ng-disabled="(ruleItem.Enabled == false)" ng-checked="(ruleItem.GroupName == 'USER')" ng-click="setRuleItemGroup($event, ruleItem)" />-->
+                    <a href="#" class="btn btn-info btn-lg" ng-click="copyRule($index)">Copy</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function createGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        var valuePolicy = {
+            AlphaNum: "alpha_num",
+            Int: "int",
+            Decimal: "decimal",
+            DateTime: "datetime",
+            Password: "password",
+            DBCCase: "dbc_case"
+        };
+
+        function purgeValue(policy, source) {
+            switch (policy) {
+                case valuePolicy.AlphaNum:
+                    {
+                        source.value = source.value.replace(/[^a-zA-Z0-9_\-\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Int:
+                    {
+                        source.value = source.value.replace(/[^\d]/g, '');
+                        break;
+                    }
+                case valuePolicy.Decimal:
+                    {
+                        source.value = source.value.replace(/[^0-9\.]/g, '');
+                        break;
+                    }
+                case valuePolicy.Password:
+                    {
+                        break;
+                    }
+                case valuePolicy.DBCCase:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+                default:
+                    {
+                        source.value = source.value.replace(/[\uFF00-\uFFFF]/g, '');
+                        source.value = source.value.replace(/[\u4E00-\u9FA5]/g, '');
+                        break;
+                    }
+            }
+        }
+
+        var settings = Settings.Data;
+
+        var appModule = angular.module("HQATool", ['ngDialog']).controller("ValidationRuleConfigController",
+
+        function ($scope, $location, $http, ngDialog) {
+
+            $scope.ruleItems = [];
+
+            $scope.currentRuleItemIndex = -1;
+
+            $scope.currentRuleItemName = "";
+
+            $scope.currentRuleItem = null;
+
+            $scope.getValueLength = function (value){
+                return String(value).length;
+            };
+
+            $scope.loadData = function () {
+                if ((settings != null) && (settings.length > 0)) {
+                    for (var i = 0; i < settings.length; i++) {
+                        $scope.ruleItems.push(settings[i]);
+                    }
+                }
+            };
+
+            $scope.setCurrentRuleItemIndex = function (index) {
+                $scope.currentRuleItemIndex = index;
+            };
+
+            $scope.setRuleItemGroup = function (event, item) {
+
+                if (event.target.checked == true) {
+                    //item.GroupName = "USER";
+                    item.GroupName = "System";
+                }
+                else {
+                    item.GroupName = "DEFAULT";
+                }
+
+            };
+
+            $scope.addRule = function () {
+
+                var ruleId = createGuid();
+
+                $scope.ruleItems.push(
+                    {
+                        id: ruleId,
+                        FieldName: "SmbiosSystemManufacturer",
+                        GroupName: "System",
+                        Enabled: false,
+                        RuleType: "EqualTo",
+                        FieldValue: null
+                    }
+                );
+            };
+
+            $scope.copyRule = function (index) {
+                if (index >= 0) {
+                    var ruleId = createGuid();
+                    var item = $scope.ruleItems[index];
+
+                    var newItem = {
+                        id: ruleId,
+                        FieldName: item.FieldName,
+                        GroupName: "System",
+                        Enabled: false
+                    };
+
+                    var ruleTypes = $scope.getFieldRuleTypes(item.FieldName);
+
+                    if ((ruleTypes != null) && (ruleTypes.length > 0)) {
+                        newItem.RuleType = ruleTypes[0];
+                    }
+
+                    $scope.ruleItems.splice(index, 0, newItem);
+                }
+            };
+
+            $scope.removeRule = function () {
+                if ($scope.currentRuleItemIndex >= 0) {
+                    $scope.ruleItems.splice($scope.currentRuleItemIndex, 1);
+                    $scope.setCurrentRuleItemIndex(-1);
+                }
+            };
+
+            $scope.removeValue = function (array, index) {
+                if ((array != null) && (index >= 0)) {
+                    array.splice(index, 1);
+                }
+            };
+
+            //$scope.addValue = function (array, refObj, currentInputFieldName, event) {
+            //    if (event.keyCode == "13") {
+            //        if (array == null) {
+            //            array = [];
+            //        }
+
+            //        if (array.indexOf(refObj[currentInputFieldName]) < 0) {
+            //            array.push(refObj[currentInputFieldName]);
+            //            refObj[currentInputFieldName] = null;
+            //        }
+            //    }
+            //};
+
+            $scope.setRuleItemQuotedFields = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].QuotedFields == null) {
+                        $scope.ruleItems[index].QuotedFields = [];
+                    }
+
+                    if ($scope.ruleItems[index].QuotedFields.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].QuotedFields.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }
+                }
+            };
+
+            $scope.setRuleItemExpectedValues = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].ExpectedValues == null) {
+                        $scope.ruleItems[index].ExpectedValues = [];
+                    }
+
+                    if ($scope.ruleItems[index].ExpectedValues.indexOf($scope.ruleItems[index].currentInputValue) < 0) {
+                        $scope.ruleItems[index].ExpectedValues.push($scope.ruleItems[index].currentInputValue);
+
+                        $scope.ruleItems[index].currentInputValue = null;
+                    }
+                }
+            };
+
+            $scope.setRuleItemUnexpectedValues = function (index, event) {
+                if (event.keyCode == "13") {
+                    if ($scope.ruleItems[index].UnexpectedValues == null) {
+                        $scope.ruleItems[index].UnexpectedValues = [];
+                    }
+
+                    if ($scope.ruleItems[index].UnexpectedValues.indexOf($scope.ruleItems[index].currentInputAltValue) < 0) {
+                        $scope.ruleItems[index].UnexpectedValues.push($scope.ruleItems[index].currentInputAltValue);
+
+                        $scope.ruleItems[index].currentInputAltValue = null;
+                    }
+                }
+            };
+
+            $scope.saveRuleConfig = function () {
+                var fileInfo = { Path: "", Content: "" };
+
+                //fileInfo.Path = "..\\..\\Config\\rule.json";
+                fileInfo.Path = "Config\\user-rule.json";
+                fileInfo.Content = "Settings=" + JSON.stringify({ Data: $scope.ruleItems }) + ";";
+
+                var fileInfoJson = JSON.stringify(fileInfo);
+
+                event = new MessageEvent("WriteFile", { "view": window, "bubbles": false, "cancelable": true, 'data': fileInfoJson });
+                document.dispatchEvent(event);
+            };
+
+            $scope.closeWindow = function () {
+                event = new MessageEvent("CloseWindow", { "view": window, "bubbles": false, "cancelable": true, 'data': "Close" });
+                document.dispatchEvent(event);
+            };
+
+            $scope.showProgress = function () {
+                $scope.currentDialog = ngDialog.open({
+                    scope: $scope,
+                    className: 'ngdialog-theme-default',
+                    template: 'progress-template.html',//'<img src=\"/theme/progress_blue.gif\" height=\"26\" width=\"26\"/><br/><p>Processing, please wait...</p>',
+                    //plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false,
+                    width: 100,
+                    preCloseCallback: function (value) {
+                        return true;
+                    }
+                });
+            };
+
+            $scope.hideProgress = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.closeDialog = function () {
+                ngDialog.closeAll();
+            };
+
+            $scope.getFieldRuleTypes = function (fieldName) {
+                var ruleTypes = null;
+
+                switch (fieldName)
+                {
+                    case "SmbiosSystemManufacturer": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemFamily": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSystemProductName": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosBoardProduct": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosSkuNumber": {
+                        ruleTypes = ["EqualTo", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "ChasisType": {
+                        ruleTypes = ["EqualTo"];
+                        break;
+                    }
+                    case "SmbiosSystemSerialNumber": {
+                        ruleTypes = ["StringLength", "OutOfRange", "Contain", "NotContain"];
+                        break;
+                    }
+                    case "SmbiosUuid": {
+                        ruleTypes = ["StringLength", "OutOfRange"];
+                        break;
+                    }
+                    case "PrimaryDiskType": {
+                        ruleTypes = ["InRange", "OutOfRange"];
+                        break;
+                    }
+                    case "TotalPhysicalRAM": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "PrimaryDiskTotalCapacity": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalH": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                    case "DisplaySizePhysicalY": {
+                        ruleTypes = ["Min", "Max", "MinAndMax"];
+                        break;
+                    }
+                }
+
+                return ruleTypes;
+            };
+
+            $scope.getRuleTypeDisplayName = function (ruleType) {
+
+                var displayName = ruleType;
+
+                switch (ruleType)
+                {
+                    case "InRange": {
+                        displayName = "In";
+                        break;
+                    }
+                    case "OutOfRange": {
+                        displayName = "Not In";
+                        break;
+                    }
+                    case "MinAndMax": {
+                        displayName = "Between";
+                        break;
+                    }
+                    case "StringLength": {
+                        displayName = "Length";
+                        break;
+                    }
+                    case "NotNull": {
+                        displayName = "Not Null";
+                        break;
+                    }
+                    case "NotContain": {
+                        displayName = "Not Contain";
+                        break;
+                    }
+                    case "EqualTo": {
+                        displayName = "Equal To";
+                        break;
+                    }
+                    case "NotEqualTo": {
+                        displayName = "Not Equal To";
+                        break;
+                    }
+                    default: {
+                        displayName = ruleType;
+                        break;
+                    }
+                }
+
+                return displayName;
+            };
+
+            $scope.checkFieldRuleValue = function (fieldName, ruleValue) {
+                return false;
+            };
+
+            //$scope.showDetailDialog = function (ruleItemName, templateName) {
+
+            //    $scope.currentRuleItemName = ruleItemName;
+
+            //    if ($scope.ruleItems[$scope.currentRuleItemName] != null) {
+
+            //        $scope.setCurrentDetailKeyValues($scope.ruleItems[$scope.currentRuleItemName].Detail);
+
+            //        $scope.currentDialog = ngDialog.open({
+            //            scope: $scope,
+            //            className: 'ngdialog-theme-default',
+            //            template: templateName,
+            //            //plain: true,
+            //            showClose: true,
+            //            closeByDocument: false,
+            //            closeByEscape: false,
+            //            width: 500,
+            //            preCloseCallback: function (value) {
+            //                return true;
+            //            }
+            //        });
+            //    }
+            //};
+        });
+    </script>
+</body>
+</html>
