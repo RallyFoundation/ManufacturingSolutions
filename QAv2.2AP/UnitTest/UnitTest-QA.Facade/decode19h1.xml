@@ -1,0 +1,74 @@
+﻿<?xml version="1.0"?>
+<HardwareReport>
+	<HardwareInventory>
+		<p n="ProductKeyID" v="3425051061249" />
+		<p n="ProductKeyPkPn" v="[TH]X20-23601" />
+		<p n="ToolVersion" v="4" />
+		<p n="HardwareInventoryVersion" v="131" />
+		<p n="ToolBuild" v="10.0.18334.1" />
+		<p n="OSType" v="FullOS" />
+		<p n="OsCpuArchitecture" v="x64" />
+		<p n="OsBuild" v="10.0.14393.1715" />
+		<p n="OsSystemTime" v="2019-04-12T06:53:03Z" />
+		<p n="OsLocalTime" v="2019-04-12T14:53:03+08:00" />
+		<p n="ProcessorModel" v="Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz" />
+		<p n="ProcessorPackages" v="1" />
+		<p n="ProcessorThreads" v="4" />
+		<p n="ProcessorCores" v="2" />
+		<p n="ProcessorHyperThreading" v="true" />
+		<p n="SmbiosRamArrayCount" v="1" />
+		<p n="SmbiosRamSlots" v="2" />
+		<p n="SmbiosRamErrorCorrection" v="None" />
+		<p n="SmbiosRamMaximumCapacity" v="32" />
+		<p n="TotalPhysicalRAM" v="8" />
+		<p n="SmbiosFirmwareVendor" v="ASUSTeK COMPUTER INC." />
+		<p n="SmbiosSystemManufacturer" v="ASUSTeK COMPUTER INC." />
+		<p n="SmbiosSystemProductName" v="P453UJ" />
+		<p n="SmbiosSystemSerialNumber" v="G6NXCV02M77023E     " />
+		<p n="SmbiosUuid" v="e020fc40-0050-9c44-959d-05cf8335b5b1" />
+		<p n="SmbiosSkuNumber" v="ASUS-NotebookSKU" />
+		<p n="SmbiosSystemFamily" v="P" />
+		<p n="SmbiosSystemVersion" v="1.0       " />
+		<p n="SmbiosBoardManufacturer" v="ASUSTeK COMPUTER INC." />
+		<p n="SmbiosBoardProduct" v="P453UJ" />
+		<p n="SmbiosBoardVersion" v="1.0       " />
+		<p n="ChassisType" v="0x0A" />
+		<p n="InternalDiskCount" v="2" />
+		<p n="TotalDiskCapacity" v="1128" />
+		<p n="Disk1.DiskCapacity" v="128" />
+		<p n="Disk1.DiskType" v="SSD" />
+		<p n="Disk1.StorageBusType" v="SATA" />
+		<p n="Disk1.IncursSeekPenalty" v="0" />
+		<p n="Disk1.TrimEnabled" v="1" />
+		<p n="Disk1.DiskSerialNumber" v="AA000000000000002257|LD X760 128GB|" />
+		<p n="Disk2.DiskCapacity" v="1000" />
+		<p n="Disk2.DiskType" v="HDD" />
+		<p n="Disk2.StorageBusType" v="SATA" />
+		<p n="Disk2.IncursSeekPenalty" v="1" />
+		<p n="Disk2.TrimEnabled" v="0" />
+		<p n="Disk2.DiskSerialNumber" v="      S0E001SSHPLLGK|HGST HTS541010A7E630|" />
+		<p n="PhysicalMedium" v="802_3" />
+		<p n="MacAddress" v="70:8B:CD:02:2A:C4" />
+		<p n="PhysicalMedium" v="Native802_11" />
+		<p n="MacAddress" v="74:C6:3B:87:28:1D" />
+		<p n="DisplayResolutionHorizontal" v="1366" />
+		<p n="DisplayResolutionVertical" v="768" />
+		<p n="DisplaySizePhysicalH" v="309" />
+		<p n="DisplaySizePhysicalY " v="173" />
+		<p n="DigitizerSupportID" v="(null)" />
+		<p n="PowerPlatformRole" v="Mobile" />
+		<p n="GpuCount" v="1" />
+		<p n="Gpu1.DedicatedVideoMemory" v="134217728" />
+		<p n="Gpu1.DedicatedSystemMemory" v="0" />
+		<p n="Gpu1.RemovalPolicy" v="NoRemoval" />
+		<p n="Gpu1.InLocalMachineContainer" v="true" />
+		<p n="Gpu1.Manufacturer" v="Intel Corporation" />
+		<p n="Gpu1.Model" v="Intel(R) HD Graphics 520" />
+		<p n="TPMVersion" v="TPM-Version:2.0 -Level:0-Revision:1.16-VendorID:&apos;INTC&apos;-Firmware:720896.1194" />
+		<p n="TPM EkPub" v="ztevgtbB0QLaKQbhCxfIVe8N9ivzD1sr9cEgFBfTaRntwOlBOUmq08BgJ9MxeDtmDpKFtXP9ojrJ4RhE1gAZUp8m5t85e9lUV5WP2mDiAIsWYrArDO+y5zRwGzpMcykSZ8Yri38nxou4kNa65+L/vQGIy5Rv8BA+F9r6uAVapbuoxmwA02BrQXQXL8QhjpU7L/MJfBjriATjqsNKjOz74JEFhy6RNajIzIrz7qsQEpoeaZyRIbWneNhMSd+5CZCZff0iFPHfLZiAeyRNjfYoLaI8kTergIxgQkEyu8ciRS8ohdljq5MyWLS0BOkcJAQBaQEkVRbyGwkqMTHqv3BlaQ==" />
+		<p n="Status" v="0x00000000" />
+		<p n="OfflineDeviceIdType" v="TPM_EK" />
+		<p n="OfflineDeviceId" v="0uD/3fRJNrOXbxK7DVmVRxQ9dvPTcSOuitfxmP6DAQI=" />
+		<p n="DiskSSNKernel" v="AA000000000000002257|LD X760 128GB|" />
+	</HardwareInventory>
+</HardwareReport>

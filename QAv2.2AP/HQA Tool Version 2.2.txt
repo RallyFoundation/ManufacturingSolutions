@@ -1,0 +1,122 @@
+****************************************************************************************************************************************************
+
+                                Hardware Hash Quality Validation Tool Version 2.2
+
+****************************************************************************************************************************************************
+Hardware Hash Quality Validation Tool
+======================================
+Version 2.2
+
+Copyright (c) 2015-2019 Microsoft Corporation. All Rights Reserved
+
+Overview
+--------
+
+Hardware Hash Quality Validation Tool
+
+The Hardware Hash Quality Validation Tool verifies and integrates Redstone 3 OA3Tool.exe to capture hardware hash from Windows 10 devices and validates if there are valid hardware components information. Furthermore, the tool also captures trace log from the test machine in online validation mode for the engineer to investigate hardware hash quality issues. 
+
+****************************************************************************************************************************************************
+
+Requirements
+------------
+
+The following are requirements for the validation tool to work correctly:
+	*Must run on the fully assembled client computer with all drivers installed Windows 10 desktop
+	*The OS version must be Windows 10 desktop 
+	*If the tool runs in online mode, the test machine must be injected with an OA3.0 DPK. 
+
+****************************************************************************************************************************************************
+
+Change Notes
+------------   
+
+Version 1.0:
+
+1.Production version of OA3Tool 16299 is wrapped in;
+2."Other" is removed from the "Expected Value" of PrimaryDiskType in the validation rule template (\Xslt\xslt-check-hh-xml.xslt);
+3.Xslt extension has been compiled into binary file (\Module\XsltExtension\BusinessRule.dll) to eliminate run-time compilation; 
+4.More time stamps are added in the main log of validation-log.log to record time durations for further performance tuning and optimization;
+5.Actual length of test value is added in the report UI besides the test value of each test item that needs character length limit validation;
+6.Filters for default SMBIOS values of ¡°To be filled by O.E.M¡± and ¡°default string¡± are added in the validation rule template (\Xslt\xslt-check-hh-xml.xslt) for validations against Manufacturer, Family, ProductName, and SerialNumber;
+7.The NoKeyCheck support with OA3Tool 16299 is added in online mode for validating without DPK in MSDM table in the firmware;
+8.Validation against OA3Tool build and version added;
+9.Auto creation for built-in folders each for Input, Output, Log added.
+
+
+Version 2.0:
+
+1.WYSIWYG configuration for user-defined rules is available. 
+
+Version 2.1:
+
+1.Validation for Autopilot specific fields (TPMEkPub, DiskSerialNumber) are added. 
+
+
+Version 2.2:
+1.19H1 OA3Tool bundled;
+2.Support for 19H1 OA3Tool feature added.
+	
+****************************************************************************************************************************************************
+
+Tool Usage
+----------
+1. Online validation mode: 
+
+1) Put and extract the Hardware Hash Quality Validation Tool package on each machine to be validated;  
+2) Double click Online.exe;
+3) When the elevation prompt dialog shows, click "Yes";
+4) Read and gather the results displayed in the validation report.
+
+****************************************************************************************************************************************************
+
+2. Offline validation mode:
+
+A) If running with user interactions:
+
+1) Put and extract the Hardware Hash Quality Validation Tool package on a machine of Windows 10 PC;  
+2) Double click Offline.exe;
+3) When the elevation prompt dialog shows, click "Yes";
+4) When the result file input path prompt dialog shows, click "Browse..." to select and specify the path to the oa3tool /report result file;
+5) Read and gather the results displayed in the validation report;
+6) (Optional) From the "Output" folder, copy out the .zip archive that wraps all of the files corresponding to the current transaction (identified by the GUID).
+7) OA3tool /report result .xml format sample: 
+
+<Key>
+	<ProductKeyID>33055791000051</ProductKeyID>
+	<ProductKeyState>3</ProductKeyState>
+	<HardwareHash><4K size Hardware Hash></HardwareHash>
+</Key>
+
+B) If running in script / command in a batch:
+
+1) Put and extract the Hardware Hash Quality Validation Tool package on a machine of Windows 10 PC; 
+2) Launch Command prompt window in elevation mode (Run as Administrator);
+3) In the elevated command prompt window, navigate to the path to the extracted folder;
+4) Call the validate-offline.ps1 located in the \Script\ sub directory of the extracted folder, and pass the full path to the oa3tool /report result file as the argument, which could be like the following example:
+
+   PowerShell -ExecutionPolicy ByPass -File .\Script\validate-offline.ps1 -ReportFilePath "C:\MyOA3ResultFiles\OA3Report001.xml"
+
+5) (Optional) From the "Output" folder, copy out the .zip archive that wraps all of the files corresponding to the current transaction (identified by the GUID).
+
+
+******************************************************************************************************************************************************
+
+3. Logs and diagnostics:
+
+1) All of the logs / outputs produced during the running of Hardware Hash Quality Validation Tool (Online.exe, Offline.exe) are archived in the "Log" folder identified by GUID for each batch;
+2) Find / send the logs in this folder for diagnosing when in unexpected situations.
+
+
+******************************************************************************************************************************************************
+
+4. User-defined rule configuration:
+
+1) Put and extract the Hardware Hash Quality Validation Tool package on a machine of Windows 10 PC;  
+2) Double click Config.exe;
+3) When the elevation prompt dialog shows, click "Yes";
+4) In the rule configuration UI, under each item, click "Add My Rule" to add a rule as specific to the item, and then click "OK" to accept, or click "Cancel" to cancel;
+5) Or in the rule configuration UI, under each item, click "Remove" beside each user-defined rule as specific to the item to remove the rule;
+6) Click Save to save the rule;
+7) Click Close to exit the rule configuration UI.
+
