@@ -680,34 +680,75 @@ if($ByPassUI -eq $false)
 
 #$ServiceUrl = "http://127.0.0.1:3000/engineering/";
 
+#Reading out Factory.js settings, and set Service Url for result uploading (if configured as enabled)
+try
+{
+	[xml]$FactoryJSAPISettings = Get-Content -Path ($RootDir + "\Config\api-config.xml") -Encoding UTF8;
+
+	$FactoryJSAPISettings;
+
+	if(($FactoryJSAPISettings.settings.enabled -eq "true") -or ($FactoryJSAPISettings.settings.enabled -eq "1"))
+	{
+		$ServiceUrl = $FFKIAPISettings.settings.servicePoint;
+	}
+}
+catch [System.Exception]
+{
+	$Message = $Error[0].Exception;
+    $Message;
+    $Message | Out-File -FilePath $LogPath -Append;
+}
+
 if([System.String]::IsNullOrEmpty($ServiceUrl) -eq $false)
 {
-	$BodyJsonString = '"uid": "",
-		"transactionId": "{0}",
-		"type": "",
-		"value": "",
-		"time": "{1}",
-		"systemInfo": {2},
-		"smbInfo": {3},
-		"monitorInfo": {4},
-		"oa3Report": {5},
-		"oa3ReportTrace": {6},
-		"oa3HwDecode": {7},
-		"validationResult": {8}';
+	#$BodyJsonString = '"uid": "",
+	#	"transactionId": "{0}",
+	#	"type": "",
+	#	"value": "",
+	#	"time": "{1}",
+	#	"systemInfo": {2},
+	#	"smbInfo": {3},
+	#	"monitorInfo": {4},
+	#	"oa3Report": {5},
+	#	"oa3ReportTrace": {6},
+	#	"oa3HwDecode": {7},
+	#	"validationResult": {8}';
 
-	$CurrDate = Get-Date;
+	#$CurrDate = Get-Date;
 
-	#$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, $SMBInfoJson, $MonitorInfoJson, $ProductKeyInfoJson, $ReportTraceJson, $HardwareHashDecodeJson, $ResultJson);
+	##$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, $SMBInfoJson, $MonitorInfoJson, $ProductKeyInfoJson, $ReportTraceJson, $HardwareHashDecodeJson, $ResultJson);
 
-	#$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, "", "", "", "", "", "");
+	##$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, "", "", "", "", "", "");
 
-	$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, "", $MonitorInfoJson, "", "", "", $ResultJson);
+	#$BodyJsonString = [System.String]::Format($BodyJsonString, $TransactionID, $CurrDate, $SystemInfoJson, "", $MonitorInfoJson, "", "", "", $ResultJson);
 
-	$BodyJsonString = "{" + $BodyJsonString + "}";
+	#$BodyJsonString = "{" + $BodyJsonString + "}";
 
-	#$Body = ConvertFrom-Json -InputObject $BodyJsonString;
+	##$Body = ConvertFrom-Json -InputObject $BodyJsonString;
 
-	Invoke-RestMethod -Method Post -Body $BodyJsonString -Uri $ServiceUrl;
+	#Invoke-RestMethod -Method Post -Body $BodyJsonString -Uri $ServiceUrl;
+
+	$FactoryJSAPIServicePoint = $ServiceUrl;
+
+	if($FactoryJSAPIServicePoint.EndsWith("/") -eq $false)
+	{
+	   $FactoryJSAPIServicePoint += "/";
+	}
+
+	$FactoryJSAPIServicePoint;
+
+	$Result = Invoke-RestMethod -Method Get -Uri $FactoryJSAPIServicePoint;
+
+	$Result;
+
+	if($Result -eq "'Welcome to Factory.js!")
+	{
+		[System.Net.WebClient]$webClient = New-Object -TypeName System.Net.WebClient;
+
+		$FactoryJSAPIHQAOutputUrl = ($FFKIAPIServicePoint + "hqa/output/");
+
+		$webClient.UploadFile($FactoryJSAPIHQAOutputUrl, $ZippedFilePath);
+	}
 }
 
 if($StayInHost -eq $false)
