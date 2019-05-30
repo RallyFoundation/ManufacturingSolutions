@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <enabled>false</enabled>
+  <servicePoint>http://win-rq223ordle1:9909/</servicePoint>
+  <reportUrl>oa3/report/</reportUrl>
+  <configUrl>oa3/config/</configUrl>
+  <logUrl>oa3/log/</logUrl>
+</settings>
