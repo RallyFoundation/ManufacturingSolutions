@@ -222,7 +222,7 @@ $OA3OutputXmlFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $Transacti
 $OA3OutputTraceFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".trace.xml";
 $OA3OutputHWDecodeFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".hwdecode.xml";
 $OA3OutputConfigFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".cfg.xml";
-$OA3OutputAutopilotCSVFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + "_Autopilot.csv";
+$OA3OutputAutopilotCSVFilePath = $RootDir + "\Output\" + $ProductKeyID + "_" + $TransactionID + ".autopilot.csv";
 
 Copy-Item -Path .\OA3.bin -Destination $OA3InputBinFilePath -Force;
 Copy-Item -Path .\OA3.Assemble.xml -Destination $OA3InputXmlFilePath -Force;
@@ -232,7 +232,8 @@ Copy-Item -Path .\OA3.Trace.xml -Destination $OA3OutputTraceFilePath -Force;
 Copy-Item -Path .\OA3.HWDecode.xml -Destination $OA3OutputHWDecodeFilePath -Force;
 Copy-Item -Path .\OA3Tool.cfg -Destination $OA3OutputConfigFilePath -Force;
 
-($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $OA3OutputAutopilotCSVFilePath -Encoding utf8;
+("Device Serial Number,Windows Product ID,Hardware Hash,Group Tag") | Out-File -FilePath $OA3OutputAutopilotCSVFilePath -Encoding utf8; #In reaction to the May 20, 2019 Autopilot CSV format change -- Rally, May 30, 2019
+($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $OA3OutputAutopilotCSVFilePath -Encoding utf8 -Append;
 
 Remove-Item -Path .\OA3.bin -Force;
 Remove-Item -Path .\OA3.Assemble.xml -Force;
