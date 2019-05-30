@@ -321,7 +321,7 @@ try
 
 		$Result;
 
-		if($Result -eq "Welcome to OA3.0!")
+		if($Result -eq "'Welcome to Factory.js!")
 		{
 			[System.Net.WebClient]$webClient = New-Object -TypeName System.Net.WebClient;
 
