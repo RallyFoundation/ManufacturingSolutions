@@ -452,6 +452,8 @@ $ExpectedOSType = "FullOS";
 #$ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 $ProcessorModel = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "ProcessorModel"})[0].v; #$ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 
+$SerialNumber = $HardwareHashDecode.HardwareReport.HardwareInventory.p.Where({$_.n -eq "SmbiosSystemSerialNumber"})[0].v; 
+
 if([System.String]::IsNullOrEmpty($ProcessorModel))
 {
    $ProcessorModel = "N/A";
@@ -548,15 +550,16 @@ $ProductKeyInfo.Save($RootDir + "\Input\" + $TransactionID + "_Report.xml");
 #$TraceXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.xml");
 $DecodeXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Decode.xml");
 $ReportXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Report.xml");
+$AutopilotCSVFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Autopilot.csv");
 
 #Copy-Item -Path $TraceFilePath -Destination $TraceXmlOutputPath -Force;
 Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
 Copy-Item -Path ($RootDir + "\Input\" + $TransactionID + "_Report.xml") -Destination $ReportXmlOutputPath -Force;
 
-$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));#@($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
-$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
+#$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));#@($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath);
+#$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
 
-New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);;
+#New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);;
 
 #$IE = New-Object -COM InternetExplorer.Application;
 #$IE.Navigate2([System.String]::Format("file:///{0}?TransactionID={1}&ProductKeyID={2}", $ResultHtmlFilePath, $TransactionID, $ProductKeyID));
@@ -586,6 +589,29 @@ if($OutResult -ne $null)
 {
    $OutResult.Value = $TotalResult;
 }
+
+if($TotalResult -eq "Passed")
+{
+	("Device Serial Number,Windows Product ID,Hardware Hash,Group Tag") | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8; #In reaction to the May 20, 2019 Autopilot CSV format change -- Rally, May 30, 2019
+	
+	if(($ProductKeyID -ne "NO_KEY_CHECK") -and ([System.String]::IsNullOrEmpty($ProductKeyID) -eq $false))
+	{
+		($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8 -Append;
+	}
+	else
+	{
+		($SerialNumber + ",," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8 -Append;
+	}
+    
+    $FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"), $AutopilotCSVFilePath);
+}
+else
+{
+	$FilePathsForZip = @($DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, ($LogPath + "\" + $TransactionID + ".log"));
+}
+
+$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
+New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
 
 Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 

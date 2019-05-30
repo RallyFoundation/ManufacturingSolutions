@@ -135,7 +135,6 @@ if([System.String]::IsNullOrEmpty($ReportFilePath) -or [System.String]::IsNullOr
 
     $OA3ToolConfigurationFilePath = $RootDir + "\Config\OA3Tool-FileBased.cfg";
 
-
 	[xml]$OA3ToolConfigurationXml = Get-Content -Path $OA3ToolConfigurationFilePath -Encoding UTF8;
 
 	$OA3ToolConfigurationXml.OA3.OutputData.ReportedXMLFile = $ReportFilePath;
@@ -457,6 +456,8 @@ $ExpectedOSType = "FullOS";
 $ProcessorModel = $ReportTrace.HardwareVerificationData.Hardware.CPUID.p.Where({$_.name -eq "ProcessorModel"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 #$ProcessorModel = $ReportTrace.HardwareVerificationReport.HardwareVerificationData.Hardware.SMBIOS.Processor.p.Where({$_.n -eq "Version"})[0].'#text'; #$env:PROCESSOR_IDENTIFIER;
 
+$SerialNumber = $ReportTrace.HardwareVerificationData.Hardware.SMBIOS.System.p.Where({$_.name -eq "SerialNumber"})[0].'#text'; 
+
 $XsltArgs = New-Object -TypeName "System.Collections.Generic.Dictionary``2[System.String,System.Object]";
 
 $XsltArgs.Add("transactionId", $TransactionID);
@@ -571,15 +572,19 @@ $ProductKeyInfoJson | Out-File -Encoding utf8 -FilePath ($RootDir + "\Output\" +
 $TraceXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Trace.xml");
 $DecodeXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Decode.xml");
 $ReportXmlOutputPath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Report.xml");
+$AutopilotCSVFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_Autopilot.csv");
 
 Copy-Item -Path $TraceFilePath -Destination $TraceXmlOutputPath -Force;
 Copy-Item -Path $DecodeFilePath -Destination $DecodeXmlOutputPath -Force;
 Copy-Item -Path $ReportFilePath -Destination $ReportXmlOutputPath -Force;
 
-$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
-$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
+#("Device Serial Number,Windows Product ID,Hardware Hash,Group Tag") | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8; #In reaction to the May 20, 2019 Autopilot CSV format change -- Rally, May 30, 2019
+#($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8 -Append;
 
-New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
+#$FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
+
+#$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
+#New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
 
 #$ProductKeyInfo.Save($RootDir + "\Input\" + $TransactionID + "_Report.xml");
 
@@ -608,6 +613,29 @@ if($OutResult -ne $null)
 {
    $OutResult.Value = $TotalResult;
 }
+
+if($TotalResult -eq "Passed")
+{
+	("Device Serial Number,Windows Product ID,Hardware Hash,Group Tag") | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8; #In reaction to the May 20, 2019 Autopilot CSV format change -- Rally, May 30, 2019
+	
+	if(($ProductKeyID -ne "NO_KEY_CHECK") -and ([System.String]::IsNullOrEmpty($ProductKeyID) -eq $false))
+	{
+		($SerialNumber + "," + $ProductKeyID + "," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8 -Append;
+	}
+	else
+	{
+		($SerialNumber + ",," + $ProductKeyInfo.Key.HardwareHash) | Out-File -FilePath $AutopilotCSVFilePath -Encoding utf8 -Append;
+	}
+    
+    $FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"), $AutopilotCSVFilePath);
+}
+else
+{
+	 $FilePathsForZip = @($TraceXmlOutputPath, $DecodeXmlOutputPath, $ReportXmlOutputPath, $ResultXmlFilePath, $ResultJsonFilePath, $ResultHtmlFilePath, $SMBIOSDumpPath, $MonitorDumpPath, ($LogPath + "\" + $TransactionID + ".log"));
+}
+
+$ZippedFilePath = ($RootDir + "\Output\" + $TransactionID + "_" + $ProductKeyID + "_All.zip");
+New-Zip -FilesToZip $FilePathsForZip -ZippedFilePath $ZippedFilePath -VirtualPathInZip ($ProductKeyID +"\"+ $TransactionID);
 
 Write-Host -Object ("Validation Result: {0}." -f $TotalResult);
 
