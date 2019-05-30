@@ -131,7 +131,7 @@ if (enableCpuClustering === true) {
         server = app.listen(httpServerPort, function () {
             var host = server.address().address;
             var port = server.address().port;
-            console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
+            console.log("Factory.js RESTful API service listening at http://%s:%s", host, port);
         });
 
         console.log(`Worker ${process.pid} started`);
@@ -140,12 +140,12 @@ if (enableCpuClustering === true) {
     server = app.listen(httpServerPort, function () {
         var host = server.address().address;
         var port = server.address().port;
-        console.log("OA3.0 FFKI RESTful API service listening at http://%s:%s", host, port);
+        console.log("Factory.js RESTful API service listening at http://%s:%s", host, port);
     });
 }
 
 app.get('/', function (req, res) {
-    res.send('Welcome to OA3.0!');
+    res.send('Welcome to Factory.js!');
 });
 
 app.post("/oa3/report/", function (req, res) {

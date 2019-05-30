@@ -28,6 +28,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="factory.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ffki-api-v2.js">
       <SubType>Code</SubType>
     </Compile>
