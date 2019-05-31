@@ -11,9 +11,10 @@
     <PostBuildScript>Copy-Item .\Script ..\bin\Release -Recurse -Force
 Copy-Item .\Dump ..\bin\Release\Module -Recurse -Force
 Copy-Item ..\OA3Tool ..\bin\Release -Recurse -Force
-Copy-Item "..\HQA Tool Version 2.2.txt" ..\bin\Release -Recurse -Force
-Copy-Item "..\HQA Tool Third Party Notices.txt" ..\bin\Release -Recurse -Force
-Copy-Item "..\Microsoft HQA Tool EULA.docx" ..\bin\Release -Recurse -Force
+Copy-Item "..\License.txt" ..\bin\Release -Recurse -Force
+#Copy-Item "..\HQA Tool Version 2.2.txt" ..\bin\Release -Recurse -Force
+#Copy-Item "..\HQA Tool Third Party Notices.txt" ..\bin\Release -Recurse -Force
+#Copy-Item "..\Microsoft HQA Tool EULA.docx" ..\bin\Release -Recurse -Force
 New-Item -Path ..\bin\Release\Module -Name Extension -Type Directory -Force
 Copy-Item ..\bin\Release\QA.Extension.Business.dll  ..\bin\Release\Module\Extension\QA.Extension.Business.dll -Force
 Remove-Item ..\bin\Release\*.pdb -Force
